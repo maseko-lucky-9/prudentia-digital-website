@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Prudentia Digital — Enterprise-grade technology consulting for South African SMEs, startups, and government. Web development, cloud infrastructure, and data analytics.">
+  <title>Prudentia Digital — Enterprise Technology. South African Expertise.</title>
+
+  <!-- Preload critical fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Design system tokens (source of truth) -->
+  <link rel="stylesheet" href="css/design-tokens.css">
+  <!-- Page styles -->
+  <link rel="stylesheet" href="css/styles.css">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="assets/logo-icon.svg">
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════
+       NAVIGATION
+       ═══════════════════════════════════ -->
+  <nav class="nav" id="nav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner container">
+      <!-- Logo -->
+      <a href="#" class="nav__logo" aria-label="Prudentia Digital — home">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 66 84" fill="none" class="nav__logo-icon" aria-hidden="true">
+          <path d="M8 6 H44 L52 14 V42 H18 V78 H8 Z M18 14 H44 V34 H18 Z" fill="currentColor" fill-rule="evenodd"/>
+          <path d="M54 4 L60 10 L54 16 L48 10 Z" fill="var(--color-accent)"/>
+        </svg>
+        <span class="nav__wordmark" aria-hidden="true">
+          <span class="nav__wordmark-primary">PRUDENTIA</span>
+          <span class="nav__wordmark-rule" aria-hidden="true"></span>
+          <span class="nav__wordmark-secondary">DIGITAL</span>
+        </span>
+      </a>
+
+      <!-- Desktop nav links -->
+      <ul class="nav__links" role="list">
+        <li><a href="#services" class="nav__link">Services</a></li>
+        <li><a href="#why-us" class="nav__link">Why Us</a></li>
+        <li><a href="#about" class="nav__link">About</a></li>
+      </ul>
+
+      <!-- CTA + hamburger -->
+      <div class="nav__actions">
+        <a href="mailto:thulani@prudentiadigital.co.za" class="btn btn--accent btn--sm nav__cta">Get in Touch</a>
+        <button class="nav__hamburger" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="navMobile">
+          <span class="nav__hamburger-bar"></span>
+          <span class="nav__hamburger-bar"></span>
+          <span class="nav__hamburger-bar"></span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile menu -->
+    <div class="nav__mobile" id="navMobile" aria-hidden="true">
+      <ul class="nav__mobile-links" role="list">
+        <li><a href="#services" class="nav__mobile-link">Services</a></li>
+        <li><a href="#why-us" class="nav__mobile-link">Why Us</a></li>
+        <li><a href="#about" class="nav__mobile-link">About</a></li>
+        <li><a href="mailto:thulani@prudentiadigital.co.za" class="nav__mobile-link nav__mobile-cta">Get in Touch</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main id="main">
+
+    <!-- ═══════════════════════════════════
+         HERO
+         ═══════════════════════════════════ -->
+    <header class="hero" id="heroSentinel" aria-label="Hero">
+      <div class="hero__bg-accent" aria-hidden="true"></div>
+      <div class="container hero__inner">
+        <p class="hero__eyebrow fade-in">South African Technology Consultancy</p>
+        <h1 class="hero__headline fade-in" style="--fade-delay: 100ms">
+          Enterprise-grade technology.<br>
+          <span class="hero__headline-accent">South African expertise.</span>
+        </h1>
+        <p class="hero__subtext fade-in" style="--fade-delay: 250ms">
+          Full-stack delivery — web, cloud, and data — from a single accountable engineer.
+          Senior quality at a fraction of the enterprise price.
+        </p>
+        <div class="hero__ctas fade-in" style="--fade-delay: 400ms">
+          <a href="#services" class="btn btn--accent btn--lg">View Services</a>
+          <a href="mailto:thulani@prudentiadigital.co.za" class="btn btn--outline btn--lg">Get in Touch</a>
+        </div>
+      </div>
+    </header>
+
+    <!-- ═══════════════════════════════════
+         PROOF STRIP — stat counters
+         ═══════════════════════════════════ -->
+    <section class="proof" aria-label="Key facts">
+      <div class="container proof__grid">
+
+        <div class="proof__item reveal">
+          <div class="proof__number">
+            <span class="proof__count" data-target="7" data-suffix="+">0</span>
+          </div>
+          <div class="proof__label">Years of senior experience</div>
+          <div class="proof__sub">Capitec · Absa · E4 Strategic</div>
+        </div>
+
+        <div class="proof__item reveal" style="--reveal-delay: 80ms">
+          <div class="proof__number">
+            <span class="proof__prefix">Level </span><span class="proof__count" data-target="1" data-suffix="">0</span>
+          </div>
+          <div class="proof__label">B-BBEE Certified</div>
+          <div class="proof__sub">135% procurement recognition</div>
+        </div>
+
+        <div class="proof__item reveal" style="--reveal-delay: 160ms">
+          <div class="proof__number proof__number--text">Full</div>
+          <div class="proof__label">Stack coverage</div>
+          <div class="proof__sub">Web · Cloud · Data</div>
+        </div>
+
+        <div class="proof__item reveal" style="--reveal-delay: 240ms">
+          <div class="proof__number">
+            <span class="proof__count" data-target="1" data-suffix="">0</span> <span class="proof__suffix-text">team</span>
+          </div>
+          <div class="proof__label">End-to-end accountability</div>
+          <div class="proof__sub">No hand-off gaps</div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════
+         SERVICES
+         ═══════════════════════════════════ -->
+    <section class="services" id="services" aria-labelledby="services-heading">
+      <div class="container">
+        <div class="section-header">
+          <p class="section-eyebrow fade-in">What We Do</p>
+          <h2 class="section-heading fade-in" id="services-heading" style="--fade-delay: 80ms">Services</h2>
+          <div class="gold-line fade-in" aria-hidden="true" style="--fade-delay: 160ms"></div>
+          <p class="section-sub fade-in" style="--fade-delay: 200ms">
+            Enterprise-grade delivery across the full technology stack — scoped for SA market budgets.
+          </p>
+        </div>
+
+        <div class="services__grid">
+
+          <article class="card reveal" style="--reveal-delay: 0ms" aria-label="Web Application Development">
+            <div class="card__icon-wrap">
+              <svg class="card__icon gold-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>
+              </svg>
+            </div>
+            <h3 class="card__title">Web Application Development</h3>
+            <p class="card__body">Next.js / Nuxt frontends, NestJS / Django backends, PostgreSQL. From MVP to production-grade.</p>
+            <p class="card__price">From R50 000</p>
+          </article>
+
+          <article class="card reveal" style="--reveal-delay: 80ms" aria-label="Cloud Infrastructure and DevOps">
+            <div class="card__icon-wrap">
+              <svg class="card__icon gold-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/>
+              </svg>
+            </div>
+            <h3 class="card__title">Cloud Infrastructure & DevOps</h3>
+            <p class="card__body">Kubernetes, CI/CD pipelines, Terraform, Prometheus monitoring. Cloud-native from day one.</p>
+            <p class="card__price">From R30 000</p>
+          </article>
+
+          <article class="card reveal" style="--reveal-delay: 160ms" aria-label="Data Analytics and Dashboards">
+            <div class="card__icon-wrap">
+              <svg class="card__icon gold-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/>
+              </svg>
+            </div>
+            <h3 class="card__title">Data Analytics & Dashboards</h3>
+            <p class="card__body">Multi-database dashboards, ML categorisation, automated reporting. Decisions backed by data.</p>
+            <p class="card__price">From R25 000</p>
+          </article>
+
+          <article class="card reveal" style="--reveal-delay: 240ms" aria-label="Digital Transformation Advisory">
+            <div class="card__icon-wrap">
+              <svg class="card__icon gold-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/>
+              </svg>
+            </div>
+            <h3 class="card__title">Digital Transformation Advisory</h3>
+            <p class="card__body">Architecture reviews, cloud migration strategy, legacy modernisation. Enterprise thinking for growing businesses.</p>
+            <p class="card__price">From R15 000</p>
+          </article>
+
+          <article class="card reveal" style="--reveal-delay: 320ms" aria-label="API Development and Integration">
+            <div class="card__icon-wrap">
+              <svg class="card__icon gold-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/>
+              </svg>
+            </div>
+            <h3 class="card__title">API Development & Integration</h3>
+            <p class="card__body">RESTful APIs, third-party integrations, payment gateways. Reliable interfaces that scale.</p>
+            <p class="card__price">From R20 000</p>
+          </article>
+
+          <article class="card card--accent reveal" style="--reveal-delay: 400ms" aria-label="Government and Enterprise Tenders">
+            <div class="card__icon-wrap">
+              <svg class="card__icon gold-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
+              </svg>
+            </div>
+            <h3 class="card__title">Government & Enterprise Tenders</h3>
+            <p class="card__body">100% Black-owned · Level 1 B-BBEE EME. POPIA, PFMA, PPPFA compliance. Maximum procurement recognition.</p>
+            <p class="card__price">Contact for scope</p>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════
+         WHY PRUDENTIA DIGITAL
+         ═══════════════════════════════════ -->
+    <section class="why" id="why-us" aria-labelledby="why-heading">
+      <div class="container">
+        <div class="section-header">
+          <p class="section-eyebrow fade-in">Why Choose Us</p>
+          <h2 class="section-heading fade-in" id="why-heading" style="--fade-delay: 80ms">The Prudentia Difference</h2>
+          <div class="gold-line fade-in" aria-hidden="true" style="--fade-delay: 160ms"></div>
+        </div>
+
+        <div class="why__grid">
+
+          <div class="why__item reveal">
+            <div class="why__icon-wrap" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
+              </svg>
+            </div>
+            <h3 class="why__title">Senior-led delivery</h3>
+            <p class="why__body">7+ years across Capitec, Absa, and E4 Strategic. You get the engineer who designed the system, not a junior assigned to your account.</p>
+          </div>
+
+          <div class="why__item reveal" style="--reveal-delay: 80ms">
+            <div class="why__icon-wrap" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+              </svg>
+            </div>
+            <h3 class="why__title">100% Black-owned · Level 1 B-BBEE</h3>
+            <p class="why__body">Maximum procurement recognition — 135% BEE spend value. POPIA, PFMA, and PPPFA compliance built in, not bolted on.</p>
+          </div>
+
+          <div class="why__item reveal" style="--reveal-delay: 160ms">
+            <div class="why__icon-wrap" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+              </svg>
+            </div>
+            <h3 class="why__title">SA regulatory expertise</h3>
+            <p class="why__body">Local presence and deep knowledge of South African regulations. Government-appropriate without being government-branded.</p>
+          </div>
+
+          <div class="why__item reveal" style="--reveal-delay: 240ms">
+            <div class="why__icon-wrap" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+              </svg>
+            </div>
+            <h3 class="why__title">One team. Full stack.</h3>
+            <p class="why__body">Web, cloud, and data in a single engagement. No hand-off gaps between agencies. One throat to choke, one team accountable end-to-end.</p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════
+         ABOUT
+         ═══════════════════════════════════ -->
+    <section class="about" id="about" aria-labelledby="about-heading">
+      <div class="container about__inner">
+        <div class="about__content reveal-left">
+          <p class="section-eyebrow fade-in">About</p>
+          <h2 class="section-heading fade-in" id="about-heading" style="--fade-delay: 80ms">Built for South Africa</h2>
+          <div class="gold-line fade-in" aria-hidden="true" style="--fade-delay: 160ms"></div>
+          <p class="about__body fade-in" style="--fade-delay: 200ms">
+            Prudentia Digital is a solo-founder technology consultancy built around a simple belief:
+            South African businesses deserve enterprise-grade technology at accessible rates.
+          </p>
+          <p class="about__body fade-in" style="--fade-delay: 280ms">
+            With 7+ years of senior engineering experience at Capitec, Absa, and E4 Strategic,
+            I deliver the same quality of architecture and execution that large enterprises pay
+            Accenture and Deloitte for — at 50–70% less.
+          </p>
+          <p class="about__body fade-in" style="--fade-delay: 360ms">
+            Every engagement is personally led. No account managers, no juniors, no hand-offs.
+            Just senior delivery from day one to go-live.
+          </p>
+        </div>
+        <div class="about__accent-block" aria-hidden="true">
+          <div class="about__accent-inner">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 66 84" fill="none" class="about__logo" aria-hidden="true">
+              <path d="M8 6 H44 L52 14 V42 H18 V78 H8 Z M18 14 H44 V34 H18 Z" fill="var(--color-warm-white)" fill-rule="evenodd" opacity="0.15"/>
+              <path d="M54 4 L60 10 L54 16 L48 10 Z" fill="var(--color-accent)" opacity="0.6"/>
+            </svg>
+            <p class="about__quote">"Wisdom. Foresight. Prudence."</p>
+            <p class="about__quote-sub">The meaning of Prudentia — Latin for the principle behind every engagement.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════
+         CONTACT / CTA
+         ═══════════════════════════════════ -->
+    <section class="cta" id="contact" aria-labelledby="cta-heading">
+      <div class="container cta__inner">
+        <h2 class="cta__heading reveal" id="cta-heading">Ready to build something great?</h2>
+        <p class="cta__sub fade-in" style="--fade-delay: 100ms">Let's talk about your project.</p>
+        <a href="mailto:thulani@prudentiadigital.co.za"
+           class="btn btn--accent btn--lg reveal"
+           style="--reveal-delay: 200ms"
+           aria-label="Send an email to thulani@prudentiadigital.co.za">
+          Send an Email
+        </a>
+        <p class="cta__email fade-in" style="--fade-delay: 350ms">
+          <a href="mailto:thulani@prudentiadigital.co.za">thulani@prudentiadigital.co.za</a>
+        </p>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ═══════════════════════════════════
+       FOOTER
+       ═══════════════════════════════════ -->
+  <footer class="footer" role="contentinfo">
+    <div class="container footer__inner">
+      <div class="footer__brand">
+        <a href="#" class="footer__logo" aria-label="Prudentia Digital — back to top">
+          <img src="assets/logo-icon-white-512.png" alt="" width="32" height="41" loading="lazy" aria-hidden="true">
+          <span class="footer__wordmark">
+            <span class="footer__wordmark-primary">PRUDENTIA</span>
+            <span class="footer__wordmark-rule" aria-hidden="true"></span>
+            <span class="footer__wordmark-secondary">DIGITAL</span>
+          </span>
+        </a>
+        <p class="footer__tagline">Enterprise-grade technology. South African expertise.</p>
+      </div>
+
+      <nav class="footer__nav" aria-label="Footer navigation">
+        <ul role="list">
+          <li><a href="#services">Services</a></li>
+          <li><a href="#why-us">Why Us</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="mailto:thulani@prudentiadigital.co.za">Contact</a></li>
+        </ul>
+      </nav>
+
+      <div class="footer__meta">
+        <p class="footer__badge" aria-label="B-BBEE Level 1 certified">
+          <span class="footer__badge-dot" aria-hidden="true"></span>
+          Level 1 B-BBEE · 100% Black-owned
+        </p>
+        <p class="footer__copy">
+          &copy; 2026 Prudentia Digital (Pty) Ltd &middot;
+          <a href="mailto:thulani@prudentiadigital.co.za">thulani@prudentiadigital.co.za</a>
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ═══════════════════════════════════
+       JAVASCRIPT — minimal, no library
+       ═══════════════════════════════════ -->
+  <script>
+    (() => {
+      'use strict';
+
+      /* ── Reduced motion guard ──────────────────── */
+      const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      /* ── Reveal / fade-in all animated elements ── */
+      const animatedEls = document.querySelectorAll('.reveal, .fade-in, .gold-line, .gold-icon, .reveal-left');
+
+      if (reduced) {
+        animatedEls.forEach(el => el.classList.add('visible'));
+      } else {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              const el = entry.target;
+              const delay = el.style.getPropertyValue('--reveal-delay') || el.style.getPropertyValue('--fade-delay') || '0ms';
+              setTimeout(() => el.classList.add('visible'), parseInt(delay) || 0);
+              observer.unobserve(el);
+            }
+          });
+        }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+        animatedEls.forEach(el => observer.observe(el));
+
+        /* Hero elements animate on page load, not scroll */
+        document.querySelectorAll('.hero .fade-in').forEach(el => {
+          const delay = parseInt(el.style.getPropertyValue('--fade-delay')) || 0;
+          setTimeout(() => el.classList.add('visible'), delay + 80);
+        });
+      }
+
+      /* ── Stat counters ─────────────────────────── */
+      const easeOutQuad = t => t * (2 - t);
+
+      function animateCounter(el) {
+        const target = parseInt(el.dataset.target, 10);
+        const suffix = el.dataset.suffix || '';
+        const duration = 1200;
+        const start = performance.now();
+
+        function step(now) {
+          const elapsed = Math.min((now - start) / duration, 1);
+          const value = Math.round(easeOutQuad(elapsed) * target);
+          el.textContent = value + suffix;
+          if (elapsed < 1) requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+      }
+
+      if (!reduced) {
+        const counterObserver = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              animateCounter(entry.target);
+              counterObserver.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.5 });
+
+        document.querySelectorAll('.proof__count').forEach(el => counterObserver.observe(el));
+      } else {
+        document.querySelectorAll('.proof__count').forEach(el => {
+          el.textContent = el.dataset.target + (el.dataset.suffix || '');
+        });
+      }
+
+      /* ── Sticky nav scroll behaviour ──────────── */
+      const nav = document.getElementById('nav');
+      const heroSentinel = document.getElementById('heroSentinel');
+
+      if (heroSentinel) {
+        const navObserver = new IntersectionObserver(([entry]) => {
+          nav.classList.toggle('scrolled', !entry.isIntersecting);
+        }, { threshold: 0.1 });
+        navObserver.observe(heroSentinel);
+      }
+
+      /* ── Mobile menu ───────────────────────────── */
+      const toggle = document.getElementById('navToggle');
+      const mobileMenu = document.getElementById('navMobile');
+
+      toggle.addEventListener('click', () => {
+        const open = mobileMenu.classList.toggle('open');
+        toggle.setAttribute('aria-expanded', open);
+        mobileMenu.setAttribute('aria-hidden', !open);
+        toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+      });
+
+      /* Close mobile menu on link click */
+      mobileMenu.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+          mobileMenu.classList.remove('open');
+          toggle.setAttribute('aria-expanded', 'false');
+          mobileMenu.setAttribute('aria-hidden', 'true');
+          toggle.setAttribute('aria-label', 'Open menu');
+        });
+      });
+
+    })();
+  </script>
+
+</body>
+</html>

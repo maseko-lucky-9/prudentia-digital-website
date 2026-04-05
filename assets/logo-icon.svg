@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 66 84" fill="none">
+  <!-- Prudentia Digital — P Monogram v2 "The Precision P — Premium" -->
+  <!-- Chamfered top-right bowl corner (45deg) adds sophistication -->
+  <!-- Diamond accent at chamfer apex signals precision + value -->
+  <!-- Bowl walls: 8 units (refined), stem: 10 units (stable) -->
+
+  <!-- P letterform (outer with chamfer + inner cutout via evenodd) -->
+  <path d="M8 6 H44 L52 14 V42 H18 V78 H8 Z M18 14 H44 V34 H18 Z"
+        fill="#0D1B2A"
+        fill-rule="evenodd"/>
+
+  <!-- Gold diamond accent — vertex-kisses the chamfer line -->
+  <path d="M54 4 L60 10 L54 16 L48 10 Z" fill="#C9A96E"/>
+</svg>
