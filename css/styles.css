@@ -258,13 +258,13 @@ ul[role="list"] {
   left: 0;
   right: 0;
   z-index: 100;
-  background: transparent;
-  transition: background var(--duration-normal) ease,
+  background-color: transparent;
+  transition: background-color var(--duration-normal) ease,
               box-shadow var(--duration-normal) ease;
 }
 
 .nav.scrolled {
-  background: var(--color-primary);
+  background-color: var(--color-navy-900);
   box-shadow: var(--shadow-md);
 }
 
