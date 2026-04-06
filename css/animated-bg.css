@@ -82,11 +82,11 @@
   top: 50%;
   left: 0;
   width: 200px;
-  height: 1px;
+  height: 2px;
   background: linear-gradient(
     90deg,
     transparent 0%,
-    rgba(201, 169, 110, 0.06) 50%,
+    rgba(201, 169, 110, 0.18) 50%,
     transparent 100%
   );
   animation: sweep-line 80s linear infinite;
@@ -106,8 +106,8 @@
     45deg,
     transparent,
     transparent 47px,
-    rgba(107, 127, 153, 0.03) 47px,  /* navy-300 at 3% */
-    rgba(107, 127, 153, 0.03) 48px
+    rgba(107, 127, 153, 0.07) 47px,  /* navy-300 at 7% */
+    rgba(107, 127, 153, 0.07) 48px
   );
   background-size: 48px 48px;
   animation: grid-drift var(--bg-anim-duration-slow) linear infinite;
@@ -149,10 +149,10 @@
   left: 10%;
   background: radial-gradient(
     circle,
-    rgba(22, 42, 64, 0.08) 0%,  /* navy-700 at 8% */
+    rgba(22, 42, 64, 0.18) 0%,  /* navy-700 at 18% */
     transparent 70%
   );
-  filter: blur(80px);
+  filter: blur(60px);
   animation: orb-1 70s ease-in-out infinite;
 }
 
@@ -164,10 +164,10 @@
   right: 10%;
   background: radial-gradient(
     circle,
-    rgba(201, 169, 110, 0.04) 0%,  /* gold-500 at 4% */
+    rgba(201, 169, 110, 0.12) 0%,  /* gold-500 at 12% */
     transparent 70%
   );
-  filter: blur(100px);
+  filter: blur(70px);
   animation: orb-2 90s ease-in-out infinite;
 }
 
@@ -186,7 +186,7 @@
   height: 500px;
   top: 50%;
   left: 60%;
-  background: rgba(201, 169, 110, 0.04);  /* gold-500 at 4% */
+  background: rgba(201, 169, 110, 0.10);  /* gold-500 at 10% */
   clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
   animation: diamond-spin 120s linear infinite;
   will-change: transform;
@@ -204,7 +204,7 @@
   background: linear-gradient(
     180deg,
     var(--color-navy-900) 0%,
-    var(--color-navy-700) 50%,
+    var(--color-navy-500) 50%,
     var(--color-navy-900) 100%
   );
   background-size: 100% 200%;
@@ -216,8 +216,8 @@
 /* ── FOOTER — pulsing gold band ────────────────── */
 
 @keyframes pulse-gold {
-  0%   { opacity: 0.02; }
-  100% { opacity: 0.06; }
+  0%   { opacity: 0.08; }
+  100% { opacity: 0.20; }
 }
 
 .bg-layer--footer::before {
@@ -234,7 +234,7 @@
     var(--color-gold-500) 70%,
     transparent 100%
   );
-  opacity: 0.04;
+  opacity: 0.12;
   animation: pulse-gold 8s ease-in-out infinite alternate;
   will-change: opacity;
 }
@@ -286,5 +286,5 @@
   .bg-layer--why::after      { animation: none !important; }  /* orbs at midpoint */
   .bg-layer--about::before   { animation: none !important; transform: translate(-50%, -50%) rotate(0deg); }
   .bg-layer--cta             { animation: none !important; background-position: 0% 50%; }
-  .bg-layer--footer::before  { animation: none !important; opacity: 0.04; }
+  .bg-layer--footer::before  { animation: none !important; opacity: 0.12; }
 }

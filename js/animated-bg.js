@@ -21,8 +21,8 @@
   /* ── Constants ──────────────────────────────────── */
   const GOLD = { r: 201, g: 169, b: 110 };       // #C9A96E
   const CONNECTION_DIST = 150;                      // px — max distance for connecting lines
-  const MIN_OPACITY = 0.03;
-  const MAX_OPACITY = 0.08;
+  const MIN_OPACITY = 0.08;
+  const MAX_OPACITY = 0.20;
   const MIN_SIZE = 8;
   const MAX_SIZE = 28;
   const MIN_SPEED = 0.15;
@@ -182,7 +182,7 @@
         const dy = a.y - b.y;
         const dist = Math.sqrt(dx * dx + dy * dy);
         if (dist < CONNECTION_DIST) {
-          const lineOpacity = 0.02 * (1 - dist / CONNECTION_DIST);
+          const lineOpacity = 0.05 * (1 - dist / CONNECTION_DIST);
           const aOpacity = a.getOpacity(cssHeight);
           const bOpacity = b.getOpacity(cssHeight);
           // Only draw line if both particles are visible
