@@ -281,6 +281,12 @@
   --badge-px:          var(--space-2);
   --badge-py:          var(--space-1);
   --badge-height:      24px;
+
+  /* — Animated Background — */
+  --bg-anim-duration-slow:   90s;
+  --bg-anim-duration-medium: 60s;
+  --bg-anim-opacity-max:     0.06;
+  --bg-anim-diamond-size:    24px;
 }
 
 

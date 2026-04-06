@@ -15,6 +15,8 @@
   <link rel="stylesheet" href="css/design-tokens.css">
   <!-- Page styles -->
   <link rel="stylesheet" href="css/styles.css">
+  <!-- Animated backgrounds -->
+  <link rel="stylesheet" href="css/animated-bg.css">
 
   <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="assets/logo-icon.svg">
@@ -74,6 +76,7 @@
          HERO
          ═══════════════════════════════════ -->
     <header class="hero" id="heroSentinel" aria-label="Hero">
+      <div class="bg-layer bg-layer--hero" aria-hidden="true"></div>
       <div class="hero__bg-accent" aria-hidden="true"></div>
       <div class="container hero__inner">
         <p class="hero__eyebrow fade-in">Technology Consultancy · South Africa</p>
@@ -96,6 +99,7 @@
          PROOF STRIP — stat counters
          ═══════════════════════════════════ -->
     <section class="proof" aria-label="Key facts">
+      <div class="bg-layer bg-layer--proof" aria-hidden="true"></div>
       <div class="container proof__grid">
 
         <div class="proof__item reveal">
@@ -133,6 +137,7 @@
          SERVICES
          ═══════════════════════════════════ -->
     <section class="services" id="services" aria-labelledby="services-heading">
+      <div class="bg-layer bg-layer--services" aria-hidden="true"></div>
       <div class="container">
         <div class="section-header">
           <p class="section-eyebrow fade-in">What We Do</p>
@@ -219,6 +224,7 @@
          WHY PRUDENTIA DIGITAL
          ═══════════════════════════════════ -->
     <section class="why" id="why-us" aria-labelledby="why-heading">
+      <div class="bg-layer bg-layer--why" aria-hidden="true"></div>
       <div class="container">
         <div class="section-header">
           <p class="section-eyebrow fade-in">Why Choose Us</p>
@@ -276,6 +282,7 @@
          ABOUT
          ═══════════════════════════════════ -->
     <section class="about" id="about" aria-labelledby="about-heading">
+      <div class="bg-layer bg-layer--about" aria-hidden="true"></div>
       <div class="container about__inner">
         <div class="about__content reveal-left">
           <p class="section-eyebrow fade-in">About</p>
@@ -312,6 +319,7 @@
          CONTACT / CTA
          ═══════════════════════════════════ -->
     <section class="cta" id="contact" aria-labelledby="cta-heading">
+      <div class="bg-layer bg-layer--cta" aria-hidden="true"></div>
       <div class="container cta__inner">
         <h2 class="cta__heading reveal" id="cta-heading">Ready to build something great?</h2>
         <p class="cta__sub fade-in" style="--fade-delay: 100ms">Let's talk about your project.</p>
@@ -333,6 +341,7 @@
        FOOTER
        ═══════════════════════════════════ -->
   <footer class="footer" role="contentinfo">
+    <div class="bg-layer bg-layer--footer" aria-hidden="true"></div>
     <div class="container footer__inner">
       <div class="footer__brand">
         <a href="#" class="footer__logo" aria-label="Prudentia Digital — back to top">
@@ -367,6 +376,9 @@
       </div>
     </div>
   </footer>
+
+  <!-- Animated backgrounds (canvas + observers) -->
+  <script src="js/animated-bg.js" defer></script>
 
   <!-- ═══════════════════════════════════
        JAVASCRIPT — minimal, no library

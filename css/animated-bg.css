@@ -1,0 +1,290 @@
+/* ═══════════════════════════════════════
+   ANIMATED BACKGROUNDS
+   Prudentia Digital — "Measured Intelligence"
+
+   Motion language: gold diamonds, 45° geometry,
+   gold horizontal rules, slow deliberate drift.
+   All colours are primitive tokens (theme-invariant).
+
+   Self-contained — styles.css is untouched.
+   ═══════════════════════════════════════ */
+
+
+/* ── 1. Section containment ────────────────────────
+   Add positioning context for bg-layer placement.
+   Hero already has position:relative + overflow:hidden.
+   None of these sections use absolute children. */
+
+.proof,
+.services,
+.why,
+.about,
+.cta,
+.footer {
+  position: relative;
+  overflow: hidden;
+}
+
+
+/* ── 2. Universal bg-layer ─────────────────────── */
+
+.bg-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* Content containers sit above backgrounds */
+.proof > .container,
+.services > .container,
+.why > .container,
+.about > .container,
+.cta > .container,
+.footer > .container {
+  position: relative;
+  z-index: 1;
+}
+
+/* Hero explicit 3-layer z-index stack:
+   canvas (0) → bg-accent (1) → content (2) */
+.bg-layer--hero      { z-index: 0; }
+.hero__bg-accent     { z-index: 1; }
+.hero .hero__inner    { z-index: 2; }
+
+
+/* ── 3. Pause state (toggled by IntersectionObserver) */
+
+.bg-paused,
+.bg-paused::before,
+.bg-paused::after {
+  animation-play-state: paused !important;
+}
+
+
+/* ═══════════════════════════════════════
+   SECTION ANIMATIONS
+   ═══════════════════════════════════════ */
+
+
+/* ── PROOF STRIP — sweeping gold line ──────────── */
+
+@keyframes sweep-line {
+  0%   { transform: translateX(-200px); }
+  88%  { transform: translateX(calc(100vw + 200px)); }
+  100% { transform: translateX(calc(100vw + 200px)); } /* 12% pause at right */
+}
+
+.bg-layer--proof::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 200px;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(201, 169, 110, 0.06) 50%,
+    transparent 100%
+  );
+  animation: sweep-line 80s linear infinite;
+  will-change: transform;
+}
+
+
+/* ── SERVICES — drifting diagonal grid ─────────── */
+
+@keyframes grid-drift {
+  0%   { background-position: 0 0; }
+  100% { background-position: 48px 48px; } /* one full grid unit diagonal */
+}
+
+.bg-layer--services {
+  background-image: repeating-linear-gradient(
+    45deg,
+    transparent,
+    transparent 47px,
+    rgba(107, 127, 153, 0.03) 47px,  /* navy-300 at 3% */
+    rgba(107, 127, 153, 0.03) 48px
+  );
+  background-size: 48px 48px;
+  animation: grid-drift var(--bg-anim-duration-slow) linear infinite;
+  will-change: background-position;
+}
+
+
+/* ── WHY — orbiting gradient orbs ──────────────── */
+
+@keyframes orb-1 {
+  0%   { transform: translate(0, 0); }
+  25%  { transform: translate(15%, -8%); }
+  50%  { transform: translate(0, 0); }
+  75%  { transform: translate(-15%, 8%); }
+  100% { transform: translate(0, 0); }
+}
+
+@keyframes orb-2 {
+  0%   { transform: translate(0, 0); }
+  25%  { transform: translate(-10%, 12%); }
+  50%  { transform: translate(0, 0); }
+  75%  { transform: translate(10%, -12%); }
+  100% { transform: translate(0, 0); }
+}
+
+.bg-layer--why::before,
+.bg-layer--why::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  will-change: transform;
+}
+
+/* Orb 1: navy depth orb */
+.bg-layer--why::before {
+  width: 400px;
+  height: 400px;
+  top: -10%;
+  left: 10%;
+  background: radial-gradient(
+    circle,
+    rgba(22, 42, 64, 0.08) 0%,  /* navy-700 at 8% */
+    transparent 70%
+  );
+  filter: blur(80px);
+  animation: orb-1 70s ease-in-out infinite;
+}
+
+/* Orb 2: gold accent orb */
+.bg-layer--why::after {
+  width: 300px;
+  height: 300px;
+  bottom: -5%;
+  right: 10%;
+  background: radial-gradient(
+    circle,
+    rgba(201, 169, 110, 0.04) 0%,  /* gold-500 at 4% */
+    transparent 70%
+  );
+  filter: blur(100px);
+  animation: orb-2 90s ease-in-out infinite;
+}
+
+
+/* ── ABOUT — rotating diamond watermark ────────── */
+
+@keyframes diamond-spin {
+  0%   { transform: translate(-50%, -50%) rotate(0deg); }
+  100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+.bg-layer--about::before {
+  content: '';
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  top: 50%;
+  left: 60%;
+  background: rgba(201, 169, 110, 0.04);  /* gold-500 at 4% */
+  clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+  animation: diamond-spin 120s linear infinite;
+  will-change: transform;
+}
+
+
+/* ── CTA — breathing gradient ──────────────────── */
+
+@keyframes breathe {
+  0%   { background-position: 0% 0%; }
+  100% { background-position: 0% 100%; }
+}
+
+.bg-layer--cta {
+  background: linear-gradient(
+    180deg,
+    var(--color-navy-900) 0%,
+    var(--color-navy-700) 50%,
+    var(--color-navy-900) 100%
+  );
+  background-size: 100% 200%;
+  animation: breathe 20s ease-in-out infinite alternate;
+  will-change: background-position;
+}
+
+
+/* ── FOOTER — pulsing gold band ────────────────── */
+
+@keyframes pulse-gold {
+  0%   { opacity: 0.02; }
+  100% { opacity: 0.06; }
+}
+
+.bg-layer--footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 20%;
+  width: 60%;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--color-gold-500) 30%,
+    var(--color-gold-500) 70%,
+    transparent 100%
+  );
+  opacity: 0.04;
+  animation: pulse-gold 8s ease-in-out infinite alternate;
+  will-change: opacity;
+}
+
+
+/* ═══════════════════════════════════════
+   MOBILE RESPONSIVE
+   ═══════════════════════════════════════ */
+
+@media (max-width: 767px) {
+  /* Why section: smaller orbs */
+  .bg-layer--why::before {
+    width: 250px;
+    height: 250px;
+    filter: blur(60px);
+  }
+  .bg-layer--why::after {
+    width: 200px;
+    height: 200px;
+    filter: blur(80px);
+  }
+
+  /* About: smaller diamond */
+  .bg-layer--about::before {
+    width: 300px;
+    height: 300px;
+  }
+}
+
+
+/* ═══════════════════════════════════════
+   REDUCED MOTION
+   Belt-and-suspenders with JS guard.
+   ═══════════════════════════════════════ */
+
+@media (prefers-reduced-motion: reduce) {
+  /* Kill all animations */
+  .bg-layer,
+  .bg-layer::before,
+  .bg-layer::after {
+    animation: none !important;
+    will-change: auto !important;
+  }
+
+  /* Static fallbacks */
+  .bg-layer--proof::before   { display: none; }  /* no sweep line */
+  .bg-layer--services        { animation: none !important; }  /* frozen grid */
+  .bg-layer--why::before,
+  .bg-layer--why::after      { animation: none !important; }  /* orbs at midpoint */
+  .bg-layer--about::before   { animation: none !important; transform: translate(-50%, -50%) rotate(0deg); }
+  .bg-layer--cta             { animation: none !important; background-position: 0% 50%; }
+  .bg-layer--footer::before  { animation: none !important; opacity: 0.04; }
+}
