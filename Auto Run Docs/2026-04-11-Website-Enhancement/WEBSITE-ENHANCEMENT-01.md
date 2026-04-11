@@ -41,7 +41,7 @@ This phase transforms the bare-bones static site into a production-ready foundat
   - Keep it lightweight — no animated backgrounds or JavaScript needed
   - Ensure it works standalone (all paths relative to root)
 
-- [ ] Create a Cloudflare `_headers` file in the project root for security headers:
+- [x] Create a Cloudflare `_headers` file in the project root for security headers:
   - Apply to all routes (`/*`):
     - `X-Frame-Options: DENY`
     - `X-Content-Type-Options: nosniff`
@@ -52,7 +52,7 @@ This phase transforms the bare-bones static site into a production-ready foundat
     - `Strict-Transport-Security: max-age=31536000; includeSubDomains; preload`
   - Reference Cloudflare Pages _headers documentation format (one header per line, indented under the path pattern)
 
-- [ ] Fix accessibility quick-wins in `index.html`:
+- [x] Fix accessibility quick-wins in `index.html`:
   - Add a skip-to-content link as the first child of `<body>`: `<a href="#main" class="skip-link">Skip to main content</a>`. The skip-link should be visually hidden but appear on focus (position it absolutely off-screen, bring it on-screen with `:focus` styles)
   - Fix logo `href="#"` to `href="/"` in both the nav logo (`a.nav__logo`) and footer logo (`a.footer__logo`)
   - Change the hero `<header>` tag to `<section>` (it's not a document header, it's a content section). Update the corresponding CSS selector if the `header.hero` selector is used anywhere (check `styles.css` — the current selector is `.hero` class-based so no CSS change needed, but verify)

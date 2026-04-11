@@ -45,6 +45,34 @@ ul[role="list"] {
 }
 
 /* ═══════════════════════════════════════
+   SKIP LINK (accessibility)
+   ═══════════════════════════════════════ */
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.skip-link:focus {
+  position: fixed;
+  top: 8px;
+  left: 8px;
+  z-index: 200;
+  width: auto;
+  height: auto;
+  padding: 12px 24px;
+  background: var(--color-accent);
+  color: var(--color-navy-900);
+  font-weight: var(--font-semibold);
+  border-radius: var(--radius-md);
+  text-decoration: none;
+}
+
+/* ═══════════════════════════════════════
    CONTAINER
    ═══════════════════════════════════════ */
 
