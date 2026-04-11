@@ -58,7 +58,7 @@ This phase transforms the bare-bones static site into a production-ready foundat
   - Change the hero `<header>` tag to `<section>` (it's not a document header, it's a content section). Update the corresponding CSS selector if the `header.hero` selector is used anywhere (check `styles.css` — the current selector is `.hero` class-based so no CSS change needed, but verify)
   - Add the `.skip-link` CSS to `css/styles.css`: visually hidden by default (`position: absolute; left: -9999px; top: auto; width: 1px; height: 1px; overflow: hidden;`), on `:focus` bring it into view (`position: fixed; top: 8px; left: 8px; z-index: 200; width: auto; height: auto; padding: 12px 24px; background: var(--color-accent); color: var(--color-navy-900); font-weight: var(--font-semibold); border-radius: var(--radius-md); text-decoration: none;`)
 
-- [ ] Add `<link rel="preload">` for critical CSS in `index.html`:
+- [x] Add `<link rel="preload">` for critical CSS in `index.html`:
   - Add `<link rel="preload" href="css/design-tokens.css" as="style">` before the existing stylesheet links
   - Add `<link rel="preload" href="css/styles.css" as="style">` before the existing stylesheet links
   - The animated-bg.css is non-critical and should NOT be preloaded
