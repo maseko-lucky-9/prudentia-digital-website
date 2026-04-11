@@ -1,0 +1,7 @@
+# Prudentia Digital — robots.txt
+# https://prudentiadigital.co.za
+
+User-agent: *
+Allow: /
+
+Sitemap: https://prudentiadigital.co.za/sitemap.xml
