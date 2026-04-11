@@ -33,7 +33,7 @@ This phase transforms the bare-bones static site into a production-ready foundat
   - Logs: `*.log`
   - Keep it clean and commented by category
 
-- [ ] Create a branded `404.html` error page in the project root:
+- [x] Create a branded `404.html` error page in the project root:
   - Match the existing site's visual style — use the same CSS files (`css/design-tokens.css`, `css/styles.css`)
   - Dark navy background (matching the hero/nav), white text, gold accent
   - Include the SVG logo (inline, same as nav logo), a "404 — Page Not Found" heading in DM Serif Display, a brief friendly message, and a gold CTA button linking back to `/`

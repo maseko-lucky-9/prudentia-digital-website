@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>404 — Page Not Found | Prudentia Digital</title>
+
+  <!-- Preload critical fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Design system tokens (source of truth) -->
+  <link rel="stylesheet" href="css/design-tokens.css">
+  <!-- Page styles -->
+  <link rel="stylesheet" href="css/styles.css">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="assets/logo-icon.svg">
+
+  <style>
+    .error-page {
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: var(--color-navy-900);
+      text-align: center;
+      padding: var(--space-6);
+    }
+
+    .error-page__logo {
+      width: 48px;
+      height: auto;
+      margin-bottom: var(--space-8);
+      color: var(--color-white);
+    }
+
+    .error-page__code {
+      font-family: var(--font-family-heading);
+      font-size: clamp(4rem, 12vw, 8rem);
+      font-weight: var(--font-normal);
+      color: var(--color-accent);
+      line-height: 1;
+      margin-bottom: var(--space-4);
+    }
+
+    .error-page__heading {
+      font-family: var(--font-family-heading);
+      font-size: var(--text-h2);
+      font-weight: var(--font-normal);
+      color: var(--color-white);
+      line-height: var(--leading-tight);
+      margin-bottom: var(--space-6);
+    }
+
+    .error-page__message {
+      font-family: var(--font-family-body);
+      font-size: var(--text-body-lg);
+      color: rgba(255, 255, 255, 0.6);
+      line-height: var(--leading-relaxed);
+      max-width: 42ch;
+      margin-bottom: var(--space-10);
+    }
+  </style>
+</head>
+<body>
+
+  <main class="error-page">
+    <!-- Logo -->
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 66 84" fill="none" class="error-page__logo" aria-hidden="true">
+      <path d="M8 6 H44 L52 14 V42 H18 V78 H8 Z M18 14 H44 V34 H18 Z" fill="currentColor" fill-rule="evenodd"/>
+      <path d="M54 4 L60 10 L54 16 L48 10 Z" fill="var(--color-accent)"/>
+    </svg>
+
+    <p class="error-page__code">404</p>
+    <h1 class="error-page__heading">Page Not Found</h1>
+    <p class="error-page__message">
+      The page you're looking for doesn't exist or has been moved.
+      Let's get you back on track.
+    </p>
+    <a href="/" class="btn btn--accent btn--lg">Back to Home</a>
+  </main>
+
+</body>
+</html>
