@@ -661,6 +661,25 @@ ul[role="list"] {
   color: var(--color-muted-foreground);
 }
 
+@media (max-width: 767px) {
+  .proof__number,
+  .proof__number--text {
+    font-size: 2.25rem;
+  }
+}
+
+@media (max-width: 479px) {
+  .proof__number,
+  .proof__number--text {
+    font-size: 1.75rem;
+  }
+
+  .proof__prefix,
+  .proof__suffix-text {
+    font-size: var(--text-base);
+  }
+}
+
 /* ═══════════════════════════════════════
    SERVICES
    ═══════════════════════════════════════ */

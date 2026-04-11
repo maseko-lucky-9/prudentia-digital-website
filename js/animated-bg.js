@@ -38,7 +38,7 @@
   }
 
   function getParticleCount(width) {
-    if (width < 480) return 0;  // Canvas disabled on very small screens
+    if (width < 480) return Math.round(rand(4, 6));
     if (width < 768) return Math.round(rand(8, 12));
     return Math.round(rand(15, 25));
   }
