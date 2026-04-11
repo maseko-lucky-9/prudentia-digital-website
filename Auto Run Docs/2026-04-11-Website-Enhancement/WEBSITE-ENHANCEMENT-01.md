@@ -16,14 +16,14 @@ This phase transforms the bare-bones static site into a production-ready foundat
   - Twitter Card tags: `twitter:card` (summary), `twitter:title`, `twitter:description`, `twitter:image` (same as og:image)
   - Keep all meta tags grouped with a comment: `<!-- Social & SEO meta -->`
 
-- [ ] Add JSON-LD structured data to `index.html`:
+- [x] Add JSON-LD structured data to `index.html`:
   - Insert a `<script type="application/ld+json">` block just before the closing `</head>` tag
   - Schema type: combined `Organization` + `LocalBusiness`
   - Include: `name` (Prudentia Digital), `url` (https://prudentiadigital.co.za), `logo` (logo-icon-white-512.png absolute URL), `description` (from existing meta), `email` (masekolt@prudentiadigital.co.za), `address` (South Africa — use `addressCountry: "ZA"`), `sameAs` (empty array for now — placeholder for social links)
   - Include `makesOffer` array with the 6 services listed on the page (name + description for each)
   - Validate the JSON-LD is well-formed (proper commas, no trailing commas, correct nesting)
 
-- [ ] Harden the `.gitignore` file — replace the current single-entry file with comprehensive exclusions:
+- [x] Harden the `.gitignore` file — replace the current single-entry file with comprehensive exclusions:
   - OS files: `.DS_Store`, `Thumbs.db`, `Desktop.ini`, `*.swp`, `*.swo`, `*~`
   - IDE/editor: `.idea/`, `.vscode/` (except `.vscode/settings.json` if it exists), `*.sublime-*`, `*.code-workspace`
   - Claude Code: `.claude/launch.json` (keep existing entry)

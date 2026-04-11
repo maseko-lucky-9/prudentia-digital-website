@@ -1,1 +1,33 @@
+# ── OS files ──────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+Desktop.ini
+*.swp
+*.swo
+*~
+
+# ── IDE / editor ──────────────────────────────────────────
+.idea/
+.vscode/
+*.sublime-*
+*.code-workspace
+
+# ── Claude Code ───────────────────────────────────────────
 .claude/launch.json
+
+# ── Node.js (npx serve, etc.) ────────────────────────────
+node_modules/
+.npm
+.cache/
+
+# ── Deploy artifacts ─────────────────────────────────────
+.wrangler/
+dist/
+build/
+
+# ── Environment ──────────────────────────────────────────
+.env
+.env.*
+
+# ── Logs ─────────────────────────────────────────────────
+*.log
