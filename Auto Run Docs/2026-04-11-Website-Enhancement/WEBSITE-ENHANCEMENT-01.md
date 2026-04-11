@@ -9,7 +9,7 @@ This phase transforms the bare-bones static site into a production-ready foundat
   - `sitemap.xml` with the single page `https://prudentiadigital.co.za/` (lastmod: 2026-04-11, changefreq: monthly, priority: 1.0). Leave a comment indicating where to add future pages
   - Both files must be valid and well-formed
 
-- [ ] Add Open Graph, Twitter Card meta tags, and canonical URL to `index.html`:
+- [x] Add Open Graph, Twitter Card meta tags, and canonical URL to `index.html`:
   - Insert after the existing `<meta name="description">` tag
   - Canonical: `<link rel="canonical" href="https://prudentiadigital.co.za/">`
   - Open Graph tags: `og:title` (match existing `<title>`), `og:description` (match existing meta description), `og:url` (canonical URL), `og:type` (website), `og:site_name` (Prudentia Digital), `og:locale` (en_ZA), `og:image` (use `https://prudentiadigital.co.za/assets/logo-icon-white-512.png` as placeholder — note this should be replaced with a proper 1200x630 OG image later)
