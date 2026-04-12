@@ -1,5 +1,8 @@
 name = "prudentia-digital"
 compatibility_date = "2026-04-12"
 
+[build]
+command = "npm run build"
+
 [assets]
 directory = "./dist"
