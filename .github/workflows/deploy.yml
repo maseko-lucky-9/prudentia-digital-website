@@ -42,9 +42,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Build deployment bundle
+        run: npm run build
+
       - name: Deploy to Cloudflare Pages
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CF_API_TOKEN }}
           accountId: ${{ secrets.CF_ACCOUNT_ID }}
-          command: pages deploy . --project-name=prudentia-digital --commit-dirty=true
+          command: pages deploy dist --project-name=prudentia-digital

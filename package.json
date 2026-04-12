@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
+    "build": "rm -rf dist && mkdir dist && cp index.html 404.html robots.txt sitemap.xml _headers dist/ && cp -r css js assets dist/",
     "test": "playwright test",
     "test:ui": "playwright test --ui",
     "test:headed": "playwright test --headed",
