@@ -1,6 +1,5 @@
-# Cloudflare Pages configuration
-# pages_build_output_dir tells both the Cloudflare Pages Git integration
-# and the wrangler CLI to deploy from dist/ — not the full repo root.
-# This prevents node_modules (installed during CI) from being uploaded as assets.
 name = "prudentia-digital"
-pages_build_output_dir = "dist"
+compatibility_date = "2026-04-12"
+
+[assets]
+directory = "./dist"
