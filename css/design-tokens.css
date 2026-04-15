@@ -63,8 +63,8 @@
   --color-info-500:   #3B82F6;
 
   /* — Font Family — */
-  --font-heading: 'DM Serif Display', serif;
-  --font-body:    'Inter', sans-serif;
+  --font-heading: 'DM Serif Display', Georgia, 'Times New Roman', serif;
+  --font-body:    'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   --font-mono:    'JetBrains Mono', monospace;
 
   /* — Font Size (desktop) — */
@@ -333,5 +333,33 @@
     --text-h2: 2.25rem;  /* 36px */
     --text-h3: 1.75rem;  /* 28px */
     --text-h4: 1.5rem;   /* 24px */
+  }
+}
+
+
+/* ═══════════════════════════════════════
+   AUTO DARK MODE
+   Mirrors .dark class overrides.
+   Applied when OS-level dark mode is active
+   and no explicit .dark/.light class is set.
+   ═══════════════════════════════════════ */
+
+@media (prefers-color-scheme: dark) {
+  :root:not(.light) {
+    --color-background:         var(--color-navy-900);
+    --color-foreground:         var(--color-warm-white);
+    --color-surface:            var(--color-navy-900);
+    --color-card:               var(--color-navy-700);
+    --color-card-foreground:    var(--color-warm-white);
+
+    --color-primary:            var(--color-gold-500);
+    --color-primary-hover:      var(--color-gold-300);
+    --color-primary-foreground: var(--color-navy-900);
+
+    --color-muted:              var(--color-navy-700);
+    --color-muted-foreground:   var(--color-gray-300);
+
+    --color-border: var(--color-navy-500);
+    --color-input:  var(--color-navy-500);
   }
 }

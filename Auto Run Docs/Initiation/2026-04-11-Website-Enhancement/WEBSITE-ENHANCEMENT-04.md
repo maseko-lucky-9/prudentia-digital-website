@@ -4,7 +4,7 @@ This phase adds the legal pages required for a professional consultancy — espe
 
 ## Tasks
 
-- [ ] Create `privacy.html` — a POPIA-aligned Privacy Policy page:
+- [x] Create `privacy.html` — a POPIA-aligned Privacy Policy page:
   - Use the same HTML shell as `index.html`: charset, viewport, same CSS files (design-tokens.css, styles.css), same favicon, same Google Fonts link
   - Include the same nav bar markup from `index.html` (logo, links, hamburger) — update nav links: Services → `index.html#services`, Why Us → `index.html#why-us`, About → `index.html#about`. Add "Privacy Policy" as the active page indicator
   - Page content in a `.legal` container (centred, max-width 800px, readable typography):
@@ -16,7 +16,7 @@ This phase adds the legal pages required for a professional consultancy — espe
       3. **How We Use Your Information** — respond to inquiries, improve services, comply with legal obligations
       4. **Legal Basis for Processing (POPIA)** — consent (contact form), legitimate interest (analytics), legal obligation
       5. **Data Sharing** — we do not sell data, may share with: Cloudflare (hosting), email service providers. List sub-processors
-      6. **Your Rights Under POPIA** — access, correction, deletion, objection, data portability. Include the Information Officer contact: thulani@prudentiadigital.co.za
+      6. **Your Rights Under POPIA** — access, correction, deletion, objection, data portability. Include the Information Officer contact: masekolt@prudentiadigital.co.za
       7. **Data Retention** — inquiry data kept for 2 years, then deleted
       8. **Security** — HTTPS, access controls, encrypted storage
       9. **Cookies** — what cookies are used (Cloudflare analytics if any), how to manage them
@@ -27,7 +27,7 @@ This phase adds the legal pages required for a professional consultancy — espe
   - Include the same footer markup from `index.html` (with the Privacy Policy link now pointing to `#` or self)
   - Include the mobile menu JS (copy the hamburger toggle + close logic from `index.html` inline script, or extract into a shared JS file — prefer extracting to `js/nav.js` to avoid duplication)
 
-- [ ] Create `terms.html` — a Terms of Service page:
+- [x] Create `terms.html` — a Terms of Service page:
   - Same HTML shell, nav, and footer structure as `privacy.html`
   - Page content sections:
     1. **Introduction** — these terms govern use of prudentiadigital.co.za and engagement with Prudentia Digital
@@ -40,10 +40,10 @@ This phase adds the legal pages required for a professional consultancy — espe
     8. **Governing Law** — Republic of South Africa. Disputes resolved in courts of Gauteng
     9. **B-BBEE & Compliance** — Level 1 B-BBEE EME certified, POPIA/PFMA/PPPFA compliant
     10. **Amendments** — we may update these terms, continued use constitutes acceptance
-    11. **Contact** — thulani@prudentiadigital.co.za
+    11. **Contact** — masekolt@prudentiadigital.co.za
   - Use the same `.legal` container and typography as the privacy page
 
-- [ ] Add shared legal page styles to `css/styles.css`:
+- [x] Add shared legal page styles to `css/styles.css`:
   - `.legal` container: `max-width: 800px; margin-inline: auto; padding: calc(68px + var(--space-12)) var(--space-6) var(--space-20);` (top padding accounts for fixed nav height)
   - `.legal h1`: `font-family: var(--font-family-heading); font-size: var(--text-h1); color: var(--color-primary); margin-bottom: var(--space-4);`
   - `.legal__updated`: `font-size: var(--text-sm); color: var(--color-muted-foreground); margin-bottom: var(--space-12);`
@@ -53,7 +53,7 @@ This phase adds the legal pages required for a professional consultancy — espe
   - `.legal a`: `color: var(--color-accent); text-decoration: underline;`
   - Verify these styles work in both light and dark mode (the token variables handle this automatically)
 
-- [ ] Extract shared navigation JavaScript into `js/nav.js`:
+- [x] Extract shared navigation JavaScript into `js/nav.js`:
   - Move the hamburger toggle logic, mobile menu close-on-link-click, and focus trap (from Phase 02) into `js/nav.js`
   - The nav scroll observer (watching `heroSentinel`) should remain in the inline script of `index.html` since it's page-specific (legal pages don't have a hero sentinel)
   - For legal pages, the nav should start in the `.scrolled` state (solid navy background) since there's no hero. Add a simple check: if `#heroSentinel` doesn't exist, add `.scrolled` to the nav immediately
@@ -61,14 +61,14 @@ This phase adds the legal pages required for a professional consultancy — espe
   - Update `privacy.html` and `terms.html` to load the same `js/nav.js`
   - Also move the stat counter and scroll reveal logic into appropriate inline scripts or shared files — but only if it avoids duplication. The counter and reveal observers are only needed on `index.html`, so keep them inline there
 
-- [ ] Update footer navigation links across all pages:
+- [x] Update footer navigation links across all pages:
   - In `index.html`, `privacy.html`, and `terms.html`, add links to the legal pages in the footer nav:
     - Add `<li><a href="privacy.html">Privacy Policy</a></li>`
     - Add `<li><a href="terms.html">Terms of Service</a></li>`
   - In the footer copyright line, add: `<a href="privacy.html">Privacy</a> · <a href="terms.html">Terms</a>` after the email link
   - Update `sitemap.xml` (created in Phase 01) to include the new pages: `https://prudentiadigital.co.za/privacy.html` and `https://prudentiadigital.co.za/terms.html`
 
-- [ ] Add a lightweight cookie consent banner:
+- [x] Add a lightweight cookie consent banner:
   - Add a `<div class="cookie-banner" id="cookieBanner" role="alert">` at the end of `<body>` (before scripts) in all three HTML files (`index.html`, `privacy.html`, `terms.html`)
   - Content: "We use essential cookies to ensure our website functions properly. See our <a href='privacy.html#cookies'>Privacy Policy</a> for details."
   - Two buttons: "Accept" (gold accent, `.btn--accent .btn--sm`) and "Learn More" (outline, links to privacy.html)
@@ -77,7 +77,7 @@ This phase adds the legal pages required for a professional consultancy — espe
   - Style `.cookie-banner` in `css/styles.css`: fixed bottom, full width, navy background, `z-index: 99`, padding, flex layout with gap between text and buttons. Shadow for elevation
   - Add the cookie consent JS logic to `js/nav.js` since it's shared across all pages
 
-- [ ] Verify Phase 04 completeness:
+- [x] Verify Phase 04 completeness:
   - Read `privacy.html` and `terms.html` — confirm they load correctly with nav, content, and footer
   - Read `js/nav.js` — confirm it handles hamburger toggle, focus trap, cookie banner, and fallback nav scroll state
   - Read `index.html` — confirm the inline script no longer duplicates nav logic, loads `js/nav.js`

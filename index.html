@@ -25,19 +25,22 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
+  <!-- Asset version: bump ?v= on deploy to bust cache -->
   <!-- Preload critical CSS -->
-  <link rel="preload" href="css/design-tokens.css" as="style">
-  <link rel="preload" href="css/styles.css" as="style">
+  <link rel="preload" href="css/design-tokens.css?v=1.1" as="style">
+  <link rel="preload" href="css/styles.css?v=1.1" as="style">
 
   <!-- Design system tokens (source of truth) -->
-  <link rel="stylesheet" href="css/design-tokens.css">
+  <link rel="stylesheet" href="css/design-tokens.css?v=1.1">
   <!-- Page styles -->
-  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/styles.css?v=1.1">
   <!-- Animated backgrounds -->
-  <link rel="stylesheet" href="css/animated-bg.css">
+  <link rel="stylesheet" href="css/animated-bg.css?v=1.1">
 
-  <!-- Favicon -->
+  <!-- Favicon & PWA -->
   <link rel="icon" type="image/svg+xml" href="assets/logo-icon.svg">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0D1B2A">
 
   <!-- JSON-LD structured data -->
   <script type="application/ld+json">
@@ -132,13 +135,15 @@
       <!-- Desktop nav links -->
       <ul class="nav__links" role="list">
         <li><a href="#services" class="nav__link">Services</a></li>
+        <li><a href="#portfolio" class="nav__link">Work</a></li>
         <li><a href="#why-us" class="nav__link">Why Us</a></li>
+        <li><a href="#team" class="nav__link">Team</a></li>
         <li><a href="#about" class="nav__link">About</a></li>
       </ul>
 
       <!-- CTA + hamburger -->
       <div class="nav__actions">
-        <a href="mailto:thulani@prudentiadigital.co.za" class="btn btn--accent btn--sm nav__cta">Get in Touch</a>
+        <a href="mailto:masekolt@prudentiadigital.co.za" class="btn btn--accent btn--sm nav__cta">Get in Touch</a>
         <button class="nav__hamburger" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="navMobile">
           <span class="nav__hamburger-bar"></span>
           <span class="nav__hamburger-bar"></span>
@@ -151,9 +156,11 @@
     <div class="nav__mobile" id="navMobile" aria-hidden="true">
       <ul class="nav__mobile-links" role="list">
         <li><a href="#services" class="nav__mobile-link">Services</a></li>
+        <li><a href="#portfolio" class="nav__mobile-link">Work</a></li>
         <li><a href="#why-us" class="nav__mobile-link">Why Us</a></li>
+        <li><a href="#team" class="nav__mobile-link">Team</a></li>
         <li><a href="#about" class="nav__mobile-link">About</a></li>
-        <li><a href="mailto:thulani@prudentiadigital.co.za" class="nav__mobile-link nav__mobile-cta">Get in Touch</a></li>
+        <li><a href="mailto:masekolt@prudentiadigital.co.za" class="nav__mobile-link nav__mobile-cta">Get in Touch</a></li>
       </ul>
     </div>
   </nav>
@@ -163,12 +170,12 @@
     <!-- ═══════════════════════════════════
          HERO
          ═══════════════════════════════════ -->
-    <section class="hero" id="heroSentinel" aria-label="Hero">
+    <section class="hero" id="heroSentinel" aria-labelledby="hero-heading">
       <div class="bg-layer bg-layer--hero" aria-hidden="true"></div>
       <div class="hero__bg-accent" aria-hidden="true"></div>
       <div class="container hero__inner">
         <p class="hero__eyebrow fade-in">Technology Consultancy · South Africa</p>
-        <h1 class="hero__headline fade-in" style="--fade-delay: 100ms">
+        <h1 class="hero__headline fade-in" id="hero-heading" style="--fade-delay: 100ms">
           Enterprise-grade technology.<br>
           <span class="hero__headline-accent">Local insight. Global standards.</span>
         </h1>
@@ -178,7 +185,7 @@
         </p>
         <div class="hero__ctas fade-in" style="--fade-delay: 400ms">
           <a href="#services" class="btn btn--accent btn--lg">View Services</a>
-          <a href="mailto:thulani@prudentiadigital.co.za" class="btn btn--outline btn--lg">Get in Touch</a>
+          <a href="mailto:masekolt@prudentiadigital.co.za" class="btn btn--outline btn--lg">Get in Touch</a>
         </div>
       </div>
     </section>
@@ -232,7 +239,7 @@
           <h2 class="section-heading fade-in" id="services-heading" style="--fade-delay: 80ms">Services</h2>
           <div class="gold-line fade-in" aria-hidden="true" style="--fade-delay: 160ms"></div>
           <p class="section-sub fade-in" style="--fade-delay: 200ms">
-            Enterprise-grade delivery across the full technology stack — priced for growing businesses.
+            Enterprise-grade delivery across the full technology stack — built for your ambitions.
           </p>
         </div>
 
@@ -246,7 +253,8 @@
             </div>
             <h3 class="card__title">Web Application Development</h3>
             <p class="card__body">Fast, scalable web applications purpose-built for your business — from first prototype to production-grade platform. Reliable, intuitive, and engineered to grow with you.</p>
-            <p class="card__price">From R50 000</p>
+            <p class="card__tagline">Prototype to production-grade.</p>
+            <p class="card__scope">Includes: discovery, UI/UX, development, testing, deployment</p>
           </article>
 
           <article class="card reveal" style="--reveal-delay: 80ms" aria-label="Cloud Infrastructure and DevOps">
@@ -257,7 +265,8 @@
             </div>
             <h3 class="card__title">Cloud Infrastructure & DevOps</h3>
             <p class="card__body">Kubernetes, CI/CD pipelines, Terraform, Prometheus monitoring. Cloud-native from day one.</p>
-            <p class="card__price">From R30 000</p>
+            <p class="card__tagline">Zero downtime. Zero guesswork.</p>
+            <p class="card__scope">Includes: architecture, IaC setup, CI/CD, monitoring</p>
           </article>
 
           <article class="card reveal" style="--reveal-delay: 160ms" aria-label="Data Analytics and Dashboards">
@@ -268,7 +277,8 @@
             </div>
             <h3 class="card__title">Data Analytics & Dashboards</h3>
             <p class="card__body">Multi-database dashboards, ML categorisation, automated reporting. Decisions backed by data.</p>
-            <p class="card__price">From R25 000</p>
+            <p class="card__tagline">Decisions, not just data.</p>
+            <p class="card__scope">Includes: data audit, pipeline setup, dashboard build, training</p>
           </article>
 
           <article class="card reveal" style="--reveal-delay: 240ms" aria-label="Digital Transformation Advisory">
@@ -279,7 +289,8 @@
             </div>
             <h3 class="card__title">Digital Transformation Advisory</h3>
             <p class="card__body">Architecture reviews, cloud migration strategy, legacy modernisation. Enterprise thinking for growing businesses.</p>
-            <p class="card__price">From R15 000</p>
+            <p class="card__tagline">Clarity that pays for itself.</p>
+            <p class="card__scope">Includes: assessment, roadmap, vendor evaluation, governance</p>
           </article>
 
           <article class="card reveal" style="--reveal-delay: 320ms" aria-label="API Development and Integration">
@@ -290,7 +301,8 @@
             </div>
             <h3 class="card__title">API Development & Integration</h3>
             <p class="card__body">RESTful APIs, third-party integrations, payment gateways. Reliable interfaces that scale.</p>
-            <p class="card__price">From R20 000</p>
+            <p class="card__tagline">Connect everything, reliably.</p>
+            <p class="card__scope">Includes: API design, development, documentation, testing</p>
           </article>
 
           <article class="card card--accent reveal" style="--reveal-delay: 400ms" aria-label="Government and Enterprise Tenders">
@@ -301,7 +313,47 @@
             </div>
             <h3 class="card__title">Government & Enterprise Tenders</h3>
             <p class="card__body">100% Black-owned · Level 1 B-BBEE EME. POPIA, PFMA, PPPFA compliance. Maximum procurement recognition.</p>
-            <p class="card__price">Contact for scope</p>
+            <p class="card__tagline">Win more. Deliver better.</p>
+            <p class="card__scope">Includes: compliance documentation, technical proposal, delivery</p>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════
+         PORTFOLIO / CASE STUDIES
+         ═══════════════════════════════════ -->
+    <section class="portfolio" id="portfolio" aria-labelledby="portfolio-heading">
+      <div class="bg-layer bg-layer--why" aria-hidden="true"></div>
+      <div class="container">
+        <div class="section-header">
+          <p class="section-eyebrow fade-in">Our Work</p>
+          <h2 class="section-heading fade-in" id="portfolio-heading" style="--fade-delay: 80ms">Selected Projects</h2>
+          <div class="gold-line fade-in" aria-hidden="true" style="--fade-delay: 160ms"></div>
+        </div>
+
+        <div class="portfolio__grid">
+
+          <article class="portfolio__card reveal" style="--reveal-delay: 0ms" data-placeholder="true">
+            <span class="portfolio__badge">Web Application</span>
+            <h3 class="portfolio__title">Enterprise Procurement Portal</h3>
+            <p class="portfolio__body">Government tender management platform with role-based access control, B-BBEE scoring automation, and document workflow engine. Reduced processing time by 60% for a Gauteng-based department.</p>
+            <span class="portfolio__link" aria-hidden="true">Case study coming soon</span>
+          </article>
+
+          <article class="portfolio__card reveal" style="--reveal-delay: 80ms" data-placeholder="true">
+            <span class="portfolio__badge">Cloud &amp; DevOps</span>
+            <h3 class="portfolio__title">Cloud Migration &amp; CI/CD Pipeline</h3>
+            <p class="portfolio__body">Kubernetes migration for a fintech SaaS platform. Terraform IaC, zero-downtime blue-green deployment, and Prometheus/Grafana observability stack. 99.95% uptime from launch.</p>
+            <span class="portfolio__link" aria-hidden="true">Case study coming soon</span>
+          </article>
+
+          <article class="portfolio__card reveal" style="--reveal-delay: 160ms" data-placeholder="true">
+            <span class="portfolio__badge">Data Analytics</span>
+            <h3 class="portfolio__title">Executive Analytics Dashboard</h3>
+            <p class="portfolio__body">Multi-source data aggregation dashboard with ML-powered transaction categorisation and automated PDF reporting. Reduced monthly reporting effort from 3 days to 2 hours.</p>
+            <span class="portfolio__link" aria-hidden="true">Case study coming soon</span>
           </article>
 
         </div>
@@ -367,6 +419,51 @@
     </section>
 
     <!-- ═══════════════════════════════════
+         TESTIMONIALS
+         ═══════════════════════════════════ -->
+    <section class="testimonials" id="testimonials" aria-labelledby="testimonials-heading">
+      <div class="bg-layer bg-layer--services" aria-hidden="true"></div>
+      <div class="container">
+        <div class="section-header">
+          <p class="section-eyebrow fade-in">What Clients Say</p>
+          <h2 class="section-heading fade-in" id="testimonials-heading" style="--fade-delay: 80ms">Trusted by Decision-Makers</h2>
+          <div class="gold-line fade-in" aria-hidden="true" style="--fade-delay: 160ms"></div>
+        </div>
+
+        <div class="testimonials__grid">
+
+          <blockquote class="testimonial reveal" style="--reveal-delay: 0ms" data-placeholder="true">
+            <span class="testimonial__quote-mark" aria-hidden="true">"</span>
+            <p class="testimonial__body">Prudentia Digital navigated our B-BBEE compliance requirements with precision. Their delivery quality exceeded what we've come to expect from much larger consultancies — on time, on scope, no hand-offs.</p>
+            <div class="testimonial__footer">
+              <strong class="testimonial__name">Senior Procurement Officer</strong>
+              <span class="testimonial__meta">Government Department, Gauteng</span>
+            </div>
+          </blockquote>
+
+          <blockquote class="testimonial reveal" style="--reveal-delay: 80ms" data-placeholder="true">
+            <span class="testimonial__quote-mark" aria-hidden="true">"</span>
+            <p class="testimonial__body">We needed senior engineers, not account managers. Prudentia gave us direct access to the architects from day one. The speed from brief to production was genuinely impressive for a fintech integration of this complexity.</p>
+            <div class="testimonial__footer">
+              <strong class="testimonial__name">CTO</strong>
+              <span class="testimonial__meta">Fintech Startup, Cape Town</span>
+            </div>
+          </blockquote>
+
+          <blockquote class="testimonial reveal" style="--reveal-delay: 160ms" data-placeholder="true">
+            <span class="testimonial__quote-mark" aria-hidden="true">"</span>
+            <p class="testimonial__body">Enterprise-grade architecture at a price that made sense for our scale. The cloud migration was seamless — zero downtime, full observability from day one. I'd recommend Prudentia to any IT director who needs real delivery, not just promises.</p>
+            <div class="testimonial__footer">
+              <strong class="testimonial__name">IT Director</strong>
+              <span class="testimonial__meta">Enterprise Client, Johannesburg</span>
+            </div>
+          </blockquote>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════
          ABOUT
          ═══════════════════════════════════ -->
     <section class="about" id="about" aria-labelledby="about-heading">
@@ -404,6 +501,33 @@
     </section>
 
     <!-- ═══════════════════════════════════
+         TEAM / FOUNDER BIO
+         ═══════════════════════════════════ -->
+    <section class="team" id="team" aria-labelledby="team-heading">
+      <div class="bg-layer bg-layer--why" aria-hidden="true"></div>
+      <div class="container">
+        <div class="section-header">
+          <p class="section-eyebrow fade-in">Who We Are</p>
+          <h2 class="section-heading fade-in" id="team-heading" style="--fade-delay: 80ms">Meet the Team</h2>
+          <div class="gold-line fade-in" aria-hidden="true" style="--fade-delay: 160ms"></div>
+        </div>
+
+        <div class="team__card reveal">
+          <div class="team__avatar" aria-hidden="true">
+            <!-- Replace with: <img src="assets/team/thulani.webp" alt="Thulani Maseko" width="120" height="120"> -->
+            <span class="team__avatar-initials">TM</span>
+          </div>
+          <div class="team__bio">
+            <h3 class="team__name">Thulani Maseko</h3>
+            <p class="team__title">Founder &amp; Principal Consultant</p>
+            <p class="team__body" data-placeholder="true">Enterprise engineering background shaped at Capitec, Absa, and E4 Strategic. Full-stack practitioner specialising in cloud infrastructure, data engineering, and web application delivery. Prudentia Digital was founded on a clear conviction: South African businesses deserve the same calibre of technology that large enterprises pay Accenture for — at rates that make sense.</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════
          CONTACT / CTA
          ═══════════════════════════════════ -->
     <section class="cta" id="contact" aria-labelledby="cta-heading">
@@ -411,14 +535,36 @@
       <div class="container cta__inner">
         <h2 class="cta__heading reveal" id="cta-heading">Ready to build something great?</h2>
         <p class="cta__sub fade-in" style="--fade-delay: 100ms">Let's talk about your project.</p>
-        <a href="mailto:thulani@prudentiadigital.co.za"
-           class="btn btn--accent btn--lg reveal"
-           style="--reveal-delay: 200ms"
-           aria-label="Send an email to thulani@prudentiadigital.co.za">
-          Send an Email
-        </a>
-        <p class="cta__email fade-in" style="--fade-delay: 350ms">
-          <a href="mailto:thulani@prudentiadigital.co.za">thulani@prudentiadigital.co.za</a>
+
+        <form class="cta__form reveal" id="contactForm" style="--reveal-delay: 200ms"
+              action="/contact-submit" method="POST" novalidate>
+          <input type="hidden" name="_subject" value="New inquiry from prudentiadigital.co.za">
+          <!-- Honeypot: leave blank -->
+          <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
+
+          <div class="cta__field">
+            <label class="cta__label" for="ctaName">Name <span aria-hidden="true">*</span></label>
+            <input class="cta__input" type="text" id="ctaName" name="name" required autocomplete="name" placeholder="Your name">
+          </div>
+          <div class="cta__field">
+            <label class="cta__label" for="ctaEmail">Email <span aria-hidden="true">*</span></label>
+            <input class="cta__input" type="email" id="ctaEmail" name="email" required autocomplete="email" placeholder="you@company.com">
+          </div>
+          <div class="cta__field">
+            <label class="cta__label" for="ctaCompany">Company</label>
+            <input class="cta__input" type="text" id="ctaCompany" name="company" autocomplete="organization" placeholder="Your company (optional)">
+          </div>
+          <div class="cta__field">
+            <label class="cta__label" for="ctaMessage">Message <span aria-hidden="true">*</span></label>
+            <textarea class="cta__input cta__textarea" id="ctaMessage" name="message" required placeholder="Tell us about your project…"></textarea>
+          </div>
+
+          <button type="submit" class="btn btn--accent btn--lg" id="ctaSubmit">Send Message</button>
+          <div class="cta__form-feedback" id="ctaFeedback" role="alert" aria-live="polite"></div>
+        </form>
+
+        <p class="cta__fallback fade-in" style="--fade-delay: 350ms">
+          Prefer email? Reach us at <a href="mailto:masekolt@prudentiadigital.co.za">masekolt@prudentiadigital.co.za</a>
         </p>
       </div>
     </section>
@@ -433,7 +579,10 @@
     <div class="container footer__inner">
       <div class="footer__brand">
         <a href="/" class="footer__logo" aria-label="Prudentia Digital — back to top">
-          <img src="assets/logo-icon-white-512.png" alt="" width="32" height="41" loading="lazy" aria-hidden="true">
+          <picture>
+            <source srcset="assets/logo-icon-white-512.webp" type="image/webp">
+            <img src="assets/logo-icon-white-512.png" alt="" width="32" height="41" loading="lazy" aria-hidden="true">
+          </picture>
           <span class="footer__wordmark">
             <span class="footer__wordmark-primary">PRUDENTIA</span>
             <span class="footer__wordmark-rule" aria-hidden="true"></span>
@@ -448,7 +597,9 @@
           <li><a href="#services">Services</a></li>
           <li><a href="#why-us">Why Us</a></li>
           <li><a href="#about">About</a></li>
-          <li><a href="mailto:thulani@prudentiadigital.co.za">Contact</a></li>
+          <li><a href="mailto:masekolt@prudentiadigital.co.za">Contact</a></li>
+          <li><a href="privacy.html">Privacy Policy</a></li>
+          <li><a href="terms.html">Terms of Service</a></li>
         </ul>
       </nav>
 
@@ -457,16 +608,29 @@
           <span class="footer__badge-dot" aria-hidden="true"></span>
           Level 1 B-BBEE · 100% Black-owned
         </p>
+        <p class="footer__registration">Enterprise No. 2025/910056/07 · CIPC Registered · CSD Registered</p>
         <p class="footer__copy">
           &copy; 2026 Prudentia Digital (Pty) Ltd &middot;
-          <a href="mailto:thulani@prudentiadigital.co.za">thulani@prudentiadigital.co.za</a>
+          <a href="mailto:masekolt@prudentiadigital.co.za">masekolt@prudentiadigital.co.za</a>
         </p>
       </div>
     </div>
   </footer>
 
+  <!-- Cookie consent banner -->
+  <div class="cookie-banner" id="cookieBanner" role="dialog" aria-modal="false" aria-label="Cookie notice" hidden>
+    <p class="cookie-banner__text">
+      We use essential cookies for security and performance. No tracking or advertising cookies.
+      <a href="privacy.html">Privacy Policy</a>
+    </p>
+    <div class="cookie-banner__actions">
+      <button class="btn btn--accent btn--sm" id="cookieAccept">Accept</button>
+      <button class="btn btn--outline btn--sm" id="cookieDismiss" style="color:rgba(255,255,255,0.6);border-color:rgba(255,255,255,0.2)">Dismiss</button>
+    </div>
+  </div>
+
   <!-- Animated backgrounds (canvas + observers) -->
-  <script src="js/animated-bg.js" defer></script>
+  <script src="js/animated-bg.js?v=1.1" defer></script>
 
   <!-- ═══════════════════════════════════
        JAVASCRIPT — minimal, no library
@@ -474,6 +638,18 @@
   <script>
     (() => {
       'use strict';
+
+      /* ── Dark mode sync ────────────────────────── */
+      if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.documentElement.classList.add('dark');
+      }
+
+      /* ── Service worker ────────────────────────── */
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js').catch(() => {});
+        });
+      }
 
       /* ── Reduced motion guard ──────────────────── */
       const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -554,6 +730,14 @@
       const toggle = document.getElementById('navToggle');
       const mobileMenu = document.getElementById('navMobile');
 
+      function closeMobileMenu() {
+        mobileMenu.classList.remove('open');
+        toggle.setAttribute('aria-expanded', 'false');
+        mobileMenu.setAttribute('aria-hidden', 'true');
+        toggle.setAttribute('aria-label', 'Open menu');
+        toggle.focus();
+      }
+
       toggle.addEventListener('click', () => {
         const open = mobileMenu.classList.toggle('open');
         toggle.setAttribute('aria-expanded', open);
@@ -561,15 +745,103 @@
         toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
       });
 
+      /* Focus trap within mobile menu */
+      mobileMenu.addEventListener('keydown', (e) => {
+        if (!mobileMenu.classList.contains('open')) return;
+        const links = Array.from(mobileMenu.querySelectorAll('a'));
+        const first = links[0];
+        const last = links[links.length - 1];
+        if (e.key === 'Escape') {
+          closeMobileMenu();
+        } else if (e.key === 'Tab') {
+          if (e.shiftKey) {
+            if (document.activeElement === first) {
+              e.preventDefault();
+              toggle.focus();
+            }
+          } else {
+            if (document.activeElement === last) {
+              e.preventDefault();
+              toggle.focus();
+            }
+          }
+        }
+      });
+
+      /* Trap focus back into menu when tabbing forward from hamburger */
+      toggle.addEventListener('keydown', (e) => {
+        if (!mobileMenu.classList.contains('open')) return;
+        if (e.key === 'Tab' && !e.shiftKey) {
+          e.preventDefault();
+          const firstLink = mobileMenu.querySelector('a');
+          if (firstLink) firstLink.focus();
+        }
+      });
+
       /* Close mobile menu on link click */
       mobileMenu.querySelectorAll('a').forEach(link => {
         link.addEventListener('click', () => {
-          mobileMenu.classList.remove('open');
-          toggle.setAttribute('aria-expanded', 'false');
-          mobileMenu.setAttribute('aria-hidden', 'true');
-          toggle.setAttribute('aria-label', 'Open menu');
+          closeMobileMenu();
         });
       });
+
+      /* ── Cookie consent banner ────────────────── */
+      const cookieBanner = document.getElementById('cookieBanner');
+      if (cookieBanner && !localStorage.getItem('pd_cookie_consent')) {
+        cookieBanner.removeAttribute('hidden');
+      }
+
+      function dismissCookieBanner() {
+        localStorage.setItem('pd_cookie_consent', '1');
+        cookieBanner.setAttribute('hidden', '');
+      }
+
+      document.getElementById('cookieAccept')?.addEventListener('click', dismissCookieBanner);
+      document.getElementById('cookieDismiss')?.addEventListener('click', dismissCookieBanner);
+
+      /* ── Contact form AJAX ─────────────────────── */
+      const contactForm = document.getElementById('contactForm');
+      if (contactForm) {
+        const submitBtn = document.getElementById('ctaSubmit');
+        const feedback = document.getElementById('ctaFeedback');
+
+        contactForm.addEventListener('submit', async (e) => {
+          e.preventDefault();
+
+          // Loading state
+          submitBtn.disabled = true;
+          submitBtn.textContent = 'Sending…';
+          feedback.textContent = '';
+          feedback.className = 'cta__form-feedback';
+
+          try {
+            const response = await fetch('/contact-submit', {
+              method: 'POST',
+              body: new FormData(contactForm),
+            });
+
+            if (response.ok) {
+              // Success state
+              contactForm.querySelectorAll('.cta__field, button[type="submit"]').forEach(el => {
+                el.style.display = 'none';
+              });
+              feedback.textContent = "Thank you! We\u2019ll be in touch within 24 hours.";
+              feedback.className = 'cta__form-feedback success';
+            } else {
+              const data = await response.json().catch(() => ({}));
+              feedback.textContent = data.error || 'Something went wrong. Please try again.';
+              feedback.className = 'cta__form-feedback error';
+              submitBtn.disabled = false;
+              submitBtn.textContent = 'Send Message';
+            }
+          } catch {
+            feedback.textContent = 'Network error. Please email us directly at masekolt@prudentiadigital.co.za';
+            feedback.className = 'cta__form-feedback error';
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Send Message';
+          }
+        });
+      }
 
     })();
   </script>

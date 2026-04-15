@@ -4,7 +4,7 @@ This phase adds the content sections that support long-term growth — a team/fo
 
 ## Tasks
 
-- [ ] Add a team/founder bio section to `index.html` between the About section and the CTA section:
+- [x] Add a team/founder bio section to `index.html` between the About section and the CTA section:
   - New `<section class="team" id="team" aria-labelledby="team-heading">`
   - Section header: eyebrow "Who We Are", heading "Meet the Team", gold line separator
   - Include a founder card with:
@@ -17,7 +17,7 @@ This phase adds the content sections that support long-term growth — a team/fo
   - Style using existing card tokens. Add `.team` and `.team__*` styles to `css/styles.css`
   - Apply `.reveal` animation classes for scroll entrance
 
-- [ ] Add a portfolio/case studies section to `index.html` between the Services section and the Why Us section:
+- [x] Add a portfolio/case studies section to `index.html` between the Services section and the Why Us section:
   - New `<section class="portfolio" id="portfolio" aria-labelledby="portfolio-heading">`
   - Section header: eyebrow "Our Work", heading "Selected Projects", gold line separator
   - Include 3 placeholder case study cards in a responsive grid (1 col mobile, 3 col desktop):
@@ -30,14 +30,14 @@ This phase adds the content sections that support long-term growth — a team/fo
   - Style cards similar to service cards but with a category badge at the top (use `--badge-*` tokens from design-tokens.css). Add `.portfolio` and `.portfolio__*` styles to `css/styles.css`
   - Apply `.reveal` animation classes with staggered `--reveal-delay`
 
-- [ ] Update the nav links to include the new sections:
+- [x] Update the nav links to include the new sections:
   - In the desktop nav links (`ul.nav__links`), add "Portfolio" (`href="#portfolio"`) between "Services" and "Why Us"
   - In the mobile nav (`ul.nav__mobile-links`), add the same "Portfolio" link in the same position
   - In the footer nav, add "Portfolio" (`href="#portfolio"`) and "Team" (`href="#team"`) links
   - Update `privacy.html` and `terms.html` footer nav links to match (these link back to `index.html#portfolio` and `index.html#team`)
   - In `js/nav.js`, the mobile menu close-on-link-click handler already uses `mobileMenu.querySelectorAll('a')` so new links are automatically covered
 
-- [ ] Create a blog scaffold — a `blog.html` listing page and one sample post:
+- [x] Create a blog scaffold — a `blog.html` listing page and one sample post:
   - `blog.html` — Blog listing page:
     - Same HTML shell, nav, and footer as legal pages
     - Nav: add "Insights" link in desktop and mobile nav across all pages (index.html, privacy.html, terms.html, blog.html). Position after "About"
@@ -59,7 +59,7 @@ This phase adds the content sections that support long-term growth — a team/fo
   - Add `.blog` and `.blog__*` styles to `css/styles.css`: listing grid, post card, article typography
   - Update `sitemap.xml` with `blog.html` and `blog/ai-augmented-consultancy.html`
 
-- [ ] Create `manifest.json` and basic PWA setup:
+- [x] Create `manifest.json` and basic PWA setup:
   - Create `manifest.json` in the project root:
     - `name`: "Prudentia Digital"
     - `short_name`: "Prudentia"
@@ -74,7 +74,7 @@ This phase adds the content sections that support long-term growth — a team/fo
   - Do NOT create a service worker at this stage — that's a bigger lift for a future phase. The manifest alone enables "Add to Home Screen" on mobile and sets the theme colour in browser chrome
   - Add `<meta name="apple-mobile-web-app-capable" content="yes">` and `<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">` for iOS
 
-- [ ] Final verification of Phase 05 and overall site integrity:
+- [x] Final verification of Phase 05 and overall site integrity:
   - Read every HTML file (index.html, privacy.html, terms.html, blog.html, blog/ai-augmented-consultancy.html, 404.html) and confirm:
     - All nav links are consistent across pages
     - All footer links match (including legal pages, portfolio, team)

@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Prudentia Digital Blog — Insights on technology, cloud infrastructure, data analytics, and digital transformation for South African businesses.">
+  <title>Blog — Prudentia Digital</title>
+
+  <link rel="canonical" href="https://prudentiadigital.co.za/blog/">
+
+  <link rel="preload" href="../css/design-tokens.css?v=1.1" as="style">
+  <link rel="preload" href="../css/styles.css?v=1.1" as="style">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="../css/design-tokens.css?v=1.1">
+  <link rel="stylesheet" href="../css/styles.css?v=1.1">
+
+  <link rel="icon" type="image/svg+xml" href="../assets/logo-icon.svg">
+
+  <style>
+    .blog-hero {
+      background: var(--color-primary);
+      padding-top: calc(68px + var(--space-16));
+      padding-bottom: var(--space-16);
+    }
+
+    .blog-hero__inner {
+      text-align: center;
+    }
+
+    .blog-grid {
+      padding-block: var(--space-20);
+      background: var(--color-surface);
+    }
+
+    .blog__posts {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-6);
+      margin-top: var(--space-12);
+    }
+
+    @media (min-width: 768px) {
+      .blog__posts {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .blog__posts {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .post-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--card-radius);
+      padding: var(--card-padding);
+      box-shadow: var(--card-shadow);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-3);
+      transition: transform var(--duration-normal) ease-out,
+                  box-shadow var(--duration-normal) ease-out;
+    }
+
+    .post-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .post-card__category {
+      font-size: var(--text-caption);
+      font-weight: var(--font-semibold);
+      color: var(--color-accent);
+      text-transform: uppercase;
+      letter-spacing: var(--tracking-caps);
+    }
+
+    .post-card__title {
+      font-family: var(--font-family-heading);
+      font-size: var(--text-h4);
+      color: var(--color-primary);
+      line-height: var(--leading-snug);
+      text-wrap: balance;
+    }
+
+    .post-card__excerpt {
+      font-size: var(--text-sm);
+      color: var(--color-muted-foreground);
+      line-height: var(--leading-relaxed);
+      flex: 1;
+      text-wrap: pretty;
+    }
+
+    .post-card__meta {
+      font-size: var(--text-caption);
+      color: var(--color-muted-foreground);
+    }
+
+    .post-card__placeholder {
+      font-size: var(--text-caption);
+      color: var(--color-muted-foreground);
+      font-style: italic;
+      margin-top: var(--space-2);
+    }
+
+    .blog__empty {
+      text-align: center;
+      padding-block: var(--space-20);
+      color: var(--color-muted-foreground);
+    }
+
+    .blog__empty-heading {
+      font-family: var(--font-family-heading);
+      font-size: var(--text-h3);
+      color: var(--color-primary);
+      margin-bottom: var(--space-4);
+    }
+  </style>
+</head>
+<body>
+
+  <a href="#main" class="skip-link">Skip to main content</a>
+
+  <nav class="nav nav--scrolled" id="nav" role="navigation" aria-label="Main navigation" style="background:var(--color-navy-900)">
+    <div class="nav__inner container">
+      <a href="/" class="nav__logo" aria-label="Prudentia Digital — home">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 66 84" fill="none" class="nav__logo-icon" aria-hidden="true">
+          <path d="M8 6 H44 L52 14 V42 H18 V78 H8 Z M18 14 H44 V34 H18 Z" fill="currentColor" fill-rule="evenodd"/>
+          <path d="M54 4 L60 10 L54 16 L48 10 Z" fill="var(--color-accent)"/>
+        </svg>
+        <span class="nav__wordmark" aria-hidden="true">
+          <span class="nav__wordmark-primary">PRUDENTIA</span>
+          <span class="nav__wordmark-rule" aria-hidden="true"></span>
+          <span class="nav__wordmark-secondary">DIGITAL</span>
+        </span>
+      </a>
+      <ul class="nav__links" role="list">
+        <li><a href="../index.html#services" class="nav__link">Services</a></li>
+        <li><a href="../index.html#why-us" class="nav__link">Why Us</a></li>
+        <li><a href="../index.html#about" class="nav__link">About</a></li>
+      </ul>
+      <div class="nav__actions">
+        <a href="mailto:masekolt@prudentiadigital.co.za" class="btn btn--accent btn--sm nav__cta">Get in Touch</a>
+        <button class="nav__hamburger" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="navMobile">
+          <span class="nav__hamburger-bar"></span>
+          <span class="nav__hamburger-bar"></span>
+          <span class="nav__hamburger-bar"></span>
+        </button>
+      </div>
+    </div>
+    <div class="nav__mobile" id="navMobile" aria-hidden="true">
+      <ul class="nav__mobile-links" role="list">
+        <li><a href="../index.html#services" class="nav__mobile-link">Services</a></li>
+        <li><a href="../index.html#why-us" class="nav__mobile-link">Why Us</a></li>
+        <li><a href="../index.html#about" class="nav__mobile-link">About</a></li>
+        <li><a href="mailto:masekolt@prudentiadigital.co.za" class="nav__mobile-link nav__mobile-cta">Get in Touch</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main id="main">
+
+    <header class="blog-hero">
+      <div class="container blog-hero__inner">
+        <p class="section-eyebrow fade-in">Insights &amp; Expertise</p>
+        <h1 class="section-heading fade-in" style="--fade-delay: 80ms; color: var(--color-white); font-size: var(--text-h1-lg);">The Prudentia Blog</h1>
+        <div class="gold-line fade-in" style="--fade-delay: 160ms; margin-inline: auto;" aria-hidden="true"></div>
+        <p class="section-sub fade-in" style="--fade-delay: 200ms; margin-inline: auto; color: rgba(255,255,255,0.65);">
+          Practical insights on cloud, data, and software delivery — written by practitioners, not marketers.
+        </p>
+      </div>
+    </header>
+
+    <section class="blog-grid">
+      <div class="container">
+
+        <!-- Scaffold post cards — replace with real content -->
+        <div class="blog__posts">
+
+          <article class="post-card" data-placeholder="true">
+            <p class="post-card__category">Cloud &amp; DevOps</p>
+            <h2 class="post-card__title">Zero-Downtime Kubernetes Deployments: A Practical Guide for South African Teams</h2>
+            <p class="post-card__excerpt">Blue-green deployments, rolling updates, and PodDisruptionBudgets — the patterns that matter when downtime means lost revenue.</p>
+            <p class="post-card__meta">Thulani Maseko · April 2026</p>
+            <p class="post-card__placeholder">Article coming soon</p>
+          </article>
+
+          <article class="post-card" data-placeholder="true">
+            <p class="post-card__category">Compliance</p>
+            <h2 class="post-card__title">POPIA for Developers: What You Actually Need to Build</h2>
+            <p class="post-card__excerpt">POPIA compliance isn't just a legal checkbox — it has direct implications for how you design databases, APIs, and retention policies. Here's what to build.</p>
+            <p class="post-card__meta">Thulani Maseko · April 2026</p>
+            <p class="post-card__placeholder">Article coming soon</p>
+          </article>
+
+          <article class="post-card" data-placeholder="true">
+            <p class="post-card__category">Data Engineering</p>
+            <h2 class="post-card__title">Building Executive Dashboards That Actually Get Used</h2>
+            <p class="post-card__excerpt">Most dashboards are abandoned within 6 months. Here's how to design for adoption: the right metrics, the right cadence, and the right level of automation.</p>
+            <p class="post-card__meta">Thulani Maseko · April 2026</p>
+            <p class="post-card__placeholder">Article coming soon</p>
+          </article>
+
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer" role="contentinfo">
+    <div class="bg-layer bg-layer--footer" aria-hidden="true"></div>
+    <div class="container footer__inner">
+      <div class="footer__brand">
+        <a href="/" class="footer__logo" aria-label="Prudentia Digital — back to top">
+          <picture>
+            <source srcset="../assets/logo-icon-white-512.webp" type="image/webp">
+            <img src="../assets/logo-icon-white-512.png" alt="" width="32" height="41" loading="lazy" aria-hidden="true">
+          </picture>
+          <span class="footer__wordmark">
+            <span class="footer__wordmark-primary">PRUDENTIA</span>
+            <span class="footer__wordmark-rule" aria-hidden="true"></span>
+            <span class="footer__wordmark-secondary">DIGITAL</span>
+          </span>
+        </a>
+        <p class="footer__tagline">Enterprise-grade technology. Local expertise, global reach.</p>
+      </div>
+      <nav class="footer__nav" aria-label="Footer navigation">
+        <ul role="list">
+          <li><a href="../index.html#services">Services</a></li>
+          <li><a href="../index.html#why-us">Why Us</a></li>
+          <li><a href="../index.html#about">About</a></li>
+          <li><a href="mailto:masekolt@prudentiadigital.co.za">Contact</a></li>
+          <li><a href="../privacy.html">Privacy Policy</a></li>
+          <li><a href="../terms.html">Terms of Service</a></li>
+        </ul>
+      </nav>
+      <div class="footer__meta">
+        <p class="footer__badge" aria-label="B-BBEE Level 1 certified">
+          <span class="footer__badge-dot" aria-hidden="true"></span>
+          Level 1 B-BBEE · 100% Black-owned
+        </p>
+        <p class="footer__registration">Enterprise No. 2025/910056/07 · CIPC Registered · CSD Registered</p>
+        <p class="footer__copy">
+          &copy; 2026 Prudentia Digital (Pty) Ltd &middot;
+          <a href="mailto:masekolt@prudentiadigital.co.za">masekolt@prudentiadigital.co.za</a>
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    (() => {
+      'use strict';
+      if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.documentElement.classList.add('dark');
+      }
+      const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const animatedEls = document.querySelectorAll('.fade-in, .gold-line');
+      if (reduced) {
+        animatedEls.forEach(el => el.classList.add('visible'));
+      } else {
+        animatedEls.forEach(el => {
+          const delay = parseInt(el.style.getPropertyValue('--fade-delay')) || 0;
+          setTimeout(() => el.classList.add('visible'), delay + 80);
+        });
+      }
+    })();
+  </script>
+  <script src="../js/nav.js"></script>
+
+</body>
+</html>

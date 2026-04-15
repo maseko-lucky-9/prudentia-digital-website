@@ -107,4 +107,4 @@ Enterprise No. 2025/910056/07 · CIPC registered · CSD registered
 100% Black-owned · Level 1 B-BBEE EME (135% procurement recognition)  
 POPIA · PFMA · PPPFA compliant  
 
-Contact: thulani@prudentiadigital.co.za
+Contact: masekolt@prudentiadigital.co.za

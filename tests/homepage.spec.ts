@@ -35,14 +35,14 @@ test.describe('Homepage — static content', () => {
     await expect(page.locator('.services__grid .card')).toHaveCount(6);
   });
 
-  test('each service card has a title and price', async ({ page }) => {
+  test('each service card has a title and tagline', async ({ page }) => {
     const cards = page.locator('.services__grid .card');
     const count = await cards.count();
 
     for (let i = 0; i < count; i++) {
       const card = cards.nth(i);
       await expect(card.locator('.card__title')).not.toBeEmpty();
-      await expect(card.locator('.card__price')).not.toBeEmpty();
+      await expect(card.locator('.card__tagline')).not.toBeEmpty();
     }
   });
 

@@ -4,19 +4,19 @@ This phase adds the features that convert visitors into leads. A working contact
 
 ## Tasks
 
-- [ ] Build a contact form in the CTA section of `index.html`:
+- [x] Build a contact form in the CTA section of `index.html`:
   - Replace the current CTA section content (the mailto link and "Send an Email" button) with a contact form while keeping the section heading ("Ready to build something great?") and subtext
   - Form fields: Name (text, required), Email (email, required), Company (text, optional), Message (textarea, required)
   - Use native HTML5 validation (`required`, `type="email"`)
   - Style the form using existing design tokens — the input tokens are already defined in `design-tokens.css` (`--input-bg`, `--input-border`, `--input-focus-ring`, `--input-radius`, `--input-height-default`, etc.)
   - Submit button: use the existing `.btn .btn--accent .btn--lg` classes
   - Form action: use Cloudflare Pages Forms by setting `action="/contact-submit"` and `method="POST"`. Add a hidden field `<input type="hidden" name="_subject" value="New inquiry from prudentiadigital.co.za">`. Add a honeypot field for spam prevention: `<input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">`
-  - Keep the email address visible below the form as a fallback: "Prefer email? Reach us at thulani@prudentiadigital.co.za"
+  - Keep the email address visible below the form as a fallback: "Prefer email? Reach us at masekolt@prudentiadigital.co.za"
   - The form should be centred within the CTA section, max-width 560px
   - Ensure all form elements have associated `<label>` elements (not just placeholder text) for accessibility
   - The form must work in dark mode (verify input backgrounds use token variables)
 
-- [ ] Add contact form styles to `css/styles.css`:
+- [x] Add contact form styles to `css/styles.css`:
   - Create a `.cta__form` container: `max-width: 560px; width: 100%; margin-top: var(--space-8);`
   - `.cta__field` for each label+input group: `display: flex; flex-direction: column; gap: var(--space-2); text-align: left;`
   - `.cta__label` styling: `font-size: var(--text-sm); font-weight: var(--font-medium); color: rgba(255,255,255,0.75); letter-spacing: var(--tracking-wide);`
@@ -26,7 +26,7 @@ This phase adds the features that convert visitors into leads. A working contact
   - `.cta__fallback` for the email fallback text: `font-size: var(--text-sm); color: rgba(255,255,255,0.5); margin-top: var(--space-4);`
   - Ensure all styles use design token variables where possible
 
-- [ ] Create a Cloudflare Pages Function for contact form handling:
+- [x] Create a Cloudflare Pages Function for contact form handling:
   - Create directory `functions/` in the project root
   - Create `functions/contact-submit.js` — a Cloudflare Pages Function that:
     - Handles POST requests
@@ -38,14 +38,14 @@ This phase adds the features that convert visitors into leads. A working contact
   - Create `functions/_middleware.js` if needed for CORS headers (may not be needed for same-origin form submissions)
   - Note: Cloudflare Pages Functions use the `onRequest` export pattern: `export async function onRequestPost(context) { ... }`
 
-- [ ] Add a form success/error state handler in the inline `<script>` of `index.html`:
+- [x] Add a form success/error state handler in the inline `<script>` of `index.html`:
   - Intercept the form submission with `addEventListener('submit', ...)` and use `fetch()` to submit via AJAX instead of a full page reload
   - On success: hide the form fields, show a "Thank you! We'll be in touch within 24 hours." message styled with gold accent text
   - On error: show an inline error message below the submit button in red (`--color-destructive`)
   - On network failure: fall back gracefully — show a message suggesting the user email directly
   - Add a simple loading state: disable the submit button and change its text to "Sending..." during submission
 
-- [ ] Add a testimonials/social proof section between the "Why Us" and "About" sections in `index.html`:
+- [x] Add a testimonials/social proof section between the "Why Us" and "About" sections in `index.html`:
   - New `<section class="testimonials" id="testimonials" aria-labelledby="testimonials-heading">`
   - Section header: eyebrow "What Clients Say", heading "Trusted by Decision-Makers", gold line separator
   - Include 3 testimonial cards in a responsive grid (1 col mobile, 3 col desktop):
@@ -60,7 +60,7 @@ This phase adds the features that convert visitors into leads. A working contact
   - Add `.testimonials` and `.testimonial__*` styles to `css/styles.css`
   - Apply the existing `.reveal` animation class to cards for scroll-triggered entrance
 
-- [ ] Add CSD/CIPC registration numbers to the footer in `index.html`:
+- [x] Add CSD/CIPC registration numbers to the footer in `index.html`:
   - In the `.footer__meta` div, after the B-BBEE badge paragraph, add:
     ```
     <p class="footer__registration">Enterprise No. 2025/910056/07 · CIPC Registered · CSD Registered</p>
@@ -68,7 +68,7 @@ This phase adds the features that convert visitors into leads. A working contact
   - Style `.footer__registration` in `css/styles.css`: `font-size: var(--text-caption); color: rgba(255,255,255,0.35); line-height: var(--leading-relaxed);`
   - This data is already in the README but not visible on the public site — government and enterprise clients check for these numbers
 
-- [ ] Add deliverable context to service pricing in `index.html`:
+- [x] Add deliverable context to service pricing in `index.html`:
   - Below each `<p class="card__price">` in the service cards, add a `<p class="card__scope">` with brief deliverable context:
     - Web Application Development: "Includes: discovery, UI/UX, development, testing, deployment"
     - Cloud Infrastructure & DevOps: "Includes: architecture, IaC setup, CI/CD, monitoring"
@@ -79,7 +79,7 @@ This phase adds the features that convert visitors into leads. A working contact
   - Style `.card__scope` in `css/styles.css`: `font-size: var(--text-caption); color: var(--color-muted-foreground); margin-top: var(--space-2); line-height: var(--leading-relaxed);`
   - For the accent card (Government & Enterprise Tenders), ensure `.card--accent .card__scope` uses `rgba(255,255,255,0.55)` for readable text on the dark background
 
-- [ ] Verify Phase 03 changes:
+- [x] Verify Phase 03 changes:
   - Read `index.html` and confirm: contact form is in the CTA section with all fields and labels, testimonials section exists between Why Us and About, registration numbers in footer, scope text under each service card price
   - Read `css/styles.css` and confirm: form styles, testimonial styles, registration and scope styles all present
   - Verify `functions/contact-submit.js` exists and exports `onRequestPost`
