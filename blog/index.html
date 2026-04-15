@@ -258,9 +258,6 @@
   <script>
     (() => {
       'use strict';
-      if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        document.documentElement.classList.add('dark');
-      }
       const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       const animatedEls = document.querySelectorAll('.fade-in, .gold-line');
       if (reduced) {
