@@ -287,6 +287,26 @@
   --bg-anim-duration-medium: 60s;
   --bg-anim-opacity-max:     0.06;
   --bg-anim-diamond-size:    24px;
+
+  /* — Animated Background v2 (firecrawl-style FX) — */
+  --bg-grid-size:           28px;
+  --bg-grid-dot:            1.2px;
+  --bg-grid-color:          rgba(201, 169, 110, 0.10);  /* gold-500 @ 10% */
+  --bg-grid-color-strong:   rgba(201, 169, 110, 0.16);
+  --bg-grid-color-on-dark:  rgba(245, 237, 216, 0.10);
+  --bg-grid-drift-duration: 28s;
+
+  --bg-orb-size:            520px;
+  --bg-orb-blur:            90px;
+  --bg-orb-color-gold:      rgba(201, 169, 110, 0.20);
+  --bg-orb-color-navy:      rgba(42, 63, 90, 0.22);
+  --bg-orb-color-warm:      rgba(245, 237, 216, 0.30);
+
+  --bg-spotlight-color:     rgba(201, 169, 110, 0.18);
+  --bg-spotlight-radius:    320px;
+
+  --card-pulse-color:       rgba(201, 169, 110, 0.55);
+  --card-pulse-duration:    8s;
 }
 
 

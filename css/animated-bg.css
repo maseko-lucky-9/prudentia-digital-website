@@ -17,12 +17,16 @@
 
 .proof,
 .services,
+.portfolio,
 .why,
+.testimonials,
 .about,
+.team,
 .cta,
 .footer {
   position: relative;
   overflow: hidden;
+  isolation: isolate;
 }
 
 
@@ -39,8 +43,11 @@
 /* Content containers sit above backgrounds */
 .proof > .container,
 .services > .container,
+.portfolio > .container,
 .why > .container,
+.testimonials > .container,
 .about > .container,
+.team > .container,
 .cta > .container,
 .footer > .container {
   position: relative;
@@ -287,4 +294,271 @@
   .bg-layer--about::before   { animation: none !important; transform: translate(-50%, -50%) rotate(0deg); }
   .bg-layer--cta             { animation: none !important; background-position: 0% 50%; }
   .bg-layer--footer::before  { animation: none !important; opacity: 0.12; }
+}
+
+
+/* ═══════════════════════════════════════
+   FX LAYER v2 — firecrawl-style
+   Dotted grid + drifting orbs + spotlight + card pulse.
+   Sits on top of bg-layer, beneath content (.container).
+   ═══════════════════════════════════════ */
+
+/* Wrapper — fills section, behind content. */
+.bg-fx {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* ── Dotted grid ──────────────────────────────────────── */
+.bg-fx__grid {
+  position: absolute;
+  inset: -8% 0;
+  background-image: radial-gradient(
+    circle,
+    var(--bg-grid-color) var(--bg-grid-dot),
+    transparent calc(var(--bg-grid-dot) + 0.6px)
+  );
+  background-size: var(--bg-grid-size) var(--bg-grid-size);
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    #000 12%,
+    #000 88%,
+    transparent 100%
+  );
+          mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    #000 12%,
+    #000 88%,
+    transparent 100%
+  );
+  animation: bg-grid-drift var(--bg-grid-drift-duration) linear infinite;
+  will-change: background-position;
+}
+
+.bg-fx__grid--strong {
+  background-image: radial-gradient(
+    circle,
+    var(--bg-grid-color-strong) var(--bg-grid-dot),
+    transparent calc(var(--bg-grid-dot) + 0.6px)
+  );
+}
+
+/* On dark sections (cta) use warm-white dots */
+.cta .bg-fx__grid {
+  background-image: radial-gradient(
+    circle,
+    var(--bg-grid-color-on-dark) var(--bg-grid-dot),
+    transparent calc(var(--bg-grid-dot) + 0.6px)
+  );
+}
+
+@keyframes bg-grid-drift {
+  0%   { background-position: 0 0; }
+  100% { background-position: var(--bg-grid-size) var(--bg-grid-size); }
+}
+
+/* ── Drifting orbs ────────────────────────────────────── */
+.bg-fx__orb {
+  position: absolute;
+  width: var(--bg-orb-size);
+  height: var(--bg-orb-size);
+  border-radius: 50%;
+  filter: blur(var(--bg-orb-blur));
+  will-change: transform;
+  pointer-events: none;
+  opacity: 0.9;
+}
+
+.bg-fx__orb--gold {
+  background: radial-gradient(circle, var(--bg-orb-color-gold) 0%, transparent 70%);
+}
+
+.bg-fx__orb--navy {
+  background: radial-gradient(circle, var(--bg-orb-color-navy) 0%, transparent 70%);
+}
+
+.bg-fx__orb--warm {
+  background: radial-gradient(circle, var(--bg-orb-color-warm) 0%, transparent 70%);
+}
+
+/* Position presets */
+.bg-fx__orb--tl { top: -20%; left: -10%; }
+.bg-fx__orb--tr { top: -15%; right: -10%; }
+.bg-fx__orb--bl { bottom: -20%; left: -10%; }
+.bg-fx__orb--br { bottom: -15%; right: -10%; }
+.bg-fx__orb--c  { top: 50%; left: 50%; transform: translate(-50%, -50%); }
+
+/* Drift animations */
+.bg-fx__orb--drift-a { animation: orb-drift-a 42s ease-in-out infinite; }
+.bg-fx__orb--drift-b { animation: orb-drift-b 56s ease-in-out infinite; }
+.bg-fx__orb--drift-c { animation: orb-drift-c 70s ease-in-out infinite; }
+
+@keyframes orb-drift-a {
+  0%, 100% { transform: translate(0, 0); }
+  25%      { transform: translate(8%, -6%); }
+  50%      { transform: translate(-4%, 4%); }
+  75%      { transform: translate(-8%, -3%); }
+}
+
+@keyframes orb-drift-b {
+  0%, 100% { transform: translate(0, 0); }
+  33%      { transform: translate(-7%, 5%); }
+  66%      { transform: translate(6%, -4%); }
+}
+
+@keyframes orb-drift-c {
+  0%, 100% { transform: translate(-50%, -50%); }
+  50%      { transform: translate(-46%, -54%); }
+}
+
+/* ── Mouse spotlight ──────────────────────────────────── */
+[data-spotlight] {
+  --mx: 50%;
+  --my: 50%;
+}
+
+.bg-fx__spotlight {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle var(--bg-spotlight-radius) at var(--mx) var(--my),
+    var(--bg-spotlight-color),
+    transparent 70%
+  );
+  opacity: 0;
+  transition: opacity 240ms ease;
+  mix-blend-mode: screen;
+  pointer-events: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  [data-spotlight][data-spotlight-active="true"] .bg-fx__spotlight {
+    opacity: 1;
+  }
+}
+
+/* ── Card border-pulse ───────────────────────────────── */
+@property --card-pulse-angle {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 0deg;
+}
+
+.card-pulse {
+  position: relative;
+}
+
+.card-pulse::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: conic-gradient(
+    from var(--card-pulse-angle, 0deg),
+    transparent 0deg,
+    var(--card-pulse-color) 60deg,
+    transparent 120deg,
+    transparent 360deg
+  );
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+          mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+          mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 300ms ease;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.card-pulse:hover::before,
+.card-pulse.in-view::before {
+  opacity: 1;
+  animation: card-pulse-rotate var(--card-pulse-duration) linear infinite;
+}
+
+@keyframes card-pulse-rotate {
+  to { --card-pulse-angle: 360deg; }
+}
+
+/* Fallback for browsers without @property — animate via background-position
+   on a tiled gradient. Kicks in only when @property is not honoured. */
+@supports not (background: paint(something)) {
+  .card-pulse::before {
+    background:
+      conic-gradient(
+        from 0deg,
+        transparent 0deg,
+        var(--card-pulse-color) 60deg,
+        transparent 120deg,
+        transparent 360deg
+      );
+  }
+  .card-pulse:hover::before,
+  .card-pulse.in-view::before {
+    animation: card-pulse-spin var(--card-pulse-duration) linear infinite;
+  }
+  @keyframes card-pulse-spin {
+    to { transform: rotate(360deg); }
+  }
+}
+
+
+/* ═══════════════════════════════════════
+   FX LAYER — MOBILE TUNING
+   ═══════════════════════════════════════ */
+
+@media (max-width: 767px) {
+  .bg-fx__grid {
+    background-size: 36px 36px;
+  }
+  /* Hide orbs on mobile (heavy blur cost) */
+  .bg-fx__orb { display: none; }
+  /* No spotlight on touch */
+  .bg-fx__spotlight { display: none; }
+  /* Card pulse: keep, but slower so it's gentler on mobile */
+  .card-pulse:hover::before,
+  .card-pulse.in-view::before {
+    animation-duration: 12s;
+  }
+}
+
+
+/* ═══════════════════════════════════════
+   FX LAYER — REDUCED MOTION
+   ═══════════════════════════════════════ */
+
+@media (prefers-reduced-motion: reduce) {
+  .bg-fx,
+  .bg-fx__grid,
+  .bg-fx__orb,
+  .bg-fx__spotlight,
+  .card-pulse::before {
+    animation: none !important;
+    will-change: auto !important;
+  }
+  .bg-fx__spotlight { display: none; }
+  .card-pulse::before { opacity: 0 !important; }
+}
+
+
+/* ═══════════════════════════════════════
+   FX LAYER — PAUSE WHEN OFF-SCREEN
+   IntersectionObserver toggles `bg-paused`
+   on the parent section's bg-fx wrapper.
+   ═══════════════════════════════════════ */
+
+.bg-fx.bg-paused,
+.bg-fx.bg-paused .bg-fx__grid,
+.bg-fx.bg-paused .bg-fx__orb {
+  animation-play-state: paused !important;
 }

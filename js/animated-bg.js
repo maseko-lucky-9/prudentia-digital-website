@@ -223,8 +223,8 @@
     }
   }
 
-  /* ── IntersectionObserver — pause/resume all bg-layers ── */
-  const bgLayers = document.querySelectorAll('.bg-layer');
+  /* ── IntersectionObserver — pause/resume all bg-layers + bg-fx ── */
+  const bgLayers = document.querySelectorAll('.bg-layer, .bg-fx');
 
   const bgObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
@@ -246,6 +246,67 @@
   }, { threshold: 0 });
 
   bgLayers.forEach(layer => bgObserver.observe(layer));
+
+  /* ── Spotlight — mouse-aware glow on [data-spotlight] sections ── */
+  function initSpotlight() {
+    const fineHover = window.matchMedia('(hover: hover) and (pointer: fine)');
+    if (!fineHover.matches) return;
+
+    const sections = document.querySelectorAll('[data-spotlight]');
+    if (sections.length === 0) return;
+
+    sections.forEach(section => {
+      let rafId = null;
+      let pendingX = 0;
+      let pendingY = 0;
+
+      const apply = () => {
+        rafId = null;
+        section.style.setProperty('--mx', pendingX + '%');
+        section.style.setProperty('--my', pendingY + '%');
+      };
+
+      section.addEventListener('pointerenter', () => {
+        section.dataset.spotlightActive = 'true';
+      });
+
+      section.addEventListener('pointermove', (e) => {
+        const rect = section.getBoundingClientRect();
+        if (rect.width === 0 || rect.height === 0) return;
+        pendingX = ((e.clientX - rect.left) / rect.width) * 100;
+        pendingY = ((e.clientY - rect.top) / rect.height) * 100;
+        if (rafId === null) {
+          rafId = requestAnimationFrame(apply);
+        }
+      });
+
+      section.addEventListener('pointerleave', () => {
+        section.dataset.spotlightActive = 'false';
+        if (rafId !== null) {
+          cancelAnimationFrame(rafId);
+          rafId = null;
+        }
+      });
+    });
+  }
+
+  initSpotlight();
+
+  /* ── Card pulse — mark cards in-view via existing reveal observer
+       Cards already get `.in-view` class; CSS picks it up.
+       This block also exposes a fallback observer in case some cards
+       use `.reveal` (without becoming `.in-view`). */
+  const pulseCards = document.querySelectorAll('.card-pulse');
+  if (pulseCards.length > 0 && 'IntersectionObserver' in window) {
+    const cardIo = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+        }
+      });
+    }, { threshold: 0.2 });
+    pulseCards.forEach(c => cardIo.observe(c));
+  }
 
   /* ── Resize handling ────────────────────────────── */
   let resizeTimer = null;

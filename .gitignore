@@ -25,6 +25,12 @@ node_modules/
 dist/
 build/
 
+# ── Test artifacts (generated, not deployed) ─────────────
+playwright-report/
+test-results/*
+!test-results/.last-run.json
+.playwright-mcp/
+
 # ── Environment ──────────────────────────────────────────
 .env
 .env.*
