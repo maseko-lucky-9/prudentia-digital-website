@@ -46,6 +46,20 @@ test.describe('Homepage — static content', () => {
     }
   });
 
+  test('6th services card is AI Agent Engineering and links to /ai/', async ({ page }) => {
+    const aiCard = page.locator('.services__grid .card--accent');
+    await expect(aiCard).toHaveCount(1);
+    await expect(aiCard.locator('.card__title')).toHaveText('AI Agent Engineering');
+    await expect(aiCard.locator('.card__tagline')).toContainText('AI that finishes the job');
+
+    const aiCardLink = page.locator('a.card-link[href="/ai/"]');
+    await expect(aiCardLink).toHaveCount(1);
+  });
+
+  test('legacy "Government & Enterprise Tenders" card has been removed', async ({ page }) => {
+    await expect(page.locator('.services__grid')).not.toContainText('Government & Enterprise Tenders');
+  });
+
   test('footer copyright contains brand name', async ({ page }) => {
     await expect(page.locator('.footer__copy')).toContainText('Prudentia Digital');
   });

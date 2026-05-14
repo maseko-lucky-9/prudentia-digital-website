@@ -14,11 +14,17 @@
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Prudentia Digital">
   <meta property="og:locale" content="en_ZA">
-  <meta property="og:image" content="https://prudentiadigital.co.za/assets/logo-icon-white-512.png">
-  <meta name="twitter:card" content="summary">
+  <meta property="og:image" content="https://prudentiadigital.co.za/assets/og-image-1200x630.png">
+  <meta property="og:image:secure_url" content="https://prudentiadigital.co.za/assets/og-image-1200x630.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Prudentia Digital — Enterprise technology. Local expertise, global reach.">
+  <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Prudentia Digital — Enterprise Technology. Local Expertise, Global Reach.">
   <meta name="twitter:description" content="Prudentia Digital — Enterprise-grade technology consulting for SMEs, startups, and government. Deep South African expertise, ready for clients anywhere. Web development, cloud, and data.">
-  <meta name="twitter:image" content="https://prudentiadigital.co.za/assets/logo-icon-white-512.png">
+  <meta name="twitter:image" content="https://prudentiadigital.co.za/assets/og-image-1200x630.png">
+  <meta name="twitter:image:alt" content="Prudentia Digital — Enterprise technology. Local expertise, global reach.">
 
   <!-- Preload critical fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -102,8 +108,9 @@
         "@type": "Offer",
         "itemOffered": {
           "@type": "Service",
-          "name": "Government & Enterprise Tenders",
-          "description": "100% Black-owned · Level 1 B-BBEE EME. POPIA, PFMA, PPPFA compliance. Maximum procurement recognition."
+          "name": "AI Agent Engineering",
+          "description": "Production AI systems for specific business outcomes — agents that finish multi-step workflows, retrieval grounded in your private data, and integrations built into the tools your team already uses.",
+          "url": "https://prudentiadigital.co.za/ai/"
         }
       }
     ]
@@ -313,17 +320,19 @@
             <p class="card__scope">Includes: API design, development, documentation, testing</p>
           </article>
 
-          <article class="card card--accent card-pulse reveal" style="--reveal-delay: 400ms" aria-label="Government and Enterprise Tenders">
-            <div class="card__icon-wrap">
-              <svg class="card__icon gold-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
-                <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
-              </svg>
-            </div>
-            <h3 class="card__title">Government & Enterprise Tenders</h3>
-            <p class="card__body">100% Black-owned · Level 1 B-BBEE EME. POPIA, PFMA, PPPFA compliance. Maximum procurement recognition.</p>
-            <p class="card__tagline">Win more. Deliver better.</p>
-            <p class="card__scope">Includes: compliance documentation, technical proposal, delivery</p>
-          </article>
+          <a href="/ai/" class="card-link" aria-label="AI Agent Engineering — view details">
+            <article class="card card--accent card-pulse reveal" style="--reveal-delay: 400ms">
+              <div class="card__icon-wrap">
+                <svg class="card__icon gold-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                  <circle cx="6" cy="6" r="2"/><circle cx="18" cy="6" r="2"/><circle cx="12" cy="18" r="2"/><line x1="6" y1="6" x2="18" y2="6"/><line x1="6" y1="6" x2="12" y2="18"/><line x1="18" y1="6" x2="12" y2="18"/>
+                </svg>
+              </div>
+              <h3 class="card__title">AI Agent Engineering</h3>
+              <p class="card__body">Production AI systems for specific business outcomes — agents that finish multi-step workflows, retrieval grounded in your private data, and integrations built into the tools your team already uses.</p>
+              <p class="card__tagline">AI that finishes the job.</p>
+              <p class="card__scope">Includes: agents, RAG, evals, vector search, MCP</p>
+            </article>
+          </a>
 
         </div>
       </div>
@@ -345,30 +354,7 @@
           <div class="gold-line fade-in" aria-hidden="true" style="--fade-delay: 160ms"></div>
         </div>
 
-        <div class="portfolio__grid">
-
-          <article class="portfolio__card card-pulse reveal" style="--reveal-delay: 0ms" data-placeholder="true">
-            <span class="portfolio__badge">Web Application</span>
-            <h3 class="portfolio__title">Enterprise Procurement Portal</h3>
-            <p class="portfolio__body">Government tender management platform with role-based access control, B-BBEE scoring automation, and document workflow engine. Reduced processing time by 60% for a Gauteng-based department.</p>
-            <span class="portfolio__link" aria-hidden="true">Case study coming soon</span>
-          </article>
-
-          <article class="portfolio__card card-pulse reveal" style="--reveal-delay: 80ms" data-placeholder="true">
-            <span class="portfolio__badge">Cloud &amp; DevOps</span>
-            <h3 class="portfolio__title">Cloud Migration &amp; CI/CD Pipeline</h3>
-            <p class="portfolio__body">Kubernetes migration for a fintech SaaS platform. Terraform IaC, zero-downtime blue-green deployment, and Prometheus/Grafana observability stack. 99.95% uptime from launch.</p>
-            <span class="portfolio__link" aria-hidden="true">Case study coming soon</span>
-          </article>
-
-          <article class="portfolio__card card-pulse reveal" style="--reveal-delay: 160ms" data-placeholder="true">
-            <span class="portfolio__badge">Data Analytics</span>
-            <h3 class="portfolio__title">Executive Analytics Dashboard</h3>
-            <p class="portfolio__body">Multi-source data aggregation dashboard with ML-powered transaction categorisation and automated PDF reporting. Reduced monthly reporting effort from 3 days to 2 hours.</p>
-            <span class="portfolio__link" aria-hidden="true">Case study coming soon</span>
-          </article>
-
-        </div>
+        <p class="section-note reveal" style="--reveal-delay: 0ms">Case studies will be published as engagements complete and client confidentiality permits. In the meantime, request our capability statement at <a href="mailto:masekolt@prudentiadigital.co.za">masekolt@prudentiadigital.co.za</a>.</p>
       </div>
     </section>
 
@@ -449,36 +435,7 @@
           <div class="gold-line fade-in" aria-hidden="true" style="--fade-delay: 160ms"></div>
         </div>
 
-        <div class="testimonials__grid">
-
-          <blockquote class="testimonial card-pulse reveal" style="--reveal-delay: 0ms" data-placeholder="true">
-            <span class="testimonial__quote-mark" aria-hidden="true">"</span>
-            <p class="testimonial__body">Prudentia Digital navigated our B-BBEE compliance requirements with precision. Their delivery quality exceeded what we've come to expect from much larger consultancies — on time, on scope, no hand-offs.</p>
-            <div class="testimonial__footer">
-              <strong class="testimonial__name">Senior Procurement Officer</strong>
-              <span class="testimonial__meta">Government Department, Gauteng</span>
-            </div>
-          </blockquote>
-
-          <blockquote class="testimonial card-pulse reveal" style="--reveal-delay: 80ms" data-placeholder="true">
-            <span class="testimonial__quote-mark" aria-hidden="true">"</span>
-            <p class="testimonial__body">We needed senior engineers, not account managers. Prudentia gave us direct access to the architects from day one. The speed from brief to production was genuinely impressive for a fintech integration of this complexity.</p>
-            <div class="testimonial__footer">
-              <strong class="testimonial__name">CTO</strong>
-              <span class="testimonial__meta">Fintech Startup, Cape Town</span>
-            </div>
-          </blockquote>
-
-          <blockquote class="testimonial card-pulse reveal" style="--reveal-delay: 160ms" data-placeholder="true">
-            <span class="testimonial__quote-mark" aria-hidden="true">"</span>
-            <p class="testimonial__body">Enterprise-grade architecture at a price that made sense for our scale. The cloud migration was seamless — zero downtime, full observability from day one. I'd recommend Prudentia to any IT director who needs real delivery, not just promises.</p>
-            <div class="testimonial__footer">
-              <strong class="testimonial__name">IT Director</strong>
-              <span class="testimonial__meta">Enterprise Client, Johannesburg</span>
-            </div>
-          </blockquote>
-
-        </div>
+        <p class="section-note reveal" style="--reveal-delay: 0ms">Testimonials will be added once we have written permission from current clients to publish them. We take client confidentiality seriously, particularly across public-sector and financial-services engagements.</p>
       </div>
     </section>
 
@@ -539,14 +496,20 @@
         </div>
 
         <div class="team__card card-pulse reveal">
-          <div class="team__avatar" aria-hidden="true">
-            <!-- Replace with: <img src="assets/team/thulani.webp" alt="Thulani Maseko" width="120" height="120"> -->
-            <span class="team__avatar-initials">TM</span>
+          <div class="team__avatar">
+            <picture>
+              <source type="image/webp"
+                      srcset="assets/team/thulani-240.webp 1x, assets/team/thulani-480.webp 2x">
+              <img src="assets/team/thulani-240.png"
+                   srcset="assets/team/thulani-240.png 1x, assets/team/thulani-480.png 2x"
+                   alt="Thulani Maseko, Founder of Prudentia Digital"
+                   width="120" height="120" loading="lazy" decoding="async">
+            </picture>
           </div>
           <div class="team__bio">
             <h3 class="team__name">Thulani Maseko</h3>
             <p class="team__title">Founder &amp; Principal Consultant</p>
-            <p class="team__body" data-placeholder="true">Enterprise engineering background shaped at Capitec, Absa, and E4 Strategic. Full-stack practitioner specialising in cloud infrastructure, data engineering, and web application delivery. Prudentia Digital was founded on a clear conviction: South African businesses deserve the same calibre of technology that large enterprises pay Accenture for — at rates that make sense.</p>
+            <p class="team__body">Enterprise engineering background shaped at Capitec, Absa, and E4 Strategic. Full-stack practitioner specialising in cloud infrastructure, data engineering, and web application delivery. Prudentia Digital was founded on a clear conviction: South African businesses deserve the same calibre of technology that large enterprises pay Accenture for — at rates that make sense.</p>
           </div>
         </div>
 
@@ -663,6 +626,8 @@
 
   <!-- Animated backgrounds (canvas + observers) -->
   <script src="js/animated-bg.js?v=1.1" defer></script>
+  <!-- Contact-form prefill from ?topic= query param (AI page CTAs) -->
+  <script src="js/contact-prefill.js?v=1.1" defer></script>
 
   <!-- ═══════════════════════════════════
        JAVASCRIPT — minimal, no library
