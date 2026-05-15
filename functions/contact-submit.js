@@ -52,8 +52,23 @@ export async function onRequestPost(context) {
 
   const company = (formData.get('company') || '').trim();
 
+  // Optional attribution tag set by /ai/ page CTAs (see js/contact-prefill.js).
+  // Allow-list keeps logs clean and blocks arbitrary input.
+  const ALLOWED_TOPICS = new Set([
+    'ai-general',
+    'ai-agent-loop',
+    'ai-rag',
+    'ai-evals',
+    'ai-vector',
+    'ai-mcp',
+  ]);
+  const rawTopic = (formData.get('topic') || '').trim();
+  const topic = ALLOWED_TOPICS.has(rawTopic) ? rawTopic : null;
+
+  const subject = (formData.get('_subject') || '').trim();
+
   // Log submission (replace with email API call in production)
-  console.log('Contact form submission:', { name, email, company, message });
+  console.log('Contact form submission:', { name, email, company, message, topic, subject });
 
   return new Response(JSON.stringify({ ok: true }), {
     status: 200,

@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Prudentia Digital — AI Agent Engineering. Production AI for South African businesses. Agents, retrieval-augmented generation (RAG), evals, vector search, and MCP servers. Book a strategy session.">
+  <title>AI Agent Engineering — Prudentia Digital · Production AI Consulting · South Africa</title>
+
+  <!-- Social & SEO meta -->
+  <link rel="canonical" href="https://prudentiadigital.co.za/ai/">
+  <meta property="og:title" content="AI Agent Engineering — Prudentia Digital">
+  <meta property="og:description" content="Production AI systems for specific business outcomes — agents, RAG, evals, vector search, and MCP servers. Built on your data, in your stack. Book a strategy session.">
+  <meta property="og:url" content="https://prudentiadigital.co.za/ai/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Prudentia Digital">
+  <meta property="og:locale" content="en_ZA">
+  <meta property="og:image" content="https://prudentiadigital.co.za/assets/og-image-1200x630.png">
+  <meta property="og:image:secure_url" content="https://prudentiadigital.co.za/assets/og-image-1200x630.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Prudentia Digital — AI Agent Engineering. Production AI for South African businesses.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="AI Agent Engineering — Prudentia Digital">
+  <meta name="twitter:description" content="Production AI for South African businesses. Agents, RAG, evals, vector search, MCP. Book a strategy session.">
+  <meta name="twitter:image" content="https://prudentiadigital.co.za/assets/og-image-1200x630.png">
+
+  <!-- Preload critical fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Asset version: bump ?v= on deploy to bust cache -->
+  <link rel="preload" href="../css/design-tokens.css?v=1.1" as="style">
+  <link rel="preload" href="../css/styles.css?v=1.1" as="style">
+
+  <link rel="stylesheet" href="../css/design-tokens.css?v=1.1">
+  <link rel="stylesheet" href="../css/styles.css?v=1.1">
+  <link rel="stylesheet" href="../css/animated-bg.css?v=1.1">
+
+  <!-- Favicon & PWA -->
+  <link rel="icon" type="image/svg+xml" href="../assets/logo-icon.svg">
+  <link rel="manifest" href="../manifest.json">
+  <meta name="theme-color" content="#0D1B2A">
+
+  <!-- JSON-LD structured data — Service page -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "AI Agent Engineering",
+    "provider": {
+      "@type": "Organization",
+      "name": "Prudentia Digital",
+      "url": "https://prudentiadigital.co.za"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "South Africa"
+    },
+    "description": "Production AI systems for specific business outcomes — agents that finish multi-step workflows, retrieval-augmented generation grounded in private data, eval harnesses for model quality, semantic search via vector databases, and Model Context Protocol (MCP) servers for tool integration.",
+    "serviceType": "AI Engineering Consulting",
+    "url": "https://prudentiadigital.co.za/ai/",
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "AI Engagement Tiers",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "AI Audit",
+            "description": "1-day workshop reviewing workflows, data assets, and current AI usage. Output: prioritised opportunity list and recommended next step."
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Capability Pilot",
+            "description": "4–6 week production-shaped build of one AI capability on your data."
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "AI Engagement Retainer",
+            "description": "Monthly retainer for ongoing AI capability builds, evals, model upgrades, and on-call engineering support."
+          }
+        }
+      ]
+    }
+  }
+  </script>
+
+  <!-- JSON-LD — FAQPage -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How long does an AI engagement take?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "An AI Audit is one working day. A Capability Pilot runs 4–6 weeks. Retainers are monthly with no fixed end date."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Do you sign NDAs?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. We send a counter-signed NDA within 24 hours of a strategy session, before any of your confidential data is shared."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Where does our data live during a pilot? Is it POPIA-compliant?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Your data stays in environments you control or in isolated workspaces we host in your region. Default retention is seven days unless you extend it under a signed pilot scope. Full handling rules are in our demo-data policy."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What does pricing look like?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Three tiers: AI Audit, Capability Pilot, and AI Engagement Retainer. Indicative ranges are shared in the strategy session after we understand your scope. We price on outcome, not hourly."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can we self-host?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. We build self-hostable systems by default — PostgreSQL with pgvector, locally-runnable LLMs, and on-premise document pipelines are all supported. Cloud-hosted is available where it makes sense."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What if the model vendor changes pricing or shuts down?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "We architect for portability. Model choice is abstracted behind an interface so you can swap providers (Anthropic, OpenAI, local) without rewriting application code. Our eval harness verifies behaviour stays correct after a swap."
+        }
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+
+  <a href="#main" class="skip-link">Skip to main content</a>
+
+  <!-- ═══════════════════════════════════
+       NAVIGATION
+       ═══════════════════════════════════ -->
+  <nav class="nav nav--ai scrolled" id="nav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner container">
+      <a href="/" class="nav__logo" aria-label="Prudentia Digital — home">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 66 84" fill="none" class="nav__logo-icon" aria-hidden="true">
+          <path d="M8 6 H44 L52 14 V42 H18 V78 H8 Z M18 14 H44 V34 H18 Z" fill="currentColor" fill-rule="evenodd"/>
+          <path d="M54 4 L60 10 L54 16 L48 10 Z" fill="var(--color-accent)"/>
+        </svg>
+        <span class="nav__wordmark" aria-hidden="true">
+          <span class="nav__wordmark-primary">PRUDENTIA</span>
+          <span class="nav__wordmark-rule" aria-hidden="true"></span>
+          <span class="nav__wordmark-secondary">DIGITAL</span>
+        </span>
+      </a>
+
+      <ul class="nav__links" role="list">
+        <li><a href="/#services" class="nav__link">Services</a></li>
+        <li><a href="/#why-us" class="nav__link">Why Us</a></li>
+        <li><a href="/#team" class="nav__link">Team</a></li>
+        <li><a href="/#about" class="nav__link">About</a></li>
+      </ul>
+
+      <div class="nav__actions">
+        <a href="/?topic=ai-general#contact" class="btn btn--accent btn--sm nav__cta">Book a Session</a>
+        <button class="nav__hamburger" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="navMobile">
+          <span class="nav__hamburger-bar"></span>
+          <span class="nav__hamburger-bar"></span>
+          <span class="nav__hamburger-bar"></span>
+        </button>
+      </div>
+    </div>
+
+    <div class="nav__mobile" id="navMobile" aria-hidden="true">
+      <ul class="nav__mobile-links" role="list">
+        <li><a href="/#services" class="nav__mobile-link">Services</a></li>
+        <li><a href="/#why-us" class="nav__mobile-link">Why Us</a></li>
+        <li><a href="/#team" class="nav__mobile-link">Team</a></li>
+        <li><a href="/#about" class="nav__mobile-link">About</a></li>
+        <li><a href="/?topic=ai-general#contact" class="nav__mobile-link nav__mobile-cta">Book a Session</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main id="main">
+
+    <!-- ═══════════════════════════════════
+         HERO
+         ═══════════════════════════════════ -->
+    <section class="hero hero--ai" aria-labelledby="ai-hero-heading">
+      <div class="bg-layer bg-layer--hero" aria-hidden="true"></div>
+      <div class="hero__bg-accent" aria-hidden="true"></div>
+      <div class="container hero__inner">
+        <p class="hero__eyebrow fade-in">AI Agent Engineering · Prudentia Digital</p>
+        <h1 class="hero__headline fade-in" id="ai-hero-heading" style="--fade-delay: 100ms">
+          AI that solves your<br>
+          <span class="hero__headline-accent">business problems — not chatbots.</span>
+        </h1>
+        <p class="hero__subtext fade-in" style="--fade-delay: 250ms">
+          Production AI systems built on your data, in your stack. Agents that finish multi-step workflows.
+          Retrieval grounded in your private documents. Evals that prove the model is working.
+          MCP servers that plug AI into the tools your team already uses.
+        </p>
+        <div class="hero__ctas fade-in" style="--fade-delay: 400ms">
+          <a href="/?topic=ai-general#contact" class="btn btn--accent btn--lg">Book a Strategy Session</a>
+          <a href="#capabilities" class="btn btn--outline btn--lg">See What We Build</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════
+         CAPABILITIES
+         ═══════════════════════════════════ -->
+    <section class="services" id="capabilities" aria-labelledby="capabilities-heading" data-spotlight>
+      <div class="bg-layer bg-layer--services" aria-hidden="true"></div>
+      <div class="bg-fx" aria-hidden="true">
+        <div class="bg-fx__grid"></div>
+        <div class="bg-fx__orb bg-fx__orb--gold bg-fx__orb--tr bg-fx__orb--drift-a"></div>
+        <div class="bg-fx__spotlight"></div>
+      </div>
+      <div class="container">
+        <div class="section-header">
+          <p class="section-eyebrow fade-in">What We Build</p>
+          <h2 class="section-heading fade-in" id="capabilities-heading" style="--fade-delay: 80ms">Five capabilities. Real outcomes.</h2>
+          <div class="gold-line fade-in" aria-hidden="true" style="--fade-delay: 160ms"></div>
+          <p class="section-sub fade-in" style="--fade-delay: 200ms">
+            Each capability is a working system we build on your data — not a slide, not a generic demo.
+            We show you a live system in a booked strategy session.
+          </p>
+        </div>
+
+        <!-- Capability 1 — Agent Loops -->
+        <article class="ai-capability reveal" id="cap-agents" aria-labelledby="cap-agents-title">
+          <header class="ai-capability__header">
+            <div class="ai-capability__icon-wrap">
+              <svg class="ai-capability__icon gold-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <circle cx="6" cy="6" r="2"/><circle cx="18" cy="6" r="2"/><circle cx="12" cy="18" r="2"/>
+                <line x1="6" y1="6" x2="18" y2="6"/><line x1="6" y1="6" x2="12" y2="18"/><line x1="18" y1="6" x2="12" y2="18"/>
+              </svg>
+            </div>
+            <div>
+              <p class="ai-capability__eyebrow">Capability 01</p>
+              <h3 class="ai-capability__title" id="cap-agents-title">Agent Loops</h3>
+            </div>
+          </header>
+          <div class="ai-capability__body">
+            <p class="ai-capability__problem"><strong>The problem.</strong> Your team runs the same multi-step workflow every day — research a supplier, build a brief, route an approval, generate a report. Each cycle costs four to six hours of senior time, and you can't hire your way out of the volume.</p>
+            <p class="ai-capability__solution"><strong>What we build.</strong> Agents that hold state across steps, call your tools (CRM, file storage, internal APIs), make decisions at branch points, and finish a ten-step workflow unattended. State is persisted so a crash mid-run resumes cleanly. Every action is logged for audit.</p>
+            <p class="ai-capability__use-case"><strong>Example use case.</strong> A mid-sized law firm's due-diligence intake: receive a brief, pull counterparty filings from CIPC, summarise material risks, draft a client memo, and route it for partner review. Cycle time: 4 hours → 18 minutes. Partner reviews 20 briefs a week instead of 5.</p>
+            <p class="ai-capability__stack"><strong>Under the hood.</strong> LangGraph for stateful orchestration, Claude Agent SDK for lighter tool-use loops, durable checkpointing, OpenTelemetry traces, integration with your existing identity provider.</p>
+            <p class="ai-capability__cta">
+              <a href="/?topic=ai-agent-loop#contact" class="btn btn--accent">Book a session on Agent Loops</a>
+            </p>
+          </div>
+        </article>
+
+        <!-- Capability 2 — Production RAG -->
+        <article class="ai-capability reveal" id="cap-rag" style="--reveal-delay: 80ms" aria-labelledby="cap-rag-title">
+          <header class="ai-capability__header">
+            <div class="ai-capability__icon-wrap">
+              <svg class="ai-capability__icon gold-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <path d="M4 4h12l4 4v12H4z"/><polyline points="16 4 16 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="13" y2="17"/>
+              </svg>
+            </div>
+            <div>
+              <p class="ai-capability__eyebrow">Capability 02</p>
+              <h3 class="ai-capability__title" id="cap-rag-title">Production RAG</h3>
+            </div>
+          </header>
+          <div class="ai-capability__body">
+            <p class="ai-capability__problem"><strong>The problem.</strong> Your team can't find the right policy, contract clause, or precedent in your own document library. Search is keyword-only. Institutional knowledge lives in five people's heads. New hires take six months to ramp.</p>
+            <p class="ai-capability__solution"><strong>What we build.</strong> A retrieval-augmented generation system that answers questions from your private documents, with citations back to the source page. Hybrid retrieval (vector + keyword + reranking). On-premise or cloud, your choice. POPIA-aware data handling baked in.</p>
+            <p class="ai-capability__use-case"><strong>Example use case.</strong> A financial-services compliance team with 50,000 pages of regulator correspondence, internal policy, and audit findings. Analyst asks "what's our position on Section 12J carry-forward losses?" — gets a cited answer in 4 seconds, with the source PDF and page number. Previously: half a day of manual searching.</p>
+            <p class="ai-capability__stack"><strong>Under the hood.</strong> sqlite-vec or pgvector for retrieval, Claude or local LLMs for generation, cross-encoder reranking, citation-grounded responses, recall@5 ≥ 0.85 measured before release.</p>
+            <p class="ai-capability__cta">
+              <a href="/?topic=ai-rag#contact" class="btn btn--accent">Book a session on Production RAG</a>
+            </p>
+          </div>
+        </article>
+
+        <!-- Capability 3 — Evals -->
+        <article class="ai-capability reveal" id="cap-evals" style="--reveal-delay: 160ms" aria-labelledby="cap-evals-title">
+          <header class="ai-capability__header">
+            <div class="ai-capability__icon-wrap">
+              <svg class="ai-capability__icon gold-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/><polyline points="4 4 8 8 12 4 16 8 20 4"/>
+              </svg>
+            </div>
+            <div>
+              <p class="ai-capability__eyebrow">Capability 03</p>
+              <h3 class="ai-capability__title" id="cap-evals-title">Evals</h3>
+            </div>
+          </header>
+          <div class="ai-capability__body">
+            <p class="ai-capability__problem"><strong>The problem.</strong> You're paying for AI but can't prove it's getting better. A model vendor pushes an update and your output quality silently drops. There's no test suite. There's no leaderboard. You're flying blind.</p>
+            <p class="ai-capability__solution"><strong>What we build.</strong> A 50-example evaluation harness scoring accuracy, hallucination rate, latency, and cost per request. Every model change runs the suite. A regression of more than five percent fails CI and alerts you. Dashboard shows the leaderboard across Claude, GPT, Gemini, and local models for your task.</p>
+            <p class="ai-capability__use-case"><strong>Example use case.</strong> A fintech using AI to triage support tickets. Vendor updates the model. Eval suite catches a 12% drop in correct triage on financial-product queries within an hour. Old model is pinned, vendor is notified, no customer ever sees the regression.</p>
+            <p class="ai-capability__stack"><strong>Under the hood.</strong> Braintrust for experiment tracking and dashboards, custom eval sets versioned in git, GitHub Actions for regression gating, automated alerts via your existing channels.</p>
+            <p class="ai-capability__cta">
+              <a href="/?topic=ai-evals#contact" class="btn btn--accent">Book a session on Evals</a>
+            </p>
+          </div>
+        </article>
+
+        <!-- Capability 4 — Vector Databases -->
+        <article class="ai-capability reveal" id="cap-vector" style="--reveal-delay: 240ms" aria-labelledby="cap-vector-title">
+          <header class="ai-capability__header">
+            <div class="ai-capability__icon-wrap">
+              <svg class="ai-capability__icon gold-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v6c0 1.7 4 3 9 3s9-1.3 9-3V5"/><path d="M3 11v6c0 1.7 4 3 9 3s9-1.3 9-3v-6"/>
+              </svg>
+            </div>
+            <div>
+              <p class="ai-capability__eyebrow">Capability 04</p>
+              <h3 class="ai-capability__title" id="cap-vector-title">Vector Databases</h3>
+            </div>
+          </header>
+          <div class="ai-capability__body">
+            <p class="ai-capability__problem"><strong>The problem.</strong> Customers and staff phrase the same question ten different ways. Keyword search only finds the ones with the exact wording. Tickets get misrouted, contract clauses get missed, knowledge base articles go unread.</p>
+            <p class="ai-capability__solution"><strong>What we build.</strong> Semantic search that finds by meaning, not exact words. Same query language as your existing search; results that actually match user intent. We pick the right vector store for your data sensitivity, scale, and existing stack — not the trendy one.</p>
+            <p class="ai-capability__use-case"><strong>Example use case.</strong> A B2B SaaS support team's knowledge base. "How do I cancel?" and "I want to leave" and "stop my subscription" all return the same article. Self-serve deflection rate up from 18% to 47%, two FTEs reclaimed for higher-value support.</p>
+            <p class="ai-capability__stack"><strong>Under the hood.</strong> PostgreSQL with pgvector (default — keeps data in your existing database), Pinecone (managed, fast), or Weaviate (self-hosted, multi-tenant). Each has a published trade-off note we share before we recommend.</p>
+            <p class="ai-capability__cta">
+              <a href="/?topic=ai-vector#contact" class="btn btn--accent">Book a session on Vector Databases</a>
+            </p>
+          </div>
+        </article>
+
+        <!-- Capability 5 — MCP -->
+        <article class="ai-capability reveal" id="cap-mcp" style="--reveal-delay: 320ms" aria-labelledby="cap-mcp-title">
+          <header class="ai-capability__header">
+            <div class="ai-capability__icon-wrap">
+              <svg class="ai-capability__icon gold-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/>
+              </svg>
+            </div>
+            <div>
+              <p class="ai-capability__eyebrow">Capability 05</p>
+              <h3 class="ai-capability__title" id="cap-mcp-title">MCP — Model Context Protocol</h3>
+            </div>
+          </header>
+          <div class="ai-capability__body">
+            <p class="ai-capability__problem"><strong>The problem.</strong> Your developers want AI in the tools they already use — Claude Desktop, Cursor, internal IDEs — not yet another standalone chatbot tab. Building bespoke integrations for every tool is unsustainable.</p>
+            <p class="ai-capability__solution"><strong>What we build.</strong> Production MCP servers that expose your data and operations as callable tools to any MCP-compatible client. One server, every client. Anthropic-shipped open standard, adopted by every major AI lab.</p>
+            <p class="ai-capability__use-case"><strong>Example use case.</strong> A property-management firm exposes its lease database, maintenance system, and CIPC company-lookup as an MCP server. Staff query "all leases expiring in the next 30 days for portfolio X, with current arrears" inside Claude Desktop. No new UI to learn. Internal tool adoption goes from 30% to 90%.</p>
+            <p class="ai-capability__stack"><strong>Under the hood.</strong> MCP TypeScript and Python SDKs, stdio for local clients, Streamable HTTP for remote, OAuth and token auth, OpenTelemetry tracing, rate limiting, and a health endpoint that wakes us up before our customers do.</p>
+            <p class="ai-capability__cta">
+              <a href="/?topic=ai-mcp#contact" class="btn btn--accent">Book a session on MCP</a>
+            </p>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════
+         HOW WE SHIP AI IN PRODUCTION
+         ═══════════════════════════════════ -->
+    <section class="why" id="approach" aria-labelledby="approach-heading" data-spotlight>
+      <div class="bg-layer bg-layer--why" aria-hidden="true"></div>
+      <div class="bg-fx" aria-hidden="true">
+        <div class="bg-fx__grid bg-fx__grid--strong"></div>
+        <div class="bg-fx__spotlight"></div>
+      </div>
+      <div class="container">
+        <div class="section-header">
+          <p class="section-eyebrow fade-in">How We Ship</p>
+          <h2 class="section-heading fade-in" id="approach-heading" style="--fade-delay: 80ms">Production AI is a different discipline.</h2>
+          <div class="gold-line fade-in" aria-hidden="true" style="--fade-delay: 160ms"></div>
+        </div>
+
+        <div class="services__grid">
+
+          <article class="card card-pulse reveal" style="--reveal-delay: 0ms" aria-label="Evals first">
+            <div class="card__icon-wrap">
+              <svg class="card__icon gold-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+              </svg>
+            </div>
+            <h3 class="card__title">Evals first, code second</h3>
+            <p class="card__body">We write the test suite before we ship the system. If we can't measure quality, we don't claim it. Every release goes through the harness; every regression blocks merge.</p>
+            <p class="card__tagline">Measured, not assumed.</p>
+          </article>
+
+          <article class="card card-pulse reveal" style="--reveal-delay: 80ms" aria-label="Observability built in">
+            <div class="card__icon-wrap">
+              <svg class="card__icon gold-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <circle cx="12" cy="12" r="3"/><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/>
+              </svg>
+            </div>
+            <h3 class="card__title">Observability built in</h3>
+            <p class="card__body">OpenTelemetry traces, structured logs, prompt-and-response capture, latency and cost dashboards. You see what your AI does in production, not just what it did in a demo.</p>
+            <p class="card__tagline">You see it. You own it.</p>
+          </article>
+
+          <article class="card card-pulse reveal" style="--reveal-delay: 160ms" aria-label="Your data stays yours">
+            <div class="card__icon-wrap">
+              <svg class="card__icon gold-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+              </svg>
+            </div>
+            <h3 class="card__title">Your data stays yours</h3>
+            <p class="card__body">POPIA-aware by default. Self-hostable architectures. Isolated workspaces per engagement. Default seven-day retention on demo data with a documented scrub script. NDAs counter-signed in 24 hours.</p>
+            <p class="card__tagline">No vendor lock, no surprises.</p>
+          </article>
+
+          <article class="card card-pulse reveal" style="--reveal-delay: 240ms" aria-label="Vendor-portable architectures">
+            <div class="card__icon-wrap">
+              <svg class="card__icon gold-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+              </svg>
+            </div>
+            <h3 class="card__title">Vendor-portable architectures</h3>
+            <p class="card__body">Model choice is an interface, not a hard dependency. Swap Anthropic for OpenAI for a local model without rewriting application code. The eval harness verifies behaviour stays correct after a swap.</p>
+            <p class="card__tagline">Pin nothing you don't have to.</p>
+          </article>
+
+          <article class="card card-pulse reveal" style="--reveal-delay: 320ms" aria-label="Senior delivery, one team">
+            <div class="card__icon-wrap">
+              <svg class="card__icon gold-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+              </svg>
+            </div>
+            <h3 class="card__title">Senior delivery, one team</h3>
+            <p class="card__body">You speak to the engineer building your system, not a project manager relaying questions to a junior team in another time zone. South African business hours; global engineering standards.</p>
+            <p class="card__tagline">Direct line, no relay.</p>
+          </article>
+
+          <article class="card card--accent card-pulse reveal" style="--reveal-delay: 400ms" aria-label="Three engagement tiers">
+            <div class="card__icon-wrap">
+              <svg class="card__icon gold-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/>
+              </svg>
+            </div>
+            <h3 class="card__title">Audit → Pilot → Retainer</h3>
+            <p class="card__body">Three engagement shapes. A 1-day AI Audit. A 4–6 week Capability Pilot on your data. A monthly retainer for ongoing capability builds and on-call AI engineering. Pricing scoped in the strategy session.</p>
+            <p class="card__tagline">Start small. Scale on results.</p>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════
+         PROMPT ENGINEERING — foundation note
+         ═══════════════════════════════════ -->
+    <section class="prompt-foundation" aria-labelledby="prompt-heading">
+      <div class="container prompt-foundation__inner">
+        <div class="prompt-foundation__panel reveal">
+          <p class="section-eyebrow">Foundation</p>
+          <h2 class="prompt-foundation__heading" id="prompt-heading">Prompt engineering is table stakes for us, not a deliverable.</h2>
+          <p class="prompt-foundation__body">
+            Every system we ship is grounded in tested, iterated prompts — written, evaluated, and versioned alongside code.
+            We treat prompt design the way we treat database schema: a first-class artefact that ships through review,
+            gets exercised by tests, and never gets edited blindly in production. It's how we get to "this works" instead of "this sometimes works".
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════
+         FAQ
+         ═══════════════════════════════════ -->
+    <section class="faq" id="faq" aria-labelledby="faq-heading" data-spotlight>
+      <div class="bg-layer bg-layer--services" aria-hidden="true"></div>
+      <div class="container">
+        <div class="section-header">
+          <p class="section-eyebrow fade-in">Common Questions</p>
+          <h2 class="section-heading fade-in" id="faq-heading" style="--fade-delay: 80ms">Answers before you book</h2>
+          <div class="gold-line fade-in" aria-hidden="true" style="--fade-delay: 160ms"></div>
+        </div>
+
+        <div class="faq__list">
+          <details class="faq__item reveal" style="--reveal-delay: 0ms">
+            <summary class="faq__question">How long does an AI engagement take?</summary>
+            <div class="faq__answer">
+              <p>An <strong>AI Audit</strong> is one working day, finished within two weeks of the strategy session.
+              A <strong>Capability Pilot</strong> runs four to six weeks, with a working system at the end.
+              <strong>Retainers</strong> are monthly with no fixed end date — most clients run them for at least two quarters.</p>
+            </div>
+          </details>
+
+          <details class="faq__item reveal" style="--reveal-delay: 60ms">
+            <summary class="faq__question">Do you sign NDAs?</summary>
+            <div class="faq__answer">
+              <p>Yes. We send a counter-signed mutual NDA within 24 hours of a strategy session, before any of your confidential data is shared.
+              If you have your own NDA template, we'll review and counter-sign that instead.</p>
+            </div>
+          </details>
+
+          <details class="faq__item reveal" style="--reveal-delay: 120ms">
+            <summary class="faq__question">Where does our data live during a pilot? Is it POPIA-compliant?</summary>
+            <div class="faq__answer">
+              <p>Your data either stays in environments you control (we deploy into your VPC or on-premises) or lives in an isolated workspace we host for the engagement.
+              Default retention is seven days unless you extend it under a signed pilot scope. Each engagement gets its own isolated workspace — never shared across clients.
+              POPIA-regulated personal information is only ingested with explicit lawful basis. Full handling rules are in our <a href="/docs/sales/demo-data-handling.md">demo-data policy</a>.</p>
+            </div>
+          </details>
+
+          <details class="faq__item reveal" style="--reveal-delay: 180ms">
+            <summary class="faq__question">What does pricing look like?</summary>
+            <div class="faq__answer">
+              <p>Three tiers — AI Audit, Capability Pilot, and AI Engagement Retainer.
+              Indicative ranges are shared in the strategy session after we understand your scope. We price on outcome and scope, not hourly,
+              because hourly pricing rewards slow delivery and punishes the parts we've automated. Audits are fixed-fee, pilots are fixed-fee, retainers are monthly.</p>
+            </div>
+          </details>
+
+          <details class="faq__item reveal" style="--reveal-delay: 240ms">
+            <summary class="faq__question">Can we self-host?</summary>
+            <div class="faq__answer">
+              <p>Yes — and we default to self-hostable architectures. PostgreSQL with pgvector for retrieval, locally-runnable LLMs (Llama, Qwen, others) where they meet quality bars,
+              on-premise document pipelines. Cloud-hosted is supported where it makes operational sense. Vendor portability is built in: you can swap the model layer without rewriting the application.</p>
+            </div>
+          </details>
+
+          <details class="faq__item reveal" style="--reveal-delay: 300ms">
+            <summary class="faq__question">What if the model vendor changes pricing, deprecates a model, or shuts down?</summary>
+            <div class="faq__answer">
+              <p>This is why we architect for portability. Model choice is abstracted behind an interface, so you can move from Anthropic to OpenAI to a local model
+              without touching application code. The eval harness verifies behaviour stays correct after a swap. We've designed for this from the first commit — it's not a retrofit.</p>
+            </div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════
+         ABOUT — short blurb, cross-link to home team section
+         ═══════════════════════════════════ -->
+    <section class="about-blurb" aria-labelledby="about-blurb-heading">
+      <div class="container about-blurb__inner">
+        <div class="about-blurb__panel reveal">
+          <p class="section-eyebrow">About</p>
+          <h2 class="about-blurb__heading" id="about-blurb-heading">Built and delivered by Thulani Maseko.</h2>
+          <p class="about-blurb__body">
+            Enterprise engineering background shaped at Capitec, Absa, and E4 Strategic. Direct experience designing AI systems for production —
+            not just running notebooks. Every Prudentia AI engagement is led personally; you talk to the engineer building your system, every time.
+          </p>
+          <p class="about-blurb__cta">
+            <a href="/#team" class="btn btn--outline">Read full bio</a>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════
+         FINAL CTA
+         ═══════════════════════════════════ -->
+    <section class="cta" id="final-cta" aria-labelledby="final-cta-heading" data-spotlight>
+      <div class="bg-layer bg-layer--cta" aria-hidden="true"></div>
+      <div class="bg-fx" aria-hidden="true">
+        <div class="bg-fx__grid"></div>
+        <div class="bg-fx__orb bg-fx__orb--gold bg-fx__orb--tl bg-fx__orb--drift-b"></div>
+        <div class="bg-fx__orb bg-fx__orb--warm bg-fx__orb--br bg-fx__orb--drift-a"></div>
+        <div class="bg-fx__spotlight"></div>
+      </div>
+      <div class="container cta__inner">
+        <h2 class="cta__heading reveal" id="final-cta-heading">Book a 30-minute strategy session.</h2>
+        <p class="cta__sub fade-in" style="--fade-delay: 100ms">
+          We'll review your workflows, data, and current AI usage; recommend the right capability and tier; and show you a live demo on data relevant to your business.
+          No slide deck. No commitment until you decide.
+        </p>
+        <div class="cta__actions fade-in" style="--fade-delay: 200ms">
+          <a href="/?topic=ai-general#contact" class="btn btn--accent btn--lg">Book a Strategy Session</a>
+          <a href="mailto:masekolt@prudentiadigital.co.za?subject=AI%20Agent%20Engineering%20—%20strategy%20session" class="btn btn--outline btn--lg">Email Us Instead</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ═══════════════════════════════════
+       FOOTER
+       ═══════════════════════════════════ -->
+  <footer class="footer" role="contentinfo">
+    <div class="bg-layer bg-layer--footer" aria-hidden="true"></div>
+    <div class="container footer__inner">
+      <div class="footer__brand">
+        <a href="/" class="footer__logo" aria-label="Prudentia Digital — back to home">
+          <picture>
+            <source srcset="../assets/logo-icon-white-512.webp" type="image/webp">
+            <img src="../assets/logo-icon-white-512.png" alt="" width="32" height="41" loading="lazy" aria-hidden="true">
+          </picture>
+          <span class="footer__wordmark">
+            <span class="footer__wordmark-primary">PRUDENTIA</span>
+            <span class="footer__wordmark-rule" aria-hidden="true"></span>
+            <span class="footer__wordmark-secondary">DIGITAL</span>
+          </span>
+        </a>
+        <p class="footer__tagline">Enterprise-grade technology. Local expertise, global reach.</p>
+      </div>
+
+      <nav class="footer__nav" aria-label="Footer navigation">
+        <ul role="list">
+          <li><a href="/#services">Services</a></li>
+          <li><a href="/ai/">AI Engineering</a></li>
+          <li><a href="/#why-us">Why Us</a></li>
+          <li><a href="/#about">About</a></li>
+          <li><a href="mailto:masekolt@prudentiadigital.co.za">Contact</a></li>
+          <li><a href="/privacy.html">Privacy Policy</a></li>
+          <li><a href="/terms.html">Terms of Service</a></li>
+        </ul>
+      </nav>
+
+      <div class="footer__meta">
+        <p class="footer__badge" aria-label="B-BBEE Level 1 certified">
+          <span class="footer__badge-dot" aria-hidden="true"></span>
+          Level 1 B-BBEE · 100% Black-owned
+        </p>
+        <p class="footer__registration">Enterprise No. 2025/910056/07 · CIPC Registered · CSD Registered</p>
+        <p class="footer__copy">
+          &copy; 2026 Prudentia Digital (Pty) Ltd &middot;
+          <a href="mailto:masekolt@prudentiadigital.co.za">masekolt@prudentiadigital.co.za</a>
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Cookie consent banner -->
+  <div class="cookie-banner" id="cookieBanner" role="dialog" aria-modal="false" aria-label="Cookie notice" hidden>
+    <p class="cookie-banner__text">
+      We use essential cookies for security and performance. No tracking or advertising cookies.
+      <a href="/privacy.html">Privacy Policy</a>
+    </p>
+    <div class="cookie-banner__actions">
+      <button class="btn btn--accent btn--sm" id="cookieAccept">Accept</button>
+      <button class="btn btn--outline btn--sm" id="cookieDismiss" style="color:rgba(255,255,255,0.6);border-color:rgba(255,255,255,0.2)">Dismiss</button>
+    </div>
+  </div>
+
+  <!-- Animated backgrounds -->
+  <script src="../js/animated-bg.js?v=1.1" defer></script>
+
+  <script>
+    (() => {
+      'use strict';
+
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js').catch(() => {});
+        });
+      }
+
+      const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const animatedEls = document.querySelectorAll('.reveal, .fade-in, .gold-line, .gold-icon, .reveal-left');
+
+      if (reduced) {
+        animatedEls.forEach(el => el.classList.add('visible'));
+      } else {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              const el = entry.target;
+              const delay = el.style.getPropertyValue('--reveal-delay') || el.style.getPropertyValue('--fade-delay') || '0ms';
+              setTimeout(() => el.classList.add('visible'), parseInt(delay) || 0);
+              observer.unobserve(el);
+            }
+          });
+        }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+        animatedEls.forEach(el => observer.observe(el));
+
+        document.querySelectorAll('.hero .fade-in').forEach(el => {
+          const delay = parseInt(el.style.getPropertyValue('--fade-delay')) || 0;
+          setTimeout(() => el.classList.add('visible'), delay + 80);
+        });
+      }
+
+      const toggle = document.getElementById('navToggle');
+      const mobileMenu = document.getElementById('navMobile');
+
+      function closeMobileMenu() {
+        mobileMenu.classList.remove('open');
+        toggle.setAttribute('aria-expanded', 'false');
+        mobileMenu.setAttribute('aria-hidden', 'true');
+        toggle.setAttribute('aria-label', 'Open menu');
+        toggle.focus();
+      }
+
+      if (toggle && mobileMenu) {
+        toggle.addEventListener('click', () => {
+          const open = mobileMenu.classList.toggle('open');
+          toggle.setAttribute('aria-expanded', open);
+          mobileMenu.setAttribute('aria-hidden', !open);
+          toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+        });
+
+        mobileMenu.addEventListener('keydown', (e) => {
+          if (!mobileMenu.classList.contains('open')) return;
+          if (e.key === 'Escape') closeMobileMenu();
+        });
+
+        mobileMenu.querySelectorAll('a').forEach(link => {
+          link.addEventListener('click', () => closeMobileMenu());
+        });
+      }
+
+      const cookieBanner = document.getElementById('cookieBanner');
+      if (cookieBanner && !localStorage.getItem('pd_cookie_consent')) {
+        cookieBanner.removeAttribute('hidden');
+      }
+      function dismissCookieBanner() {
+        localStorage.setItem('pd_cookie_consent', '1');
+        cookieBanner.setAttribute('hidden', '');
+      }
+      document.getElementById('cookieAccept')?.addEventListener('click', dismissCookieBanner);
+      document.getElementById('cookieDismiss')?.addEventListener('click', dismissCookieBanner);
+    })();
+  </script>
+
+</body>
+</html>
