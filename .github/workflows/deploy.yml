@@ -3,6 +3,7 @@ name: Test & Deploy to Cloudflare Pages
 on:
   push:
     branches: [main]
+  workflow_dispatch:   # allow manual re-runs after fixing secrets
 
 jobs:
   test:
@@ -42,8 +43,57 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # Preflight: fail fast with an actionable error if secrets are missing.
+      # Every deploy from 2026-04-12 -> 2026-05-16 failed because these
+      # secrets were never set; wrangler's own error ("set CLOUDFLARE_API_TOKEN")
+      # is cryptic when the root cause is missing repository secrets.
+      - name: Verify Cloudflare secrets are configured
+        env:
+          CF_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
+          CF_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID }}
+          REPO: ${{ github.repository }}
+        run: |
+          set -e
+          missing=0
+          if [ -z "$CF_API_TOKEN" ]; then
+            echo "::error::CF_API_TOKEN repository secret is empty or unset."
+            echo "::error::Set it at: https://github.com/${REPO}/settings/secrets/actions"
+            echo "::error::Generate the token at https://dash.cloudflare.com/profile/api-tokens with scopes:"
+            echo "::error::  - Account . Workers Scripts . Edit"
+            echo "::error::  - Account . Account Settings . Read"
+            echo "::error::  - Zone . prudentiadigital.co.za . Workers Routes . Edit"
+            missing=1
+          fi
+          if [ -z "$CF_ACCOUNT_ID" ]; then
+            echo "::error::CF_ACCOUNT_ID repository secret is empty or unset."
+            echo "::error::Find it in the Cloudflare dashboard sidebar (under any zone)."
+            echo "::error::Set it at: https://github.com/${REPO}/settings/secrets/actions"
+            missing=1
+          fi
+          if [ "$missing" -ne 0 ]; then
+            echo "::error::Aborting deploy. Fix the missing secrets and re-run this workflow."
+            exit 1
+          fi
+          echo "OK: Cloudflare secrets configured."
+          echo "  CF_API_TOKEN length: ${#CF_API_TOKEN} chars"
+          echo "  CF_ACCOUNT_ID length: ${#CF_ACCOUNT_ID} chars"
+
       - name: Build deployment bundle
         run: npm run build
+
+      - name: Verify dist/ contains the routes we expect
+        run: |
+          set -e
+          required=(dist/index.html dist/ai/index.html dist/manifest.json dist/sitemap.xml dist/css dist/js dist/assets)
+          for path in "${required[@]}"; do
+            if [ ! -e "$path" ]; then
+              echo "::error::Expected build output missing: $path"
+              echo "::error::Check the build script in package.json -- it may have silently dropped files."
+              exit 1
+            fi
+          done
+          echo "OK: dist/ contains all expected entries."
+          du -sh dist/ | sed 's/^/  /'
 
       - name: Deploy to Cloudflare
         uses: cloudflare/wrangler-action@v3
@@ -51,3 +101,24 @@ jobs:
           apiToken: ${{ secrets.CF_API_TOKEN }}
           accountId: ${{ secrets.CF_ACCOUNT_ID }}
           command: deploy
+
+      # Post-deploy smoke check: hit production and assert the homepage
+      # contains the AI Agent Engineering card. Surfaces cache / routing
+      # issues that would otherwise hide a "successful but ineffective" deploy.
+      - name: Smoke-check live deploy
+        run: |
+          set -e
+          sleep 5
+          echo "Probing https://prudentiadigital.co.za/ai/ ..."
+          status=$(curl -s -o /dev/null -w "%{http_code}" https://prudentiadigital.co.za/ai/)
+          if [ "$status" != "200" ]; then
+            echo "::warning::/ai/ returned HTTP $status post-deploy. Cache may need a purge."
+          else
+            echo "OK: /ai/ returns 200."
+          fi
+          echo "Probing https://prudentiadigital.co.za/ for AI Agent card ..."
+          if curl -s https://prudentiadigital.co.za/ | grep -q "AI Agent Engineering"; then
+            echo "OK: Homepage shows AI Agent Engineering card."
+          else
+            echo "::warning::Homepage does not contain 'AI Agent Engineering' string. Possible cache miss -- try purging the CF cache."
+          fi
