@@ -1,6 +1,6 @@
 # ADR-010: Per-service animated illustrations on home services section
 
-- **Status:** Proposed (shell — finalised after Phase 5.5 critique + Phase 6 verify)
+- **Status:** Amended (see Amendment 1 below — Phase 8 supersedes the play-once lifecycle)
 - **Date:** 2026-05-17
 - **Branch:** `feat/service-illustrations`
 - **Supersedes:** none
@@ -82,3 +82,44 @@ Committed to `tests/baselines/`:
 - Phase 4: confirm inline-vs-`<use>` based on summed SVG payload after Phase 3.
 - Phase 5.5: originality diff matrix (shape / palette / motion arc) documented against vite.dev.
 - Phase 7: per-service ceiling-test fallbacks ship as static key-frame for that service only (does not block PR merge).
+
+---
+
+## Amendment 1 — Continuous loop with in-place entry (2026-05-17, Phase 8)
+
+After PR #7 (`c76e7da`) shipped, the user reported two issues with the live result:
+
+1. Five of six cards "only ran during page load" — the play-once-then-hold lifecycle made them look broken on subsequent viewing.
+2. Several entry animations read as "swooping in from the side" rather than appearing with the card.
+
+### What this amendment changes
+
+| Decision | Original | Amended |
+|---|---|---|
+| Lifecycle | Play-once on first viewport entry, static key-frame held thereafter (AI exception loops) | **All 6 cards loop continuously**; AI is no longer an exception |
+| Cycle length | Per-service, 4–6s arc + 2.2s pause (AI: 3.7s loop) | **Shared 6s cycle**: 2s build → 2s hold → 1s fade-out → 1s breath |
+| Entry direction | `scaleX from left center`, `translateY from above`, `stroke-dashoffset draw` allowed | **In-place only**: opacity fade + scale-from-center |
+| Off-screen behaviour | Animations paused off-screen via existing IntersectionObserver | **Always running** — user's explicit preference; CPU cost accepted |
+
+### What's preserved from the original ADR
+
+- **Layout** (Option B — illustration-in-card, 3-col grid)
+- **Tech stack** (vanilla CSS + inline SVG, zero new runtime deps)
+- **SVG loading strategy** (inline-all, well under 30KB total)
+- **Shared motion vocabulary**: still `ease-out-quart`. Halo treatment unchanged.
+- **Browser baseline** (Chrome ≥ 111 / Safari ≥ 16.4 / Firefox ≥ 128)
+- **Accessibility**: `prefers-reduced-motion: reduce` still freezes to static outcome key-frame
+- **Originality matrix vs vite.dev**: still differs on shape language, palette, motion arc (vite is rotating radial; Prudentia is now breathing geometric)
+
+### Acceptance gates for Phase 8 (additive to Phase 6's)
+
+- 62/62 Playwright tests passing (60 from Phase 7 + 2 new: AI loop assertion, broadened transform-origin)
+- Lighthouse mobile perf ≥ 0.93, desktop ≥ 0.88, a11y ≥ 0.97 (median of 3 runs)
+- Sustained 60fps under loop: ≥ 95% of frames < 16.67ms over 10s scroll-hold (measured via `phase8-perf-probe.mjs`)
+- Static lint (`tests/lint-no-directional-entry.mjs`) finds no `scaleX`, no `translateX`, no non-center `transform-origin` outside the AI block
+
+### Trade-offs accepted
+
+- **CPU cost** of 6 always-on animations vs prior play-once. Mitigated by GPU-only props. If field perf complaints surface, mitigation is to extend the existing `cardIo` callback to toggle `.is-playing` off on viewport leave (3-line JS change, Phase 9 candidate).
+- **Brand voice "stillness over motion"** is suspended for the services grid only. `.impeccable.md` records the scoped override.
+

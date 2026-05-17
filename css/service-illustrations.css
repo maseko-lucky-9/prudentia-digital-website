@@ -131,27 +131,27 @@
 
 .service-illustration--web-app { /* host scaffold — animations scoped via .is-playing below */ }
 
-/* Each shard fades + drifts to position on its individual delay. */
+/* Phase 8 — Loop with in-place entry.
+   All animations run on the shared 6s cycle: 2s build → 2s hold → 1s fade-out → 1s breath.
+   No directional transforms (no scaleX, no translateY-from-above).
+   Per-element stagger lives in --shard-delay (range 0–900ms so latest finishes before 2s mark). */
+
 .service-illustration--web-app.is-playing .si-shard {
-  transform-box: fill-box;
-  transform-origin: center;
   animation:
     si-web-app-shard-in
-    var(--anim-illustration-beat)
+    6s
     var(--anim-illustration-ease)
     var(--shard-delay, 0ms)
-    backwards;
+    infinite;
 }
 
 .service-illustration--web-app.is-playing .si-header {
-  transform-box: fill-box;
-  transform-origin: left center;
   animation:
     si-web-app-header-draw
-    var(--anim-illustration-beat)
+    6s
     var(--anim-illustration-ease)
-    1080ms
-    backwards;
+    1000ms
+    infinite;
 }
 
 .service-illustration--web-app.is-playing .si-frame {
@@ -159,10 +159,10 @@
   transform-origin: center;
   animation:
     si-web-app-frame-settle
-    var(--anim-illustration-settle)
+    6s
     var(--anim-illustration-ease)
-    1300ms
-    backwards;
+    1100ms
+    infinite;
 }
 
 .service-illustration--web-app.is-playing .si-accent,
@@ -171,222 +171,227 @@
   transform-origin: 200px 22px;
   animation:
     si-web-app-accent-land
-    560ms
+    6s
     var(--anim-illustration-ease)
-    1700ms
-    backwards;
+    1300ms
+    infinite;
 }
 
 @keyframes si-web-app-shard-in {
-  from { opacity: 0; transform: translate3d(0, -6px, 0); }
-  to   { opacity: 1; transform: translate3d(0, 0, 0); }
+  0%, 100% { opacity: 0; }
+  33.3%, 66.6% { opacity: 1; }
+  83.3% { opacity: 0; }
 }
 
 @keyframes si-web-app-header-draw {
-  from { opacity: 0; transform: scaleX(0); }
-  to   { opacity: 0.6; transform: scaleX(1); }
+  0%, 100% { opacity: 0; }
+  33.3%, 66.6% { opacity: 0.6; }
+  83.3% { opacity: 0; }
 }
 
 @keyframes si-web-app-frame-settle {
-  from { opacity: 0; transform: scale(0.985); }
-  to   { opacity: 1; transform: scale(1); }
+  0% { opacity: 0; transform: scale(0.985); }
+  33.3% { opacity: 1; transform: scale(1); }
+  66.6% { opacity: 1; transform: scale(1); }
+  83.3%, 100% { opacity: 0; transform: scale(0.985); }
 }
 
 @keyframes si-web-app-accent-land {
-  0%   { opacity: 0; transform: scale(0.4); }
-  60%  { opacity: 1; }
-  100% { opacity: 1; transform: scale(1); }
+  0% { opacity: 0; transform: scale(0.4); }
+  20% { opacity: 1; }
+  33.3% { opacity: 1; transform: scale(1); }
+  66.6% { opacity: 1; transform: scale(1); }
+  83.3%, 100% { opacity: 0; transform: scale(0.4); }
 }
 
 
 /* ── Per-service: Cloud Infrastructure & DevOps ──────────────────────────
-   Graceful-settle. Inner dots stagger in (process), node fades in (outcome
-   container), rings expand outward (outcome halo), gold heartbeat lands last.
+   Phase 8 loop: dots fade in (staggered), node + rings settle, gold heartbeat
+   pulses, all hold ~2s, fade together, 1s breath, restart.
    ────────────────────────────────────────────────────────────────────── */
 .service-illustration--cloud.is-playing .si-dots circle {
   transform-box: fill-box; transform-origin: center;
-  animation: si-fade-in 400ms var(--anim-illustration-ease) var(--shard-delay, 0ms) backwards;
+  animation: si-fade-in 6s var(--anim-illustration-ease) var(--shard-delay, 0ms) infinite;
 }
 .service-illustration--cloud.is-playing .si-node {
   transform-box: fill-box; transform-origin: center;
-  animation: si-fade-scale 560ms var(--anim-illustration-ease) 700ms backwards;
+  animation: si-fade-scale 6s var(--anim-illustration-ease) 500ms infinite;
 }
 .service-illustration--cloud.is-playing .si-ring--inner {
   transform-box: fill-box; transform-origin: center;
-  animation: si-ring-expand 700ms var(--anim-illustration-ease) 1100ms backwards;
+  animation: si-ring-expand 6s var(--anim-illustration-ease) 800ms infinite;
 }
 .service-illustration--cloud.is-playing .si-ring--outer {
   transform-box: fill-box; transform-origin: center;
-  animation: si-ring-expand 800ms var(--anim-illustration-ease) 1300ms backwards;
+  animation: si-ring-expand 6s var(--anim-illustration-ease) 1000ms infinite;
 }
 .service-illustration--cloud.is-playing .si-accent--fill {
   transform-box: fill-box; transform-origin: 120px 80px;
-  animation: si-web-app-accent-land 560ms var(--anim-illustration-ease) 1500ms backwards;
+  animation: si-web-app-accent-land 6s var(--anim-illustration-ease) 1200ms infinite;
 }
 
 
 /* ── Per-service: Data Analytics & Dashboards ────────────────────────────
-   Baseline appears, sparkline draws via stroke-dashoffset, endpoint lands.
-   Uses stroke-dasharray trick for the draw-in effect.
+   Phase 8 loop: baseline + sparkline + halos fade in together (no directional
+   stroke-dashoffset draw), gold endpoint lands, all hold ~2s, fade, breath.
    ────────────────────────────────────────────────────────────────────── */
-.service-illustration--data .si-spark {
-  /* Approx total path length. Set high enough to fully hide; trimmed by anim. */
-  stroke-dasharray: 280;
-  stroke-dashoffset: 0;
-}
 .service-illustration--data.is-playing .si-baseline {
-  animation: si-fade-in 400ms var(--anim-illustration-ease) 200ms backwards;
+  animation: si-fade-in 6s var(--anim-illustration-ease) 100ms infinite;
 }
 .service-illustration--data.is-playing .si-spark {
-  animation: si-spark-draw 1100ms var(--anim-illustration-ease) 500ms backwards;
+  /* Was a directional stroke-dashoffset draw; replaced with in-place opacity fade per Phase 8. */
+  animation: si-fade-in 6s var(--anim-illustration-ease) 300ms infinite;
 }
 .service-illustration--data.is-playing .si-accent--halo-outer,
 .service-illustration--data.is-playing .si-accent--halo-inner {
   transform-box: fill-box; transform-origin: 200px 42px;
-  animation: si-fade-scale 560ms var(--anim-illustration-ease) 1500ms backwards;
+  animation: si-fade-scale 6s var(--anim-illustration-ease) 700ms infinite;
 }
 .service-illustration--data.is-playing .si-accent--fill {
   transform-box: fill-box; transform-origin: 200px 42px;
-  animation: si-web-app-accent-land 560ms var(--anim-illustration-ease) 1600ms backwards;
-}
-
-@keyframes si-spark-draw {
-  from { stroke-dashoffset: 280; }
-  to   { stroke-dashoffset: 0; }
+  animation: si-web-app-accent-land 6s var(--anim-illustration-ease) 900ms infinite;
 }
 
 
 /* ── Per-service: Digital Transformation Advisory ────────────────────────
-   Ghost trails settle in faintly, shaft draws horizontally, arrowhead lands.
+   Phase 8 loop: ghost trails fade in faintly (no directional scaleX), shaft
+   appears in place (was scaleX-from-left, now opacity-only), arrowhead lands.
    ────────────────────────────────────────────────────────────────────── */
 .service-illustration--advisory.is-playing .si-ghost {
-  animation: si-fade-in 800ms var(--anim-illustration-ease) 200ms backwards;
+  animation: si-fade-in 6s var(--anim-illustration-ease) 100ms infinite;
 }
 .service-illustration--advisory.is-playing .si-shaft {
-  transform-box: fill-box; transform-origin: left center;
-  animation: si-shaft-draw 700ms var(--anim-illustration-ease) 800ms backwards;
+  /* Was scaleX-from-left-center; now opacity-only per Phase 8. */
+  animation: si-fade-in 6s var(--anim-illustration-ease) 400ms infinite;
 }
 .service-illustration--advisory.is-playing .si-accent {
   transform-box: fill-box; transform-origin: 204px 80px;
-  animation: si-fade-scale 560ms var(--anim-illustration-ease) 1400ms backwards;
+  animation: si-fade-scale 6s var(--anim-illustration-ease) 800ms infinite;
 }
 
 @keyframes si-shaft-draw {
-  from { opacity: 0; transform: scaleX(0); }
-  to   { opacity: 1; transform: scaleX(1); }
+  /* Phase 8: kept as no-op so any stray reference still parses. The shaft
+     no longer uses this keyframe (uses si-fade-in instead). */
+  0%, 100% { opacity: 0; }
+  33.3%, 66.6% { opacity: 1; }
+  83.3% { opacity: 0; }
 }
 
 
 /* ── Per-service: API Development & Integration ──────────────────────────
-   Three channels appear with stagger, convergence curves draw in, merged
-   stream resolves, gold marker lands at midpoint.
+   Phase 8 loop: channels, convergence curves, stream all appear in place
+   (no scaleX-from-left). Stagger via --shard-delay on channels. Gold marker
+   pulses with its halo.
    ────────────────────────────────────────────────────────────────────── */
 .service-illustration--api.is-playing .si-channel {
-  transform-box: fill-box; transform-origin: left center;
-  animation: si-shaft-draw var(--anim-illustration-beat) var(--anim-illustration-ease) var(--shard-delay, 0ms) backwards;
+  /* Was scaleX-from-left; now opacity-only per Phase 8. */
+  animation: si-fade-in 6s var(--anim-illustration-ease) var(--shard-delay, 0ms) infinite;
 }
 .service-illustration--api.is-playing .si-converge {
-  animation: si-fade-in 500ms var(--anim-illustration-ease) 800ms backwards;
+  animation: si-fade-in 6s var(--anim-illustration-ease) 500ms infinite;
 }
 .service-illustration--api.is-playing .si-stream {
-  transform-box: fill-box; transform-origin: left center;
-  animation: si-shaft-draw 560ms var(--anim-illustration-ease) 1200ms backwards;
+  /* Was scaleX-from-left; now opacity-only per Phase 8. */
+  animation: si-fade-in 6s var(--anim-illustration-ease) 800ms infinite;
 }
 .service-illustration--api.is-playing .si-accent--marker-halo {
   transform-box: fill-box; transform-origin: 174px 80px;
-  animation: si-fade-scale 560ms var(--anim-illustration-ease) 1700ms backwards;
+  animation: si-fade-scale 6s var(--anim-illustration-ease) 1100ms infinite;
 }
 .service-illustration--api.is-playing .si-accent--fill {
   transform-box: fill-box; transform-origin: 174px 80px;
-  animation: si-web-app-accent-land 560ms var(--anim-illustration-ease) 1800ms backwards;
+  animation: si-web-app-accent-land 6s var(--anim-illustration-ease) 1300ms infinite;
 }
 
 
-/* ── Per-service: AI Agent Engineering — LOOP EXCEPTION ──────────────────
-   Continuous compression of manual operations. The answer-line and gold
-   glow loop with a 1.5s pause between cycles. Queue lines and beam
-   present in the loop arc as the source of the answer.
-   Lifecycle: loops infinitely after first viewport entry.
+/* ── Per-service: AI Agent Engineering ────────────────────────────────────
+   Phase 8: realigned to the shared 6s loop. Was 3700ms with directional
+   scaleY/scaleX entry; now opacity-only in place. Delays recalculated
+   ≈ ×1.62 (3700→6000) to preserve relative timing within the cycle.
    ────────────────────────────────────────────────────────────────────── */
-
-/* Static state: queue + beam visible as quiet base, answer-line + glow
-   sit at the resolved outcome opacity. The loop adds rhythm via the
-   answer-line and glow scaling cyclically. */
 .service-illustration--ai.is-playing .si-queue {
-  animation: si-ai-queue-pulse 3700ms var(--anim-illustration-ease) infinite;
+  animation: si-ai-queue-pulse 6s var(--anim-illustration-ease) infinite;
 }
 .service-illustration--ai.is-playing .si-queue:nth-of-type(1) { animation-delay: 0ms; }
-.service-illustration--ai.is-playing .si-queue:nth-of-type(2) { animation-delay: 150ms; }
-.service-illustration--ai.is-playing .si-queue:nth-of-type(3) { animation-delay: 300ms; }
-.service-illustration--ai.is-playing .si-queue:nth-of-type(4) { animation-delay: 450ms; }
+.service-illustration--ai.is-playing .si-queue:nth-of-type(2) { animation-delay: 240ms; }
+.service-illustration--ai.is-playing .si-queue:nth-of-type(3) { animation-delay: 480ms; }
+.service-illustration--ai.is-playing .si-queue:nth-of-type(4) { animation-delay: 720ms; }
 
 .service-illustration--ai.is-playing .si-beam {
-  animation: si-ai-beam-pass 3700ms var(--anim-illustration-ease) 800ms infinite;
+  animation: si-ai-beam-pass 6s var(--anim-illustration-ease) 1300ms infinite;
 }
 
 .service-illustration--ai.is-playing .si-answer {
-  transform-box: fill-box; transform-origin: center;
-  animation: si-ai-answer-emit 3700ms var(--anim-illustration-ease) 1400ms infinite;
+  animation: si-ai-answer-emit 6s var(--anim-illustration-ease) 2270ms infinite;
 }
 
 .service-illustration--ai.is-playing .si-accent--glow-outer,
 .service-illustration--ai.is-playing .si-accent--glow-inner {
-  transform-box: fill-box; transform-origin: 120px 44px;
-  animation: si-ai-glow-breathe 3700ms var(--anim-illustration-ease) 1400ms infinite;
+  animation: si-ai-glow-breathe 6s var(--anim-illustration-ease) 2270ms infinite;
 }
 
 .service-illustration--ai.is-playing .si-accent--fill {
   transform-box: fill-box; transform-origin: 120px 44px;
-  animation: si-ai-accent-breathe 3700ms var(--anim-illustration-ease) 1400ms infinite;
+  animation: si-ai-accent-breathe 6s var(--anim-illustration-ease) 2270ms infinite;
 }
 
 @keyframes si-ai-queue-pulse {
-  0%, 30%, 100% { opacity: var(--queue-base, 0.2); transform: translateY(0); }
-  18%           { opacity: 0.45; }
-  35%           { opacity: 0; transform: translateY(-6px); }
-  60%, 100%     { opacity: var(--queue-base, 0.2); transform: translateY(0); }
+  0%, 100% { opacity: 0; }
+  8%       { opacity: 0.45; }
+  25%      { opacity: var(--queue-base, 0.2); }
+  66.6%    { opacity: var(--queue-base, 0.2); }
+  83.3%    { opacity: 0; }
 }
 
 @keyframes si-ai-beam-pass {
-  0%, 100%      { opacity: 0; transform: scaleY(0); transform-origin: top; }
-  10%           { opacity: 0.4; transform: scaleY(1); transform-origin: top; }
-  25%           { opacity: 0; transform: scaleY(1); transform-origin: bottom; }
-  100%          { opacity: 0; }
+  0%, 100% { opacity: 0; }
+  16.6%    { opacity: 0.4; }
+  33.3%    { opacity: 0; }
+  66.6%    { opacity: 0; }
 }
 
 @keyframes si-ai-answer-emit {
-  0%            { opacity: 0; transform: scaleX(0); }
-  15%, 70%      { opacity: 1; transform: scaleX(1); }
-  85%, 100%     { opacity: 0; transform: scaleX(1); }
+  0%, 100%      { opacity: 0; }
+  33.3%, 66.6%  { opacity: 1; }
+  83.3%         { opacity: 0; }
 }
 
 @keyframes si-ai-glow-breathe {
   0%, 100%      { opacity: 0; }
-  20%, 60%      { opacity: var(--glow-base, 0.4); }
-  85%, 100%     { opacity: 0; }
+  33.3%, 66.6%  { opacity: var(--glow-base, 0.4); }
+  83.3%         { opacity: 0; }
 }
 
 @keyframes si-ai-accent-breathe {
-  0%, 100%      { opacity: 0; transform: scale(0.5); }
-  20%, 60%      { opacity: 1; transform: scale(1); }
-  85%, 100%     { opacity: 0; transform: scale(0.5); }
+  0%, 100%      { opacity: 0; transform: scale(0.85); }
+  33.3%, 66.6%  { opacity: 1; transform: scale(1); }
+  83.3%         { opacity: 0; transform: scale(0.85); }
 }
 
 
-/* ── Shared atomic keyframes (referenced by multiple services) ──────────── */
+/* ── Shared atomic keyframes (referenced by multiple services) ──────────
+   Phase 8: full 6s loop envelope (build → hold → fade-out → breath).
+   Build at 0→33.3% (2s), hold at 33.3→66.6% (2s), fade-out at 66.6→83.3%
+   (1s), breath at 83.3→100% (1s).
+   ────────────────────────────────────────────────────────────────────── */
 @keyframes si-fade-in {
-  from { opacity: 0; }
-  to   { opacity: var(--si-fade-target, 1); }
+  0%, 100% { opacity: 0; }
+  33.3%, 66.6% { opacity: var(--si-fade-target, 1); }
+  83.3% { opacity: 0; }
 }
 
 @keyframes si-fade-scale {
-  from { opacity: 0; transform: scale(0.85); }
-  to   { opacity: var(--si-fade-target, 1); transform: scale(1); }
+  0% { opacity: 0; transform: scale(0.85); }
+  33.3% { opacity: var(--si-fade-target, 1); transform: scale(1); }
+  66.6% { opacity: var(--si-fade-target, 1); transform: scale(1); }
+  83.3%, 100% { opacity: 0; transform: scale(0.85); }
 }
 
 @keyframes si-ring-expand {
-  from { opacity: 0; transform: scale(0.4); }
-  to   { opacity: var(--si-fade-target, 1); transform: scale(1); }
+  0% { opacity: 0; transform: scale(0.4); }
+  33.3% { opacity: var(--si-fade-target, 1); transform: scale(1); }
+  66.6% { opacity: var(--si-fade-target, 1); transform: scale(1); }
+  83.3%, 100% { opacity: 0; transform: scale(0.4); }
 }
 .service-illustration--cloud   { /* see Cloud block below */ }
 .service-illustration--data    { /* see Data block below */ }

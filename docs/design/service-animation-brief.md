@@ -203,3 +203,40 @@ Six outcome key-frame SVG sketches live in `docs/design/concepts/`. Each represe
 ---
 
 *Authored 2026-05-17 as Phase 2 deliverable. Phase 3 concept gallery appended same day. Edits require re-running Phase 0b interview if framing changes; minor tuning OK in place.*
+
+---
+
+## Phase 8 override (2026-05-17 · supersedes earlier lifecycle rules)
+
+After viewing the Phase 7 result, the user changed direction. This subsection records the override so future skill invocations (`/impeccable craft`, `polish`, `animate`, etc.) on this project do NOT re-apply the prior play-once principle by accident.
+
+### What changed
+
+| Rule | Original (Phase 2) | Phase 8 override |
+|---|---|---|
+| Lifecycle | Play-once on first viewport entry; static key-frame held thereafter. AI Agent only exception (loop). | **All 6 cards loop continuously.** No play-once. AI Agent is no longer the exception — it's the pattern. |
+| Cycle length | Per-service, 4–6s arc + 2.2s pause | **6s shared cycle**: 2s build → 2s hold → 1s fade-out → 1s breath → restart |
+| Entry direction | Per-element drift / scaleX from edge / stroke-dashoffset draw allowed for "process beat" reading | **In-place entry only.** No `scaleX` from edge, no `translateY` from above, no `stroke-dashoffset` draw. Acceptable: opacity-only fade, scale-from-center. |
+| Off-screen behaviour | Animations paused off-screen via existing IO observer (CPU savings) | **Animations run always** — user explicitly chose no off-screen pause. CPU cost accepted. |
+| Brand voice "stillness over motion" | Held — single decisive moment, ≥2s held outcome, no restless looping | **Suspended for the services grid.** Brand voice principle still applies elsewhere on the site; on the services grid, continuous loop wins. |
+
+### Why
+
+1. After seeing the result, the user reported that 5 of 6 cards "only ran during page load" — the play-once-then-hold made them look broken after first cycle.
+2. The directional entry (`scaleX from left`) read as "swooping in from the side" rather than as part of the card.
+
+### Hard constraints still in force (unchanged)
+
+- Zero new runtime dependencies (no Rive, no Lottie, no framer-motion).
+- GPU-only animation properties (transform, opacity, filter).
+- `prefers-reduced-motion: reduce` → static outcome key-frame, no animation activity.
+- Theming via `currentColor` + CSS vars only.
+- No impeccable absolute bans (no gradient text, no accent stripes, no glassmorphism, no cyan-on-dark).
+
+### Implementation reference
+
+- CSS: `css/service-illustrations.css` — shared loop template + per-service keyframes
+- ADR: `docs/decisions/ADR-010-service-animation-pattern.md` Amendment 1
+- Spec: `tests/service-illustration.spec.ts` + `tests/lint-no-directional-entry.mjs`
+- Plan: `~/.claude/plans/prudentia-digital-repo-path-functional-scott.md` (Phase 8 section)
+
