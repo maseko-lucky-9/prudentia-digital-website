@@ -42,6 +42,7 @@
   <link rel="stylesheet" href="css/styles.css?v=1.1">
   <!-- Animated backgrounds -->
   <link rel="stylesheet" href="css/animated-bg.css?v=1.1">
+  <link rel="stylesheet" href="css/service-illustrations.css?v=0.1">
 
   <!-- Favicon & PWA -->
   <link rel="icon" type="image/svg+xml" href="assets/logo-icon.svg">
@@ -260,11 +261,35 @@
 
         <div class="services__grid">
 
-          <article class="card card-pulse reveal" style="--reveal-delay: 0ms" aria-label="Web Application Development">
+          <article class="card card-pulse card--has-illustration reveal" style="--reveal-delay: 0ms" aria-label="Web Application Development">
             <div class="card__icon-wrap">
-              <svg class="card__icon gold-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
-                <polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>
-              </svg>
+              <div class="service-illustration service-illustration--web-app" aria-hidden="true">
+                <svg viewBox="0 0 240 160" preserveAspectRatio="xMidYMid meet" fill="none" stroke="currentColor">
+                  <!-- Device frame outline (settled outcome shape) — animates last -->
+                  <rect class="si-frame" x="40" y="22" width="160" height="116" rx="6" ry="6" stroke-width="1.5"/>
+                  <!-- Header bar — draws after process beats -->
+                  <line class="si-header" x1="48" y1="36" x2="192" y2="36" stroke-width="1" opacity="0.6"/>
+                  <!-- Title + body line shards (staggered process beats) -->
+                  <line class="si-shard si-shard--title" style="--shard-delay: 200ms" x1="56" y1="52" x2="120" y2="52" stroke-width="1.5"/>
+                  <line class="si-shard si-shard--body"  style="--shard-delay: 380ms" x1="56" y1="68" x2="184" y2="68" stroke-width="0.75" opacity="0.55"/>
+                  <line class="si-shard si-shard--body"  style="--shard-delay: 480ms" x1="56" y1="78" x2="168" y2="78" stroke-width="0.75" opacity="0.55"/>
+                  <line class="si-shard si-shard--body"  style="--shard-delay: 580ms" x1="56" y1="88" x2="176" y2="88" stroke-width="0.75" opacity="0.55"/>
+                  <!-- Chart bar shards -->
+                  <g class="si-shard si-shard--chart" style="--shard-delay: 760ms" fill="currentColor" stroke="none" opacity="0.5">
+                    <rect x="56" y="106" width="6" height="18"/>
+                    <rect x="66" y="100" width="6" height="24"/>
+                    <rect x="76" y="110" width="6" height="14"/>
+                    <rect x="86" y="96" width="6" height="28"/>
+                  </g>
+                  <!-- Button shard -->
+                  <rect class="si-shard si-shard--button" style="--shard-delay: 940ms" x="148" y="108" width="36" height="14" rx="2" ry="2" stroke-width="1"/>
+                  <!-- Gold corner accent (outcome marker — lands last, holds) -->
+                  <g class="si-accent">
+                    <path d="M 192 22 L 200 22 L 200 30" stroke-width="2.5" stroke-linecap="square"/>
+                    <circle class="si-accent--fill" cx="200" cy="22" r="2.5" stroke="none"/>
+                  </g>
+                </svg>
+              </div>
             </div>
             <h3 class="card__title">Web Application Development</h3>
             <p class="card__body">Fast, scalable web applications purpose-built for your business — from first prototype to production-grade platform. Reliable, intuitive, and engineered to grow with you.</p>
@@ -272,11 +297,28 @@
             <p class="card__scope">Includes: discovery, UI/UX, development, testing, deployment</p>
           </article>
 
-          <article class="card card-pulse reveal" style="--reveal-delay: 80ms" aria-label="Cloud Infrastructure and DevOps">
+          <article class="card card-pulse card--has-illustration reveal" style="--reveal-delay: 80ms" aria-label="Cloud Infrastructure and DevOps">
             <div class="card__icon-wrap">
-              <svg class="card__icon gold-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
-                <path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/>
-              </svg>
+              <div class="service-illustration service-illustration--cloud" aria-hidden="true">
+                <svg viewBox="0 0 240 160" preserveAspectRatio="xMidYMid meet" fill="none" stroke="currentColor">
+                  <!-- Outer + inner pulse rings (settled outcome state) -->
+                  <circle class="si-ring si-ring--outer" cx="120" cy="80" r="56" stroke-width="0.75" opacity="0.35"/>
+                  <circle class="si-ring si-ring--inner" cx="120" cy="80" r="42" stroke-width="1"    opacity="0.6"/>
+                  <!-- Cloud node body -->
+                  <circle class="si-node" cx="120" cy="80" r="28" stroke-width="1.5"/>
+                  <!-- Inner dots (compute units consolidated) -->
+                  <g class="si-dots" fill="currentColor" stroke="none">
+                    <circle cx="108" cy="72" r="2" style="--shard-delay: 200ms"/>
+                    <circle cx="120" cy="72" r="2" style="--shard-delay: 260ms"/>
+                    <circle cx="132" cy="72" r="2" style="--shard-delay: 320ms"/>
+                    <circle cx="108" cy="84" r="2" style="--shard-delay: 380ms"/>
+                    <circle cx="120" cy="84" r="2" style="--shard-delay: 440ms"/>
+                    <circle cx="132" cy="84" r="2" style="--shard-delay: 500ms"/>
+                  </g>
+                  <!-- Centre dot (gold heartbeat) -->
+                  <circle class="si-accent--fill" cx="120" cy="80" r="3" stroke="none"/>
+                </svg>
+              </div>
             </div>
             <h3 class="card__title">Cloud Infrastructure & DevOps</h3>
             <p class="card__body">Kubernetes, CI/CD pipelines, Terraform, Prometheus monitoring. Cloud-native from day one.</p>
@@ -284,11 +326,22 @@
             <p class="card__scope">Includes: architecture, IaC setup, CI/CD, monitoring</p>
           </article>
 
-          <article class="card card-pulse reveal" style="--reveal-delay: 160ms" aria-label="Data Analytics and Dashboards">
+          <article class="card card-pulse card--has-illustration reveal" style="--reveal-delay: 160ms" aria-label="Data Analytics and Dashboards">
             <div class="card__icon-wrap">
-              <svg class="card__icon gold-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
-                <line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/>
-              </svg>
+              <div class="service-illustration service-illustration--data" aria-hidden="true">
+                <svg viewBox="0 0 240 160" preserveAspectRatio="xMidYMid meet" fill="none" stroke="currentColor">
+                  <!-- Baseline -->
+                  <line class="si-baseline" x1="32" y1="128" x2="208" y2="128" stroke-width="0.5" opacity="0.35"/>
+                  <!-- Ascending sparkline -->
+                  <polyline class="si-spark" points="40,112 60,108 80,98 100,102 120,86 140,78 160,68 180,54 200,42"
+                            stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+                  <!-- Endpoint halo (gold) -->
+                  <circle class="si-accent si-accent--halo-outer" cx="200" cy="42" r="9" stroke-width="0.75" opacity="0.35"/>
+                  <circle class="si-accent si-accent--halo-inner" cx="200" cy="42" r="6" stroke-width="1"    opacity="0.6"/>
+                  <!-- Endpoint dot (gold) -->
+                  <circle class="si-accent--fill" cx="200" cy="42" r="3" stroke="none"/>
+                </svg>
+              </div>
             </div>
             <h3 class="card__title">Data Analytics & Dashboards</h3>
             <p class="card__body">Multi-database dashboards, ML categorisation, automated reporting. Decisions backed by data.</p>
@@ -296,11 +349,20 @@
             <p class="card__scope">Includes: data audit, pipeline setup, dashboard build, training</p>
           </article>
 
-          <article class="card card-pulse reveal" style="--reveal-delay: 240ms" aria-label="Digital Transformation Advisory">
+          <article class="card card-pulse card--has-illustration reveal" style="--reveal-delay: 240ms" aria-label="Digital Transformation Advisory">
             <div class="card__icon-wrap">
-              <svg class="card__icon gold-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
-                <circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/>
-              </svg>
+              <div class="service-illustration service-illustration--advisory" aria-hidden="true">
+                <svg viewBox="0 0 240 160" preserveAspectRatio="xMidYMid meet" fill="none" stroke="currentColor">
+                  <!-- Faint ghost trails (memory of the untangled origin) -->
+                  <path class="si-ghost" d="M 40 60 C 80 60, 100 100, 200 80" stroke-width="0.5" opacity="0.15"/>
+                  <path class="si-ghost" d="M 40 100 C 90 100, 110 60, 200 80" stroke-width="0.5" opacity="0.15"/>
+                  <path class="si-ghost" d="M 40 80 C 100 80, 130 90, 200 80" stroke-width="0.5" opacity="0.15"/>
+                  <!-- Resolved arrow shaft -->
+                  <line class="si-shaft" x1="40" y1="80" x2="194" y2="80" stroke-width="1.75" stroke-linecap="round"/>
+                  <!-- Gold arrowhead -->
+                  <path class="si-accent" d="M 188 70 L 204 80 L 188 90" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
             </div>
             <h3 class="card__title">Digital Transformation Advisory</h3>
             <p class="card__body">Architecture reviews, cloud migration strategy, legacy modernisation. Enterprise thinking for growing businesses.</p>
@@ -308,11 +370,25 @@
             <p class="card__scope">Includes: assessment, roadmap, vendor evaluation, governance</p>
           </article>
 
-          <article class="card card-pulse reveal" style="--reveal-delay: 320ms" aria-label="API Development and Integration">
+          <article class="card card-pulse card--has-illustration reveal" style="--reveal-delay: 320ms" aria-label="API Development and Integration">
             <div class="card__icon-wrap">
-              <svg class="card__icon gold-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
-                <polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/>
-              </svg>
+              <div class="service-illustration service-illustration--api" aria-hidden="true">
+                <svg viewBox="0 0 240 160" preserveAspectRatio="xMidYMid meet" fill="none" stroke="currentColor">
+                  <!-- Three input channels (left half) -->
+                  <line class="si-channel" style="--shard-delay: 100ms" x1="32" y1="56"  x2="100" y2="56"  stroke-width="1" opacity="0.5"/>
+                  <line class="si-channel" style="--shard-delay: 200ms" x1="32" y1="80"  x2="100" y2="80"  stroke-width="1" opacity="0.5"/>
+                  <line class="si-channel" style="--shard-delay: 300ms" x1="32" y1="104" x2="100" y2="104" stroke-width="1" opacity="0.5"/>
+                  <!-- Convergence curves -->
+                  <path class="si-converge" d="M 100 56 C 124 56, 124 80, 140 80" stroke-width="1" opacity="0.5"/>
+                  <path class="si-converge" d="M 100 104 C 124 104, 124 80, 140 80" stroke-width="1" opacity="0.5"/>
+                  <line class="si-converge" x1="100" y1="80" x2="140" y2="80" stroke-width="1" opacity="0.5"/>
+                  <!-- Merged stream -->
+                  <line class="si-stream" x1="140" y1="80" x2="208" y2="80" stroke-width="2.5" stroke-linecap="round"/>
+                  <!-- Gold marker mid-flow -->
+                  <circle class="si-accent--fill" cx="174" cy="80" r="4" stroke="none"/>
+                  <circle class="si-accent si-accent--marker-halo" cx="174" cy="80" r="8" stroke-width="0.5" opacity="0.4"/>
+                </svg>
+              </div>
             </div>
             <h3 class="card__title">API Development & Integration</h3>
             <p class="card__body">RESTful APIs, third-party integrations, payment gateways. Reliable interfaces that scale.</p>
@@ -321,11 +397,25 @@
           </article>
 
           <a href="/ai/" class="card-link" aria-label="AI Agent Engineering — view details">
-            <article class="card card--accent card-pulse reveal" style="--reveal-delay: 400ms">
+            <article class="card card--accent card-pulse card--has-illustration reveal" style="--reveal-delay: 400ms">
               <div class="card__icon-wrap">
-                <svg class="card__icon gold-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
-                  <circle cx="6" cy="6" r="2"/><circle cx="18" cy="6" r="2"/><circle cx="12" cy="18" r="2"/><line x1="6" y1="6" x2="18" y2="6"/><line x1="6" y1="6" x2="12" y2="18"/><line x1="18" y1="6" x2="12" y2="18"/>
-                </svg>
+                <div class="service-illustration service-illustration--ai" aria-hidden="true">
+                  <svg viewBox="0 0 240 160" preserveAspectRatio="xMidYMid meet" fill="none" stroke="currentColor">
+                    <!-- Faint ghost stack (memory of the queue) -->
+                    <line class="si-queue" x1="60" y1="120" x2="180" y2="120" stroke-width="0.5" opacity="0.15"/>
+                    <line class="si-queue" x1="60" y1="108" x2="180" y2="108" stroke-width="0.5" opacity="0.2"/>
+                    <line class="si-queue" x1="60" y1="96"  x2="180" y2="96"  stroke-width="0.5" opacity="0.25"/>
+                    <line class="si-queue" x1="60" y1="84"  x2="180" y2="84"  stroke-width="0.5" opacity="0.3"/>
+                    <!-- Vertical beam -->
+                    <line class="si-beam" x1="120" y1="40" x2="120" y2="80" stroke-width="0.5" opacity="0.2" stroke-dasharray="2 3"/>
+                    <!-- The answer-line (outcome) -->
+                    <line class="si-answer" x1="48" y1="44" x2="192" y2="44" stroke-width="2" stroke-linecap="round"/>
+                    <!-- Gold glow midpoint -->
+                    <circle class="si-accent si-accent--glow-outer" cx="120" cy="44" r="14" stroke-width="0.5" opacity="0.3"/>
+                    <circle class="si-accent si-accent--glow-inner" cx="120" cy="44" r="9"  stroke-width="0.75" opacity="0.5"/>
+                    <circle class="si-accent--fill" cx="120" cy="44" r="4" stroke="none"/>
+                  </svg>
+                </div>
               </div>
               <h3 class="card__title">AI Agent Engineering</h3>
               <p class="card__body">Production AI systems for specific business outcomes — agents that finish multi-step workflows, retrieval grounded in your private data, and integrations built into the tools your team already uses.</p>

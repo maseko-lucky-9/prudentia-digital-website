@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 160" role="img" aria-label="Data Analytics and Dashboards outcome key-frame">
+  <title>Data Analytics &amp; Dashboards — outcome key-frame</title>
+  <desc>A single ascending sparkline with a gold endpoint dot and small halo.</desc>
+  <!-- Baseline tick marks (suggesting the chart frame) -->
+  <line x1="32" y1="128" x2="208" y2="128" stroke="#0D1B2A" stroke-width="0.5" opacity="0.35"/>
+  <!-- The sparkline (final resolved signal) -->
+  <polyline points="40,112 60,108 80,98 100,102 120,86 140,78 160,68 180,54 200,42"
+            fill="none" stroke="#0D1B2A" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Endpoint halo (gold) -->
+  <circle cx="200" cy="42" r="9" fill="none" stroke="#C9A96E" stroke-width="0.75" opacity="0.35"/>
+  <circle cx="200" cy="42" r="6" fill="none" stroke="#C9A96E" stroke-width="1" opacity="0.6"/>
+  <!-- Endpoint dot (gold) -->
+  <circle cx="200" cy="42" r="3" fill="#C9A96E"/>
+</svg>

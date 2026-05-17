@@ -292,16 +292,26 @@
 
   initSpotlight();
 
-  /* ── Card pulse — mark cards in-view via existing reveal observer
+  /* ── Card pulse + service-illustration — single observer ─────────────
        Cards already get `.in-view` class; CSS picks it up.
-       This block also exposes a fallback observer in case some cards
-       use `.reveal` (without becoming `.in-view`). */
+       Same callback toggles `.is-playing` on any nested
+       `.service-illustration` host so the per-service animation runs
+       once on first viewport entry. The class is never removed — re-entry
+       does not restart playback (play-once lifecycle per brief).
+       reducedMotion below is enforced anyway by the CSS guard, but we
+       skip the JS add too (belt and suspenders matching existing pattern). */
   const pulseCards = document.querySelectorAll('.card-pulse');
   if (pulseCards.length > 0 && 'IntersectionObserver' in window) {
     const cardIo = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.classList.add('in-view');
+          if (!reducedMotion.matches) {
+            const illustration = entry.target.querySelector('.service-illustration');
+            if (illustration && !illustration.classList.contains('is-playing')) {
+              illustration.classList.add('is-playing');
+            }
+          }
         }
       });
     }, { threshold: 0.2 });

@@ -1,0 +1,441 @@
+/* ==========================================================================
+   Service illustrations
+   --------------------------------------------------------------------------
+   Per-service animated illustrations on the home services grid.
+   See:
+     - .impeccable.md (design context, hybrid framing, anti-references)
+     - docs/design/service-animation-brief.md (shared motion vocabulary, budgets)
+     - docs/decisions/ADR-010-service-animation-pattern.md (layout decision)
+
+   Phase 4 (this file): layout shim + static outcome key-frame only.
+   Phase 5 will add the process-beat animations keyed off .is-playing.
+
+   Architecture:
+     - .card--has-illustration       modifier on the article (opts in)
+     - .card__icon-wrap              existing slot, sized up by the modifier
+     - .service-illustration         host element holding the inline SVG
+     - .service-illustration--{svc}  per-service modifier (animation hooks)
+     - .si-{role}                    SVG-internal classes (frame, shard, accent…)
+
+   Hard constraints (see brief):
+     - Zero new runtime deps.
+     - GPU-only animation props (transform / opacity / filter).
+     - Theming via currentColor + var() only; never hard-coded hex.
+     - prefers-reduced-motion: reduce honored — static outcome key-frame.
+   ========================================================================== */
+
+
+/* ── Shared motion vocabulary ─────────────────────────────────────────────
+   These tokens are referenced by every per-service animation in Phase 5.
+   They live here (not design-tokens.css) until Phase 5 lifts them once we
+   confirm the values survive critique. Promote then.
+   ────────────────────────────────────────────────────────────────────── */
+:root {
+  --anim-illustration-ease:      cubic-bezier(0.25, 1, 0.5, 1);   /* ease-out-quart */
+  --anim-illustration-beat:      560ms;                            /* one process beat */
+  --anim-illustration-settle:    480ms;                            /* outcome resolution hold-in */
+  --anim-illustration-pause:     2200ms;                           /* held-still after outcome */
+  --anim-illustration-halo-blur: 24px;                             /* gold halo around outcome accent */
+}
+
+
+/* ── Card slot resize for cards that have an illustration ─────────────── */
+.card--has-illustration .card__icon-wrap {
+  /* Existing rule: 44x44, centred. Override for the illustration host. */
+  width: 100%;
+  height: auto;
+  aspect-ratio: 3 / 2;                /* matches SVG viewBox 240x160 */
+  margin-bottom: var(--space-5);
+  display: block;                     /* drop the centring flex; let host fill */
+  /* Reserve space so the SVG can't cause layout shift on first paint. */
+  contain: layout paint;
+}
+
+
+/* ── Illustration host ────────────────────────────────────────────────── */
+.service-illustration {
+  position: relative;                 /* stacking context above card content */
+  z-index: 1;                         /* below .card-pulse::before (z-index: 2) */
+  width: 100%;
+  height: 100%;
+  display: block;
+  color: var(--color-primary);        /* navy — drives currentColor strokes */
+  /* No background. No border. The card frame already provides containment. */
+}
+
+/* Dark .card--accent inverts the foreground — illustrations follow suit. */
+.card--accent .service-illustration {
+  color: var(--color-white);
+}
+
+.service-illustration > svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;                  /* allow halo blur to extend past viewBox */
+}
+
+/* Default SVG-internal element treatment.
+   All non-accent geometry uses currentColor; accents pull from var(). */
+.service-illustration .si-frame,
+.service-illustration .si-header,
+.service-illustration .si-shard,
+.service-illustration .si-ring,
+.service-illustration .si-node,
+.service-illustration .si-baseline,
+.service-illustration .si-spark,
+.service-illustration .si-ghost,
+.service-illustration .si-shaft,
+.service-illustration .si-channel,
+.service-illustration .si-converge,
+.service-illustration .si-stream,
+.service-illustration .si-queue,
+.service-illustration .si-beam,
+.service-illustration .si-answer {
+  stroke: currentColor;
+  fill: none;
+}
+
+.service-illustration .si-shard--chart,
+.service-illustration .si-dots {
+  /* Filled, not stroked — restore fill default. */
+  stroke: none;
+  fill: currentColor;
+}
+
+.service-illustration .si-accent {
+  stroke: var(--color-accent);
+  fill: none;
+}
+
+.service-illustration .si-accent--fill {
+  fill: var(--color-accent);
+  stroke: none;
+}
+
+
+/* ── Per-service modifier scaffolds ───────────────────────────────────────
+   Phase 4 ships these as no-op shells so Phase 5 can hang animations off
+   them without further structural change. The pilot (--web-app) is the
+   only one with a real illustration in Phase 4; the others land in Phase 7.
+   ────────────────────────────────────────────────────────────────────── */
+/* ── Per-service: Web Application Development (pilot) ─────────────────────
+   Hybrid arc (per brief):
+     Process 1 (0–760ms):   shard lines drift in, staggered via --shard-delay
+     Process 2 (760–940ms): chart + button shards arrive
+     Process 3 (1200ms):    header bar draws in
+     Outcome  (1300ms):     device frame outline settles
+     Accent   (1700ms):     gold corner accent lands and holds
+   Tween channels: 4 (shard / header / frame / accent) — at ceiling, not over.
+   ────────────────────────────────────────────────────────────────────── */
+
+.service-illustration--web-app { /* host scaffold — animations scoped via .is-playing below */ }
+
+/* Each shard fades + drifts to position on its individual delay. */
+.service-illustration--web-app.is-playing .si-shard {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation:
+    si-web-app-shard-in
+    var(--anim-illustration-beat)
+    var(--anim-illustration-ease)
+    var(--shard-delay, 0ms)
+    backwards;
+}
+
+.service-illustration--web-app.is-playing .si-header {
+  transform-box: fill-box;
+  transform-origin: left center;
+  animation:
+    si-web-app-header-draw
+    var(--anim-illustration-beat)
+    var(--anim-illustration-ease)
+    1080ms
+    backwards;
+}
+
+.service-illustration--web-app.is-playing .si-frame {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation:
+    si-web-app-frame-settle
+    var(--anim-illustration-settle)
+    var(--anim-illustration-ease)
+    1300ms
+    backwards;
+}
+
+.service-illustration--web-app.is-playing .si-accent,
+.service-illustration--web-app.is-playing .si-accent--fill {
+  transform-box: fill-box;
+  transform-origin: 200px 22px;
+  animation:
+    si-web-app-accent-land
+    560ms
+    var(--anim-illustration-ease)
+    1700ms
+    backwards;
+}
+
+@keyframes si-web-app-shard-in {
+  from { opacity: 0; transform: translate3d(0, -6px, 0); }
+  to   { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+
+@keyframes si-web-app-header-draw {
+  from { opacity: 0; transform: scaleX(0); }
+  to   { opacity: 0.6; transform: scaleX(1); }
+}
+
+@keyframes si-web-app-frame-settle {
+  from { opacity: 0; transform: scale(0.985); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+@keyframes si-web-app-accent-land {
+  0%   { opacity: 0; transform: scale(0.4); }
+  60%  { opacity: 1; }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+
+/* ── Per-service: Cloud Infrastructure & DevOps ──────────────────────────
+   Graceful-settle. Inner dots stagger in (process), node fades in (outcome
+   container), rings expand outward (outcome halo), gold heartbeat lands last.
+   ────────────────────────────────────────────────────────────────────── */
+.service-illustration--cloud.is-playing .si-dots circle {
+  transform-box: fill-box; transform-origin: center;
+  animation: si-fade-in 400ms var(--anim-illustration-ease) var(--shard-delay, 0ms) backwards;
+}
+.service-illustration--cloud.is-playing .si-node {
+  transform-box: fill-box; transform-origin: center;
+  animation: si-fade-scale 560ms var(--anim-illustration-ease) 700ms backwards;
+}
+.service-illustration--cloud.is-playing .si-ring--inner {
+  transform-box: fill-box; transform-origin: center;
+  animation: si-ring-expand 700ms var(--anim-illustration-ease) 1100ms backwards;
+}
+.service-illustration--cloud.is-playing .si-ring--outer {
+  transform-box: fill-box; transform-origin: center;
+  animation: si-ring-expand 800ms var(--anim-illustration-ease) 1300ms backwards;
+}
+.service-illustration--cloud.is-playing .si-accent--fill {
+  transform-box: fill-box; transform-origin: 120px 80px;
+  animation: si-web-app-accent-land 560ms var(--anim-illustration-ease) 1500ms backwards;
+}
+
+
+/* ── Per-service: Data Analytics & Dashboards ────────────────────────────
+   Baseline appears, sparkline draws via stroke-dashoffset, endpoint lands.
+   Uses stroke-dasharray trick for the draw-in effect.
+   ────────────────────────────────────────────────────────────────────── */
+.service-illustration--data .si-spark {
+  /* Approx total path length. Set high enough to fully hide; trimmed by anim. */
+  stroke-dasharray: 280;
+  stroke-dashoffset: 0;
+}
+.service-illustration--data.is-playing .si-baseline {
+  animation: si-fade-in 400ms var(--anim-illustration-ease) 200ms backwards;
+}
+.service-illustration--data.is-playing .si-spark {
+  animation: si-spark-draw 1100ms var(--anim-illustration-ease) 500ms backwards;
+}
+.service-illustration--data.is-playing .si-accent--halo-outer,
+.service-illustration--data.is-playing .si-accent--halo-inner {
+  transform-box: fill-box; transform-origin: 200px 42px;
+  animation: si-fade-scale 560ms var(--anim-illustration-ease) 1500ms backwards;
+}
+.service-illustration--data.is-playing .si-accent--fill {
+  transform-box: fill-box; transform-origin: 200px 42px;
+  animation: si-web-app-accent-land 560ms var(--anim-illustration-ease) 1600ms backwards;
+}
+
+@keyframes si-spark-draw {
+  from { stroke-dashoffset: 280; }
+  to   { stroke-dashoffset: 0; }
+}
+
+
+/* ── Per-service: Digital Transformation Advisory ────────────────────────
+   Ghost trails settle in faintly, shaft draws horizontally, arrowhead lands.
+   ────────────────────────────────────────────────────────────────────── */
+.service-illustration--advisory.is-playing .si-ghost {
+  animation: si-fade-in 800ms var(--anim-illustration-ease) 200ms backwards;
+}
+.service-illustration--advisory.is-playing .si-shaft {
+  transform-box: fill-box; transform-origin: left center;
+  animation: si-shaft-draw 700ms var(--anim-illustration-ease) 800ms backwards;
+}
+.service-illustration--advisory.is-playing .si-accent {
+  transform-box: fill-box; transform-origin: 204px 80px;
+  animation: si-fade-scale 560ms var(--anim-illustration-ease) 1400ms backwards;
+}
+
+@keyframes si-shaft-draw {
+  from { opacity: 0; transform: scaleX(0); }
+  to   { opacity: 1; transform: scaleX(1); }
+}
+
+
+/* ── Per-service: API Development & Integration ──────────────────────────
+   Three channels appear with stagger, convergence curves draw in, merged
+   stream resolves, gold marker lands at midpoint.
+   ────────────────────────────────────────────────────────────────────── */
+.service-illustration--api.is-playing .si-channel {
+  transform-box: fill-box; transform-origin: left center;
+  animation: si-shaft-draw var(--anim-illustration-beat) var(--anim-illustration-ease) var(--shard-delay, 0ms) backwards;
+}
+.service-illustration--api.is-playing .si-converge {
+  animation: si-fade-in 500ms var(--anim-illustration-ease) 800ms backwards;
+}
+.service-illustration--api.is-playing .si-stream {
+  transform-box: fill-box; transform-origin: left center;
+  animation: si-shaft-draw 560ms var(--anim-illustration-ease) 1200ms backwards;
+}
+.service-illustration--api.is-playing .si-accent--marker-halo {
+  transform-box: fill-box; transform-origin: 174px 80px;
+  animation: si-fade-scale 560ms var(--anim-illustration-ease) 1700ms backwards;
+}
+.service-illustration--api.is-playing .si-accent--fill {
+  transform-box: fill-box; transform-origin: 174px 80px;
+  animation: si-web-app-accent-land 560ms var(--anim-illustration-ease) 1800ms backwards;
+}
+
+
+/* ── Per-service: AI Agent Engineering — LOOP EXCEPTION ──────────────────
+   Continuous compression of manual operations. The answer-line and gold
+   glow loop with a 1.5s pause between cycles. Queue lines and beam
+   present in the loop arc as the source of the answer.
+   Lifecycle: loops infinitely after first viewport entry.
+   ────────────────────────────────────────────────────────────────────── */
+
+/* Static state: queue + beam visible as quiet base, answer-line + glow
+   sit at the resolved outcome opacity. The loop adds rhythm via the
+   answer-line and glow scaling cyclically. */
+.service-illustration--ai.is-playing .si-queue {
+  animation: si-ai-queue-pulse 3700ms var(--anim-illustration-ease) infinite;
+}
+.service-illustration--ai.is-playing .si-queue:nth-of-type(1) { animation-delay: 0ms; }
+.service-illustration--ai.is-playing .si-queue:nth-of-type(2) { animation-delay: 150ms; }
+.service-illustration--ai.is-playing .si-queue:nth-of-type(3) { animation-delay: 300ms; }
+.service-illustration--ai.is-playing .si-queue:nth-of-type(4) { animation-delay: 450ms; }
+
+.service-illustration--ai.is-playing .si-beam {
+  animation: si-ai-beam-pass 3700ms var(--anim-illustration-ease) 800ms infinite;
+}
+
+.service-illustration--ai.is-playing .si-answer {
+  transform-box: fill-box; transform-origin: center;
+  animation: si-ai-answer-emit 3700ms var(--anim-illustration-ease) 1400ms infinite;
+}
+
+.service-illustration--ai.is-playing .si-accent--glow-outer,
+.service-illustration--ai.is-playing .si-accent--glow-inner {
+  transform-box: fill-box; transform-origin: 120px 44px;
+  animation: si-ai-glow-breathe 3700ms var(--anim-illustration-ease) 1400ms infinite;
+}
+
+.service-illustration--ai.is-playing .si-accent--fill {
+  transform-box: fill-box; transform-origin: 120px 44px;
+  animation: si-ai-accent-breathe 3700ms var(--anim-illustration-ease) 1400ms infinite;
+}
+
+@keyframes si-ai-queue-pulse {
+  0%, 30%, 100% { opacity: var(--queue-base, 0.2); transform: translateY(0); }
+  18%           { opacity: 0.45; }
+  35%           { opacity: 0; transform: translateY(-6px); }
+  60%, 100%     { opacity: var(--queue-base, 0.2); transform: translateY(0); }
+}
+
+@keyframes si-ai-beam-pass {
+  0%, 100%      { opacity: 0; transform: scaleY(0); transform-origin: top; }
+  10%           { opacity: 0.4; transform: scaleY(1); transform-origin: top; }
+  25%           { opacity: 0; transform: scaleY(1); transform-origin: bottom; }
+  100%          { opacity: 0; }
+}
+
+@keyframes si-ai-answer-emit {
+  0%            { opacity: 0; transform: scaleX(0); }
+  15%, 70%      { opacity: 1; transform: scaleX(1); }
+  85%, 100%     { opacity: 0; transform: scaleX(1); }
+}
+
+@keyframes si-ai-glow-breathe {
+  0%, 100%      { opacity: 0; }
+  20%, 60%      { opacity: var(--glow-base, 0.4); }
+  85%, 100%     { opacity: 0; }
+}
+
+@keyframes si-ai-accent-breathe {
+  0%, 100%      { opacity: 0; transform: scale(0.5); }
+  20%, 60%      { opacity: 1; transform: scale(1); }
+  85%, 100%     { opacity: 0; transform: scale(0.5); }
+}
+
+
+/* ── Shared atomic keyframes (referenced by multiple services) ──────────── */
+@keyframes si-fade-in {
+  from { opacity: 0; }
+  to   { opacity: var(--si-fade-target, 1); }
+}
+
+@keyframes si-fade-scale {
+  from { opacity: 0; transform: scale(0.85); }
+  to   { opacity: var(--si-fade-target, 1); transform: scale(1); }
+}
+
+@keyframes si-ring-expand {
+  from { opacity: 0; transform: scale(0.4); }
+  to   { opacity: var(--si-fade-target, 1); transform: scale(1); }
+}
+.service-illustration--cloud   { /* see Cloud block below */ }
+.service-illustration--data    { /* see Data block below */ }
+.service-illustration--advisory{ /* see Advisory block below */ }
+.service-illustration--api     { /* see API block below */ }
+.service-illustration--ai      { /* see AI block below — LOOP exception */ }
+
+
+/* ── Interaction matrix ────────────────────────────────────────────────────
+   The .card-pulse::before sits at z-index: 2 with pointer-events: none, so
+   it never blocks the illustration. The illustration sits at z-index: 1 on
+   the card's content layer, undisturbed by hover. Phase 5 will use
+   :hover / :focus-within on the article to boost the illustration's
+   animation-rate via a CSS variable; the scaffold lives here.
+   ──────────────────────────────────────────────────────────────────────── */
+.card--has-illustration {
+  --illustration-rate: 1;
+}
+
+.card--has-illustration:hover,
+.card--has-illustration:focus-within {
+  --illustration-rate: 1.2;           /* Phase 5 will consume this in animation-duration calc */
+}
+
+
+/* ── Reduced motion ────────────────────────────────────────────────────────
+   Hard floor. The static outcome key-frame is the SVG as authored (all
+   geometry already represents the settled outcome state). Phase 5 will
+   strip any added .is-playing transforms via this same block.
+   ──────────────────────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .service-illustration,
+  .service-illustration * {
+    animation: none !important;
+    transition: none !important;
+    transform: none !important;
+  }
+}
+
+
+/* ── Forced-colors / high-contrast ─────────────────────────────────────────
+   In Windows high-contrast mode, currentColor maps to system text colour.
+   Accents lose their tint there (browsers ignore custom-property fills),
+   which is the documented behaviour — geometry remains legible.
+   ──────────────────────────────────────────────────────────────────────── */
+@media (forced-colors: active) {
+  .service-illustration .si-accent,
+  .service-illustration .si-accent--fill {
+    stroke: CanvasText;
+    fill: CanvasText;
+  }
+}

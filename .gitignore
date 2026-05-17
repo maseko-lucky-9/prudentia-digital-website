@@ -31,6 +31,18 @@ test-results/*
 !test-results/.last-run.json
 .playwright-mcp/
 
+# Raw Lighthouse outputs are large (~440KB each). Summaries committed
+# via tests/baselines/lighthouse-baseline.json + lighthouse-phase7-summary.json.
+tests/baselines/lighthouse-mobile*.json
+tests/baselines/lighthouse-desktop*.json
+
+# Dev-scaffolding screenshots produced by tests/baselines/phase{4,5,7}-smoke.mjs.
+# Regenerable on demand. The Phase 0a baselines and Playwright visual snapshots
+# (tests/service-illustration.spec.ts-snapshots/) are the canonical references.
+tests/baselines/screenshots/phase4-shim/
+tests/baselines/screenshots/phase5-animated/
+tests/baselines/screenshots/phase7-all-six/
+
 # ── Environment ──────────────────────────────────────────
 .env
 .env.*

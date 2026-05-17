@@ -1,0 +1,36 @@
+{
+  "captured_on": "2026-05-17",
+  "branch": "feat/service-illustrations",
+  "url": "http://localhost:4173/",
+  "tool": "lighthouse 13.1.0",
+  "notes": [
+    "Captured against `npx serve` on port 4173 (ports 3000/3001 held by other processes).",
+    "INP not reported — Lighthouse only emits INP from CrUX field data, not lab runs. Phase 6 must measure INP via PerformanceObserver in Playwright instead.",
+    "Accessibility baseline is 0.97, not 1.00 — Phase 6 gate revised from 'must stay 100' to 'must stay >= 0.97'."
+  ],
+  "desktop": {
+    "performance": 0.91,
+    "accessibility": 0.97,
+    "fcp_ms": 1073,
+    "lcp_ms": 1651,
+    "cls": 0.0006,
+    "tbt_ms": 0,
+    "raw_report": "tests/baselines/lighthouse-desktop.json"
+  },
+  "mobile": {
+    "performance": 0.96,
+    "accessibility": 0.97,
+    "fcp_ms": 1876,
+    "lcp_ms": 2410,
+    "cls": 0.0324,
+    "tbt_ms": 0,
+    "raw_report": "tests/baselines/lighthouse-mobile.json"
+  },
+  "gates_for_phase_6": {
+    "desktop_perf_min": 0.88,
+    "mobile_perf_min": 0.93,
+    "a11y_min": 0.97,
+    "cls_max_mobile": 0.05,
+    "cls_max_desktop": 0.01
+  }
+}

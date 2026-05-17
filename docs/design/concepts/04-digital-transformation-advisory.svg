@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 160" role="img" aria-label="Digital Transformation Advisory outcome key-frame">
+  <title>Digital Transformation Advisory — outcome key-frame</title>
+  <desc>A single horizontal forward arrow with a gold arrowhead. Three faint ghosted curves trail behind suggesting the untangled origin.</desc>
+  <!-- Faint ghost trails of the untangled strands (memory of process beats) -->
+  <path d="M 40 60 C 80 60, 100 100, 200 80" fill="none" stroke="#0D1B2A" stroke-width="0.5" opacity="0.15"/>
+  <path d="M 40 100 C 90 100, 110 60, 200 80" fill="none" stroke="#0D1B2A" stroke-width="0.5" opacity="0.15"/>
+  <path d="M 40 80 C 100 80, 130 90, 200 80" fill="none" stroke="#0D1B2A" stroke-width="0.5" opacity="0.15"/>
+  <!-- Resolved arrow shaft -->
+  <line x1="40" y1="80" x2="194" y2="80" stroke="#0D1B2A" stroke-width="1.75" stroke-linecap="round"/>
+  <!-- Arrowhead (gold) -->
+  <path d="M 188 70 L 204 80 L 188 90" fill="none" stroke="#C9A96E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
