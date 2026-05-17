@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 160" role="img" aria-label="Cloud Infrastructure and DevOps outcome key-frame">
+  <title>Cloud Infrastructure &amp; DevOps — outcome key-frame</title>
+  <desc>A single cloud node at center with a gold pulse-ring expanding outward.</desc>
+  <!-- Outer pulse ring (held outcome state) -->
+  <circle cx="120" cy="80" r="56" fill="none" stroke="#C9A96E" stroke-width="0.75" opacity="0.35"/>
+  <circle cx="120" cy="80" r="42" fill="none" stroke="#C9A96E" stroke-width="1" opacity="0.6"/>
+  <!-- Cloud node body: composed circle silhouette (not the SaaS cloud-puff cliche; just a clean node) -->
+  <circle cx="120" cy="80" r="28" fill="none" stroke="#0D1B2A" stroke-width="1.5"/>
+  <!-- Inner node detail: small dot grid suggesting compute units consolidated -->
+  <circle cx="108" cy="72" r="2" fill="#0D1B2A"/>
+  <circle cx="120" cy="72" r="2" fill="#0D1B2A"/>
+  <circle cx="132" cy="72" r="2" fill="#0D1B2A"/>
+  <circle cx="108" cy="84" r="2" fill="#0D1B2A"/>
+  <circle cx="120" cy="84" r="2" fill="#0D1B2A"/>
+  <circle cx="132" cy="84" r="2" fill="#0D1B2A"/>
+  <!-- Center dot (gold, the heartbeat) -->
+  <circle cx="120" cy="80" r="3" fill="#C9A96E"/>
+</svg>

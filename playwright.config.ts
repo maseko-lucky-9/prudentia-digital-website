@@ -8,7 +8,7 @@ export default defineConfig({
   workers: process.env.CI ? 1 : undefined,
   reporter: process.env.CI ? 'github' : 'html',
   use: {
-    baseURL: 'http://localhost:3000',
+    baseURL: `http://localhost:${process.env.PORT || 4173}`,
     trace: 'on-first-retry',
   },
   projects: [
@@ -18,8 +18,10 @@ export default defineConfig({
     },
   ],
   webServer: {
-    command: 'npx serve -l 3000 .',
-    url: 'http://localhost:3000',
+    // Default to 4173 — ports 3000/3001 are often held by local dev tools
+    // (e.g. Grafana / Docker stacks). Override via PORT env if needed.
+    command: `npx serve -l ${process.env.PORT || 4173} .`,
+    url: `http://localhost:${process.env.PORT || 4173}`,
     reuseExistingServer: !process.env.CI,
   },
 });

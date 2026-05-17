@@ -1,0 +1,261 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Prudentia — Service-illustration concept gallery</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  :root {
+    --navy: #0D1B2A;
+    --gold: #C9A96E;
+    --warm-white: #FAFAF9;
+    --gray-700: #404040;
+    --gray-500: #737373;
+    --gray-300: #d4d4d4;
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--warm-white);
+    color: var(--navy);
+    margin: 0;
+    padding: 48px 32px;
+    line-height: 1.6;
+  }
+  .page {
+    max-width: 1120px;
+    margin: 0 auto;
+  }
+  h1 {
+    font-family: 'DM Serif Display', Georgia, serif;
+    font-size: 36px;
+    margin: 0 0 8px;
+    font-weight: 400;
+  }
+  .lead {
+    color: var(--gray-700);
+    max-width: 65ch;
+    margin: 0 0 48px;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 48px 40px;
+  }
+  @media (max-width: 720px) {
+    .grid { grid-template-columns: 1fr; gap: 40px; }
+    body { padding: 32px 20px; }
+  }
+  .card {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .card h2 {
+    font-family: 'DM Serif Display', Georgia, serif;
+    font-size: 22px;
+    font-weight: 400;
+    margin: 0;
+    color: var(--navy);
+  }
+  .card .index {
+    font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+  .card .savings {
+    font-style: italic;
+    color: var(--gray-700);
+    margin: 0;
+    font-size: 14px;
+  }
+  .illustration-frame {
+    background: #fff;
+    border: 1px solid var(--gray-300);
+    border-radius: 4px;
+    padding: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    aspect-ratio: 3 / 2;
+  }
+  .illustration-frame svg {
+    width: 100%;
+    height: 100%;
+    max-width: 320px;
+  }
+  details {
+    border-top: 1px solid var(--gray-300);
+    padding-top: 12px;
+  }
+  details summary {
+    font-size: 13px;
+    color: var(--gray-500);
+    cursor: pointer;
+    user-select: none;
+  }
+  details summary:hover { color: var(--navy); }
+  details[open] summary { color: var(--navy); margin-bottom: 8px; }
+  details ul {
+    margin: 8px 0 0;
+    padding-left: 18px;
+    font-size: 13px;
+    color: var(--gray-700);
+  }
+  details li { margin-bottom: 6px; }
+  details li strong { color: var(--navy); font-weight: 600; }
+  .beats {
+    font-size: 13px;
+    color: var(--gray-700);
+    margin: 0;
+  }
+  .beats strong { color: var(--navy); font-weight: 600; }
+  .meta {
+    font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
+    font-size: 11px;
+    color: var(--gray-500);
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .meta span::before { content: '·  '; color: var(--gray-300); }
+  .meta span:first-child::before { content: ''; }
+  .footer {
+    margin-top: 64px;
+    padding-top: 24px;
+    border-top: 1px solid var(--gray-300);
+    font-size: 13px;
+    color: var(--gray-500);
+  }
+  .footer code {
+    background: #fff;
+    border: 1px solid var(--gray-300);
+    border-radius: 3px;
+    padding: 1px 5px;
+    font-size: 12px;
+  }
+</style>
+</head>
+<body>
+<main class="page">
+  <h1>Service-illustration concept gallery</h1>
+  <p class="lead">
+    Phase 3 deliverable. Each card shows the <strong>outcome key-frame</strong> &mdash; the static state held after the process beats resolve, and the state shown in <code>prefers-reduced-motion: reduce</code> mode. Motion choreography is described per card. Two alternate directions per service are listed in the collapsed details if the strong concept doesn&rsquo;t land in critique.
+  </p>
+
+  <div class="grid">
+
+    <!-- 1. Web App Dev -->
+    <article class="card">
+      <span class="index">01 / Strong</span>
+      <h2>Web Application Development</h2>
+      <p class="savings">&ldquo;Prototype to production-grade &mdash; without the months between.&rdquo;</p>
+      <div class="illustration-frame"><object type="image/svg+xml" data="01-web-application-development.svg" aria-label="Web App Development outcome key-frame"></object></div>
+      <p class="beats"><strong>Process beats:</strong> shards drift in off-canvas &rarr; snap to invisible grid &rarr; thin lines draw between them. <strong>Outcome:</strong> consolidated into one device frame with a gold corner accent that lands and holds.</p>
+      <div class="meta"><span>Play-once</span><span>~2.1s arc + 480ms settle</span><span>4 tween channels</span></div>
+      <details>
+        <summary>Alternate directions (not sketched)</summary>
+        <ul>
+          <li><strong>B &mdash; Wireframe to fidelity:</strong> a wireframe rectangle grows in stroke weight in 3 steps until it becomes the polished frame. Read as &ldquo;sketch &rarr; ship&rdquo; rather than &ldquo;parts &rarr; whole.&rdquo;</li>
+          <li><strong>C &mdash; Build dependency reveal:</strong> a single rect appears, then 4 smaller rects fade in connected by lines, suggesting a component tree settling. More technical, leans engineering-buyer.</li>
+        </ul>
+      </details>
+    </article>
+
+    <!-- 2. Cloud/DevOps -->
+    <article class="card">
+      <span class="index">02 / Strong</span>
+      <h2>Cloud Infrastructure &amp; DevOps</h2>
+      <p class="savings">&ldquo;One platform to operate, not a rack to maintain.&rdquo;</p>
+      <div class="illustration-frame"><object type="image/svg+xml" data="02-cloud-infrastructure-devops.svg" aria-label="Cloud Infrastructure outcome key-frame"></object></div>
+      <p class="beats"><strong>Process beats:</strong> three server towers with blinking status dots &rarr; towers dissolve into ascending particles &rarr; particles drift to a convergence point. <strong>Outcome:</strong> coalesce into one cloud node with a single gold pulse-ring that lands and holds.</p>
+      <div class="meta"><span>Play-once</span><span>~2.4s arc + 480ms settle</span><span>4 tween channels</span></div>
+      <details>
+        <summary>Alternate directions (not sketched)</summary>
+        <ul>
+          <li><strong>B &mdash; Pipeline collapse:</strong> a horizontal multi-stage pipeline (commit &rarr; build &rarr; test &rarr; deploy) collapses sideways into a single &ldquo;deployed&rdquo; node. Stronger DevOps narrative, weaker on the consolidation story.</li>
+          <li><strong>C &mdash; Region replication:</strong> a node appears, replicates twice across the frame with thin connection lines, then the three nodes settle in a single triangle. Reads as &ldquo;high availability&rdquo; rather than &ldquo;OpEx reduction.&rdquo;</li>
+        </ul>
+      </details>
+    </article>
+
+    <!-- 3. Data/Analytics -->
+    <article class="card">
+      <span class="index">03 / Strong</span>
+      <h2>Data Analytics &amp; Dashboards</h2>
+      <p class="savings">&ldquo;Signal extracted from your noise &mdash; daily, without you asking.&rdquo;</p>
+      <div class="illustration-frame"><object type="image/svg+xml" data="03-data-analytics-dashboards.svg" aria-label="Data Analytics outcome key-frame"></object></div>
+      <p class="beats"><strong>Process beats:</strong> dense scatter of ~30 dots &rarr; filter line sweeps left-to-right, dimming dots above &rarr; surviving dots reorganise into sequence. <strong>Outcome:</strong> ascending sparkline with a gold endpoint dot and quiet halo.</p>
+      <div class="meta"><span>Play-once</span><span>~2.6s arc + 480ms settle</span><span>3 tween channels</span></div>
+      <details>
+        <summary>Alternate directions (not sketched)</summary>
+        <ul>
+          <li><strong>B &mdash; Histogram resolves:</strong> a noisy histogram normalises into a single distribution curve. More statistically literate, less universally readable.</li>
+          <li><strong>C &mdash; Funnel compression:</strong> a wide funnel narrows to a single output bar. Stronger conversion-metric read, weaker on the &ldquo;noise &rarr; signal&rdquo; story.</li>
+        </ul>
+      </details>
+    </article>
+
+    <!-- 4. Advisory -->
+    <article class="card">
+      <span class="index">04 / Strong</span>
+      <h2>Digital Transformation Advisory</h2>
+      <p class="savings">&ldquo;Decision velocity &mdash; direction agreed before the next quarter starts.&rdquo;</p>
+      <div class="illustration-frame"><object type="image/svg+xml" data="04-digital-transformation-advisory.svg" aria-label="Advisory outcome key-frame"></object></div>
+      <p class="beats"><strong>Process beats:</strong> tangled bezier knot pulses &rarr; one strand pulls taut horizontally &rarr; remaining strands untangle and fade. <strong>Outcome:</strong> single forward arrow with gold arrowhead. Faint ghost-trails preserved as memory of the prior tangle.</p>
+      <div class="meta"><span>Play-once</span><span>~2.5s arc + 480ms settle</span><span>4 tween channels</span></div>
+      <details>
+        <summary>Alternate directions (not sketched)</summary>
+        <ul>
+          <li><strong>B &mdash; Decision tree prune:</strong> a branching tree of paths appears; non-chosen branches fade out, leaving one bold path. More literal, less elegant.</li>
+          <li><strong>C &mdash; Compass settle:</strong> a multi-arrow compass spins, decelerates, and settles pointing forward. Risks reading as &ldquo;direction-finding&rdquo; rather than &ldquo;decision-making.&rdquo;</li>
+        </ul>
+      </details>
+    </article>
+
+    <!-- 5. APIs -->
+    <article class="card">
+      <span class="index">05 / Strong</span>
+      <h2>API Development &amp; Integration</h2>
+      <p class="savings">&ldquo;Three systems behaving as one &mdash; without rewriting any of them.&rdquo;</p>
+      <div class="illustration-frame"><object type="image/svg+xml" data="05-api-development-integration.svg" aria-label="APIs outcome key-frame"></object></div>
+      <p class="beats"><strong>Process beats:</strong> three horizontal channels pulse at different rhythms &rarr; sync marker descends through them &rarr; rhythms align. <strong>Outcome:</strong> channels merge into one thicker stream with a single gold marker travelling through.</p>
+      <div class="meta"><span>Play-once</span><span>~2.7s arc + 480ms settle</span><span>4 tween channels</span></div>
+      <details>
+        <summary>Alternate directions (not sketched)</summary>
+        <ul>
+          <li><strong>B &mdash; Handshake nodes:</strong> two separate node graphs grow toward each other and join by a single connecting edge. More integration-pattern-literal, less &ldquo;synchronised flow.&rdquo;</li>
+          <li><strong>C &mdash; Request/response pair:</strong> a request arrow goes left-to-right and a response arrow returns right-to-left in tight sequence. Cleanest for technical buyers, weakest for SMB.</li>
+        </ul>
+      </details>
+    </article>
+
+    <!-- 6. AI Agent -->
+    <article class="card">
+      <span class="index">06 / Strong &middot; LOOP</span>
+      <h2>AI Agent Engineering</h2>
+      <p class="savings">&ldquo;Operations that run themselves &mdash; and notify you only when they shouldn&rsquo;t.&rdquo;</p>
+      <div class="illustration-frame"><object type="image/svg+xml" data="06-ai-agent-engineering.svg" aria-label="AI Agent outcome key-frame"></object></div>
+      <p class="beats"><strong>Process beats:</strong> thin horizontal lines stack from the bottom (request queue) &rarr; vertical beam descends from top through the stack &rarr; lines collapse through the beam. <strong>Outcome:</strong> single answer-line exits at top with a quiet gold glow. Loops with a 1.5s pause between cycles &mdash; the only looping illustration.</p>
+      <div class="meta"><span>LOOP &middot; 1.5s gap</span><span>~3.0s arc + 480ms settle</span><span>4 tween channels</span></div>
+      <details>
+        <summary>Alternate directions (not sketched)</summary>
+        <ul>
+          <li><strong>B &mdash; Continuous filter:</strong> a stream of dots flows left-to-right; mid-stream, a vertical filter line classifies them into two outflow lanes. More agent-classifier-literal.</li>
+          <li><strong>C &mdash; Sentinel pulse:</strong> a single node sits center; concentric rings emanate outward at irregular intervals (representing event-driven invocations). Most restrained option, weakest narrative.</li>
+        </ul>
+      </details>
+    </article>
+
+  </div>
+
+  <div class="footer">
+    <p>
+      Source SVGs live in this directory. Each is the static <strong>outcome key-frame</strong> &mdash; what reduced-motion users see, and what holds after the animation resolves. Production SVGs in Phase 5 will swap raw hex colors for <code>currentColor</code> + CSS custom-property fills so the dark theme reads correctly. Brief: <code>docs/design/service-animation-brief.md</code>. ADR: <code>docs/decisions/ADR-010-service-animation-pattern.md</code>.
+    </p>
+  </div>
+</main>
+</body>
+</html>

@@ -1,0 +1,17 @@
+{
+  "mobile": {
+    "scrollY": 1212,
+    "viewportHeight": 812,
+    "aboveFold": false
+  },
+  "tablet": {
+    "scrollY": 1336,
+    "viewportHeight": 1024,
+    "aboveFold": false
+  },
+  "desktop": {
+    "scrollY": 1146,
+    "viewportHeight": 900,
+    "aboveFold": false
+  }
+}

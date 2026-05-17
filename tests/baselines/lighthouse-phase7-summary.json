@@ -1,0 +1,44 @@
+{
+  "captured_on": "2026-05-17",
+  "branch": "feat/service-illustrations",
+  "phase": "7 (all 6 services animated)",
+  "url": "http://localhost:4173/",
+  "tool": "lighthouse 13.1.0",
+  "notes": [
+    "Desktop perf was 0.72 on the first cold-start run (Chrome headless startup jitter).",
+    "Three subsequent runs returned 0.93, 0.93, 0.95 — stable above the gate.",
+    "Reporting the median (0.93) as the representative number."
+  ],
+  "desktop": {
+    "performance": 0.93,
+    "accessibility": 0.97,
+    "fcp_ms": 1029,
+    "lcp_ms": 1511,
+    "cls": 0.001,
+    "tbt_ms": 0
+  },
+  "mobile": {
+    "performance": 0.98,
+    "accessibility": 0.97,
+    "fcp_ms": 1647,
+    "lcp_ms": 2289,
+    "cls": 0.032,
+    "tbt_ms": 0
+  },
+  "vs_baseline": {
+    "desktop_perf_delta": 0.02,
+    "mobile_perf_delta": 0.02,
+    "a11y_delta": 0.00,
+    "cls_delta_mobile": 0.00,
+    "cls_delta_desktop": 0.00,
+    "verdict": "no regression on any tracked metric"
+  },
+  "gates": {
+    "desktop_perf_min": 0.88,
+    "mobile_perf_min": 0.93,
+    "a11y_min": 0.97,
+    "cls_max_mobile": 0.05,
+    "cls_max_desktop": 0.01,
+    "all_pass": true
+  }
+}

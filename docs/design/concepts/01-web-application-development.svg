@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 160" role="img" aria-label="Web Application Development outcome key-frame">
+  <title>Web Application Development — outcome key-frame</title>
+  <desc>Five UI shards consolidated into a single device frame outline. Gold accent on the upper-right corner.</desc>
+  <!-- Device frame -->
+  <rect x="40" y="22" width="160" height="116" rx="6" ry="6" fill="none" stroke="#0D1B2A" stroke-width="1.5"/>
+  <!-- Header bar -->
+  <line x1="48" y1="36" x2="192" y2="36" stroke="#0D1B2A" stroke-width="1" opacity="0.6"/>
+  <!-- Title line -->
+  <line x1="56" y1="52" x2="120" y2="52" stroke="#0D1B2A" stroke-width="1.5"/>
+  <!-- Body lines -->
+  <line x1="56" y1="68" x2="184" y2="68" stroke="#0D1B2A" stroke-width="0.75" opacity="0.55"/>
+  <line x1="56" y1="78" x2="168" y2="78" stroke="#0D1B2A" stroke-width="0.75" opacity="0.55"/>
+  <line x1="56" y1="88" x2="176" y2="88" stroke="#0D1B2A" stroke-width="0.75" opacity="0.55"/>
+  <!-- Chart bars -->
+  <rect x="56" y="106" width="6" height="18" fill="#0D1B2A" opacity="0.5"/>
+  <rect x="66" y="100" width="6" height="24" fill="#0D1B2A" opacity="0.5"/>
+  <rect x="76" y="110" width="6" height="14" fill="#0D1B2A" opacity="0.5"/>
+  <rect x="86" y="96" width="6" height="28" fill="#0D1B2A" opacity="0.5"/>
+  <!-- Button -->
+  <rect x="148" y="108" width="36" height="14" rx="2" ry="2" fill="none" stroke="#0D1B2A" stroke-width="1"/>
+  <!-- Gold corner accent (outcome marker) -->
+  <path d="M 192 22 L 200 22 L 200 30" fill="none" stroke="#C9A96E" stroke-width="2.5" stroke-linecap="square"/>
+  <circle cx="200" cy="22" r="2.5" fill="#C9A96E"/>
+</svg>
