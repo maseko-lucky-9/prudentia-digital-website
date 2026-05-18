@@ -459,11 +459,14 @@
   inset: -1px;
   border-radius: inherit;
   padding: 1px;
+  /* Feathered shoulders eliminate the hard "cut-out" edge */
   background: conic-gradient(
     from var(--card-pulse-angle, 0deg),
     transparent 0deg,
-    var(--card-pulse-color) 60deg,
-    transparent 120deg,
+    rgba(201, 169, 110, 0.18) 15deg,
+    var(--card-pulse-color) 30deg,
+    rgba(201, 169, 110, 0.18) 45deg,
+    transparent 60deg,
     transparent 360deg
   );
   -webkit-mask:
@@ -475,9 +478,9 @@
     linear-gradient(#000 0 0);
           mask-composite: exclude;
   opacity: 0;
-  transition: opacity 300ms ease;
+  transition: opacity 500ms ease;
   pointer-events: none;
-  z-index: 2;
+  z-index: 3;
 }
 
 .card-pulse:hover::before,
@@ -490,16 +493,17 @@
   to { --card-pulse-angle: 360deg; }
 }
 
-/* Fallback for browsers without @property — animate via background-position
-   on a tiled gradient. Kicks in only when @property is not honoured. */
+/* Fallback for browsers without @property */
 @supports not (background: paint(something)) {
   .card-pulse::before {
     background:
       conic-gradient(
         from 0deg,
         transparent 0deg,
-        var(--card-pulse-color) 60deg,
-        transparent 120deg,
+        rgba(201, 169, 110, 0.18) 15deg,
+        var(--card-pulse-color) 30deg,
+        rgba(201, 169, 110, 0.18) 45deg,
+        transparent 60deg,
         transparent 360deg
       );
   }
@@ -528,7 +532,7 @@
   /* Card pulse: keep, but slower so it's gentler on mobile */
   .card-pulse:hover::before,
   .card-pulse.in-view::before {
-    animation-duration: 12s;
+    animation-duration: 14s;
   }
 }
 

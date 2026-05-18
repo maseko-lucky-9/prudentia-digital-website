@@ -466,40 +466,44 @@
 
         <div class="why__grid">
 
-          <div class="why__item card-pulse reveal">
+          <div class="why__item card-pulse reveal" data-story="layers" style="--reveal-delay: 0ms">
             <div class="why__icon-wrap" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
-                <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
+              <svg class="why__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path class="why__icon-path" d="M12 2L2 7l10 5 10-5-10-5z"/>
+                <path class="why__icon-path" d="M2 17l10 5 10-5"/>
+                <path class="why__icon-path" d="M2 12l10 5 10-5"/>
               </svg>
             </div>
             <h3 class="why__title">Senior-led delivery</h3>
             <p class="why__body">Shaped by enterprise delivery at Capitec, Absa, and E4 Strategic. You work with senior engineers who designed the system — not juniors assigned to your account.</p>
           </div>
 
-          <div class="why__item card-pulse reveal" style="--reveal-delay: 80ms">
+          <div class="why__item card-pulse reveal" data-story="shield" style="--reveal-delay: 80ms">
             <div class="why__icon-wrap" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
-                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+              <svg class="why__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path class="why__icon-path" d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
               </svg>
             </div>
             <h3 class="why__title">100% Black-owned · Level 1 B-BBEE</h3>
             <p class="why__body">Maximum procurement recognition — 135% BEE spend value. POPIA, PFMA, and PPPFA compliance built in, not bolted on.</p>
           </div>
 
-          <div class="why__item card-pulse reveal" style="--reveal-delay: 160ms">
+          <div class="why__item card-pulse reveal" data-story="globe" style="--reveal-delay: 160ms">
             <div class="why__icon-wrap" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
-                <circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+              <svg class="why__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle class="why__icon-path" cx="12" cy="12" r="10"/>
+                <line class="why__icon-path" x1="2" y1="12" x2="22" y2="12"/>
+                <path class="why__icon-path" d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
               </svg>
             </div>
             <h3 class="why__title">Deep regulatory fluency</h3>
             <p class="why__body">Grounded in South African regulatory frameworks — POPIA, PFMA, PPPFA — with the agility to navigate compliance requirements across markets. Government-appropriate without being government-branded.</p>
           </div>
 
-          <div class="why__item card-pulse reveal" style="--reveal-delay: 240ms">
+          <div class="why__item card-pulse reveal" data-story="pulse" style="--reveal-delay: 240ms">
             <div class="why__icon-wrap" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
-                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+              <svg class="why__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polyline class="why__icon-path" points="22 12 18 12 15 21 9 3 6 12 2 12"/>
               </svg>
             </div>
             <h3 class="why__title">One team. Full stack.</h3>
@@ -843,6 +847,8 @@
   <script src="js/animated-bg.js?v=1.2-illustrations" defer></script>
   <!-- Contact-form prefill from ?topic= query param (AI page CTAs) -->
   <script src="js/contact-prefill.js?v=1.2" defer></script>
+  <!-- Why Choose Us — pointer glow + 3D tilt (hover+fine pointer only) -->
+  <script src="js/why-interactions.js?v=1.0" defer></script>
 
   <!-- ═══════════════════════════════════
        JAVASCRIPT — minimal, no library
