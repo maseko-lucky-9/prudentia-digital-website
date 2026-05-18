@@ -1250,6 +1250,7 @@ ul[role="list"] {
 }
 
 .why__grid {
+  position: relative;
   display: grid;
   grid-template-columns: 1fr;
   gap: var(--space-10);
@@ -1258,7 +1259,29 @@ ul[role="list"] {
   --why-my: 50%;
   --why-tx: 0;
   --why-ty: 0;
-  perspective: 1000px;
+  perspective: 1200px;
+}
+
+/* Phase 10 — tendrils overlay; SVG paths between card icons (desktop, hover-fine) */
+.why__tendrils {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  display: none;  /* shown only at >=1024px + hover-fine via media block below */
+  overflow: visible;
+}
+.why__tendril {
+  fill: none;
+  stroke: rgba(201, 169, 110, 0.55);
+  stroke-width: 1;
+  stroke-linecap: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+  opacity: 0;
+  transition: opacity 500ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 @media (min-width: 640px) {
@@ -1274,7 +1297,8 @@ ul[role="list"] {
   }
 }
 
-/* Card surface — real depth replaces the previous text-on-bg "dull" treatment */
+/* Card surface — real depth replaces the previous text-on-bg "dull" treatment.
+   Phase 10: deeper resting shadow + continuous desynced breath micro-motion. */
 .why__item {
   position: relative;
   display: flex;
@@ -1289,14 +1313,42 @@ ul[role="list"] {
   border: 1px solid rgba(13, 27, 42, 0.06);
   border-radius: var(--card-radius);
   box-shadow:
-    0 1px 2px rgba(13, 27, 42, 0.04),
-    0 8px 24px -12px rgba(13, 27, 42, 0.08);
+    0 2px 4px rgba(13, 27, 42, 0.06),
+    0 16px 36px -14px rgba(13, 27, 42, 0.16);
   isolation: isolate;
   transform-style: preserve-3d;
+  z-index: 1;  /* sit above .why__tendrils overlay */
+  animation: why-card-breath 7s ease-in-out infinite alternate;
+  animation-delay: var(--card-phase, 0s);
   transition:
     transform 400ms cubic-bezier(0.22, 1, 0.36, 1),
     box-shadow 400ms ease,
     border-color 400ms ease;
+}
+
+@keyframes why-card-breath {
+  from { transform: translateY(0)    scale(1);     }
+  to   { transform: translateY(-2px) scale(1.005); }
+}
+
+/* Phase 10 — scoped halo override: kill the orbital arc on .why cards only.
+   Specificity beats animated-bg.css `.card-pulse::before`. Other sections
+   (services, testimonials, team, AI page) keep the softened rotating sweep. */
+.why__item.card-pulse::before {
+  background: radial-gradient(
+    640px circle at 50% 50%,
+    rgba(201, 169, 110, 0.22),
+    rgba(201, 169, 110, 0.08) 35%,
+    transparent 60%
+  ) !important;
+  animation: why-halo-breath 8s ease-in-out infinite alternate !important;
+  animation-delay: var(--card-phase, 0s);
+  opacity: 1;
+}
+
+@keyframes why-halo-breath {
+  from { opacity: 0.55; transform: scale(0.96); }
+  to   { opacity: 0.85; transform: scale(1.02); }
 }
 
 /* Pointer-reactive radial glow — single delegated listener updates --why-mx/my */
@@ -1320,24 +1372,48 @@ ul[role="list"] {
 
 .why__item > * { position: relative; z-index: 2; }
 
-/* Hover-on-pointer-devices only — touch skips tilt + glow entirely */
+/* Hover-on-pointer-devices only — touch skips tilt + glow entirely.
+   Phase 10: 6° tilt (was 4°), tendrils visible on desktop, hover suspends breath. */
 @media (hover: hover) and (pointer: fine) {
   .why__item:hover {
-    border-color: rgba(201, 169, 110, 0.35);
+    border-color: rgba(201, 169, 110, 0.4);
     box-shadow:
       0 2px 6px rgba(13, 27, 42, 0.06),
-      0 24px 48px -20px rgba(13, 27, 42, 0.18),
-      0 0 0 1px rgba(201, 169, 110, 0.18);
-    transform: rotateX(calc(var(--why-ty) * -4deg)) rotateY(calc(var(--why-tx) * 4deg)) translateZ(0);
+      0 32px 56px -22px rgba(13, 27, 42, 0.22),
+      0 0 0 1px rgba(201, 169, 110, 0.22);
+    /* Pause continuous breath while hovered — pointer-tilt takes over */
+    animation-play-state: paused;
+    transform: rotateX(calc(var(--why-ty) * -6deg)) rotateY(calc(var(--why-tx) * 6deg)) translateZ(0);
     will-change: transform;
   }
 
   .why__item:hover::after { opacity: 1; }
 
-  /* Icon parallax — lifts on Z so tilt creates real depth */
+  /* Icon parallax — lifts on Z so tilt creates real depth (bigger lift than Phase 9) */
   .why__item:hover .why__icon-wrap {
-    transform: translateZ(28px) scale(1.04);
+    transform: translateZ(36px) scale(1.06);
   }
+}
+
+/* Phase 10 — tendril visibility, desktop + hover-fine only.
+   Light up the two tendrils incident to the hovered card via data-tendril-active. */
+@media (min-width: 1024px) and (hover: hover) and (pointer: fine) {
+  .why__tendrils { display: block; }
+
+  .why__grid[data-tendril-active="0"] .why__tendril--01,
+  .why__grid[data-tendril-active="1"] .why__tendril--01,
+  .why__grid[data-tendril-active="1"] .why__tendril--12,
+  .why__grid[data-tendril-active="2"] .why__tendril--12,
+  .why__grid[data-tendril-active="2"] .why__tendril--23,
+  .why__grid[data-tendril-active="3"] .why__tendril--23 {
+    opacity: 0.55;
+  }
+}
+
+/* Phase 10 — soft scroll-snap on stacked layouts only (mobile/tablet) */
+@media (max-width: 1023px) {
+  .why { scroll-snap-type: y proximity; }
+  .why__item { scroll-snap-align: start; scroll-snap-stop: normal; }
 }
 
 /* Icon wrap — refined surface, soft halo, ambient particles */
@@ -1514,16 +1590,19 @@ ul[role="list"] {
   .why__item:hover { transform: none; }
 }
 
-/* Reduced motion — appended to the global block at line 295 */
+/* Reduced motion — appended to the global block at line 295.
+   Phase 10 additions: kill breath, halo-breath, tendril fade. */
 @media (prefers-reduced-motion: reduce) {
   .why__item,
   .why__item:hover,
+  .why__item.card-pulse::before,
   .why__icon-wrap,
   .why__title,
   .why__body,
   .why__icon-path,
   .why__icon-wrap::before,
-  .why__icon-wrap::after {
+  .why__icon-wrap::after,
+  .why__tendril {
     transition: none !important;
     animation: none !important;
     transform: none !important;
@@ -1531,7 +1610,9 @@ ul[role="list"] {
     stroke-dashoffset: 0 !important;
   }
   .why__item::after,
-  .why__icon-wrap::after { display: none !important; }
+  .why__icon-wrap::after,
+  .why__tendrils { display: none !important; }
+  .why__item.card-pulse::before { opacity: 0.55 !important; }  /* hold static halo */
 }
 
 /* ═══════════════════════════════════════

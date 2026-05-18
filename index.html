@@ -33,16 +33,16 @@
 
   <!-- Asset version: bump ?v= on deploy to bust cache -->
   <!-- Preload critical CSS -->
-  <link rel="preload" href="css/design-tokens.css?v=1.2" as="style">
-  <link rel="preload" href="css/styles.css?v=1.2" as="style">
+  <link rel="preload" href="css/design-tokens.css?v=1.3" as="style">
+  <link rel="preload" href="css/styles.css?v=1.3" as="style">
 
   <!-- Design system tokens (source of truth) -->
-  <link rel="stylesheet" href="css/design-tokens.css?v=1.2">
+  <link rel="stylesheet" href="css/design-tokens.css?v=1.3">
   <!-- Page styles -->
-  <link rel="stylesheet" href="css/styles.css?v=1.2">
+  <link rel="stylesheet" href="css/styles.css?v=1.3">
   <!-- Animated backgrounds -->
-  <link rel="stylesheet" href="css/animated-bg.css?v=1.2">
-  <link rel="stylesheet" href="css/service-illustrations.css?v=0.2-loop">
+  <link rel="stylesheet" href="css/animated-bg.css?v=1.3">
+  <link rel="stylesheet" href="css/service-illustrations.css?v=0.2-loop-phase10">
 
   <!-- Favicon & PWA -->
   <link rel="icon" type="image/svg+xml" href="assets/logo-icon.svg">
@@ -464,46 +464,65 @@
           <div class="gold-line fade-in" aria-hidden="true" style="--fade-delay: 160ms"></div>
         </div>
 
-        <div class="why__grid">
+        <div class="why__grid" data-tendril-active="-1">
 
-          <div class="why__item card-pulse reveal" data-story="layers" style="--reveal-delay: 0ms">
+          <!-- Tendril overlay — JS-positioned paths between card icons (desktop only).
+               See js/why-interactions.js Phase 10 extension. -->
+          <svg class="why__tendrils" aria-hidden="true" focusable="false" preserveAspectRatio="none">
+            <path class="why__tendril why__tendril--01" d=""/>
+            <path class="why__tendril why__tendril--12" d=""/>
+            <path class="why__tendril why__tendril--23" d=""/>
+          </svg>
+
+          <div class="why__item card-pulse reveal" data-story="signature" data-card-index="0" style="--reveal-delay: 0ms; --card-phase: 0s">
             <div class="why__icon-wrap" aria-hidden="true">
+              <!-- Fountain pen nib + ink dot — the signature of senior craft -->
               <svg class="why__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path class="why__icon-path" d="M12 2L2 7l10 5 10-5-10-5z"/>
-                <path class="why__icon-path" d="M2 17l10 5 10-5"/>
-                <path class="why__icon-path" d="M2 12l10 5 10-5"/>
+                <path class="why__icon-path" d="M5 19 L15 5 L19 9 L9 19 Z"/>
+                <path class="why__icon-path" d="M12 8 L12 18"/>
+                <circle class="why__icon-path" cx="7" cy="20" r="0.6" fill="currentColor"/>
               </svg>
             </div>
             <h3 class="why__title">Senior-led delivery</h3>
             <p class="why__body">Shaped by enterprise delivery at Capitec, Absa, and E4 Strategic. You work with senior engineers who designed the system — not juniors assigned to your account.</p>
           </div>
 
-          <div class="why__item card-pulse reveal" data-story="shield" style="--reveal-delay: 80ms">
+          <div class="why__item card-pulse reveal" data-story="seal" data-card-index="1" style="--reveal-delay: 80ms; --card-phase: -1.75s">
             <div class="why__icon-wrap" aria-hidden="true">
+              <!-- Wax seal — circular notched disc with radial dashes -->
               <svg class="why__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path class="why__icon-path" d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                <circle class="why__icon-path" cx="12" cy="12" r="7"/>
+                <path class="why__icon-path" d="M12 5 L12 7 M19 12 L17 12 M12 19 L12 17 M5 12 L7 12"/>
+                <path class="why__icon-path" d="M9.5 9.5 L14.5 14.5 M14.5 9.5 L9.5 14.5"/>
               </svg>
             </div>
             <h3 class="why__title">100% Black-owned · Level 1 B-BBEE</h3>
             <p class="why__body">Maximum procurement recognition — 135% BEE spend value. POPIA, PFMA, and PPPFA compliance built in, not bolted on.</p>
           </div>
 
-          <div class="why__item card-pulse reveal" data-story="globe" style="--reveal-delay: 160ms">
+          <div class="why__item card-pulse reveal" data-story="document" data-card-index="2" style="--reveal-delay: 160ms; --card-phase: -3.5s">
             <div class="why__icon-wrap" aria-hidden="true">
+              <!-- Folded document with corner-fold + hairline seal mark -->
               <svg class="why__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <circle class="why__icon-path" cx="12" cy="12" r="10"/>
-                <line class="why__icon-path" x1="2" y1="12" x2="22" y2="12"/>
-                <path class="why__icon-path" d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+                <path class="why__icon-path" d="M6 3 L15 3 L20 8 L20 21 L6 21 Z"/>
+                <path class="why__icon-path" d="M15 3 L15 8 L20 8"/>
+                <path class="why__icon-path" d="M9 13 L17 13 M9 16 L15 16"/>
               </svg>
             </div>
             <h3 class="why__title">Deep regulatory fluency</h3>
             <p class="why__body">Grounded in South African regulatory frameworks — POPIA, PFMA, PPPFA — with the agility to navigate compliance requirements across markets. Government-appropriate without being government-branded.</p>
           </div>
 
-          <div class="why__item card-pulse reveal" data-story="pulse" style="--reveal-delay: 240ms">
+          <div class="why__item card-pulse reveal" data-story="converge" data-card-index="3" style="--reveal-delay: 240ms; --card-phase: -5.25s">
             <div class="why__icon-wrap" aria-hidden="true">
+              <!-- Four dots converging into one — "one team" literal -->
               <svg class="why__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <polyline class="why__icon-path" points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+                <circle class="why__icon-path" cx="12" cy="12" r="2.4" fill="currentColor"/>
+                <circle class="why__icon-path" cx="5" cy="5" r="1.4"/>
+                <circle class="why__icon-path" cx="19" cy="5" r="1.4"/>
+                <circle class="why__icon-path" cx="5" cy="19" r="1.4"/>
+                <circle class="why__icon-path" cx="19" cy="19" r="1.4"/>
+                <path class="why__icon-path" d="M6 6 L10.5 10.5 M18 6 L13.5 10.5 M6 18 L10.5 13.5 M18 18 L13.5 13.5"/>
               </svg>
             </div>
             <h3 class="why__title">One team. Full stack.</h3>
@@ -897,11 +916,11 @@
   </div>
 
   <!-- Animated backgrounds (canvas + observers) -->
-  <script src="js/animated-bg.js?v=1.2-illustrations" defer></script>
+  <script src="js/animated-bg.js?v=1.3-illustrations" defer></script>
   <!-- Contact-form prefill from ?topic= query param (AI page CTAs) -->
-  <script src="js/contact-prefill.js?v=1.2" defer></script>
-  <!-- Why Choose Us — pointer glow + 3D tilt (hover+fine pointer only) -->
-  <script src="js/why-interactions.js?v=1.0" defer></script>
+  <script src="js/contact-prefill.js?v=1.3" defer></script>
+  <!-- Why Choose Us — pointer glow + 3D tilt + tendrils (hover+fine pointer only) -->
+  <script src="js/why-interactions.js?v=1.1-phase10" defer></script>
 
   <!-- ═══════════════════════════════════
        JAVASCRIPT — minimal, no library
