@@ -133,7 +133,7 @@ test.describe('AI page — /ai/', () => {
 });
 
 test.describe('Contact prefill from ?topic= param', () => {
-  test('navigating to /?topic=ai-rag#contact prefills subject and message', async ({ page }) => {
+  test('navigating to /?topic=ai-rag#contact prefills subject, services, and challenge', async ({ page }) => {
     await page.goto('/?topic=ai-rag#contact');
     await page.waitForLoadState('domcontentloaded');
 
@@ -143,8 +143,11 @@ test.describe('Contact prefill from ?topic= param', () => {
     const topicField = page.locator('#contactForm input[name="topic"]');
     await expect(topicField).toHaveValue('ai-rag');
 
-    const message = page.locator('#contactForm #ctaMessage');
-    await expect(message).toHaveValue(/RAG over our private documents/);
+    const aiService = page.locator('#contactForm input[name="services"][value="ai-engineering"]');
+    await expect(aiService).toBeChecked();
+
+    const challenge = page.locator('#contactForm #ctaChallenge');
+    await expect(challenge).toHaveValue(/RAG over our private documents/);
   });
 
   test('unknown topic value does not modify the form', async ({ page }) => {
@@ -152,6 +155,6 @@ test.describe('Contact prefill from ?topic= param', () => {
     await page.waitForLoadState('domcontentloaded');
 
     const subject = page.locator('#contactForm input[name="_subject"]');
-    await expect(subject).toHaveValue('New inquiry from prudentiadigital.co.za');
+    await expect(subject).toHaveValue('New Get Started inquiry from prudentiadigital.co.za');
   });
 });

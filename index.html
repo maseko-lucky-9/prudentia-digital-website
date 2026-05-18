@@ -618,35 +618,129 @@
         <div class="bg-fx__spotlight"></div>
       </div>
       <div class="container cta__inner">
-        <h2 class="cta__heading reveal" id="cta-heading">Ready to build something great?</h2>
-        <p class="cta__sub fade-in" style="--fade-delay: 100ms">Let's talk about your project.</p>
+        <h2 class="cta__heading reveal" id="cta-heading">Let's talk about your project</h2>
+        <p class="cta__sub fade-in" style="--fade-delay: 100ms">Tell us what you're building and we'll show you how technology can accelerate it.</p>
 
-        <form class="cta__form reveal" id="contactForm" style="--reveal-delay: 200ms"
+        <form class="cta__form cta__form--wizard reveal" id="contactForm" style="--reveal-delay: 200ms"
               action="/contact-submit" method="POST" novalidate>
-          <input type="hidden" name="_subject" value="New inquiry from prudentiadigital.co.za">
+          <input type="hidden" name="_subject" value="New Get Started inquiry from prudentiadigital.co.za">
           <!-- Honeypot: leave blank -->
-          <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
+          <input type="text" name="_gotcha" class="cta__honeypot" tabindex="-1" autocomplete="off" aria-hidden="true">
 
-          <div class="cta__field">
-            <label class="cta__label" for="ctaName">Name <span aria-hidden="true">*</span></label>
-            <input class="cta__input" type="text" id="ctaName" name="name" required autocomplete="name" placeholder="Your name">
-          </div>
-          <div class="cta__field">
-            <label class="cta__label" for="ctaEmail">Email <span aria-hidden="true">*</span></label>
-            <input class="cta__input" type="email" id="ctaEmail" name="email" required autocomplete="email" placeholder="you@company.com">
-          </div>
-          <div class="cta__field">
-            <label class="cta__label" for="ctaCompany">Company</label>
-            <input class="cta__input" type="text" id="ctaCompany" name="company" autocomplete="organization" placeholder="Your company (optional)">
-          </div>
-          <div class="cta__field">
-            <label class="cta__label" for="ctaMessage">Message <span aria-hidden="true">*</span></label>
-            <textarea class="cta__input cta__textarea" id="ctaMessage" name="message" required placeholder="Tell us about your project…"></textarea>
+          <div class="cta__progress" role="progressbar" aria-valuemin="0" aria-valuemax="6" aria-valuenow="0" aria-label="Form progress">
+            <div class="cta__progress-bar"><span class="cta__progress-fill" id="ctaProgressFill"></span></div>
+            <span class="cta__progress-label">Form Progress <b id="ctaProgressStep">0</b>/6</span>
           </div>
 
-          <button type="submit" class="btn btn--accent btn--lg" id="ctaSubmit">Send Message</button>
+          <span class="sr-only" aria-live="polite" id="ctaAnnouncer"></span>
+
+          <fieldset class="cta__step" data-step="1">
+            <legend class="cta__step-title" tabindex="-1">Who should we talk to?</legend>
+            <div class="cta__field">
+              <label class="cta__label" for="ctaName">Name <span aria-hidden="true">*</span></label>
+              <input class="cta__input" type="text" id="ctaName" name="name" required autocomplete="name" placeholder="Your name">
+            </div>
+            <div class="cta__field">
+              <label class="cta__label" for="ctaEmail">Email <span aria-hidden="true">*</span></label>
+              <input class="cta__input" type="email" id="ctaEmail" name="email" required autocomplete="email" placeholder="you@company.com">
+            </div>
+          </fieldset>
+
+          <fieldset class="cta__step" data-step="2" hidden>
+            <legend class="cta__step-title" tabindex="-1">Where can we learn more about you?</legend>
+            <div class="cta__field">
+              <label class="cta__label" for="ctaWebsite">Website URL <span class="cta__optional">(optional)</span></label>
+              <input class="cta__input" type="url" id="ctaWebsite" name="website" autocomplete="url" placeholder="https://yourcompany.co.za" pattern="https?://.+">
+            </div>
+          </fieldset>
+
+          <fieldset class="cta__step" data-step="3" hidden>
+            <legend class="cta__step-title" tabindex="-1">Which services interest you? <span aria-hidden="true">*</span></legend>
+            <p class="cta__step-help">Pick everything that applies.</p>
+            <div class="cta__options" role="group" aria-label="Services of interest">
+              <label class="cta__option">
+                <input type="checkbox" name="services" value="software-dev">
+                <span>Software Development</span>
+              </label>
+              <label class="cta__option">
+                <input type="checkbox" name="services" value="cloud-devops">
+                <span>Cloud &amp; DevOps</span>
+              </label>
+              <label class="cta__option">
+                <input type="checkbox" name="services" value="ai-engineering">
+                <span>AI Engineering</span>
+              </label>
+              <label class="cta__option">
+                <input type="checkbox" name="services" value="advisory">
+                <span>Digital Transformation Advisory</span>
+              </label>
+            </div>
+          </fieldset>
+
+          <fieldset class="cta__step" data-step="4" hidden>
+            <legend class="cta__step-title" tabindex="-1">What's your project timeline? <span aria-hidden="true">*</span></legend>
+            <div class="cta__options">
+              <label class="cta__option">
+                <input type="radio" name="timeline" value="asap" required>
+                <span>ASAP</span>
+              </label>
+              <label class="cta__option">
+                <input type="radio" name="timeline" value="1-3m" required>
+                <span>1–3 months</span>
+              </label>
+              <label class="cta__option">
+                <input type="radio" name="timeline" value="3-6m" required>
+                <span>3–6 months</span>
+              </label>
+              <label class="cta__option">
+                <input type="radio" name="timeline" value="exploring" required>
+                <span>Just exploring</span>
+              </label>
+            </div>
+          </fieldset>
+
+          <fieldset class="cta__step" data-step="5" hidden>
+            <legend class="cta__step-title" tabindex="-1">What's the primary business challenge? <span aria-hidden="true">*</span></legend>
+            <div class="cta__field">
+              <label class="cta__label sr-only" for="ctaChallenge">Primary business challenge</label>
+              <textarea class="cta__input cta__textarea" id="ctaChallenge" name="challenge" required placeholder="Tell us what you're trying to solve, the systems involved, and what success looks like…"></textarea>
+            </div>
+          </fieldset>
+
+          <fieldset class="cta__step" data-step="6" hidden>
+            <legend class="cta__step-title" tabindex="-1">Estimated budget for this engagement? <span aria-hidden="true">*</span></legend>
+            <div class="cta__options">
+              <label class="cta__option">
+                <input type="radio" name="budget" value="lt-25k" required>
+                <span>Under R25k</span>
+              </label>
+              <label class="cta__option">
+                <input type="radio" name="budget" value="25-75k" required>
+                <span>R25k – R75k</span>
+              </label>
+              <label class="cta__option">
+                <input type="radio" name="budget" value="75-150k" required>
+                <span>R75k – R150k</span>
+              </label>
+              <label class="cta__option">
+                <input type="radio" name="budget" value="150k-plus" required>
+                <span>R150k+</span>
+              </label>
+            </div>
+          </fieldset>
+
+          <div class="cta__nav">
+            <button type="button" class="btn btn--outline" id="ctaBack" hidden>Back</button>
+            <button type="button" class="btn btn--accent btn--lg" id="ctaNext">Next</button>
+            <button type="submit" class="btn btn--accent btn--lg" id="ctaSubmit" hidden>Book Your Free Consultation</button>
+          </div>
+
           <div class="cta__form-feedback" id="ctaFeedback" role="alert" aria-live="polite"></div>
         </form>
+
+        <p class="cta__value-strip fade-in" style="--fade-delay: 300ms">
+          Free 30-minute consultation · Response within 24 hours · No-obligation scoping · Transparent pricing upfront
+        </p>
 
         <p class="cta__fallback fade-in" style="--fade-delay: 350ms">
           Prefer email? Reach us at <a href="mailto:masekolt@prudentiadigital.co.za">masekolt@prudentiadigital.co.za</a>
@@ -881,16 +975,92 @@
       document.getElementById('cookieAccept')?.addEventListener('click', dismissCookieBanner);
       document.getElementById('cookieDismiss')?.addEventListener('click', dismissCookieBanner);
 
-      /* ── Contact form AJAX ─────────────────────── */
+      /* ── Get Started wizard ────────────────────── */
       const contactForm = document.getElementById('contactForm');
       if (contactForm) {
+        const TOTAL_STEPS = 6;
+        const steps = Array.from(contactForm.querySelectorAll('.cta__step'));
+        const progressFill = document.getElementById('ctaProgressFill');
+        const progressStep = document.getElementById('ctaProgressStep');
+        const progressBar = contactForm.querySelector('.cta__progress');
+        const announcer = document.getElementById('ctaAnnouncer');
+        const backBtn = document.getElementById('ctaBack');
+        const nextBtn = document.getElementById('ctaNext');
         const submitBtn = document.getElementById('ctaSubmit');
         const feedback = document.getElementById('ctaFeedback');
+        let currentStep = 1;
+
+        const setStep = (n) => {
+          currentStep = Math.max(1, Math.min(TOTAL_STEPS, n));
+          steps.forEach((step) => {
+            const isActive = Number(step.dataset.step) === currentStep;
+            step.hidden = !isActive;
+          });
+          const pct = Math.round((currentStep / TOTAL_STEPS) * 100);
+          progressFill.style.width = pct + '%';
+          progressStep.textContent = String(currentStep);
+          progressBar.setAttribute('aria-valuenow', String(currentStep));
+
+          backBtn.hidden = currentStep === 1;
+          nextBtn.hidden = currentStep === TOTAL_STEPS;
+          submitBtn.hidden = currentStep !== TOTAL_STEPS;
+
+          const activeStep = steps[currentStep - 1];
+          const title = activeStep.querySelector('.cta__step-title');
+          if (title) {
+            title.focus({ preventScroll: true });
+            announcer.textContent = 'Step ' + currentStep + ' of ' + TOTAL_STEPS + ': ' + title.textContent.trim();
+          }
+        };
+
+        const validateCurrentStep = () => {
+          const activeStep = steps[currentStep - 1];
+
+          if (currentStep === 3) {
+            const boxes = activeStep.querySelectorAll('input[type="checkbox"]');
+            const anyChecked = Array.from(boxes).some((b) => b.checked);
+            if (!anyChecked) {
+              boxes[0].setCustomValidity('Please select at least one service.');
+              boxes[0].reportValidity();
+              boxes[0].setCustomValidity('');
+              return false;
+            }
+            return true;
+          }
+
+          const inputs = activeStep.querySelectorAll('input, textarea, select');
+          for (const input of inputs) {
+            if (!input.checkValidity()) {
+              input.reportValidity();
+              return false;
+            }
+          }
+          return true;
+        };
+
+        contactForm.querySelectorAll('input[name="services"]').forEach((cb) => {
+          cb.addEventListener('change', () => cb.setCustomValidity(''));
+        });
+
+        nextBtn.addEventListener('click', () => {
+          if (validateCurrentStep()) setStep(currentStep + 1);
+        });
+
+        backBtn.addEventListener('click', () => {
+          setStep(currentStep - 1);
+        });
+
+        contactForm.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' && e.target.tagName !== 'TEXTAREA' && currentStep !== TOTAL_STEPS) {
+            e.preventDefault();
+            if (validateCurrentStep()) setStep(currentStep + 1);
+          }
+        });
 
         contactForm.addEventListener('submit', async (e) => {
           e.preventDefault();
+          if (currentStep !== TOTAL_STEPS || !validateCurrentStep()) return;
 
-          // Loading state
           submitBtn.disabled = true;
           submitBtn.textContent = 'Sending…';
           feedback.textContent = '';
@@ -903,26 +1073,29 @@
             });
 
             if (response.ok) {
-              // Success state
-              contactForm.querySelectorAll('.cta__field, button[type="submit"]').forEach(el => {
-                el.style.display = 'none';
-              });
-              feedback.textContent = "Thank you! We\u2019ll be in touch within 24 hours.";
+              steps.forEach((s) => { s.hidden = true; });
+              progressBar.hidden = true;
+              backBtn.hidden = true;
+              nextBtn.hidden = true;
+              submitBtn.hidden = true;
+              feedback.textContent = "Thank you! We will be in touch within 24 hours.";
               feedback.className = 'cta__form-feedback success';
             } else {
               const data = await response.json().catch(() => ({}));
               feedback.textContent = data.error || 'Something went wrong. Please try again.';
               feedback.className = 'cta__form-feedback error';
               submitBtn.disabled = false;
-              submitBtn.textContent = 'Send Message';
+              submitBtn.textContent = 'Book Your Free Consultation';
             }
           } catch {
             feedback.textContent = 'Network error. Please email us directly at masekolt@prudentiadigital.co.za';
             feedback.className = 'cta__form-feedback error';
             submitBtn.disabled = false;
-            submitBtn.textContent = 'Send Message';
+            submitBtn.textContent = 'Book Your Free Consultation';
           }
         });
+
+        setStep(1);
       }
 
     })();
