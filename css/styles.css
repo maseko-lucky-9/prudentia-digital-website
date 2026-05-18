@@ -940,10 +940,173 @@ ul[role="list"] {
    TESTIMONIALS
    ═══════════════════════════════════════ */
 
+/* ═══════════════════════════════════════
+   TESTIMONIALS
+   Two modes via [data-testimonials-mode]:
+     "reserved"  → signature-draw empty state (waiting for written consent)
+     "populated" → Phase 9 card grid (Why-section playbook adapted, quieter)
+   See `.impeccable.md` Phase 9 override block.
+   ═══════════════════════════════════════ */
+
 .testimonials {
   padding-block: var(--space-20);
   background: var(--color-surface);
 }
+
+/* Mode toggle */
+.testimonials[data-testimonials-mode="reserved"]  .testimonials__grid     { display: none; }
+.testimonials[data-testimonials-mode="populated"] .testimonials__reserved { display: none; }
+
+/* ─── Reserved state ──────────────────────────────────────────── */
+
+.testimonials__reserved {
+  display: grid;
+  gap: var(--space-10);
+  justify-items: center;
+  text-align: center;
+  padding-block: var(--space-6);
+  color: var(--color-primary);
+}
+
+.testimonials__reserved-mark {
+  font-size: var(--text-caption);
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-weight: var(--font-semibold);
+  color: var(--color-muted-foreground);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin: 0;
+}
+
+.testimonials__reserved-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  animation: testimonials-dot-pulse 3.2s ease-in-out infinite;
+}
+
+@keyframes testimonials-dot-pulse {
+  0%, 100% { opacity: 0.4; transform: scale(1); }
+  50%      { opacity: 1;   transform: scale(1.3); }
+}
+
+/* Signature stage — the metaphor: a signature drawn slowly, never quite filling in.
+   Total cycle ~9s: draw 3.5s → hold 2.5s → fade 1.0s → pause 2.0s. */
+.testimonials__signature {
+  width: clamp(280px, 48vw, 520px);
+  aspect-ratio: 3 / 1;
+  color: var(--color-navy-300);
+}
+
+.testimonials__signature svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  overflow: visible;
+}
+
+.testimonials__signature-line {
+  stroke-dasharray: 700;
+  stroke-dashoffset: 700;
+  animation: testimonials-sig-draw 9s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+}
+
+.testimonials__signature-underline {
+  stroke-dasharray: 220;
+  stroke-dashoffset: 220;
+  opacity: 0.5;
+  animation: testimonials-sig-underline 9s ease-in-out infinite;
+}
+
+.testimonials__signature-mark {
+  color: var(--color-accent);
+  opacity: 0;
+  transform: scale(0);
+  transform-origin: 224px 38px;   /* matches cx/cy on the SVG element */
+  animation: testimonials-sig-mark 9s ease-out infinite;
+}
+
+@keyframes testimonials-sig-draw {
+  0%   { stroke-dashoffset: 700; opacity: 1; }
+  39%  { stroke-dashoffset: 0;   opacity: 1; }   /* drawn at 3.5s */
+  72%  { stroke-dashoffset: 0;   opacity: 1; }   /* held to 6.5s */
+  83%  { stroke-dashoffset: 0;   opacity: 0; }   /* fade to 7.5s */
+  100% { stroke-dashoffset: 700; opacity: 0; }   /* pause to 9.0s */
+}
+
+@keyframes testimonials-sig-underline {
+  0%, 22% { stroke-dashoffset: 220; opacity: 0; }
+  44%     { stroke-dashoffset: 0;   opacity: 0.5; }
+  72%     { stroke-dashoffset: 0;   opacity: 0.5; }
+  83%     { stroke-dashoffset: 0;   opacity: 0; }
+  100%    { stroke-dashoffset: 220; opacity: 0; }
+}
+
+@keyframes testimonials-sig-mark {
+  0%, 33%   { opacity: 0; transform: scale(0); }
+  41%       { opacity: 1; transform: scale(1.6); }   /* the one gold moment */
+  48%, 72%  { opacity: 1; transform: scale(1); }
+  83%, 100% { opacity: 0; transform: scale(1); }
+}
+
+.testimonials__reserved-body {
+  max-width: 58ch;
+  font-size: var(--text-body, var(--text-base));
+  color: var(--color-muted-foreground);
+  line-height: var(--leading-relaxed);
+  text-wrap: pretty;
+  margin: 0;
+}
+
+.testimonials__reserved-grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: var(--space-6);
+  width: 100%;
+  max-width: 920px;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 768px) {
+  .testimonials__reserved-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-8);
+  }
+}
+
+.testimonials__reserved-slot {
+  display: grid;
+  gap: var(--space-3);
+  text-align: left;
+}
+
+.testimonials__reserved-slot-rule {
+  display: block;
+  height: 1px;
+  background: var(--color-navy-300);
+  opacity: 0.4;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 800ms cubic-bezier(0.22, 1, 0.36, 1) calc(var(--reveal-delay, 0ms));
+}
+
+.testimonials__reserved-slot.visible .testimonials__reserved-slot-rule {
+  transform: scaleX(1);
+}
+
+.testimonials__reserved-slot-label {
+  font-size: var(--text-caption);
+  letter-spacing: 0.04em;
+  color: var(--color-muted-foreground);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ─── Populated state (Phase 9 cards, quieter than .why) ──────── */
 
 .testimonials__grid {
   display: grid;
@@ -954,19 +1117,65 @@ ul[role="list"] {
 @media (min-width: 1024px) {
   .testimonials__grid {
     grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-8);
   }
 }
 
 .testimonial {
-  background: var(--card-bg);
-  border: 1px solid var(--card-border);
-  border-radius: var(--card-radius);
-  padding: var(--card-padding);
-  box-shadow: var(--card-shadow);
   position: relative;
   display: flex;
   flex-direction: column;
   gap: var(--space-4);
+  padding: var(--space-6);
+  background: linear-gradient(
+    155deg,
+    rgba(255, 255, 255, 0.92) 0%,
+    rgba(250, 250, 249, 0.78) 100%
+  );
+  border: 1px solid rgba(13, 27, 42, 0.06);
+  border-radius: var(--card-radius);
+  box-shadow:
+    0 1px 2px rgba(13, 27, 42, 0.04),
+    0 8px 24px -12px rgba(13, 27, 42, 0.08);
+  isolation: isolate;
+  transition:
+    transform 400ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 400ms ease,
+    border-color 400ms ease;
+}
+
+.testimonial.card-pulse::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    640px circle at 50% 0%,
+    rgba(201, 169, 110, 0.16),
+    rgba(201, 169, 110, 0.05) 30%,
+    transparent 60%
+  );
+  opacity: 0;
+  transition: opacity 400ms ease;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.testimonial > * { position: relative; z-index: 2; }
+
+@media (hover: hover) and (pointer: fine) {
+  .testimonial:hover {
+    border-color: rgba(201, 169, 110, 0.3);
+    box-shadow:
+      0 2px 6px rgba(13, 27, 42, 0.06),
+      0 20px 40px -18px rgba(13, 27, 42, 0.16);
+    transform: translateY(-2px);
+  }
+  .testimonial:hover::after { opacity: 1; }
+  .testimonial:hover .testimonial__quote-mark {
+    transform: translateY(-2px) rotate(-4deg);
+    opacity: 0.85;
+  }
 }
 
 .testimonial__quote-mark {
@@ -977,6 +1186,8 @@ ul[role="list"] {
   display: block;
   margin-bottom: var(--space-2);
   opacity: 0.6;
+  transform-origin: top left;
+  transition: transform 500ms cubic-bezier(0.22, 1, 0.36, 1), opacity 400ms ease;
 }
 
 .testimonial__body {
@@ -1003,6 +1214,28 @@ ul[role="list"] {
 .testimonial__meta {
   font-size: var(--text-caption);
   color: var(--color-muted-foreground);
+}
+
+/* ─── Reduced motion ──────────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  .testimonials__signature-line,
+  .testimonials__signature-underline,
+  .testimonials__signature-mark,
+  .testimonials__reserved-dot,
+  .testimonials__reserved-slot-rule,
+  .testimonial,
+  .testimonial__quote-mark,
+  .testimonial.card-pulse::after {
+    animation: none !important;
+    transition: none !important;
+    transform: none !important;
+  }
+  .testimonials__signature-line     { stroke-dashoffset: 0 !important; opacity: 1 !important; }
+  .testimonials__signature-underline { stroke-dashoffset: 0 !important; opacity: 0.5 !important; }
+  .testimonials__signature-mark     { opacity: 1 !important; }
+  .testimonials__reserved-dot       { opacity: 0.7 !important; }
+  .testimonials__reserved-slot-rule { transform: scaleX(1) !important; }
 }
 
 /* ═══════════════════════════════════════

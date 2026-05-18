@@ -517,7 +517,7 @@
     <!-- ═══════════════════════════════════
          TESTIMONIALS
          ═══════════════════════════════════ -->
-    <section class="testimonials" id="testimonials" aria-labelledby="testimonials-heading">
+    <section class="testimonials" id="testimonials" aria-labelledby="testimonials-heading" data-testimonials-mode="reserved">
       <div class="bg-layer bg-layer--services" aria-hidden="true"></div>
       <div class="bg-fx" aria-hidden="true">
         <div class="bg-fx__orb bg-fx__orb--navy bg-fx__orb--bl bg-fx__orb--drift-b"></div>
@@ -529,7 +529,60 @@
           <div class="gold-line fade-in" aria-hidden="true" style="--fade-delay: 160ms"></div>
         </div>
 
-        <p class="section-note reveal" style="--reveal-delay: 0ms">Testimonials will be added once we have written permission from current clients to publish them. We take client confidentiality seriously, particularly across public-sector and financial-services engagements.</p>
+        <!-- RESERVED STATE — the section literally waits for written client consent.
+             The signature drawing is the metaphor: written permission, drawn slowly,
+             never quite filling in. To publish real testimonials, set
+             data-testimonials-mode="populated" on the <section> above and inject
+             clones of #testimonials-card-template into .testimonials__grid. -->
+        <div class="testimonials__reserved reveal" aria-label="Testimonials reserved pending client consent">
+          <p class="testimonials__reserved-mark">
+            <span class="testimonials__reserved-dot" aria-hidden="true"></span>
+            Reserved · Awaiting client consent
+          </p>
+
+          <div class="testimonials__signature" aria-hidden="true">
+            <svg viewBox="0 0 240 80" fill="none" role="img" aria-hidden="true">
+              <path class="testimonials__signature-line" d="M 12 50 C 30 22, 48 22, 60 50 C 68 70, 86 70, 96 50 C 104 32, 118 28, 130 46 S 156 64, 170 40 S 202 16, 224 38" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <path class="testimonials__signature-underline" d="M 20 64 Q 120 60, 218 62" stroke="currentColor" stroke-width="1" stroke-linecap="round"/>
+              <circle class="testimonials__signature-mark" cx="224" cy="38" r="3" fill="currentColor"/>
+            </svg>
+          </div>
+
+          <p class="testimonials__reserved-body">
+            Testimonials will appear here once we hold written consent from the client. Public-sector and financial-services engagements, in particular, carry confidentiality we will not break for marketing.
+          </p>
+
+          <ol class="testimonials__reserved-grid" aria-label="Three reserved testimonial slots">
+            <li class="testimonials__reserved-slot reveal" style="--reveal-delay: 200ms">
+              <span class="testimonials__reserved-slot-rule" aria-hidden="true"></span>
+              <span class="testimonials__reserved-slot-label">— Reserved · Phase 1 client</span>
+            </li>
+            <li class="testimonials__reserved-slot reveal" style="--reveal-delay: 360ms">
+              <span class="testimonials__reserved-slot-rule" aria-hidden="true"></span>
+              <span class="testimonials__reserved-slot-label">— Reserved · Phase 2 client</span>
+            </li>
+            <li class="testimonials__reserved-slot reveal" style="--reveal-delay: 520ms">
+              <span class="testimonials__reserved-slot-rule" aria-hidden="true"></span>
+              <span class="testimonials__reserved-slot-label">— Reserved · Phase 3 client</span>
+            </li>
+          </ol>
+        </div>
+
+        <!-- POPULATED STATE — hidden until real testimonials arrive.
+             Template element + empty grid; Phase 9 surface/glow/entrance
+             is wired in css/styles.css under [data-testimonials-mode="populated"]. -->
+        <template id="testimonials-card-template">
+          <article class="testimonial card-pulse reveal">
+            <span class="testimonial__quote-mark" aria-hidden="true">"</span>
+            <p class="testimonial__body"></p>
+            <footer class="testimonial__footer">
+              <span class="testimonial__name"></span>
+              <span class="testimonial__meta"></span>
+            </footer>
+          </article>
+        </template>
+
+        <div class="testimonials__grid" aria-hidden="true"></div>
       </div>
     </section>
 
