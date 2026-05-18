@@ -1285,87 +1285,9 @@ ul[role="list"] {
   color: var(--color-accent);
 }
 
-/* Contact form */
-.cta__form {
-  max-width: 560px;
-  width: 100%;
-  margin-top: var(--space-8);
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-5);
-}
-
-.cta__field {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-2);
-  text-align: left;
-}
-
-.cta__label {
-  font-size: var(--text-sm);
-  font-weight: var(--font-medium);
-  color: rgba(255,255,255,0.75);
-  letter-spacing: var(--tracking-wide);
-}
-
-.cta__input {
-  background: rgba(255,255,255,0.08);
-  border: 1px solid rgba(255,255,255,0.15);
-  border-radius: var(--input-radius);
-  color: var(--color-white);
-  font-family: var(--font-family-body);
-  font-size: var(--text-base);
-  padding: var(--space-3) var(--space-4);
-  height: var(--input-height-lg);
-  transition: border-color var(--duration-fast) ease, box-shadow var(--duration-fast) ease;
-}
-
-.cta__input::placeholder {
-  color: rgba(255,255,255,0.3);
-}
-
-.cta__input:focus {
-  border-color: var(--color-accent);
-  outline: none;
-  box-shadow: 0 0 0 2px rgba(201,169,110,0.3);
-}
-
-.cta__textarea {
-  height: auto;
-  min-height: 120px;
-  resize: vertical;
-}
-
-.cta__form-feedback {
-  font-size: var(--text-sm);
-  min-height: 1.5em;
-}
-
-.cta__form-feedback.success {
-  color: var(--color-accent);
-}
-
-.cta__form-feedback.error {
-  color: var(--color-destructive);
-}
-
-.cta__fallback {
-  font-size: var(--text-sm);
-  color: rgba(255,255,255,0.5);
-  margin-top: var(--space-4);
-}
-
-.cta__fallback a {
-  color: rgba(255,255,255,0.5);
-  transition: color var(--duration-fast) ease;
-}
-
-.cta__fallback a:hover {
-  color: var(--color-accent);
-}
-
-/* ───────── Get Started wizard ───────── */
+/* ═══════════════════════════════════════
+   GET STARTED — single-page two-column form
+   ═══════════════════════════════════════ */
 
 .cta__honeypot {
   position: absolute;
@@ -1387,18 +1309,70 @@ ul[role="list"] {
   border: 0;
 }
 
-.cta__progress {
+/* Soften background orbs so glass panels stay readable. */
+.cta .bg-fx__orb {
+  opacity: 0.4;
+}
+
+.cta__layout {
+  display: grid;
+  grid-template-columns: minmax(0, 420px) minmax(0, 1fr);
+  gap: var(--space-12);
+  width: 100%;
+  max-width: 1120px;
+  margin: var(--space-8) auto 0;
+  text-align: left;
+}
+
+.cta__panel {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 16px;
+  padding: var(--space-6);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.cta__sidebar {
   display: flex;
   flex-direction: column;
-  gap: var(--space-2);
-  margin-bottom: var(--space-4);
+  gap: var(--space-4);
+  min-width: 0;
+}
+
+.cta__panel-title {
+  font-size: var(--text-sm);
+  font-weight: var(--font-semibold);
+  letter-spacing: var(--tracking-wide);
+  color: var(--color-white);
+  margin: 0 0 var(--space-3);
+  text-transform: none;
+}
+
+.cta__progress-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  margin-bottom: var(--space-3);
+}
+
+.cta__progress-head .cta__panel-title {
+  margin: 0;
+}
+
+.cta__progress-count {
+  font-size: var(--text-sm);
+  font-weight: var(--font-semibold);
+  color: var(--color-accent);
+  letter-spacing: var(--tracking-wide);
 }
 
 .cta__progress-bar {
   position: relative;
   width: 100%;
-  height: 2px;
-  background: rgba(255,255,255,0.1);
+  height: 6px;
+  background: rgba(255,255,255,0.08);
   border-radius: 999px;
   overflow: hidden;
 }
@@ -1408,56 +1382,98 @@ ul[role="list"] {
   height: 100%;
   width: 0%;
   background: var(--color-accent);
+  border-radius: 999px;
   transition: width 280ms ease;
 }
 
-.cta__progress-label {
-  font-size: var(--text-xs);
-  letter-spacing: var(--tracking-wide);
-  color: rgba(255,255,255,0.55);
-  text-align: right;
-  text-transform: uppercase;
-}
-
-.cta__progress-label b {
-  color: var(--color-accent);
-  font-weight: var(--font-semibold);
-}
-
-.cta__step {
-  border: 0;
-  margin: 0;
+.cta__checklist {
+  list-style: none;
   padding: 0;
+  margin: 0;
   display: flex;
   flex-direction: column;
-  gap: var(--space-4);
+  gap: var(--space-3);
+}
+
+.cta__checklist li {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-size: var(--text-sm);
+  color: rgba(255,255,255,0.85);
+}
+
+.cta__check {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 999px;
+  background: rgba(201,169,110,0.12);
+  color: var(--color-accent);
+}
+
+.cta__check svg {
+  width: 14px;
+  height: 14px;
+}
+
+.cta__email-callout .cta__panel-title {
+  font-size: var(--text-xs);
+  color: rgba(255,255,255,0.55);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  margin-bottom: var(--space-2);
+}
+
+.cta__email-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--color-accent);
+  font-weight: var(--font-medium);
+  text-decoration: none;
+  word-break: break-all;
+  transition: color var(--duration-fast) ease;
+}
+
+.cta__email-link:hover {
+  color: var(--color-white);
+}
+
+.cta__arrow {
+  display: inline-block;
+  transition: transform var(--duration-fast) ease;
+}
+
+.cta__email-link:hover .cta__arrow {
+  transform: translateX(2px);
+}
+
+/* ───────── Form panel ───────── */
+
+.cta__form-panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
   min-width: 0;
 }
 
-.cta__step[hidden] {
-  display: none;
+.cta__field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
 }
 
-.cta__step-title {
-  font-family: var(--font-family-heading, var(--font-family-body));
-  font-size: var(--text-lg);
+.cta__label {
+  font-size: var(--text-sm);
   font-weight: var(--font-semibold);
   color: var(--color-white);
-  line-height: 1.3;
-  text-align: left;
+  letter-spacing: 0;
+  margin: 0;
   padding: 0;
-}
-
-.cta__step-title:focus-visible {
-  outline: 2px solid var(--color-accent);
-  outline-offset: 4px;
-  border-radius: 4px;
-}
-
-.cta__step-help {
-  font-size: var(--text-sm);
-  color: rgba(255,255,255,0.55);
-  margin: calc(var(--space-2) * -1) 0 0;
 }
 
 .cta__optional {
@@ -1467,90 +1483,221 @@ ul[role="list"] {
   margin-left: var(--space-1);
 }
 
-.cta__options {
+.cta__input {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 12px;
+  color: var(--color-white);
+  font-family: var(--font-family-body);
+  font-size: var(--text-base);
+  padding: var(--space-3) var(--space-4);
+  height: var(--input-height-lg);
+  transition: border-color var(--duration-fast) ease, background var(--duration-fast) ease, box-shadow var(--duration-fast) ease;
+  width: 100%;
+}
+
+.cta__input::placeholder {
+  color: rgba(255,255,255,0.35);
+}
+
+.cta__input:focus {
+  border-color: var(--color-accent);
+  background: rgba(255,255,255,0.08);
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(201,169,110,0.3);
+}
+
+.cta__textarea {
+  height: auto;
+  min-height: 110px;
+  resize: vertical;
+}
+
+.cta__row--2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
+}
+
+.cta__group {
+  border: 0;
+  margin: 0;
+  padding: 0;
   display: flex;
   flex-direction: column;
   gap: var(--space-2);
+  min-width: 0;
 }
 
-.cta__option {
+.cta__chip-grid {
+  display: grid;
+  gap: 10px;
+}
+
+.cta__chip-grid--2 {
+  grid-template-columns: 1fr 1fr;
+}
+
+.cta__chip-row {
   display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.cta__chip {
+  position: relative;
+  display: inline-flex;
   align-items: center;
-  gap: var(--space-3);
+  gap: var(--space-2);
   min-height: 44px;
   padding: var(--space-3) var(--space-4);
   background: rgba(255,255,255,0.04);
   border: 1px solid rgba(255,255,255,0.12);
-  border-radius: var(--input-radius);
+  border-radius: 12px;
   color: var(--color-white);
-  font-size: var(--text-base);
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
   cursor: pointer;
   transition: background var(--duration-fast) ease,
               border-color var(--duration-fast) ease,
+              color var(--duration-fast) ease,
               box-shadow var(--duration-fast) ease;
 }
 
-.cta__option:hover {
+.cta__chip input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+  width: 1px;
+  height: 1px;
+}
+
+.cta__chip:hover {
   background: rgba(255,255,255,0.07);
   border-color: rgba(255,255,255,0.22);
 }
 
-.cta__option input {
+.cta__chip:has(input:checked) {
+  background: rgba(201,169,110,0.15);
+  border-color: var(--color-accent);
+}
+
+.cta__chip:has(input:focus-visible) {
+  box-shadow: 0 0 0 2px rgba(201,169,110,0.4);
+}
+
+.cta__chip-icon {
   flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   width: 18px;
   height: 18px;
-  margin: 0;
-  accent-color: var(--color-accent);
-  cursor: pointer;
+  color: var(--color-accent);
 }
 
-.cta__option:has(input:checked) {
-  background: rgba(201,169,110,0.12);
+.cta__chip-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.cta__chip--pill {
+  border-radius: 999px;
+  padding: var(--space-2) var(--space-4);
+  min-height: 40px;
+}
+
+.cta__chip--pill:has(input:checked) {
+  background: var(--color-accent);
+  color: var(--color-navy-900, #0D1B2A);
   border-color: var(--color-accent);
 }
 
-.cta__option:focus-within {
-  border-color: var(--color-accent);
-  box-shadow: 0 0 0 2px rgba(201,169,110,0.3);
+.cta__chip--pill:has(input:checked) .cta__chip-icon {
+  color: var(--color-navy-900, #0D1B2A);
 }
 
-.cta__nav {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--space-3);
-  margin-top: var(--space-3);
+.cta__error {
+  font-size: var(--text-sm);
+  color: var(--color-destructive);
+  margin: var(--space-1) 0 0;
 }
 
-.cta__nav .btn--accent {
-  margin-left: auto;
-}
-
-/* .btn declares display: inline-flex which overrides the [hidden] global
-   default. Force hidden buttons truly hidden inside the wizard nav. */
-.cta__nav .btn[hidden] {
+.cta__error[hidden] {
   display: none;
 }
 
-.cta__value-strip {
-  font-size: var(--text-xs);
-  letter-spacing: var(--tracking-wide);
-  color: rgba(255,255,255,0.5);
-  text-transform: uppercase;
-  margin-top: var(--space-5);
-  text-align: center;
+.cta__submit {
+  width: 100%;
+  min-height: 56px;
+  font-weight: var(--font-semibold);
+  margin-top: var(--space-2);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
 }
 
-@media (max-width: 480px) {
-  .cta__nav {
-    flex-direction: column;
-    align-items: stretch;
+.cta__submit-icon {
+  width: 18px;
+  height: 18px;
+  flex: none;
+}
+
+.cta__form-feedback {
+  font-size: var(--text-sm);
+  min-height: 1.5em;
+}
+
+.cta__form-feedback.success {
+  color: var(--color-accent);
+}
+
+.cta__form-feedback.error {
+  color: var(--color-destructive);
+}
+
+.cta__success {
+  text-align: center;
+  padding: var(--space-6) var(--space-4);
+}
+
+.cta__success h3 {
+  font-family: var(--font-family-heading, var(--font-family-body));
+  font-size: var(--text-2xl);
+  color: var(--color-accent);
+  margin: 0 0 var(--space-3);
+}
+
+.cta__success p {
+  font-size: var(--text-base);
+  color: rgba(255,255,255,0.75);
+  margin: 0;
+}
+
+/* Tablet / mobile */
+@media (max-width: 960px) {
+  .cta__layout {
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
   }
-  .cta__nav .btn--accent {
-    margin-left: 0;
+  .cta__form-panel { order: 1; }
+  .cta__sidebar { order: 2; }
+}
+
+@media (max-width: 600px) {
+  .cta__row--2 {
+    grid-template-columns: 1fr;
   }
-  .cta__option {
-    font-size: var(--text-sm);
+  .cta__chip-grid--2 {
+    grid-template-columns: 1fr;
+  }
+  .cta__chip-row .cta__chip {
+    flex: 1 1 100%;
+    justify-content: center;
+  }
+  .cta__panel {
+    padding: var(--space-5);
   }
 }
 

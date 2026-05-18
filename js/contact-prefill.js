@@ -35,16 +35,16 @@
     }
     topicField.value = topic;
 
-    // Pre-check the AI Engineering service so step 3 is already valid.
     const aiService = form.querySelector('input[name="services"][value="ai-engineering"]');
     if (aiService && !aiService.checked) {
       aiService.checked = true;
+      aiService.dispatchEvent(new Event('change', { bubbles: true }));
     }
 
-    // Pre-fill the Primary Business Challenge textarea (step 5).
     const challenge = form.querySelector('#ctaChallenge');
     if (challenge && !challenge.value) {
       challenge.value = config.message;
+      challenge.dispatchEvent(new Event('input', { bubbles: true }));
     }
   };
 
