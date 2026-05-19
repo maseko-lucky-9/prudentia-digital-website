@@ -34,12 +34,12 @@
   <!-- Asset version: bump ?v= on deploy to bust cache -->
   <!-- Preload critical CSS -->
   <link rel="preload" href="css/design-tokens.css?v=1.3" as="style">
-  <link rel="preload" href="css/styles.css?v=1.4" as="style">
+  <link rel="preload" href="css/styles.css?v=1.5" as="style">
 
   <!-- Design system tokens (source of truth) -->
   <link rel="stylesheet" href="css/design-tokens.css?v=1.3">
   <!-- Page styles -->
-  <link rel="stylesheet" href="css/styles.css?v=1.4">
+  <link rel="stylesheet" href="css/styles.css?v=1.5">
   <!-- Animated backgrounds -->
   <link rel="stylesheet" href="css/animated-bg.css?v=1.3">
   <link rel="stylesheet" href="css/service-illustrations.css?v=0.2-loop-phase10">
@@ -118,7 +118,7 @@
   }
   </script>
 </head>
-<body>
+<body id="top">
 
   <a href="#main" class="skip-link">Skip to main content</a>
 
@@ -862,8 +862,14 @@
        ═══════════════════════════════════ -->
   <footer class="footer" role="contentinfo">
     <div class="bg-layer bg-layer--footer" aria-hidden="true"></div>
+
+    <div class="footer__rule" aria-hidden="true">
+      <span class="footer__rule-notch"></span>
+    </div>
+
     <div class="container footer__inner">
-      <div class="footer__brand">
+      <div class="footer__col footer__col--brand">
+        <span class="footer__eyebrow">Locate</span>
         <a href="/" class="footer__logo" aria-label="Prudentia Digital — back to top">
           <picture>
             <source srcset="assets/logo-icon-white-512.webp" type="image/webp">
@@ -876,30 +882,55 @@
           </span>
         </a>
         <p class="footer__tagline">Enterprise-grade technology. Local expertise, global reach.</p>
+        <p class="footer__locale">
+          <span class="footer__locale-pin" aria-hidden="true"></span>
+          Johannesburg · GMT+2
+        </p>
       </div>
 
-      <nav class="footer__nav" aria-label="Footer navigation">
+      <nav class="footer__col footer__col--nav footer__nav" aria-label="Footer navigation">
+        <span class="footer__eyebrow">Navigate</span>
         <ul role="list">
-          <li><a href="#services">Services</a></li>
-          <li><a href="#why-us">Why Us</a></li>
-          <li><a href="#about">About</a></li>
-          <li><a href="mailto:masekolt@prudentiadigital.co.za">Contact</a></li>
-          <li><a href="privacy.html">Privacy Policy</a></li>
-          <li><a href="terms.html">Terms of Service</a></li>
+          <li><a href="#services"><span>Services</span></a></li>
+          <li><a href="#why-us"><span>Why Us</span></a></li>
+          <li><a href="#about"><span>About</span></a></li>
+          <li><a href="mailto:masekolt@prudentiadigital.co.za"><span>Contact</span></a></li>
+          <li><a href="privacy.html"><span>Privacy Policy</span></a></li>
+          <li><a href="terms.html"><span>Terms of Service</span></a></li>
         </ul>
       </nav>
 
-      <div class="footer__meta">
-        <p class="footer__badge" aria-label="B-BBEE Level 1 certified">
-          <span class="footer__badge-dot" aria-hidden="true"></span>
-          Level 1 B-BBEE · 100% Black-owned
+      <div class="footer__col footer__col--meta">
+        <span class="footer__eyebrow">Compliance</span>
+        <p class="footer__badge" aria-label="B-BBEE Level 1 certified, 100 percent Black-owned">
+          <svg class="footer__seal" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false">
+            <circle cx="12" cy="12" r="7.5" fill="none" stroke="currentColor" stroke-width="1.25"></circle>
+            <circle cx="12" cy="12" r="2.25" fill="currentColor"></circle>
+            <g stroke="currentColor" stroke-width="1" stroke-linecap="round">
+              <line x1="12" y1="2.5" x2="12" y2="4.25"></line>
+              <line x1="12" y1="19.75" x2="12" y2="21.5"></line>
+              <line x1="2.5" y1="12" x2="4.25" y2="12"></line>
+              <line x1="19.75" y1="12" x2="21.5" y2="12"></line>
+            </g>
+          </svg>
+          <span>Level 1 B-BBEE · 100% Black-owned</span>
         </p>
-        <p class="footer__registration">Enterprise No. 2025/910056/07 · CIPC Registered · CSD Registered</p>
-        <p class="footer__copy">
-          &copy; 2026 Prudentia Digital (Pty) Ltd &middot;
-          <a href="mailto:masekolt@prudentiadigital.co.za">masekolt@prudentiadigital.co.za</a>
-        </p>
+        <p class="footer__registration">Enterprise No. 2025/910056/07</p>
+        <p class="footer__registration">CIPC Registered · CSD Registered</p>
       </div>
+    </div>
+
+    <div class="container footer__baseline">
+      <p class="footer__copy">
+        &copy; 2026 Prudentia Digital (Pty) Ltd ·
+        <a href="mailto:masekolt@prudentiadigital.co.za">masekolt@prudentiadigital.co.za</a>
+      </p>
+      <a href="#top" class="footer__totop" aria-label="Back to top of page">
+        <span>Back to top</span>
+        <svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true" focusable="false">
+          <path d="M3.5 12.5 L12.5 3.5 M6 3.5 H12.5 V10" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"></path>
+        </svg>
+      </a>
     </div>
   </footer>
 
