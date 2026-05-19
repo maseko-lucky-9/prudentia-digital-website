@@ -1275,12 +1275,13 @@ ul[role="list"] {
 }
 .why__tendril {
   fill: none;
-  stroke: rgba(201, 169, 110, 0.55);
-  stroke-width: 1;
+  stroke: rgba(201, 169, 110, 0.85);
+  stroke-width: 1.5;
   stroke-linecap: round;
   stroke-dasharray: 1;
   stroke-dashoffset: 0;
   opacity: 0;
+  filter: drop-shadow(0 0 6px rgba(201, 169, 110, 0.35));
   transition: opacity 500ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
@@ -1406,7 +1407,7 @@ ul[role="list"] {
   .why__grid[data-tendril-active="2"] .why__tendril--12,
   .why__grid[data-tendril-active="2"] .why__tendril--23,
   .why__grid[data-tendril-active="3"] .why__tendril--23 {
-    opacity: 0.55;
+    opacity: 0.85;
   }
 }
 
@@ -1569,13 +1570,19 @@ ul[role="list"] {
   opacity: 1;
 }
 
-/* Scroll-linked layer — progressive enhancement; fallback is existing .reveal IO */
+/* Scroll-linked entrance + continuous breath, combined.
+   Phase 10 — `why-scroll-rise` and `why-card-breath` must coexist; without
+   both names in the `animation` shorthand the breath gets clobbered on
+   browsers that support view-timeline. Pair them with matching timelines. */
 @supports (animation-timeline: view()) {
   @media (prefers-reduced-motion: no-preference) {
     .why__item {
-      animation: why-scroll-rise linear both;
-      animation-timeline: view();
-      animation-range: entry 0% cover 30%;
+      animation:
+        why-scroll-rise linear both,
+        why-card-breath 7s ease-in-out infinite alternate;
+      animation-timeline: view(), auto;
+      animation-range: entry 0% cover 30%, none;
+      animation-delay: 0s, var(--card-phase, 0s);
     }
     @keyframes why-scroll-rise {
       from { transform: translateY(24px); opacity: 0.4; }
