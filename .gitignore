@@ -35,6 +35,7 @@ test-results/*
 # via tests/baselines/lighthouse-baseline.json + lighthouse-phase7-summary.json.
 tests/baselines/lighthouse-mobile*.json
 tests/baselines/lighthouse-desktop*.json
+.lighthouse/
 
 # Dev-scaffolding screenshots produced by tests/baselines/phase{4,5,7}-smoke.mjs.
 # Regenerable on demand. The Phase 0a baselines and Playwright visual snapshots
