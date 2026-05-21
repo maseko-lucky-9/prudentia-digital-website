@@ -3,7 +3,7 @@
  * Strategy: Cache-first for static assets, network-first for HTML.
  */
 
-const CACHE_NAME = 'prudentia-v1.1';
+const CACHE_NAME = 'prudentia-v1.2';
 const STATIC_ASSETS = [
   '/',
   '/index.html',
