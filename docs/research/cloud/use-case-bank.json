@@ -1,0 +1,109 @@
+{
+  "service": "cloud",
+  "retrieved": "2026-05-21",
+  "schema_version": "1.0",
+  "floor": 4,
+  "target": 8,
+  "count": 9,
+  "use_cases": [
+    {
+      "id": "UC-1",
+      "title": "SA bank migrates 600+ contact-centre agents to AWS Amazon Connect in 5 days",
+      "icp": ["SA-FS"],
+      "problem": "Capitec needed to modernise its contact centre, lift the load off legacy on-premises telephony, and improve customer-experience SLAs without a multi-quarter cutover.",
+      "intervention": "Lift-and-shift to AWS Amazon Connect across two critical contact centres, with parallel-run validation and a 5-day cutover.",
+      "outcome": "600+ agents migrated in 5 days; on-premises dependency retired; cloud-native scalability for peak campaigns.",
+      "stack": ["AWS Amazon Connect", "AWS Lambda", "Amazon S3"],
+      "source": "C33",
+      "confidence": "high"
+    },
+    {
+      "id": "UC-2",
+      "title": "SA bank moves 15 years of business-critical data to AWS enterprise data lake",
+      "icp": ["SA-FS"],
+      "problem": "Capitec's on-premise data warehouse was reaching end-of-life and lived far from the compute workloads now running in cloud, creating latency and cost overhead.",
+      "intervention": "Migrate 15 years of business-critical data to AWS, implement an enterprise data lake (EDL) as a central repository, and re-anchor downstream analytics on the cloud-native estate.",
+      "outcome": "EDL operational; on-prem data centre retired; analytical capacity scales without capacity planning. Capitec now runs 1.5 trillion reports/month with 27 PB of analytical data.",
+      "stack": ["AWS S3 + Lake Formation", "AWS Glue", "Redshift / Athena"],
+      "source": "C21",
+      "confidence": "high"
+    },
+    {
+      "id": "UC-3",
+      "title": "Greenfield SOC 2-ready SaaS platform on AWS with IaC + Kubernetes + OTel from day one",
+      "icp": ["INT"],
+      "problem": "An INT SaaS scaleup needed a SOC 2 Type II-ready platform within its first six months — without bolting controls on later, and without the multi-month audit-prep cycle most teams hit.",
+      "intervention": "Greenfield AWS landing zone with Terraform-managed accounts, EKS for workloads, ArgoCD for GitOps, OpenTelemetry for traces/metrics/logs, external-secrets-operator for secrets, automated evidence collection for the audit.",
+      "outcome": "SOC 2 Type II observation window started in week 4; audit-prep timeline compressed from typical 3–6 months to ~8 weeks. 60%+ of enterprise prospects now require SOC 2 to engage.",
+      "stack": ["AWS Control Tower", "Terraform", "EKS", "ArgoCD", "OpenTelemetry", "Vanta-equivalent evidence automation"],
+      "source": "C32",
+      "confidence": "medium"
+    },
+    {
+      "id": "UC-4",
+      "title": "SA mid-market e-commerce platform cuts infra cost ~30% via right-sizing + reserved capacity + pod density",
+      "icp": ["SA-Mid"],
+      "problem": "A mid-market retailer's AWS bill grew faster than revenue, with peak-sized instances running 24/7, no reserved-instance coverage, and Kubernetes nodes at 25% utilisation.",
+      "intervention": "FinOps engagement — right-size instances, buy reserved capacity for steady-state, schedule non-prod environments, increase pod density on EKS via resource requests/limits cleanup, kill orphaned resources.",
+      "outcome": "Infrastructure cost reduced ~30% within one billing cycle (Flexera benchmark: 15–25% achievable; peer cases hit 30%). Spend predictability restored.",
+      "stack": ["AWS Cost Explorer", "Compute Optimizer", "Reserved Instances + Savings Plans", "Karpenter for K8s autoscaling"],
+      "source": "C7, C8, C20",
+      "confidence": "medium"
+    },
+    {
+      "id": "UC-5",
+      "title": "Multi-region active-active deployment for INT SaaS across EU + US",
+      "icp": ["INT"],
+      "problem": "An INT SaaS expanded into EU enterprise accounts and hit two hard constraints: GDPR data residency for EU customers, and a single-region single-point-of-failure that would not survive due diligence.",
+      "intervention": "Terraform-managed active-active across eu-west-1 + us-east-1, Aurora Global Database for state, Route 53 latency-based routing, blue/green via ArgoCD Rollouts, quarterly chaos failover drills with documented RPO/RTO.",
+      "outcome": "EU data resident in EU; failover drill RPO <5 minutes, RTO <30 minutes; single-region downtime no longer a tenant-impacting event.",
+      "stack": ["Terraform", "Aurora Global Database", "Route 53", "ArgoCD + Argo Rollouts", "AWS Backup + Velero"],
+      "source": "C11, C26",
+      "confidence": "medium"
+    },
+    {
+      "id": "UC-6",
+      "title": "Cyber-resilience uplift for SA insurer to meet Joint Standard 2 of 2024 (effective 1 June 2025)",
+      "icp": ["SA-FS"],
+      "problem": "An SA insurer needed to demonstrate readiness for Joint Standard 2 of 2024: MFA on critical systems, quarterly resilience testing including third-party cloud vendors, 24-hour material-incident reporting, and an encrypted-backup strategy.",
+      "intervention": "Inventory of critical systems; MFA roll-out via SSO / WebAuthn; quarterly DR test runbook covering cloud-provider failover; incident-management workflow piped to FSCA reporting template; encrypted-backup audit (KMS keys, retention, restore drill).",
+      "outcome": "Joint Standard 2 of 2024 readiness file delivered before 1 June 2025 commencement. Quarterly DR drill in place. Material-incident reporting tested end-to-end.",
+      "stack": ["Okta / Entra ID + WebAuthn", "AWS KMS + AWS Backup", "PagerDuty incident workflows", "documented runbooks"],
+      "source": "C14, C15",
+      "confidence": "high"
+    },
+    {
+      "id": "UC-7",
+      "title": "Observability rebuild for SA mid-market retailer — alert volume cut 70%",
+      "icp": ["SA-Mid"],
+      "problem": "An SA retailer's on-call engineers received 50+ alerts per shift, ~5% of which were actionable. Engineer burnout was eroding retention; MTTR averaged 4+ hours; root causes were being missed in the noise.",
+      "intervention": "Define SLIs + SLOs per service; rewrite paging to burn-rate alerts on error budgets; instrument with OpenTelemetry; consolidate logs + metrics + traces; runbook every page; deprecate 60+ legacy Nagios alerts.",
+      "outcome": "Alert volume reduced 70%; actionable rate up from ~5% to 35%+ (Google SRE benchmark target); MTTR reduced from 4 hours to under 1.",
+      "stack": ["Prometheus + Grafana + Loki + Tempo", "OpenTelemetry SDKs", "PagerDuty"],
+      "source": "C9, C10",
+      "confidence": "medium"
+    },
+    {
+      "id": "UC-8",
+      "title": "INT fintech SOC 2 Type II audit prep — IaC-managed controls, 6-week prep vs typical 3-6 months",
+      "icp": ["INT"],
+      "problem": "An INT fintech needed SOC 2 Type II to land its next two enterprise deals. Internal estimate was 4–6 months of audit prep with no in-house compliance specialist.",
+      "intervention": "Treat controls as code: Terraform modules enforce logging, encryption, MFA, retention. Automated evidence collection pipes to the auditor. Policy-as-code (OPA / Kyverno) gates merges. Quarterly access review automated.",
+      "outcome": "Type II observation window opened in week 6; auditor confirmed evidence completeness; audit completed 8 weeks after window closed.",
+      "stack": ["Terraform", "OPA / Kyverno", "AWS Config + CloudTrail", "Vanta / Drata-equivalent evidence pipeline"],
+      "source": "C32",
+      "confidence": "medium"
+    },
+    {
+      "id": "UC-9",
+      "title": "SMB outgrows shared hosting — managed Kubernetes with FinOps guardrails",
+      "icp": ["SMB"],
+      "problem": "An SMB SaaS founder outgrew shared hosting (uptime, performance, deploy friction) but feared an unbounded cloud bill if they moved to AWS without a controller in the middle.",
+      "intervention": "Move to managed Kubernetes (EKS) with a single-cluster multi-tenant pattern. Hard cloud-budget alerts at 60/80/100% of monthly cap. Karpenter for auto-scaling that scales back down. No reserved instances initially — pay-as-you-go until usage settles.",
+      "outcome": "Cloud bill predictable from month one; deploy frequency lifted from twice-a-month to daily; founder can sleep through the night.",
+      "stack": ["EKS", "Karpenter", "AWS Budgets + Cost Anomaly Detection", "ArgoCD"],
+      "source": "C7, C8",
+      "confidence": "medium"
+    }
+  ]
+}

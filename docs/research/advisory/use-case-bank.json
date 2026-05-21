@@ -1,0 +1,115 @@
+{
+  "service": "advisory",
+  "page_url": "/advisory/",
+  "research_date": "2026-05-21",
+  "use_cases": [
+    {
+      "id": "UC-01",
+      "icp": "SA-FS",
+      "title": "British insurer's RPA pilot rescued from vendor lock-in",
+      "problem": "Insurer was tied to an underperforming RPA platform causing 30+ daily bot failures. The original vendor's opaque delivery model and capability ceiling made every improvement slower and more expensive.",
+      "intervention": "Independent platform review. Vendor-neutral comparison of RPA platforms scored on workload fit, cost behaviour, support model. Written ADR documenting transition decision.",
+      "outcome": "Replatformed to a tool with native process-discovery and analytics. Eliminated daily bot-failure incidents. Cost basis lowered by removing platform-lock pricing.",
+      "citation": "C56"
+    },
+    {
+      "id": "UC-02",
+      "icp": "SMB",
+      "title": "First ADR programme saved R1.2m-R2m in software licences",
+      "problem": "Owner-led R45m-turnover business had grown SaaS spend to R8m/year without a documented inventory. No one could say which tools were in active use, which were duplicates, which had been over-spec'd.",
+      "intervention": "Six-week audit: credit-card mining for shadow purchases, SSO log reconciliation for actual usage, written ADRs documenting the keep/cancel/downgrade decision for each tool.",
+      "outcome": "15-25% of annual SaaS spend recovered without losing tool functionality. On an R8m base: R1.2m-R2m. ADRs now form the basis of annual renewal review.",
+      "citation": "C28"
+    },
+    {
+      "id": "UC-03",
+      "icp": "INT",
+      "title": "International acquirer's SA technology due diligence in three weeks",
+      "problem": "EU-listed mid-cap was acquiring a SA SaaS business. The acquirer needed a written technology-risk view covering IT capability, BEE-licence impact, POPIA posture and SARB exchange-control implications. Big 4 due-diligence frameworks did not produce a single decision-grade artefact.",
+      "intervention": "Three-week diligence engagement: current-state architecture, integration map, technical-debt inventory, POPIA operator-status review, BEE/SARB compliance memo. Output: one board memo + ADR set + risk register.",
+      "outcome": "Acquirer proceeded with deal at adjusted price reflecting three named technical risks. Post-close integration plan inherited the ADRs as the baseline.",
+      "citation": "C33"
+    },
+    {
+      "id": "UC-04",
+      "icp": "SA-Mid",
+      "title": "Stalled three-year SAP S/4HANA programme restarted with written ADRs",
+      "problem": "SA-Mid manufacturer had been migrating from SAP ECC to S/4HANA for three years. Scope had crept twice; original architect had left; the board had lost patience. The CFO needed to know whether to continue, pivot, or write off.",
+      "intervention": "Six-week diagnostic: documented all systems, mapped every integration, quantified technical debt and TCO, produced phased modernisation roadmap with reversal points. Named one Driver per workstream (DACI).",
+      "outcome": "Programme restarted on a 12-month phased plan. 18-month residual cost reduced by 38% vs. continuation of original approach. Two workstreams cancelled; one outsourced; three modularised.",
+      "citation": "C20, C21, C35"
+    },
+    {
+      "id": "UC-05",
+      "icp": "SA-FS",
+      "title": "Cloud vendor selection avoiding the 67% lock-in pattern",
+      "problem": "Mid-market insurer was evaluating AWS vs. Azure vs. GCP. Every meeting with a hyperscaler ended with a recommendation to use that hyperscaler. Internal architect feared a default-to-Microsoft path because that was where existing licences sat.",
+      "intervention": "Vendor-neutral workload evaluation: control, cost behaviour, operations, team skillset, organisational reality. Three-week scoring exercise with written rubric. Output: ADR + TCO model + SARB D3/2018-aligned board memo.",
+      "outcome": "Chose hybrid AWS-primary with on-prem residency for core policy data. Projected three-year cloud spend reduced 34% vs. all-platform commit. Board approved on first read.",
+      "citation": "C19, C24"
+    },
+    {
+      "id": "UC-06",
+      "icp": "SA-Mid",
+      "title": "ERP RFP compressed from nine months to ten weeks",
+      "problem": "SA-Mid logistics business was nine months into an ERP RFP with three shortlisted vendors and no consensus. CFO described the process as 'a stall by committee'.",
+      "intervention": "RFP scoring rubric drafted and signed in week one. Vendor scoring sessions compressed using structured 48-hour decision protocol. ADR drafted documenting the constraint, the alternatives considered, the chosen vendor, and the named reversal point.",
+      "outcome": "Decision made at week ten. Implementation began at week twelve. Estimated cost avoidance vs. status quo: 8 months of delay cost (~R3.5m) plus avoidance of wrong-vendor risk.",
+      "citation": "C31, C38"
+    },
+    {
+      "id": "UC-07",
+      "icp": "SMB",
+      "title": "SaaS audit recovered R1.6m on a R8m annual spend",
+      "problem": "Owner-operated services business (R60m turnover) had quintupled SaaS spend in two years. No central inventory. Three departments unknowingly subscribed to overlapping tools.",
+      "intervention": "90-day audit programme: credit-card statement mining, SSO log reconciliation, departmental usage interviews. Each tool mapped to a written ADR (keep / downgrade / consolidate / cancel).",
+      "outcome": "R1.6m of R8m annual spend recovered. Sixteen tools consolidated to nine. New monthly SaaS-review cadence established with the named Driver (DACI).",
+      "citation": "C28"
+    },
+    {
+      "id": "UC-08",
+      "icp": "SA-FS",
+      "title": "FSCA/PA Joint Standard 2 cybersecurity-governance readiness review",
+      "problem": "Mid-market SA-FS lender's compliance team flagged that Joint Standard 2 compliance was due 1 June 2026 and that the board had not yet been briefed on the cybersecurity-governance gap.",
+      "intervention": "Four-week readiness review: gap analysis against Joint Standard 2 requirements (periodic audits, cybersecurity governance, third-party oversight, incident recovery plans). Output: board memo + remediation roadmap with ADR per material control gap.",
+      "outcome": "Board received single-page memo flagging seven controls below standard, three at standard with weak documentation, and a 9-month remediation plan with monthly check-ins.",
+      "citation": "C22, C23"
+    },
+    {
+      "id": "UC-09",
+      "icp": "SA-FS",
+      "title": "SARB D3/2018 board-approved data strategy document set",
+      "problem": "Bank had been operating informal cloud arrangements without the SARB-required board-approved data strategy and governance framework. New material cloud arrangement was blocked at PA notification stage.",
+      "intervention": "Six-week engagement to draft the board-approved data strategy, governance framework, and ADR set documenting data residency, classification and material-arrangement criteria.",
+      "outcome": "Board approved the strategy on first read. PA notification submitted with full documentation. Cloud arrangement proceeded.",
+      "citation": "C24"
+    },
+    {
+      "id": "UC-10",
+      "icp": "SA-Mid",
+      "title": "Programme rescue: cost of intervention vs. cost of write-off",
+      "problem": "Mid-market enterprise had spent R12m on a 60% complete custom platform 18 months behind schedule. CFO was debating write-off vs. continue.",
+      "intervention": "Three-week rapid assessment: code review, architecture assessment, realistic-completion-cost estimation. Written ADR documenting salvage / rebuild / abandon options with cost basis for each.",
+      "outcome": "Decision: salvage with phased rebuild of two modules. R4.5m additional spend vs. R15m full rebuild. Five months earlier revenue realisation. Total value preservation >R8m.",
+      "citation": "C36"
+    },
+    {
+      "id": "UC-11",
+      "icp": "SMB",
+      "title": "Founder-led architecture review after technical-co-founder exit",
+      "problem": "R30m-turnover SaaS founder lost their technical co-founder. No documentation of architectural decisions. New CTO candidate was hesitant to join because the system was 'a black box'.",
+      "intervention": "Four-week architecture review producing 19 ADRs covering historical material decisions, current-state TOGAF-aligned views, and a one-page CTO-onboarding pack.",
+      "outcome": "CTO candidate accepted offer after reading the ADR set. Onboarding time estimated at two weeks instead of two months. Documentation now updated quarterly.",
+      "citation": "C29, C30"
+    },
+    {
+      "id": "UC-12",
+      "icp": "INT",
+      "title": "International scale-into-SA: BEE, exchange control and POPIA readiness pack",
+      "problem": "US-headquartered SaaS scaling into SA needed local readiness across BEE structuring, SARB exchange-control compliance for in-country payments, and POPIA operator registration. Their global counsel did not have a SA framework.",
+      "intervention": "Three-week scale-into-SA readiness engagement. Written ADRs for BEE structure, SARB compliance posture, POPIA operator registration. Single board memo for US head office.",
+      "outcome": "SA entity launched within six weeks of engagement end. Local procurement compliant from day one. POPIA Information Regulator notification submitted with full documentation.",
+      "citation": "C33, C47"
+    }
+  ]
+}

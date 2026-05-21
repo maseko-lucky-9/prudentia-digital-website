@@ -1,0 +1,140 @@
+{
+  "service": "data",
+  "retrieved_at": "2026-05-21",
+  "use_cases": [
+    {
+      "id": "UC-DATA-01",
+      "title": "Retailer consolidates six POS systems into one Looker board",
+      "icp": ["SA-Mid"],
+      "industry": "retail",
+      "problem": "Multi-store retailer running six legacy POS systems after acquisitions; head office reconciles weekly sales by hand; conflicting KPIs across formats; daily transaction processing delays",
+      "intervention": "Multi-source pipeline (Fivetran for hosted POS, custom connectors for legacy) into BigQuery; dbt marts for sales/inventory/customer; Looker semantic layer with one canonical KPI per metric; RLS by store and region",
+      "outcome": "Real-time sales visibility; weekly reconciliation eliminated; documented benchmark: 15% complementary product purchase increase from checkout-data layout decisions; transaction processing latency reduced from 1 day to minutes",
+      "citation": "C18, C37",
+      "evidence_type": "documented-pattern + SA-local-analogue (Pick n Pay SAP CAR)"
+    },
+    {
+      "id": "UC-DATA-02",
+      "title": "SA logistics operator reduces report preparation from 8 hours/week to near zero",
+      "icp": ["SA-Mid"],
+      "industry": "logistics",
+      "problem": "Ops team rebuilds the same Excel report every week; route, driver, and SLA performance scattered across telematics, dispatch, and finance systems; branch managers fly blind between weekly board packs",
+      "intervention": "Airbyte (self-hosted) into Postgres; dbt marts for route/driver/SLA/cost-per-km; Metabase BI layer with RLS by branch; freshness SLA 15-minute on operational dashboards, 24-hour on commercial",
+      "outcome": "Ops report-prep eliminated (6-12 hours/week recovered at mid-size operations); 3.5x average ROI within 12 months; 27% TCO reduction; 30% fewer unplanned breakdowns",
+      "citation": "C23",
+      "evidence_type": "industry-benchmark"
+    },
+    {
+      "id": "UC-DATA-03",
+      "title": "Healthcare provider answers regulator query in 4 hours instead of 3 days",
+      "icp": ["SA-FS", "SA-Mid"],
+      "industry": "healthcare",
+      "problem": "Regulator queries on patient flow, length-of-stay variance, or claims patterns take days because data lives across EMR, billing, and bed-management systems; senior clinicians do data forensics instead of clinical work",
+      "intervention": "Pipeline from EMR (FHIR API) + bed management + billing into Postgres; PII tokenisation at staging; dbt marts for patient-flow, LOS, readmission; pre-built audit-ready query bundles; row-level security by ward",
+      "outcome": "Regulator response window 3 days → 4 hours; LOS variance traced to daily-senior-oversight pattern; analogue: Netcare CareOn deployment with 34,000+ users across seven provinces demonstrates SA feasibility",
+      "citation": "C38, C39",
+      "evidence_type": "peer-reviewed + SA-vendor-deployment"
+    },
+    {
+      "id": "UC-DATA-04",
+      "title": "SaaS finance team self-serves on revenue, deferred revenue, and product mix",
+      "icp": ["INT"],
+      "industry": "saas",
+      "problem": "Finance team's quarterly close blocked on engineering pulling Stripe, billing, and product data; multiple revenue definitions in circulation; CFO board pack reconciles by hand",
+      "intervention": "Fivetran/Airbyte from Stripe + product + billing into BigQuery; dbt marts with single customer table, revenue/deferred-revenue facts, unified product taxonomy; Omni or Metabase as BI layer; finance team trained on metric semantics",
+      "outcome": "Finance independent on revenue/deferred-revenue/product analytics; quarterly close cycle shortened; engineering no longer rebuilds ad-hoc extracts; clean data model 'refuses to lie'",
+      "citation": "C40, C14",
+      "evidence_type": "documented-pattern"
+    },
+    {
+      "id": "UC-DATA-05",
+      "title": "Bank cuts regulatory reporting cycle from 15 days to 3 days",
+      "icp": ["SA-FS", "INT"],
+      "industry": "financial-services",
+      "problem": "BCBS 239 risk data aggregation and reporting cycle stuck at 15 days; auditor questions require weeks of forensic reconstruction; duplicate-data-reconciliation costs annualising at USD 18M",
+      "intervention": "Risk data warehouse rebuild with documented lineage; dbt-tested marts for capital, credit, and liquidity; auditor-traceable query bundles; row-level security by business line; freshness SLA 1-hour on key risk indicators",
+      "outcome": "Reporting cycle 15 days → 3 days; 25% accuracy improvement; USD 18M annual compliance cost saving; auditor questions answered in seconds, not weeks of forensic reconstruction",
+      "citation": "C19, C20",
+      "evidence_type": "vendor-research"
+    },
+    {
+      "id": "UC-DATA-06",
+      "title": "Manufacturer ships an OEE dashboard with availability, performance, and quality drill-down",
+      "icp": ["SA-Mid"],
+      "industry": "manufacturing",
+      "problem": "Production line OEE invisible to plant management; downtime reasons logged on paper; first-pass-yield variance only visible at month-end; productivity gap impossible to quantify",
+      "intervention": "PLC/MES telemetry into Postgres via Airbyte custom source; dbt marts for availability/performance/quality with downtime-reason categorisation; Metabase real-time OEE dashboard per line; alerts on downtime exceeding 15 minutes",
+      "outcome": "Real-time OEE visibility; downtime reasons categorised (planned vs unplanned vs setup); productivity gap quantified; first-pass-yield improvements visible day-of, not month-end",
+      "citation": "C41",
+      "evidence_type": "documented-pattern"
+    },
+    {
+      "id": "UC-DATA-07",
+      "title": "Mid-market migration from Excel to Metabase reduces annual BI cost 60-80%",
+      "icp": ["SA-Mid", "SMB"],
+      "industry": "cross-industry",
+      "problem": "Mid-market team on Power BI Fabric paying enterprise capacity prices; only 25% of employees actively use the tool; dashboards rebuilt in Excel anyway because no one has the right licence",
+      "intervention": "2-4-week migration to self-hosted Metabase on Postgres; existing semantic model rebuilt as dbt marts; per-role training; documented metric catalogue",
+      "outcome": "Annual BI tool cost reduced 60-80%; broader access (no per-seat licensing constraint); active usage typically rises post-migration because licence-cost gating is removed",
+      "citation": "C42",
+      "evidence_type": "industry-benchmark"
+    },
+    {
+      "id": "UC-DATA-08",
+      "title": "ML transaction categorisation at 95% accuracy across 80B+ transactions",
+      "icp": ["SA-FS", "INT"],
+      "industry": "financial-services",
+      "problem": "Bank or fintech manually categorising customer transactions for personal financial management features; 70-line chart of accounts in the back office; ops team's 30+ hours/week on manual classification",
+      "intervention": "ML classifier on MCC codes + merchant text + transaction amount + internal codes; baseline LightGBM, escalated to hybrid small-LLM where ROI justifies; confidence-thresholded human review queue; weekly retrain on corrected output",
+      "outcome": "95% accuracy on known merchant categories (industry benchmark from Meniga's 80B+ transactions across 100M+ banking customers); 98% with NACE-code deep models; ops manual classification time near-eliminated",
+      "citation": "C24",
+      "evidence_type": "vendor-published-benchmark"
+    },
+    {
+      "id": "UC-DATA-09",
+      "title": "Support-ticket auto-classification at 86% accuracy",
+      "icp": ["INT", "SA-Mid"],
+      "industry": "saas",
+      "problem": "Support ops manually triaging 2,000+ tickets/week into 14 categories; first-response time degraded; mis-routed tickets bounce between queues; senior agents firefighting routing instead of resolving",
+      "intervention": "Hybrid DistilBERT + LightGBM model on 5,000 historical tickets; confidence-thresholded auto-routing; low-confidence queue for human review; weekly retrain; per-category precision and recall reported to support ops lead",
+      "outcome": "86.3% accuracy, 87.4% precision, 85.1% recall, 86.2% F1 on hybrid benchmark; first-response time improvement (commonly 40% in similar deployments); senior agent time recovered for resolution work",
+      "citation": "C43",
+      "evidence_type": "peer-reviewed-benchmark"
+    },
+    {
+      "id": "UC-DATA-10",
+      "title": "Discovery Bank's 500% ROI on Azure Databricks + Azure OpenAI for client services",
+      "icp": ["SA-FS"],
+      "industry": "financial-services",
+      "publicly_named": true,
+      "problem": "Bank combining behavioural economics, actuarial science, and AI/ML to create hyper-personalised client experiences; need for AI-powered infrastructure on data foundation",
+      "intervention": "Azure + Azure Databricks data platform; Azure OpenAI-powered assistant; data products approach for client-centric services",
+      "outcome": "500% ROI achieved on the Databricks platform + Azure OpenAI assistant",
+      "citation": "C44",
+      "evidence_type": "publicly-named-customer-story"
+    },
+    {
+      "id": "UC-DATA-11",
+      "title": "Discovery Health's Personal Health Pathways for 2.1M scheme members",
+      "icp": ["SA-FS"],
+      "industry": "healthcare",
+      "publicly_named": true,
+      "problem": "Scaling personalised health recommendations to 2.1M+ scheme members; integrating claims, clinical, and behavioural data; sustaining engagement",
+      "intervention": "AI-powered platform serving tailored health actions; HealthID digital healthcare technology integrating patient records for seamless care delivery; analytics on member engagement and clinical outcomes",
+      "outcome": "Active deployment to 2.1M Discovery Health Medical Scheme adult members; AI-personalised recommendations; tracking of clinical outcomes",
+      "citation": "C39",
+      "evidence_type": "publicly-named-customer-story"
+    },
+    {
+      "id": "UC-DATA-12",
+      "title": "Single-source-of-truth rebuild for a mid-market CFO",
+      "icp": ["SA-Mid", "INT"],
+      "industry": "cross-industry",
+      "problem": "Three teams reporting three different revenue numbers; CFO spends more time verifying reports than making decisions; chart of accounts inconsistent; 68% of mid-market CFOs lack confidence in data consistency",
+      "intervention": "Chart-of-accounts architecture rebuild; master-data discipline across CRM, billing, and ERP; reconciliation cadence documented; one metric definition per metric in a versioned semantic layer; dbt tests enforce uniqueness and referential integrity",
+      "outcome": "Sales, finance, and ops query the same marts; conflict moves from 'whose number is right' to 'what should our shared definition be'; CFO time recovered for strategic decisions",
+      "citation": "C14",
+      "evidence_type": "documented-pattern"
+    }
+  ]
+}

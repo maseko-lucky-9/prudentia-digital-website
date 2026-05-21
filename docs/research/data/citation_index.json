@@ -1,0 +1,421 @@
+{
+  "service": "data",
+  "retrieved_at": "2026-05-21",
+  "primary_tools": ["WebSearch"],
+  "citations": [
+    {
+      "id": "C1",
+      "claim": "Global BI/analytics market projected at $33.3B in 2025, ~7.6% CAGR; 2025 Gartner Magic Quadrant Leaders: Microsoft, Salesforce/Tableau, Google/Looker, Qlik, Oracle, ThoughtSpot; Sigma Computing Next-Gen BI debut",
+      "tier": "T1",
+      "source_type": "analyst",
+      "url": "https://www.cxtoday.com/customer-analytics-intelligence/gartner-magic-quadrant-for-analytics-and-business-intelligence-abi-platforms-2025-the-rundown/",
+      "publisher": "CX Today (Gartner 2025 ABI MQ summary)",
+      "retrieved_at": "2026-05-21"
+    },
+    {
+      "id": "C2",
+      "claim": "Gartner Magic Quadrant for Analytics and BI Platforms 2025 — official document reference",
+      "tier": "T1",
+      "source_type": "analyst",
+      "url": "https://www.gartner.com/en/documents/6576602",
+      "publisher": "Gartner",
+      "retrieved_at": "2026-05-21"
+    },
+    {
+      "id": "C3",
+      "claim": "Forrester Wave: Business Intelligence Platforms, Q2 2025; Microsoft and Tableau positioned as Leaders; genAI levelling the playing field, not replacing BI",
+      "tier": "T1",
+      "source_type": "analyst",
+      "url": "https://www.forrester.com/blogs/key-takeaways-from-the-forrester-wave-business-intelligence-platforms-q2-2025-research/",
+      "publisher": "Forrester",
+      "retrieved_at": "2026-05-21"
+    },
+    {
+      "id": "C4",
+      "claim": "Microsoft named Leader in Forrester Wave BI Platforms Q2 2025; highest score in generative AI functionality",
+      "tier": "T1",
+      "source_type": "vendor",
+      "url": "https://powerbi.microsoft.com/en-us/blog/microsoft-named-a-leader-in-the-forrester-wave-business-intelligence-platforms-q2-2025/",
+      "publisher": "Microsoft Power BI Blog",
+      "retrieved_at": "2026-05-21"
+    },
+    {
+      "id": "C5",
+      "claim": "South Africa data analytics market USD 1.016B in 2024, USD 2.759B by 2030 (17.3% CAGR); SA largest BI market in Africa; 1.5% of global data analytics spend",
+      "tier": "T1",
+      "source_type": "analyst",
+      "url": "https://www.grandviewresearch.com/horizon/outlook/data-analytics-market/south-africa",
+      "publisher": "Grand View Research",
+      "retrieved_at": "2026-05-21"
+    },
+    {
+      "id": "C6",
+      "claim": "South Africa ICT market forecast to grow >6% CAGR 2023-2028 to >USD 49B in 2028; SA infrastructure spending USD 19B in 2024",
+      "tier": "T1",
+      "source_type": "analyst",
+      "url": "https://www.globenewswire.com/news-release/2025/02/05/3021159/28124/en/South-Africa-Enterprise-ICT-Country-Intelligence-Report-2025-South-Africa-s-ICT-Market-is-Set-to-Grow-at-a-CAGR-of-Over-6-During-2023-2028-to-Reach-more-than-49-Billion-in-2028.html",
+      "publisher": "GlobeNewswire / GlobalData",
+      "retrieved_at": "2026-05-21"
+    },
+    {
+      "id": "C7",
+      "claim": "Data Mesh four principles (Zhamak Dehghani / Thoughtworks); 84% of organisations have fully or partially implemented data mesh as of late 2023; primary objectives data quality (64%) and governance (58%)",
+      "tier": "T2",
+      "source_type": "industry-research",
+      "url": "https://board.org/data/resources/the-4-core-principles-of-data-mesh-and-what-they-mean-for-your-enterprise/",
+      "publisher": "Board.org",
+      "retrieved_at": "2026-05-21"
+    },
+    {
+      "id": "C8",
+      "claim": "McKinsey 'The Data-Driven Enterprise of 2025' — data embedded in every decision; data treated as a product; dynamic data products maximise time-to-market and ROI",
+      "tier": "T1",
+      "source_type": "consultancy",
+      "url": "https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-data-driven-enterprise-of-2025",
+      "publisher": "McKinsey QuantumBlack",
+      "retrieved_at": "2026-05-21"
+    },
+    {
+      "id": "C9",
+      "claim": "dbt Labs 2024 State of Analytics Engineering: 456 practitioners surveyed; 57% cite poor data quality as predominant issue (up from 41% in 2022); 'increasing data trust' is #1 focus area",
+      "tier": "T1",
+      "source_type": "vendor-research",
+      "url": "https://www.getdbt.com/resources/state-of-analytics-engineering-2024",
+      "publisher": "dbt Labs",
+      "retrieved_at": "2026-05-21"
+    },
+    {
+      "id": "C10",
+      "claim": "BARC BI & Analytics Survey 24: 25% average active BI/analytics tool usage by employees; figure stuck for seven years",
+      "tier": "T1",
+      "source_type": "analyst",
+      "url": "https://barc.com/news/new-study-identifies-drivers-of-bi-and-analytics-adoption-in-companies-today/",
+      "publisher": "BARC",
+      "retrieved_at": "2026-05-21"
+    },
+    {
+      "id": "C11",
+      "claim": "Only 16% of organisations achieve 100% Power BI dashboard adoption; 58% sit under 25% adoption",
+      "tier": "T2",
+      "source_type": "industry-press",
+      "url": "https://www.thevirtualforge.com/company/blog/common-power-bi-mistakes-that-kill-dashboard-adoption-and-how-to-avoid-them",
+      "publisher": "The Virtual Forge",
+      "retrieved_at": "2026-05-21"
+    },
+    {
+      "id": "C12",
+      "claim": "Gartner: more than 60% of BI initiatives underperform expectations; root cause is missing change management and product thinking, not technology",
+      "tier": "T1",
+      "source_type": "analyst",
+      "url": "https://www.dataversity.net/articles/why-60-of-bi-initiatives-fail-and-how-enterprises-can-avoid-it/",
+      "publisher": "Dataversity (Gartner-sourced)",
+      "retrieved_at": "2026-05-21"
+    },
+    {
+      "id": "C13",
+      "claim": "Companies spend 30-40% of staff time on manual reporting; up to 125 hours per employee per year saved via automation; Forrester TEI USD 3.70 return per USD 1 spent on Power BI; PwC analysis time reduced from weeks to hours",
+      "tier": "T2",
+      "source_type": "industry-press",
+      "url": "https://www.excelgoodies.in/blog/pwc-case-study-from-weeks-to-hours",
+      "publisher": "Excelgoodies (PwC case study reference)",
+      "retrieved_at": "2026-05-21"
+    },
+    {
+      "id": "C14",
+      "claim": "Average mid-market organisation maintains 3-5 competing sources of truth for same financial data; 68% of mid-market CFOs lack confidence in data consistency",
+      "tier": "T2",
+      "source_type": "industry-research",
+      "url": "https://www.onetribeadvisory.com/knowledge-hub/single-source-of-truth-finance/",
+      "publisher": "Onetribe Advisory",
+      "retrieved_at": "2026-05-21"
+    },
+    {
+      "id": "C15",
+      "claim": "McKinsey: only 20% of organisations excel at decision-making; only 37% report decisions both high-quality and high-velocity; data-driven organisations 23x more likely to acquire customers, 6x to retain, 19x to be profitable",
+      "tier": "T1",
+      "source_type": "consultancy",
+      "url": "https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-data-driven-enterprise-of-2025",
+      "publisher": "McKinsey",
+      "retrieved_at": "2026-05-21"
+    },
+    {
+      "id": "C16",
+      "claim": "Salesforce Trusted AI survey: 53% of workers say training models on comprehensive customer/company data builds their trust",
+      "tier": "T2",
+      "source_type": "vendor-research",
+      "url": "https://www.salesforce.com/news/stories/trusted-ai-data-statistics/",
+      "publisher": "Salesforce",
+      "retrieved_at": "2026-05-21"
+    },
+    {
+      "id": "C17",
+      "claim": "dbt freshness checks act as SLAs; failure to commit to SLAs the infrastructure can meet is the common mistake; weekly reports tolerate daily refresh; operational dashboards need hourly or minute-level",
+      "tier": "T1",
+      "source_type": "vendor",
+      "url": "https://www.getdbt.com/blog/data-product-slas-and-slos",
+      "publisher": "dbt Labs",
+      "retrieved_at": "2026-05-21"
+    },
+    {
+      "id": "C18",
+      "claim": "Pick n Pay pre-SAP POS DM experienced POS transaction processing delays of up to a day; post-CAR deployment processes 30B+ transactions annually with real-time data and analytics",
+      "tier": "T2",
+      "source_type": "vendor-customer-story",
+      "url": "https://news.sap.com/africa/2023/07/pick-n-pay-modernises-its-pos/",
+      "publisher": "SAP Africa News Center",
+      "retrieved_at": "2026-05-21"
+    },
+    {
+      "id": "C19",
+      "claim": "Supervisors now expect responses within days/hours for data requests that took weeks; one global bank reduced regulatory reporting cycle from 15 days to 3 days with 25% accuracy improvement and USD 18M annual compliance cost saving",
+      "tier": "T1",
+      "source_type": "vendor-research",
+      "url": "https://sbs-software.com/insights/risk-regulation-reporting/data-navigate-regulatory-reporting/",
+      "publisher": "SBS Software",
+      "retrieved_at": "2026-05-21"
+    },
+    {
+      "id": "C20",
+      "claim": "BCBS 239: 14 principles for risk data aggregation and reporting; PwC 2024 progress report finds no bank globally has fully implemented every principle; ECB supervisory priorities 2024-2026 retain BCBS 239 focus",
+      "tier": "T1",
+      "source_type": "consultancy",
+      "url": "https://www.pwc.com/gx/en/services/audit-assurance/risk-assurance/ssm-eba-office/not-single-principle-fully-implemented-by-all-banks.html",
+      "publisher": "PwC",
+      "retrieved_at": "2026-05-21"
+    },
+    {
+      "id": "C21",
+      "claim": "Gartner 2024: by 2027, 80% of data and analytics governance initiatives will fail due to lack of a real or manufactured crisis",
+      "tier": "T1",
+      "source_type": "analyst",
+      "url": "https://www.gartner.com/en/newsroom/press-releases/2024-02-28-gartner-predicts-80-percent-of-data-and-analytics-governance-initiatives-will-fail-by-2027-due-to-a-lack-of-a-real-or-manufactured-crisis-",
+      "publisher": "Gartner",
+      "retrieved_at": "2026-05-21"
+    },
+    {
+      "id": "C22",
+      "claim": "Six-company benchmark: 75-94% reduction in analysis time switching from traditional BI to AI-powered analytics; ad-hoc analysis day → 2-3 hours; report-build 10x faster; 40-50 monthly requests eliminated",
+      "tier": "T2",
+      "source_type": "vendor-research",
+      "url": "https://www.fabi.ai/blog/ai-dashboard-builder-vs-traditional-bi",
+      "publisher": "Fabi.ai",
+      "retrieved_at": "2026-05-21"
+    },
+    {
+      "id": "C23",
+      "claim": "Logistics fleet analytics: 60-80% reduction in report generation time vs spreadsheets; first KPI dashboard live within hours; 3.5x average ROI within 12 months; 27% TCO reduction; 30% fewer unplanned breakdowns; 6-12 hours/week saved at mid-size operations",
+      "tier": "T2",
+      "source_type": "industry-press",
+      "url": "https://fleetrabbit.com/blogs/post/fleet-reporting-analytics-dashboard",
+      "publisher": "FleetRabbit",
+      "retrieved_at": "2026-05-21"
+    },
+    {
+      "id": "C24",
+      "claim": "Meniga ML transaction categorisation: 95% accuracy benchmark; 80B+ transactions categorised annually across 100M+ banking customers; deep learning with NACE/merchant codes 98% accuracy",
+      "tier": "T2",
+      "source_type": "vendor",
+      "url": "https://www.meniga.com/resources/categorisation-in-digital-banking/",
+      "publisher": "Meniga",
+      "retrieved_at": "2026-05-21"
+    },
+    {
+      "id": "C25",
+      "claim": "Organisations with mature real-time reporting respond to market changes 5x faster; advanced analytics adopters achieve 73% faster decision-making and 126% higher profitability",
+      "tier": "T2",
+      "source_type": "industry-research",
+      "url": "https://psico-smart.com/en/blogs/blog-datadriven-decision-making-leveraging-analytics-for-improved-organizational-outcomes-161349",
+      "publisher": "Psico Smart (consolidated analytics ROI data)",
+      "retrieved_at": "2026-05-21"
+    },
+    {
+      "id": "C26",
+      "claim": "Thoughtworks Data Modernization services; AI/works platform for AI-ready data; 47% of organisations prioritising DataOps for quality and anomaly detection",
+      "tier": "T1",
+      "source_type": "consultancy",
+      "url": "https://www.thoughtworks.com/what-we-do/data-modernization",
+      "publisher": "Thoughtworks",
+      "retrieved_at": "2026-05-21"
+    },
+    {
+      "id": "C27",
+      "claim": "Mid-market data warehouse cost comparison: Databricks USD 99.02/mo, BigQuery USD 283.03/mo, Snowflake USD 475.98/mo for equivalent workloads; mid-sized enterprise typical Snowflake spend USD 15K-50K/month; serverless Postgres covers 90% of mid-market use at 5% of cost for <500GB",
+      "tier": "T2",
+      "source_type": "industry-press",
+      "url": "https://medium.com/@reliabledataengineering/comparing-databricks-snowflake-and-bigquery-same-query-real-costs-6eea3f8b5ab4",
+      "publisher": "Reliable Data Engineering (Medium)",
+      "retrieved_at": "2026-05-21"
+    },
+    {
+      "id": "C28",
+      "claim": "Decision Inc.: 380 employees, 400+ enterprise clients, offices in Johannesburg, Cape Town, AU, UK; Microsoft Solutions Partner with SAP, AWS, Databricks, Workday partnerships; BBD growing analytics practice; Ilion Analytics SA + sub-Saharan financial risk focus",
+      "tier": "T2",
+      "source_type": "vendor",
+      "url": "https://decisioninc.com/",
+      "publisher": "Decision Inc.",
+      "retrieved_at": "2026-05-21"
+    },
+    {
+      "id": "C29",
+      "claim": "Synthesis Software Technologies: acquired by JSE-listed Capital Appreciation 2017 (R132.1M); clients include Capitec, Investec, Absa, Standard Bank, Nedbank; AWS Advanced Consulting Partner",
+      "tier": "T2",
+      "source_type": "industry-press",
+      "url": "https://techcentral.co.za/sa-fintech-firm-synthesis-sold-for-r132m/197894/",
+      "publisher": "TechCentral",
+      "retrieved_at": "2026-05-21"
+    },
+    {
+      "id": "C30",
+      "claim": "Consultancy-built BI 3.2x faster to deployment than in-house first-implementations; 4-8 weeks vs 6-12 months to production; consultancy-led ROI 2.3x faster; 63% of mid-market underestimate in-house BI TCO by 40-60%; crossover where in-house becomes cheaper: 12-18 months",
+      "tier": "T2",
+      "source_type": "industry-press",
+      "url": "https://veelead.com/blog/partnering-with-a-power-bi-consulting-vs-in-house-to-delivers-faster-roi/",
+      "publisher": "Veelead Solutions",
+      "retrieved_at": "2026-05-21"
+    },
+    {
+      "id": "C31",
+      "claim": "POPIA: applies to processing of SA data subjects' personal information; does not impose strict in-country storage but requires adequate protection substantially similar to POPIA for cross-border transfers; SA financial institutions face stricter sector data-residency requirements",
+      "tier": "T1",
+      "source_type": "regulator-secondary",
+      "url": "https://incountry.com/blog/data-protection-and-data-privacy-laws-in-south-africa/",
+      "publisher": "InCountry",
+      "retrieved_at": "2026-05-21"
+    },
+    {
+      "id": "C32",
+      "claim": "SA National Data and Cloud Policy (published May 2024) requires national-security and sovereignty-related government data stored within South Africa; no EU-SA adequacy decision so EU-SA transfers require SCCs + TIA; POPIA juristic-person protections create incompatibility with vanilla GDPR SCCs",
+      "tier": "T1",
+      "source_type": "industry-research",
+      "url": "https://itif.org/publications/2025/06/09/south-africa-localization-regulation/",
+      "publisher": "ITIF",
+      "retrieved_at": "2026-05-21"
+    },
+    {
+      "id": "C33",
+      "claim": "Information Regulator 2024 enforcement: three POPIA enforcement notices for security compromises and breach notification; first administrative fine on Department of Justice; 30+ PAIA compliance assessments; direct marketing an active enforcement priority",
+      "tier": "T1",
+      "source_type": "law-firm",
+      "url": "https://resourcehub.bakermckenzie.com/en/resources/global-data-and-cyber-handbook/emea/south-africa/topics/regulators-enforcement-priorities-and-penalties",
+      "publisher": "Baker McKenzie Global Data and Cyber Handbook",
+      "retrieved_at": "2026-05-21"
+    },
+    {
+      "id": "C34",
+      "claim": "PII redaction techniques in analytics pipelines: masking, tokenisation (deterministic preserves referential integrity), pseudonymisation, redaction; performed client-side, server-side, or in pipeline; ETL jobs include masking/tokenisation to keep warehouses free of raw PII",
+      "tier": "T2",
+      "source_type": "industry-press",
+      "url": "https://medium.com/@reliabledataengineering/data-masking-at-scale-pii-protection-strategies-de29379a05ba",
+      "publisher": "Reliable Data Engineering (Medium)",
+      "retrieved_at": "2026-05-21"
+    },
+    {
+      "id": "C35",
+      "claim": "Row-level security in Power BI (static and dynamic), Tableau (database-side filtering), Looker (centralised semantic governance); essential for multi-tenant analytics and regulatory environments",
+      "tier": "T2",
+      "source_type": "vendor-secondary",
+      "url": "https://learn.microsoft.com/en-us/fabric/security/service-admin-row-level-security",
+      "publisher": "Microsoft Learn",
+      "retrieved_at": "2026-05-21"
+    },
+    {
+      "id": "C36",
+      "claim": "EU AI Act effective August 2024 requires documented data origins, transformations, quality metrics for high-risk AI; potential fines up to USD 39.82M or 7% global turnover; DORA mandates real-time lineage and incident reporting for ~22,000 EU financial entities",
+      "tier": "T2",
+      "source_type": "industry-press",
+      "url": "https://seemoredata.io/blog/data-lineage-in-2025-examples-techniques-best-practices/",
+      "publisher": "Seemore Data",
+      "retrieved_at": "2026-05-21"
+    },
+    {
+      "id": "C37",
+      "claim": "Retail multi-acquisition consolidation case: major retailer with fragmented reporting unified analytics ecosystem, aligned KPIs, restored trust via governance; cloud POS systems consolidate sales, inventory, customer data; 15% complementary product purchase increase from checkout-data layout adjustments",
+      "tier": "T2",
+      "source_type": "industry-press",
+      "url": "https://www.datagaps.com/case-study/retail-analytics-consolidation-success/",
+      "publisher": "Datagaps",
+      "retrieved_at": "2026-05-21"
+    },
+    {
+      "id": "C38",
+      "claim": "Cape Town tertiary academic hospital patient-flow study: 86 patient folders analysed; shortest length-of-stay corresponded with daily senior staff oversight; documented barriers to timely discharge",
+      "tier": "T1",
+      "source_type": "peer-reviewed",
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10916326/",
+      "publisher": "NCBI / PMC",
+      "retrieved_at": "2026-05-21"
+    },
+    {
+      "id": "C39",
+      "claim": "Netcare CareOn EMR: 34,000+ users across seven provinces; International Quality Awards Digital Innovation winner; Discovery Health Personal Health Pathways AI platform serves 2.1M scheme members; SA AI healthcare market projected from USD 0.072B (2023) to USD 3.199B (2033)",
+      "tier": "T1",
+      "source_type": "industry-association",
+      "url": "https://hasa.co.za/2024/07/01/netcare-digitisation-programme-makes-it-the-single-largest-buyer-of-ipads-in-southern-hemisphere/",
+      "publisher": "Hospital Association of South Africa",
+      "retrieved_at": "2026-05-21"
+    },
+    {
+      "id": "C40",
+      "claim": "Omni + governance finance team self-serve case: simple data model with single customer table, fact tables for revenue and deferred revenue, unified product taxonomy; embraced Excel as front-end; finance gained independence on stable data infrastructure",
+      "tier": "T2",
+      "source_type": "industry-press",
+      "url": "https://medium.com/@delphine.soupault/how-self-service-bi-finally-worked-for-finance-thanks-to-a-bit-of-governance-and-omni-25421151d861",
+      "publisher": "Delphine Soupault (Medium)",
+      "retrieved_at": "2026-05-21"
+    },
+    {
+      "id": "C41",
+      "claim": "OEE dashboard pattern: availability × performance × quality; aggregates calculations across shop floor with downtime reason and first-pass yield analytics; transforms invisible productivity gap into actionable manufacturing intelligence",
+      "tier": "T2",
+      "source_type": "vendor",
+      "url": "https://tulip.co/blog/overall-equipment-effectiveness-oee-dashboard/",
+      "publisher": "Tulip",
+      "retrieved_at": "2026-05-21"
+    },
+    {
+      "id": "C42",
+      "claim": "Metabase strongest alternative for cost-sensitive mid-market teams; typical migration 2-4 weeks; 60-80% annual BI cost reduction versus Power BI Fabric capacity",
+      "tier": "T2",
+      "source_type": "industry-press",
+      "url": "https://omni.co/articles/best-power-bi-alternatives-for-modern-bi-teams-2026",
+      "publisher": "Omni Analytics",
+      "retrieved_at": "2026-05-21"
+    },
+    {
+      "id": "C43",
+      "claim": "Hybrid DistilBERT + LightGBM ticket classification: 86.3% accuracy, 87.4% precision, 85.1% recall, 86.2% F1 on 5,000 tickets; BERT alone achieved 99.79% in narrower IT ticket study; NLP+ML system 93% on test data; six classification types (spam/assign/categorise/escalate/prioritise/sentiment)",
+      "tier": "T1",
+      "source_type": "peer-reviewed",
+      "url": "https://arxiv.org/pdf/2406.01789",
+      "publisher": "arXiv (AI-based Classification of Customer Support Tickets)",
+      "retrieved_at": "2026-05-21"
+    },
+    {
+      "id": "C44",
+      "claim": "Discovery Bank 500% ROI on Databricks + Azure OpenAI-powered assistant; built on Microsoft Azure and Azure Databricks for AI-powered client-centric services",
+      "tier": "T1",
+      "source_type": "vendor-customer-story",
+      "url": "https://www.microsoft.com/en/customers/story/23562-discovery-bank-azure",
+      "publisher": "Microsoft Customer Stories",
+      "retrieved_at": "2026-05-21"
+    },
+    {
+      "id": "C45",
+      "claim": "Airbyte vs Fivetran: self-hosted Airbyte saves five-figure amounts annually for engineering-capable teams; Fivetran March 2025 per-connector billing change increased bills 50-60% for most customers, 2-4x for some; one practitioner reported USD 30K/year saved migrating Marketing pipelines to self-hosted Airbyte",
+      "tier": "T2",
+      "source_type": "industry-press",
+      "url": "https://weld.app/blog/fivetran-vs-airbyte-2025",
+      "publisher": "Weld",
+      "retrieved_at": "2026-05-21"
+    },
+    {
+      "id": "C46",
+      "claim": "BARC: 73% of respondents cite self-service authoring tools as primary driver of increased BI usage; 60% of business users cite tailored parameterised dashboards as epitome of self-service; data preparation (48%) and embedded BI (38%) follow",
+      "tier": "T1",
+      "source_type": "analyst",
+      "url": "https://barc.com/data-bi-and-analytics-trend-monitor-2024/",
+      "publisher": "BARC",
+      "retrieved_at": "2026-05-21"
+    }
+  ]
+}
