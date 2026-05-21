@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Cloud Infrastructure & DevOps for South African and international businesses. Kubernetes, Terraform, OpenTelemetry, Joint Standard 2 of 2024 readiness.">
+  <title>Cloud &amp; DevOps — Prudentia Digital · South Africa</title>
+
+  <!-- Social & SEO meta -->
+  <link rel="canonical" href="https://prudentiadigital.co.za/cloud/">
+  <link rel="alternate" hreflang="en" href="https://prudentiadigital.co.za/cloud/">
+  <link rel="alternate" hreflang="x-default" href="https://prudentiadigital.co.za/cloud/">
+  <meta property="og:title" content="Cloud Infrastructure &amp; DevOps — Prudentia Digital">
+  <meta property="og:description" content="Kubernetes, IaC, observability and on-call discipline for SA financial services, mid-market, and international SaaS. Joint Standard 2 of 2024 ready.">
+  <meta property="og:url" content="https://prudentiadigital.co.za/cloud/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Prudentia Digital">
+  <meta property="og:locale" content="en_ZA">
+  <meta property="og:locale:alternate" content="en_GB">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta property="og:image" content="https://prudentiadigital.co.za/assets/og-image-1200x630.png">
+  <meta property="og:image:secure_url" content="https://prudentiadigital.co.za/assets/og-image-1200x630.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Prudentia Digital — Cloud Infrastructure &amp; DevOps. Production engineering for South African and international businesses.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Cloud Infrastructure &amp; DevOps — Prudentia Digital">
+  <meta name="twitter:description" content="Kubernetes, IaC, observability, on-call. SA-FS Joint Standard 2 of 2024 ready. Free Architecture Review.">
+  <meta name="twitter:image" content="https://prudentiadigital.co.za/assets/og-image-1200x630.png">
+
+  <!-- Preload critical fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Asset version: bump ?v= on deploy to bust cache -->
+  <link rel="preload" href="../css/design-tokens.css?v=1.1" as="style">
+  <link rel="preload" href="../css/styles.css?v=1.1" as="style">
+
+  <link rel="stylesheet" href="../css/design-tokens.css?v=1.1">
+  <link rel="stylesheet" href="../css/styles.css?v=1.1">
+  <link rel="stylesheet" href="../css/animated-bg.css?v=1.1">
+  <link rel="stylesheet" href="../css/pages/_motion-shared.css?v=1.1">
+  <link rel="stylesheet" href="../css/pages/cloud.css?v=1.1">
+
+  <!-- Favicon & PWA -->
+  <link rel="icon" type="image/svg+xml" href="../assets/logo-icon.svg">
+  <link rel="manifest" href="../manifest.json">
+  <meta name="theme-color" content="#0D1B2A">
+
+  <!-- JSON-LD structured data — Service page -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Cloud Infrastructure & DevOps",
+    "provider": {
+      "@type": "Organization",
+      "name": "Prudentia Digital",
+      "url": "https://prudentiadigital.co.za/",
+      "logo": "https://prudentiadigital.co.za/assets/logo-icon-white-512.png",
+      "areaServed": ["South Africa", "Worldwide"]
+    },
+    "areaServed": ["South Africa", "Worldwide"],
+    "serviceType": "Cloud Infrastructure & DevOps Consulting",
+    "description": "Architecture review, Kubernetes platform engineering, multi-region resilience, CI/CD and Infrastructure-as-Code, observability and on-call discipline. Joint Standard 2 of 2024 readiness for SA financial services. SOC 2-ready scaffolds for international SaaS.",
+    "url": "https://prudentiadigital.co.za/cloud/",
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Cloud Engagement Tiers",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Cloud Architecture Review",
+            "description": "Two to four weeks. Workshop the current state through a Well-Architected lens, document target architecture in ADRs, land a 90-day remediation plan with named owners."
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Migration or Greenfield Platform Build",
+            "description": "Eight to sixteen weeks. Land the target architecture with IaC, CI/CD, Kubernetes and observability wired from day one. SOC 2 or Joint Standard 2 of 2024 scaffold."
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Platform Retainer + On-Call",
+            "description": "Monthly retainer with a 90-day minimum. Operate the platform alongside your team. Quarterly DR drill, monthly FinOps review, continuous IaC hygiene, shared on-call rotation."
+          }
+        }
+      ]
+    }
+  }
+  </script>
+
+  <!-- JSON-LD — FAQPage -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How long is a typical cloud engagement?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Architecture reviews take two to four weeks. Migration or greenfield platform builds run eight to sixteen weeks. Platform retainers are monthly with a 90-day minimum."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Where does our data live, and how do you handle POPIA?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "South African data stays in the AWS Cape Town or Azure South Africa North region by default. Cross-border replication requires a documented POPIA Section 72 basis and a signed binding agreement."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Do you provide on-call coverage and SLAs?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, on the Platform Retainer tier. We share a rotation with your engineers, define SLIs and SLOs, and respond on a target MTTR. SLAs are written, with credits for missed targets."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can you build active-active across multiple regions?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. We design the topology, handle data replication and consistency trade-offs, and run quarterly failover drills with documented Recovery Point and Recovery Time Objectives."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the pricing model — fixed-fee or time-and-materials?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Architecture Review is fixed-fee. Migration or Greenfield Build is fixed-fee per phase with named deliverables. Platform Retainer is monthly with a documented capacity envelope."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do we exit if we want to take this in-house?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Everything lives in your repos, your cloud account, your secrets vault, your monitoring stack. We document handover, run two weeks of shadow on-call with your team, and exit. No proprietary lock-in."
+        }
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+
+  <a href="#main" class="skip-link">Skip to main content</a>
+
+  <!-- ═══════════════════════════════════
+       NAVIGATION
+       ═══════════════════════════════════ -->
+  <nav class="nav nav--ai scrolled" id="nav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner container">
+      <a href="/" class="nav__logo" aria-label="Prudentia Digital — home">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 66 84" fill="none" class="nav__logo-icon" aria-hidden="true">
+          <path d="M8 6 H44 L52 14 V42 H18 V78 H8 Z M18 14 H44 V34 H18 Z" fill="currentColor" fill-rule="evenodd"/>
+          <path d="M54 4 L60 10 L54 16 L48 10 Z" fill="var(--color-accent)"/>
+        </svg>
+        <span class="nav__wordmark" aria-hidden="true">
+          <span class="nav__wordmark-primary">PRUDENTIA</span>
+          <span class="nav__wordmark-rule" aria-hidden="true"></span>
+          <span class="nav__wordmark-secondary">DIGITAL</span>
+        </span>
+      </a>
+
+      <ul class="nav__links" role="list">
+        <li><a href="/web/" class="nav__link">Web Apps</a></li>
+        <li><a href="/cloud/" class="nav__link" aria-current="page">Cloud</a></li>
+        <li><a href="/data/" class="nav__link">Data</a></li>
+        <li><a href="/advisory/" class="nav__link">Advisory</a></li>
+        <li><a href="/api/" class="nav__link">APIs</a></li>
+        <li><a href="/ai/" class="nav__link">AI</a></li>
+      </ul>
+
+      <div class="nav__actions">
+        <a href="/?topic=cloud-architecture-review#contact" class="btn btn--accent btn--sm nav__cta">Free Architecture Review</a>
+        <button class="nav__hamburger" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="navMobile">
+          <span class="nav__hamburger-bar"></span>
+          <span class="nav__hamburger-bar"></span>
+          <span class="nav__hamburger-bar"></span>
+        </button>
+      </div>
+    </div>
+
+    <div class="nav__mobile" id="navMobile" aria-hidden="true">
+      <ul class="nav__mobile-links" role="list">
+        <li><a href="/web/" class="nav__mobile-link">Web Apps</a></li>
+        <li><a href="/cloud/" class="nav__mobile-link" aria-current="page">Cloud</a></li>
+        <li><a href="/data/" class="nav__mobile-link">Data</a></li>
+        <li><a href="/advisory/" class="nav__mobile-link">Advisory</a></li>
+        <li><a href="/api/" class="nav__mobile-link">APIs</a></li>
+        <li><a href="/ai/" class="nav__mobile-link">AI</a></li>
+        <li><a href="/?topic=cloud-architecture-review#contact" class="nav__mobile-link nav__mobile-cta">Free Architecture Review</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main id="main">
+
+    <!-- ═══════════════════════════════════
+         HERO
+         ═══════════════════════════════════ -->
+    <section class="hero hero--ai hero--cloud" aria-labelledby="cloud-hero-heading">
+      <div class="bg-layer bg-layer--hero" aria-hidden="true"></div>
+      <div class="hero__bg-accent" aria-hidden="true"></div>
+
+      <!-- Hero motif: central cluster + 6 orbital nodes + heartbeat -->
+      <div class="cloud-hero-motif" aria-hidden="true">
+        <div class="cloud-hero-motif__stage">
+          <div class="cloud-hero-motif__ring"></div>
+          <div class="cloud-hero-motif__ring cloud-hero-motif__ring--inner"></div>
+          <div class="cloud-hero-motif__cluster">
+            <div class="cloud-hero-motif__cluster-core"></div>
+          </div>
+          <div class="cloud-hero-motif__pulse"></div>
+          <div class="cloud-hero-motif__orbit">
+            <span class="cloud-hero-motif__node cloud-hero-motif__node--1"></span>
+            <span class="cloud-hero-motif__node cloud-hero-motif__node--2"></span>
+            <span class="cloud-hero-motif__node cloud-hero-motif__node--3"></span>
+            <span class="cloud-hero-motif__node cloud-hero-motif__node--4"></span>
+            <span class="cloud-hero-motif__node cloud-hero-motif__node--5"></span>
+            <span class="cloud-hero-motif__node cloud-hero-motif__node--6"></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="container hero__inner">
+        <p class="hero__eyebrow fade-in">Cloud Infrastructure &amp; DevOps · Prudentia Digital</p>
+        <h1 class="hero__headline fade-in" id="cloud-hero-heading" style="--fade-delay: 100ms">
+          Zero downtime.<br>
+          <span class="hero__headline-accent">Zero guesswork.</span>
+        </h1>
+        <p class="hero__subtext fade-in" style="--fade-delay: 250ms">
+          Kubernetes, Terraform, OpenTelemetry, and on-call discipline. We instrument, harden, and audit cloud platforms for SA financial services, mid-market, and international SaaS — Joint Standard 2 of 2024 ready by 1 June 2025.
+        </p>
+        <div class="hero__ctas fade-in" style="--fade-delay: 400ms">
+          <a href="/?topic=cloud-architecture-review#contact" class="btn btn--accent btn--lg">Free Architecture Review</a>
+          <a href="#capabilities" class="btn btn--outline btn--lg">See What We Build</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════
+         CAPABILITIES
+         ═══════════════════════════════════ -->
+    <section class="services" id="capabilities" aria-labelledby="capabilities-heading" data-spotlight>
+      <div class="bg-layer bg-layer--services" aria-hidden="true"></div>
+      <div class="bg-fx" aria-hidden="true">
+        <div class="bg-fx__grid"></div>
+        <div class="cloud-bg-fx__ring"></div>
+        <div class="cloud-bg-fx__ring cloud-bg-fx__ring--secondary"></div>
+        <div class="bg-fx__orb bg-fx__orb--gold bg-fx__orb--tr bg-fx__orb--drift-a"></div>
+        <div class="bg-fx__orb bg-fx__orb--warm bg-fx__orb--bl bg-fx__orb--drift-b"></div>
+        <div class="bg-fx__spotlight"></div>
+      </div>
+      <div class="container">
+        <div class="section-header">
+          <p class="section-eyebrow fade-in">What We Build</p>
+          <h2 class="section-heading fade-in" id="capabilities-heading" style="--fade-delay: 80ms">Five capabilities. Real outcomes.</h2>
+          <div class="gold-line fade-in" aria-hidden="true" style="--fade-delay: 160ms"></div>
+          <p class="section-sub fade-in" style="--fade-delay: 200ms">
+            Each capability is a working platform we build on your accounts — not a slide, not a generic reference architecture. We instrument before we ship, and we hand back the keys.
+          </p>
+        </div>
+
+        <!-- Capability 1 — Architecture review & strategy -->
+        <article class="ai-capability cloud-capability reveal" id="cap-architecture" aria-labelledby="cap-architecture-title">
+          <span class="cloud-capability__traffic" aria-hidden="true"></span>
+          <header class="ai-capability__header">
+            <div class="ai-capability__icon-wrap">
+              <svg class="ai-capability__icon gold-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/>
+                <rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/>
+                <line x1="10" y1="6.5" x2="14" y2="6.5"/><line x1="6.5" y1="10" x2="6.5" y2="14"/>
+              </svg>
+            </div>
+            <div>
+              <p class="ai-capability__eyebrow">Capability 01</p>
+              <h3 class="ai-capability__title" id="cap-architecture-title">Cloud architecture review &amp; strategy</h3>
+            </div>
+          </header>
+          <div class="ai-capability__body">
+            <p class="ai-capability__problem"><strong>The problem.</strong> Cloud bills run away — 84% of organisations struggle to manage spend, and 27 to 29% of cloud budget is wasted. Reliability slips. Teams build new things faster than they understand the existing system.</p>
+            <p class="ai-capability__solution"><strong>What we build.</strong> A workshop of the current state through a Well-Architected lens — AWS, Azure CAF, or Google Cloud. Target architecture documented as ADRs. A 90-day remediation plan with named owners and measurable success criteria.</p>
+            <p class="ai-capability__use-case"><strong>Example use case.</strong> An SA mid-market manufacturer mid-Azure migration with no clear destination. Six-week review surfaces 12 ADR-grade decisions, kills two dead-end projects, and recovers an estimated 22% of forecast spend within the next quarter.</p>
+            <p class="ai-capability__stack"><strong>Under the hood.</strong> ADRs, Wardley maps, Well-Architected workbooks, FinOps Foundation playbooks, AWS Cost Explorer, Compute Optimizer.</p>
+            <p class="ai-capability__cta">
+              <a href="/?topic=cloud-architecture-review#contact" class="btn btn--accent">Talk to us about architecture review</a>
+            </p>
+          </div>
+        </article>
+
+        <!-- Capability 2 — Kubernetes platform engineering -->
+        <article class="ai-capability cloud-capability reveal" id="cap-kubernetes" style="--reveal-delay: 80ms" aria-labelledby="cap-kubernetes-title">
+          <span class="cloud-capability__traffic" aria-hidden="true"></span>
+          <header class="ai-capability__header">
+            <div class="ai-capability__icon-wrap">
+              <svg class="ai-capability__icon gold-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <polygon points="12 2 22 7 22 17 12 22 2 17 2 7 12 2"/>
+                <line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="7" x2="22" y2="17"/><line x1="22" y1="7" x2="2" y2="17"/>
+              </svg>
+            </div>
+            <div>
+              <p class="ai-capability__eyebrow">Capability 02</p>
+              <h3 class="ai-capability__title" id="cap-kubernetes-title">Kubernetes platform engineering</h3>
+            </div>
+          </header>
+          <div class="ai-capability__body">
+            <p class="ai-capability__problem"><strong>The problem.</strong> Kubernetes adoption hits a wall at "developer self-service." Teams want a paved road. Ops cannot carry the cognitive load of supporting ten different deployment patterns. Gartner expects 80% of large software organisations to run a platform team by 2026.</p>
+            <p class="ai-capability__solution"><strong>What we build.</strong> A paved-road internal developer platform. Golden-path Helm charts, ArgoCD GitOps, SLO-defined service contracts, policy-as-code gates on every merge. Developers ship without filing a ticket. On-call stops being a punishment.</p>
+            <p class="ai-capability__use-case"><strong>Example use case.</strong> An international SaaS migrates 12 services onto a paved-road platform in eight weeks. Deploy frequency lifts from weekly to per-PR. Change-failure rate drops below 10%, into DORA Elite territory.</p>
+            <p class="ai-capability__stack"><strong>Under the hood.</strong> Kubernetes, ArgoCD, Backstage, cert-manager, OPA or Kyverno for policy, External Secrets Operator, Karpenter autoscaling.</p>
+            <p class="ai-capability__cta">
+              <a href="/?topic=cloud-kubernetes#contact" class="btn btn--accent">Talk to us about Kubernetes</a>
+            </p>
+          </div>
+        </article>
+
+        <!-- Capability 3 — Multi-region migration & resilience -->
+        <article class="ai-capability cloud-capability reveal" id="cap-resilience" style="--reveal-delay: 160ms" aria-labelledby="cap-resilience-title">
+          <span class="cloud-capability__traffic" aria-hidden="true"></span>
+          <header class="ai-capability__header">
+            <div class="ai-capability__icon-wrap">
+              <svg class="ai-capability__icon gold-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/>
+                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+              </svg>
+            </div>
+            <div>
+              <p class="ai-capability__eyebrow">Capability 03</p>
+              <h3 class="ai-capability__title" id="cap-resilience-title">Multi-region migration &amp; resilience</h3>
+            </div>
+          </header>
+          <div class="ai-capability__body">
+            <p class="ai-capability__problem"><strong>The problem.</strong> Single-region production until a regulator asks about resilience, or an AZ outage takes you offline for six hours. Joint Standard 2 of 2024 — effective 1 June 2025 — demands quarterly resilience tests including cloud vendors.</p>
+            <p class="ai-capability__solution"><strong>What we build.</strong> The topology — active-passive or active-active. The data-replication strategy. Quarterly failover drills with documented RPO and RTO. The runbook your CIO will be asked to produce by their regulator.</p>
+            <p class="ai-capability__use-case"><strong>Example use case.</strong> An SA financial-services payments processor moves to active-passive across Cape Town and Johannesburg. Documented RPO under 5 minutes, RTO under 30 minutes. Joint-Standard-aligned and audit-ready.</p>
+            <p class="ai-capability__stack"><strong>Under the hood.</strong> Terraform, Route 53 or Azure Traffic Manager, Aurora Global Database, Cosmos DB, Velero for stateful failover, AWS Backup.</p>
+            <p class="ai-capability__cta">
+              <a href="/?topic=cloud-migration#contact" class="btn btn--accent">Talk to us about migration</a>
+            </p>
+          </div>
+        </article>
+
+        <!-- Capability 4 — CI/CD & IaC -->
+        <article class="ai-capability cloud-capability reveal" id="cap-cicd" style="--reveal-delay: 240ms" aria-labelledby="cap-cicd-title">
+          <span class="cloud-capability__traffic" aria-hidden="true"></span>
+          <header class="ai-capability__header">
+            <div class="ai-capability__icon-wrap">
+              <svg class="ai-capability__icon gold-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/>
+                <polyline points="21 16 21 21 16 21"/><line x1="15" y1="15" x2="21" y2="21"/>
+                <line x1="4" y1="4" x2="9" y2="9"/>
+              </svg>
+            </div>
+            <div>
+              <p class="ai-capability__eyebrow">Capability 04</p>
+              <h3 class="ai-capability__title" id="cap-cicd-title">CI/CD &amp; Infrastructure-as-Code</h3>
+            </div>
+          </header>
+          <div class="ai-capability__body">
+            <p class="ai-capability__problem"><strong>The problem.</strong> Manual deploys, console clicks in production, and "works on my laptop" infrastructure. Config drift is invisible until something breaks. Only 19% of teams reach DORA Elite; medians ship weekly with 10% change-failure rate.</p>
+            <p class="ai-capability__solution"><strong>What we build.</strong> Terraform or OpenTofu modules — versioned, reviewed, applied via pipeline. GitOps for Kubernetes state. Progressive delivery via canary, blue-green, and feature flags. Policy-as-code on every pull request.</p>
+            <p class="ai-capability__use-case"><strong>Example use case.</strong> An SA mid-market team lifts six services to IaC over six weeks. A production config change drops from two days to 20 minutes. Change-failure rate halves; rollback is a git revert.</p>
+            <p class="ai-capability__stack"><strong>Under the hood.</strong> Terraform, ArgoCD, Argo Rollouts, Conftest or OPA, GitHub Actions or GitLab CI, AWS Config, CloudTrail.</p>
+            <p class="ai-capability__cta">
+              <a href="/?topic=cloud-cicd#contact" class="btn btn--accent">Talk to us about CI/CD</a>
+            </p>
+          </div>
+        </article>
+
+        <!-- Capability 5 — Observability & on-call -->
+        <article class="ai-capability cloud-capability reveal" id="cap-observability" style="--reveal-delay: 320ms" aria-labelledby="cap-observability-title">
+          <span class="cloud-capability__traffic" aria-hidden="true"></span>
+          <header class="ai-capability__header">
+            <div class="ai-capability__icon-wrap">
+              <svg class="ai-capability__icon gold-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <circle cx="12" cy="12" r="3"/><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/>
+              </svg>
+            </div>
+            <div>
+              <p class="ai-capability__eyebrow">Capability 05</p>
+              <h3 class="ai-capability__title" id="cap-observability-title">Observability &amp; on-call discipline</h3>
+            </div>
+          </header>
+          <div class="ai-capability__body">
+            <p class="ai-capability__problem"><strong>The problem.</strong> Alert fatigue. Pages firing on symptoms, not causes. 70% of SREs flag alert fatigue as a top-three concern; 85% of teams say most alerts are false positives. Engineers burn out. MTTR climbs because nobody knows where to look.</p>
+            <p class="ai-capability__solution"><strong>What we build.</strong> SLIs, SLOs, error budgets. Burn-rate alerts, not symptom alerts. OpenTelemetry traces, structured logs, RED and USE metrics. A runbook per pageable alert. A humane on-call rotation built around the Google SRE benchmark of two to three actionable incidents per shift.</p>
+            <p class="ai-capability__use-case"><strong>Example use case.</strong> An international SaaS observability rebuild. Alert volume cut 70%. MTTR drops from four hours to under one. On-call satisfaction climbs from 2 out of 5 to 4 out of 5.</p>
+            <p class="ai-capability__stack"><strong>Under the hood.</strong> Prometheus, Grafana, Loki, Tempo, OpenTelemetry SDKs, PagerDuty, AWS X-Ray.</p>
+            <p class="ai-capability__cta">
+              <a href="/?topic=cloud-retainer#contact" class="btn btn--accent">Talk to us about observability</a>
+            </p>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════
+         HOW WE SHIP CLOUD
+         ═══════════════════════════════════ -->
+    <section class="why" id="approach" aria-labelledby="approach-heading" data-spotlight>
+      <div class="bg-layer bg-layer--why" aria-hidden="true"></div>
+      <div class="bg-fx" aria-hidden="true">
+        <div class="bg-fx__grid bg-fx__grid--strong"></div>
+        <div class="cloud-bg-fx__ring"></div>
+        <div class="bg-fx__spotlight"></div>
+      </div>
+      <div class="container">
+        <div class="section-header">
+          <p class="section-eyebrow fade-in">How We Ship</p>
+          <h2 class="section-heading fade-in" id="approach-heading" style="--fade-delay: 80ms">Reliability is engineered, not assumed.</h2>
+          <div class="gold-line fade-in" aria-hidden="true" style="--fade-delay: 160ms"></div>
+        </div>
+
+        <div class="services__grid">
+
+          <article class="card card-pulse reveal" style="--reveal-delay: 0ms" aria-label="SLO-first, alert-second">
+            <div class="card__icon-wrap">
+              <svg class="card__icon gold-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+              </svg>
+            </div>
+            <h3 class="card__title">SLO-first, alert-second</h3>
+            <p class="card__body">We define service-level objectives before we wire alerts. Pages fire on burn rate of the error budget, not on raw symptoms. False-positive rate stays low. MTTR drops. On-call sleeps.</p>
+            <p class="card__tagline">Page on what matters.</p>
+          </article>
+
+          <article class="card card-pulse reveal" style="--reveal-delay: 80ms" aria-label="Infrastructure-as-Code is the API">
+            <div class="card__icon-wrap">
+              <svg class="card__icon gold-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>
+              </svg>
+            </div>
+            <h3 class="card__title">Infrastructure-as-Code is the API</h3>
+            <p class="card__body">Terraform modules are versioned, reviewed, and applied via pipeline. No console clicks in production. State is auditable. Rollback is a git revert. Every change is traceable to the engineer who approved it.</p>
+            <p class="card__tagline">No clicks in prod.</p>
+          </article>
+
+          <article class="card card-pulse reveal" style="--reveal-delay: 160ms" aria-label="Limit blast radius by default">
+            <div class="card__icon-wrap">
+              <svg class="card__icon gold-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+              </svg>
+            </div>
+            <h3 class="card__title">Limit blast radius by default</h3>
+            <p class="card__body">Multi-AZ for state. Multi-region for critical paths. IAM segregation. Feature flags. Canary or blue-green deploys. The worst day is bounded. Gartner pegs average downtime at $5 600 per minute — financial services much higher.</p>
+            <p class="card__tagline">The worst day is bounded.</p>
+          </article>
+
+          <article class="card card-pulse reveal" style="--reveal-delay: 240ms" aria-label="Observability wired before launch">
+            <div class="card__icon-wrap">
+              <svg class="card__icon gold-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <circle cx="12" cy="12" r="3"/><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/>
+              </svg>
+            </div>
+            <h3 class="card__title">Observability wired before launch</h3>
+            <p class="card__body">OpenTelemetry spans, structured logs, RED and USE metrics, distributed traces, synthetic probes from outside the network. You see how the system behaves in production, not how it behaved in a demo.</p>
+            <p class="card__tagline">You see it. You own it.</p>
+          </article>
+
+          <article class="card card-pulse reveal" style="--reveal-delay: 320ms" aria-label="Secrets live in a vault">
+            <div class="card__icon-wrap">
+              <svg class="card__icon gold-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+              </svg>
+            </div>
+            <h3 class="card__title">Secrets live in a vault</h3>
+            <p class="card__body">External Secrets Operator with HashiCorp Vault, AWS Secrets Manager, or Azure Key Vault. Rotation automated and audited. mTLS between internal services. No secrets in env files, ever.</p>
+            <p class="card__tagline">Secrets in a vault, not in a repo.</p>
+          </article>
+
+          <article class="card card-pulse reveal" style="--reveal-delay: 400ms" aria-label="Runbooks live in the repo">
+            <div class="card__icon-wrap">
+              <svg class="card__icon gold-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+              </svg>
+            </div>
+            <h3 class="card__title">Runbooks live in the repo, on-call is humane</h3>
+            <p class="card__body">Every pageable alert links to a markdown runbook in the same repo as the code. Rotation respects the Google SRE benchmark of two to three actionable incidents per shift. On-call is a craft, not a punishment.</p>
+            <p class="card__tagline">Direct line, no relay.</p>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════
+         USE CASES — 3-card grid, ICP-tagged
+         ═══════════════════════════════════ -->
+    <section class="services" id="use-cases" aria-labelledby="use-cases-heading">
+      <div class="bg-layer bg-layer--services" aria-hidden="true"></div>
+      <div class="container">
+        <div class="section-header">
+          <p class="section-eyebrow fade-in">In Production</p>
+          <h2 class="section-heading fade-in" id="use-cases-heading" style="--fade-delay: 80ms">Patterns we have shipped.</h2>
+          <div class="gold-line fade-in" aria-hidden="true" style="--fade-delay: 160ms"></div>
+          <p class="section-sub fade-in" style="--fade-delay: 200ms">
+            SA financial services anchors and one international scaleup. Each pattern maps to an engagement tier and a regulator-ready outcome.
+          </p>
+        </div>
+
+        <div class="cloud-usecase-grid">
+
+          <!-- UC-1 — Capitec Amazon Connect (SA-FS) -->
+          <article class="cloud-usecase reveal" style="--reveal-delay: 0ms">
+            <span class="cloud-usecase__icp">SA Financial Services</span>
+            <h3 class="cloud-usecase__title">SA bank migrates 600+ contact-centre agents to AWS in 5 days</h3>
+            <p class="cloud-usecase__body">
+              Capitec needed to modernise its contact centre, lift load off legacy on-premise telephony, and improve customer-experience SLAs — without a multi-quarter cutover. Lift-and-shift to AWS Amazon Connect across two critical centres, with parallel-run validation. 600+ agents migrated in five days; on-premise dependency retired; cloud-native scalability for peak campaigns.
+            </p>
+            <p class="cloud-usecase__citation">
+              Source: <a href="https://services.global.ntt/-/media/ntt/global/about-us/case-studies/capitec/capitec-amazon-case-study.pdf" rel="noopener" target="_blank">NTT DATA case study</a>
+            </p>
+          </article>
+
+          <!-- UC-6 — Joint Standard 2 of 2024 (SA-FS) -->
+          <article class="cloud-usecase reveal" style="--reveal-delay: 80ms">
+            <span class="cloud-usecase__icp">SA Financial Services</span>
+            <h3 class="cloud-usecase__title">SA insurer readies for Joint Standard 2 of 2024</h3>
+            <p class="cloud-usecase__body">
+              The insurer needed to demonstrate readiness for Joint Standard 2 of 2024 by 1 June 2025: MFA on critical systems, quarterly resilience testing including cloud vendors, 24-hour material-incident reporting, and an encrypted-backup strategy. Inventory, MFA rollout via SSO and WebAuthn, quarterly DR runbook, incident workflow piped to the FSCA reporting template. Readiness file delivered before commencement; DR drill in place.
+            </p>
+            <p class="cloud-usecase__citation">
+              Source: <a href="https://www.webberwentzel.com/News/Pages/financial-sector-regulation-and-prudential-authority-joint-standard-on-cybersecurity-and-cyber-resilience-requirements.aspx" rel="noopener" target="_blank">Webber Wentzel — Joint Standard 2 of 2024</a>
+            </p>
+          </article>
+
+          <!-- UC-3 — Greenfield SOC 2 SaaS (INT) -->
+          <article class="cloud-usecase reveal" style="--reveal-delay: 160ms">
+            <span class="cloud-usecase__icp">International</span>
+            <h3 class="cloud-usecase__title">Greenfield SOC 2-ready SaaS on AWS with IaC + K8s</h3>
+            <p class="cloud-usecase__body">
+              The scaleup needed a SOC 2 Type II-ready platform within its first six months — without bolting controls on later. Greenfield AWS landing zone with Terraform-managed accounts, EKS for workloads, ArgoCD GitOps, OpenTelemetry, external-secrets-operator, automated evidence collection. Observation window started in week four; audit-prep timeline compressed from a typical three-to-six months to roughly eight weeks.
+            </p>
+            <p class="cloud-usecase__citation">
+              Source: <a href="https://www.aikido.dev/learn/compliance/compliance-frameworks/soc-2" rel="noopener" target="_blank">Aikido — SOC 2 Compliance benchmark</a>
+            </p>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════
+         FOUNDATION NOTE
+         ═══════════════════════════════════ -->
+    <section class="prompt-foundation" aria-labelledby="foundation-heading">
+      <div class="container prompt-foundation__inner">
+        <div class="prompt-foundation__panel reveal">
+          <p class="section-eyebrow">Foundation</p>
+          <h2 class="prompt-foundation__heading" id="foundation-heading">Reliability is engineered, not assumed.</h2>
+          <p class="prompt-foundation__body">
+            Every platform we ship is grounded in measurable service-level objectives, version-controlled infrastructure, and humane on-call rotations. We treat reliability the way we treat security: a first-class concern that ships through review, gets exercised by drills, and is never assumed because the dashboard happens to be green. It is how we get to "this works" instead of "this sometimes works".
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════
+         FAQ
+         ═══════════════════════════════════ -->
+    <section class="faq" id="faq" aria-labelledby="faq-heading" data-spotlight>
+      <div class="bg-layer bg-layer--services" aria-hidden="true"></div>
+      <div class="container">
+        <div class="section-header">
+          <p class="section-eyebrow fade-in">Common Questions</p>
+          <h2 class="section-heading fade-in" id="faq-heading" style="--fade-delay: 80ms">Answers before you book</h2>
+          <div class="gold-line fade-in" aria-hidden="true" style="--fade-delay: 160ms"></div>
+        </div>
+
+        <div class="faq__list">
+          <details class="faq__item reveal" style="--reveal-delay: 0ms">
+            <summary class="faq__question">How long is a typical cloud engagement?</summary>
+            <div class="faq__answer">
+              <p>An <strong>Architecture Review</strong> runs two to four weeks. A <strong>Migration or Greenfield Platform Build</strong> runs eight to sixteen weeks. <strong>Platform Retainers</strong> are monthly with a 90-day minimum.</p>
+            </div>
+          </details>
+
+          <details class="faq__item reveal" style="--reveal-delay: 60ms">
+            <summary class="faq__question">Where does our data live, and how do you handle POPIA?</summary>
+            <div class="faq__answer">
+              <p>South African data stays in the AWS Cape Town or Azure South Africa North region by default. Cross-border replication requires a documented POPIA Section 72 basis — substantially-similar protection, consent, contract necessity, or a binding agreement — and a signed cloud-services agreement. Personal information is only transferred under one of these grounds, never on default infrastructure behaviour.</p>
+            </div>
+          </details>
+
+          <details class="faq__item reveal" style="--reveal-delay: 120ms">
+            <summary class="faq__question">Do you provide on-call coverage and SLAs?</summary>
+            <div class="faq__answer">
+              <p>Yes, on the Platform Retainer tier. We share a rotation with your engineers, define SLIs and SLOs against the services we operate, and respond on a target MTTR. SLAs are written and signed, with credits for missed targets. Rotation density is held to the Google SRE benchmark of two to three actionable incidents per shift.</p>
+            </div>
+          </details>
+
+          <details class="faq__item reveal" style="--reveal-delay: 180ms">
+            <summary class="faq__question">Can you build active-active across multiple regions?</summary>
+            <div class="faq__answer">
+              <p>Yes. We design the topology — active-passive or active-active — handle the data-replication strategy and consistency trade-offs, and run quarterly failover drills with documented RPO and RTO. For SA financial services this maps directly to Joint Standard 2 of 2024 quarterly resilience-testing obligations.</p>
+            </div>
+          </details>
+
+          <details class="faq__item reveal" style="--reveal-delay: 240ms">
+            <summary class="faq__question">What is the pricing model — fixed-fee or time-and-materials?</summary>
+            <div class="faq__answer">
+              <p>Architecture Review is fixed-fee. Migration or Greenfield Build is fixed-fee per phase with named deliverables. Platform Retainer is monthly with a documented capacity envelope. We price on outcome and scope, not on hours, because hourly billing rewards slow delivery and punishes the parts we have automated.</p>
+            </div>
+          </details>
+
+          <details class="faq__item reveal" style="--reveal-delay: 300ms">
+            <summary class="faq__question">How do we exit if we want to take this in-house?</summary>
+            <div class="faq__answer">
+              <p>Everything lives in your repos, your cloud account, your secrets vault, your monitoring stack. We document the handover, run two weeks of shadow on-call with your team, then exit. No proprietary lock-in. You keep the runbooks, the Terraform modules, and the dashboards. Vendor portability is a design constraint, not an afterthought.</p>
+            </div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════
+         ABOUT — short blurb
+         ═══════════════════════════════════ -->
+    <section class="about-blurb" aria-labelledby="about-blurb-heading">
+      <div class="container about-blurb__inner">
+        <div class="about-blurb__panel reveal">
+          <p class="section-eyebrow">About</p>
+          <h2 class="about-blurb__heading" id="about-blurb-heading">Built and delivered by Thulani Maseko.</h2>
+          <p class="about-blurb__body">
+            Enterprise engineering background shaped at Capitec, Absa, and E4 Strategic. Direct experience operating banking-grade platforms, on-call rotations, and regulator-facing change controls. Every Prudentia cloud engagement is led personally — you talk to the engineer building and operating your platform, every time.
+          </p>
+          <p class="about-blurb__cta">
+            <a href="/#team" class="btn btn--outline">Read full bio</a>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════
+         FINAL CTA
+         ═══════════════════════════════════ -->
+    <section class="cta" id="final-cta" aria-labelledby="final-cta-heading" data-spotlight>
+      <div class="bg-layer bg-layer--cta" aria-hidden="true"></div>
+      <div class="bg-fx" aria-hidden="true">
+        <div class="bg-fx__grid"></div>
+        <div class="cloud-bg-fx__ring"></div>
+        <div class="bg-fx__orb bg-fx__orb--gold bg-fx__orb--tl bg-fx__orb--drift-b"></div>
+        <div class="bg-fx__orb bg-fx__orb--warm bg-fx__orb--br bg-fx__orb--drift-a"></div>
+        <div class="bg-fx__spotlight"></div>
+      </div>
+      <div class="container cta__inner">
+        <h2 class="cta__heading reveal" id="final-cta-heading">Reserve a free architecture review.</h2>
+        <p class="cta__sub fade-in" style="--fade-delay: 100ms">
+          One-hour technical audit. We walk the current stack, surface three to five risks, and leave you with a written summary. No slides. No commitment until you decide.
+        </p>
+        <div class="cta__actions fade-in" style="--fade-delay: 200ms">
+          <a href="/?topic=cloud-architecture-review#contact" class="btn btn--accent btn--lg">Free Architecture Review</a>
+          <a href="mailto:masekolt@prudentiadigital.co.za?subject=Cloud%20Infrastructure%20%26%20DevOps%20—%20architecture%20review" class="btn btn--outline btn--lg">Email Us Instead</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ═══════════════════════════════════
+       FOOTER
+       ═══════════════════════════════════ -->
+  <footer class="footer" role="contentinfo">
+    <div class="bg-layer bg-layer--footer" aria-hidden="true"></div>
+    <div class="container footer__inner">
+      <div class="footer__brand">
+        <a href="/" class="footer__logo" aria-label="Prudentia Digital — back to home">
+          <picture>
+            <source srcset="../assets/logo-icon-white-512.webp" type="image/webp">
+            <img src="../assets/logo-icon-white-512.png" alt="" width="32" height="41" loading="lazy" aria-hidden="true">
+          </picture>
+          <span class="footer__wordmark">
+            <span class="footer__wordmark-primary">PRUDENTIA</span>
+            <span class="footer__wordmark-rule" aria-hidden="true"></span>
+            <span class="footer__wordmark-secondary">DIGITAL</span>
+          </span>
+        </a>
+        <p class="footer__tagline">Enterprise-grade technology. Local expertise, global reach.</p>
+      </div>
+
+      <nav class="footer__nav" aria-label="Footer navigation">
+        <ul role="list">
+          <li><a href="/#services">Services</a></li>
+          <li><a href="/cloud/">Cloud Infrastructure</a></li>
+          <li><a href="/ai/">AI Engineering</a></li>
+          <li><a href="/#why-us">Why Us</a></li>
+          <li><a href="/#about">About</a></li>
+          <li><a href="mailto:masekolt@prudentiadigital.co.za">Contact</a></li>
+          <li><a href="/privacy.html">Privacy Policy</a></li>
+          <li><a href="/terms.html">Terms of Service</a></li>
+        </ul>
+      </nav>
+
+      <div class="footer__meta">
+        <p class="footer__badge" aria-label="B-BBEE Level 1 certified">
+          <span class="footer__badge-dot" aria-hidden="true"></span>
+          Level 1 B-BBEE · 100% Black-owned
+        </p>
+        <p class="footer__registration">Enterprise No. 2025/910056/07 · CIPC Registered · CSD Registered</p>
+        <p class="footer__copy">
+          &copy; 2026 Prudentia Digital (Pty) Ltd &middot;
+          <a href="mailto:masekolt@prudentiadigital.co.za">masekolt@prudentiadigital.co.za</a>
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Cookie consent banner -->
+  <div class="cookie-banner" id="cookieBanner" role="dialog" aria-modal="false" aria-label="Cookie notice" hidden>
+    <p class="cookie-banner__text">
+      We use essential cookies for security and performance. No tracking or advertising cookies.
+      <a href="/privacy.html">Privacy Policy</a>
+    </p>
+    <div class="cookie-banner__actions">
+      <button class="btn btn--accent btn--sm" id="cookieAccept">Accept</button>
+      <button class="btn btn--outline btn--sm" id="cookieDismiss" style="color:rgba(255,255,255,0.6);border-color:rgba(255,255,255,0.2)">Dismiss</button>
+    </div>
+  </div>
+
+  <!-- Animated backgrounds -->
+  <script src="../js/animated-bg.js?v=1.1" defer></script>
+
+  <script>
+    (() => {
+      'use strict';
+
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js').catch(() => {});
+        });
+      }
+
+      const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const animatedEls = document.querySelectorAll('.reveal, .fade-in, .gold-line, .gold-icon, .reveal-left');
+
+      if (reduced) {
+        animatedEls.forEach(el => el.classList.add('visible'));
+      } else {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              const el = entry.target;
+              const delay = el.style.getPropertyValue('--reveal-delay') || el.style.getPropertyValue('--fade-delay') || '0ms';
+              setTimeout(() => el.classList.add('visible'), parseInt(delay) || 0);
+              observer.unobserve(el);
+            }
+          });
+        }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+        animatedEls.forEach(el => observer.observe(el));
+
+        document.querySelectorAll('.hero .fade-in').forEach(el => {
+          const delay = parseInt(el.style.getPropertyValue('--fade-delay')) || 0;
+          setTimeout(() => el.classList.add('visible'), delay + 80);
+        });
+      }
+
+      const toggle = document.getElementById('navToggle');
+      const mobileMenu = document.getElementById('navMobile');
+
+      function closeMobileMenu() {
+        mobileMenu.classList.remove('open');
+        toggle.setAttribute('aria-expanded', 'false');
+        mobileMenu.setAttribute('aria-hidden', 'true');
+        toggle.setAttribute('aria-label', 'Open menu');
+        toggle.focus();
+      }
+
+      if (toggle && mobileMenu) {
+        toggle.addEventListener('click', () => {
+          const open = mobileMenu.classList.toggle('open');
+          toggle.setAttribute('aria-expanded', open);
+          mobileMenu.setAttribute('aria-hidden', !open);
+          toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+        });
+
+        mobileMenu.addEventListener('keydown', (e) => {
+          if (!mobileMenu.classList.contains('open')) return;
+          if (e.key === 'Escape') closeMobileMenu();
+        });
+
+        mobileMenu.querySelectorAll('a').forEach(link => {
+          link.addEventListener('click', () => closeMobileMenu());
+        });
+      }
+
+      const cookieBanner = document.getElementById('cookieBanner');
+      if (cookieBanner && !localStorage.getItem('pd_cookie_consent')) {
+        cookieBanner.removeAttribute('hidden');
+      }
+      function dismissCookieBanner() {
+        localStorage.setItem('pd_cookie_consent', '1');
+        cookieBanner.setAttribute('hidden', '');
+      }
+      document.getElementById('cookieAccept')?.addEventListener('click', dismissCookieBanner);
+      document.getElementById('cookieDismiss')?.addEventListener('click', dismissCookieBanner);
+    })();
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,461 @@
+/*
+ * Prudentia Digital — Digital Transformation Advisory page styles
+ *
+ * Signature motion (per docs/pages/_motion-brief.md):
+ *  - Hero motif: three ghost-trail Bezier paths fade in low-opacity from the
+ *    left, then resolve over 1.2s into a single straight arrow shaft pointing
+ *    right, terminated by a gold arrowhead. Conveys "complexity → clarity."
+ *  - Capability card hover: phased three-step progression reveals — before /
+ *    during / after labels animate in below the body (each 200ms apart).
+ *  - Background fx: soft fog gradient with slow parallax (2px shift / 30s).
+ *    No grid, no orbs — Advisory is the calmest of the five pages.
+ *
+ * All transitions reference tokens in css/pages/_motion-shared.css.
+ * Reduced-motion: every keyframe + pointer flourish disabled, outcome held.
+ * Pointer-coarse: card-hover progression reveal becomes always-visible.
+ */
+
+:root {
+  /* Hero arrow resolve duration — the single bespoke advisory token. */
+  --motion-advisory-arrow-resolve: 1200ms;
+  --motion-advisory-fog-drift: 30s;
+  --motion-advisory-progression-step: 200ms;
+}
+
+/* ────────────────────────────────────────────────────────────
+   ADVISORY SECTION BASELINE
+   ──────────────────────────────────────────────────────────── */
+
+.advisory-section {
+  position: relative;
+}
+
+/* ────────────────────────────────────────────────────────────
+   HERO — three ghost trails → single resolved arrow
+   ──────────────────────────────────────────────────────────── */
+
+.hero--advisory {
+  position: relative;
+  overflow: hidden;
+}
+
+.hero--advisory .hero__inner {
+  position: relative;
+  z-index: 2;
+}
+
+.advisory-hero-motif {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+  opacity: 0.85;
+  z-index: 1;
+}
+
+.advisory-hero-motif__stage {
+  position: relative;
+  width: min(720px, 84vw);
+  aspect-ratio: 600 / 220;
+  /* Sit the motif below the hero copy on mobile, centred behind on desktop */
+  transform: translateY(28%);
+}
+
+@media (min-width: 900px) {
+  .advisory-hero-motif__stage {
+    transform: translateY(0);
+  }
+}
+
+.advisory-hero-motif__svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  overflow: visible;
+}
+
+/* Ghost trails — three Bezier paths fade in low-opacity from the left.
+   stroke-dasharray + dashoffset gives the draw-from-origin effect. */
+.advisory-hero-motif__ghost {
+  stroke-dasharray: 600;
+  stroke-dashoffset: 600;
+  opacity: 0;
+  animation:
+    advisory-ghost-draw 900ms var(--motion-ease-out-quart) forwards,
+    advisory-ghost-fade var(--motion-advisory-arrow-resolve) ease-out forwards;
+}
+
+.advisory-hero-motif__ghost--a {
+  animation-delay: 200ms, calc(var(--motion-advisory-arrow-resolve) + 100ms);
+}
+.advisory-hero-motif__ghost--b {
+  animation-delay: 380ms, calc(var(--motion-advisory-arrow-resolve) + 100ms);
+}
+.advisory-hero-motif__ghost--c {
+  animation-delay: 560ms, calc(var(--motion-advisory-arrow-resolve) + 100ms);
+}
+
+@keyframes advisory-ghost-draw {
+  0%   { stroke-dashoffset: 600; opacity: 0; }
+  20%  { opacity: 0.55; }
+  100% { stroke-dashoffset: 0;   opacity: 0.45; }
+}
+
+@keyframes advisory-ghost-fade {
+  /* Fade ghosts to near-zero once the resolved shaft has landed */
+  0%   { opacity: 0.45; }
+  100% { opacity: 0.08; }
+}
+
+/* Resolved shaft — draws in after the ghosts, the "clarity" stroke. */
+.advisory-hero-motif__shaft {
+  stroke-dasharray: 500;
+  stroke-dashoffset: 500;
+  opacity: 0;
+  animation:
+    advisory-shaft-draw var(--motion-advisory-arrow-resolve)
+                        var(--motion-ease-out-quint)
+                        forwards;
+  animation-delay: 900ms;
+}
+
+@keyframes advisory-shaft-draw {
+  0%   { stroke-dashoffset: 500; opacity: 0; }
+  15%  { opacity: 1; }
+  100% { stroke-dashoffset: 0;   opacity: 1; }
+}
+
+/* Gold arrowhead — the held outcome moment. */
+.advisory-hero-motif__arrowhead {
+  opacity: 0;
+  transform-origin: 510px 110px;
+  transform: scale(0.6);
+  animation: advisory-arrowhead-land var(--motion-dur-medium) var(--motion-ease-out-quart) forwards;
+  animation-delay: calc(900ms + var(--motion-advisory-arrow-resolve) - 100ms);
+  filter: drop-shadow(0 0 8px rgba(212, 175, 55, 0.4));
+}
+
+@keyframes advisory-arrowhead-land {
+  0%   { opacity: 0; transform: scale(0.6); }
+  60%  { opacity: 1; transform: scale(1.12); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+/* ────────────────────────────────────────────────────────────
+   BACKGROUND FX — soft fog gradient with slow parallax
+   No grid, no orbs. Advisory is the calmest page.
+   ──────────────────────────────────────────────────────────── */
+
+.advisory-bg-fx {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.advisory-bg-fx__fog {
+  position: absolute;
+  inset: -8%;
+  background:
+    radial-gradient(ellipse 60% 40% at 30% 35%, rgba(212, 175, 55, 0.05) 0%, transparent 60%),
+    radial-gradient(ellipse 70% 50% at 70% 65%, rgba(255, 255, 255, 0.03) 0%, transparent 65%),
+    radial-gradient(ellipse 80% 60% at 50% 100%, rgba(13, 27, 42, 0.4) 0%, transparent 70%);
+  animation: advisory-fog-drift var(--motion-advisory-fog-drift) ease-in-out infinite alternate;
+  filter: blur(8px);
+}
+
+.advisory-bg-fx__fog--secondary {
+  inset: -12%;
+  background:
+    radial-gradient(ellipse 50% 35% at 60% 25%, rgba(255, 255, 255, 0.02) 0%, transparent 70%),
+    radial-gradient(ellipse 65% 45% at 25% 75%, rgba(212, 175, 55, 0.03) 0%, transparent 65%);
+  animation-duration: calc(var(--motion-advisory-fog-drift) * 1.4);
+  animation-direction: alternate-reverse;
+  filter: blur(12px);
+  opacity: 0.85;
+}
+
+/* 2px parallax shift over 30s — slow, deliberate, never restless. */
+@keyframes advisory-fog-drift {
+  0%   { transform: translate3d(0, 0, 0); }
+  100% { transform: translate3d(2px, 1px, 0); }
+}
+
+/* ────────────────────────────────────────────────────────────
+   CAPABILITY CARDS — extend .ai-capability with phased reveal
+   ──────────────────────────────────────────────────────────── */
+
+.advisory-capability {
+  /* Inherit visual chrome from .ai-capability — same dimensions, padding,
+     header layout. We layer the progression strip on top. */
+  background: var(--color-navy-800, #14253A);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: var(--radius-lg, 12px);
+  padding: var(--space-8, 2.5rem);
+  margin: 0 auto var(--space-6, 2rem);
+  max-width: 980px;
+  position: relative;
+  overflow: hidden;
+  transition: var(--motion-card-tilt);
+}
+
+.advisory-capability__header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4, 1rem);
+  margin-bottom: var(--space-6, 2rem);
+  padding-bottom: var(--space-4, 1rem);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.advisory-capability__icon-wrap {
+  flex: 0 0 56px;
+  width: 56px;
+  height: 56px;
+  border-radius: var(--radius-md, 8px);
+  background: rgba(212, 175, 55, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.advisory-capability__icon {
+  width: 32px;
+  height: 32px;
+  color: var(--color-accent);
+}
+
+.advisory-capability__eyebrow {
+  font-size: var(--text-xs, 0.75rem);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  margin: 0 0 var(--space-1, 0.25rem);
+  font-weight: 500;
+}
+
+.advisory-capability__title {
+  font-family: var(--font-display, 'DM Serif Display', serif);
+  font-size: clamp(1.5rem, 2.5vw, 2rem);
+  color: #fff;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.advisory-capability__body p {
+  color: rgba(255, 255, 255, 0.78);
+  line-height: var(--leading-relaxed, 1.7);
+  margin: 0 0 var(--space-4, 1rem);
+}
+
+.advisory-capability__body p strong {
+  color: #fff;
+  font-weight: 600;
+}
+
+.advisory-capability__cta {
+  margin-top: var(--space-6, 2rem);
+}
+
+/* Phased progression strip — before / during / after.
+   Hidden by default; animates in on hover (or always visible on touch). */
+.advisory-capability__progression {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2, 0.5rem) var(--space-4, 1rem);
+  margin-bottom: var(--space-5, 1.5rem);
+  padding: var(--space-3, 0.75rem) var(--space-4, 1rem);
+  border-left: 2px solid rgba(212, 175, 55, 0.25);
+  background: linear-gradient(90deg, rgba(212, 175, 55, 0.04) 0%, transparent 70%);
+  border-radius: 0 6px 6px 0;
+  opacity: 0;
+  transform: translateY(-4px);
+  transition: opacity var(--motion-dur-normal) var(--motion-ease-out-quart),
+              transform var(--motion-dur-normal) var(--motion-ease-out-quart);
+}
+
+.advisory-capability__progression-step {
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+  color: rgba(255, 255, 255, 0.55);
+  font-weight: 500;
+  position: relative;
+  opacity: 0;
+  transform: translateX(-6px);
+  transition: opacity var(--motion-dur-normal) var(--motion-ease-out-quart),
+              transform var(--motion-dur-normal) var(--motion-ease-out-quart);
+}
+
+.advisory-capability__progression-step[data-step="before"] { color: rgba(255, 255, 255, 0.45); }
+.advisory-capability__progression-step[data-step="during"] { color: rgba(255, 255, 255, 0.68); }
+.advisory-capability__progression-step[data-step="after"]  { color: var(--color-accent); }
+
+@media (hover: hover) and (pointer: fine) {
+  .advisory-capability:hover {
+    transform: translateY(-2px);
+    border-color: rgba(212, 175, 55, 0.18);
+    box-shadow:
+      0 16px 40px rgba(0, 0, 0, 0.18),
+      0 0 0 1px rgba(212, 175, 55, 0.12);
+  }
+
+  .advisory-capability:hover .advisory-capability__progression {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .advisory-capability:hover .advisory-capability__progression-step {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  /* Stagger the three steps 200ms apart, per motion brief. */
+  .advisory-capability:hover .advisory-capability__progression-step[data-step="before"] {
+    transition-delay: 0ms;
+  }
+  .advisory-capability:hover .advisory-capability__progression-step[data-step="during"] {
+    transition-delay: var(--motion-advisory-progression-step);
+  }
+  .advisory-capability:hover .advisory-capability__progression-step[data-step="after"] {
+    transition-delay: calc(var(--motion-advisory-progression-step) * 2);
+  }
+}
+
+/* On touch / coarse-pointer devices the progression is always visible —
+   tap-to-reveal is not appropriate for a passive informational strip. */
+@media (hover: none), (pointer: coarse) {
+  .advisory-capability__progression,
+  .advisory-capability__progression-step {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ────────────────────────────────────────────────────────────
+   USE-CASE GRID — three-card minimum, ICP-tagged, cited
+   Same structural pattern as cloud.css; advisory-prefixed names.
+   ──────────────────────────────────────────────────────────── */
+
+.advisory-usecase-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2.5rem;
+}
+
+.advisory-usecase {
+  background: rgba(13, 27, 42, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 1.75rem;
+  transition: var(--motion-card-tilt);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .advisory-usecase:hover {
+    transform: translateY(-3px);
+    border-color: rgba(212, 175, 55, 0.25);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.18);
+  }
+}
+
+.advisory-usecase__icp {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  border-radius: 999px;
+  padding: 0.25rem 0.65rem;
+  margin-bottom: 0.85rem;
+}
+
+.advisory-usecase__title {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.15rem;
+  line-height: 1.35;
+  margin: 0 0 0.85rem;
+  color: rgba(255, 255, 255, 0.95);
+}
+
+.advisory-usecase__body {
+  font-size: 0.95rem;
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.72);
+  margin: 0 0 1rem;
+}
+
+.advisory-usecase__citation {
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.45);
+  margin: 0;
+}
+
+.advisory-usecase__citation a {
+  color: rgba(212, 175, 55, 0.85);
+  text-decoration: none;
+  border-bottom: 1px dashed rgba(212, 175, 55, 0.35);
+  transition: color var(--motion-dur-normal) var(--motion-ease-out-quart);
+}
+
+.advisory-usecase__citation a:hover,
+.advisory-usecase__citation a:focus-visible {
+  color: var(--color-accent);
+}
+
+/* ────────────────────────────────────────────────────────────
+   MOBILE TWEAKS
+   ──────────────────────────────────────────────────────────── */
+
+@media (max-width: 640px) {
+  .advisory-capability {
+    padding: var(--space-6, 1.5rem);
+  }
+  .advisory-capability__header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-3, 0.75rem);
+  }
+  .advisory-capability__progression {
+    flex-direction: column;
+    gap: var(--space-2, 0.5rem);
+  }
+}
+
+/* ────────────────────────────────────────────────────────────
+   REDUCED MOTION — kill all loops + flourishes, hold the outcome
+   ──────────────────────────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  /* Ghosts disappear immediately; resolved shaft + arrowhead are visible
+     as the held outcome. */
+  .advisory-hero-motif__ghost {
+    animation: none !important;
+    opacity: 0.08;
+    stroke-dashoffset: 0;
+  }
+  .advisory-hero-motif__shaft {
+    animation: none !important;
+    opacity: 1;
+    stroke-dashoffset: 0;
+  }
+  .advisory-hero-motif__arrowhead {
+    animation: none !important;
+    opacity: 1;
+    transform: scale(1);
+  }
+  .advisory-bg-fx__fog,
+  .advisory-bg-fx__fog--secondary {
+    animation: none !important;
+  }
+  .advisory-capability__progression,
+  .advisory-capability__progression-step {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}

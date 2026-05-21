@@ -1,0 +1,434 @@
+/*
+ * Prudentia Digital — /data/ service detail page
+ *
+ * Signature motion (per docs/pages/_motion-brief.md):
+ *   - Hero motif: sparkline draws left → right (1.6s), ends in gold halo dot, then
+ *     two faint chart bars rise behind at the right edge.
+ *   - Capability card hover: icon morphs to a chart fragment — bar heights rise
+ *     (300ms) or a small line draws (450ms).
+ *   - Background fx: faint data-grid mesh, wider spacing, lighter than `.bg-fx__grid`.
+ *     No orbs (data is precise, not soft).
+ *
+ * Composes from css/pages/_motion-shared.css tokens. No raw `transition: ... ms ease`.
+ * One new token defined locally: --motion-data-spark-draw.
+ *
+ * Loaded after: design-tokens.css → styles.css → animated-bg.css → _motion-shared.css.
+ */
+
+:root {
+  /* Single signature token for the sparkline draw. Composes from shared easing. */
+  --motion-data-spark-draw: 1600ms var(--motion-ease-out-quint);
+  --motion-data-bar-rise: 320ms var(--motion-ease-out-quart);
+  --motion-data-halo-pulse: var(--motion-dur-beat) var(--motion-ease-out-quart);
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   HERO — animated sparkline motif
+   ═══════════════════════════════════════════════════════════════════ */
+
+.hero--data {
+  position: relative;
+  overflow: hidden;
+}
+
+.hero--data .hero__inner {
+  position: relative;
+  z-index: 2;
+}
+
+.data-hero-motif {
+  position: absolute;
+  inset: auto 0 8% 0;
+  display: flex;
+  justify-content: center;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.42;
+}
+
+.data-hero-motif__svg {
+  width: min(820px, 88%);
+  height: 96px;
+  color: var(--color-text-muted, rgba(255, 255, 255, 0.55));
+  overflow: visible;
+}
+
+/* Sparkline polyline — draws left to right */
+.data-hero-motif__spark {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.75;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 720;
+  stroke-dashoffset: 720;
+  animation: data-spark-draw var(--motion-data-spark-draw) 240ms forwards;
+}
+
+@keyframes data-spark-draw {
+  to { stroke-dashoffset: 0; }
+}
+
+/* Gold halo + dot land after the spark draws */
+.data-hero-motif__halo,
+.data-hero-motif__dot {
+  fill: var(--color-accent, #C9A86A);
+  stroke: none;
+  transform-origin: 262px 28px;
+  opacity: 0;
+}
+
+.data-hero-motif__halo {
+  fill: var(--color-accent, #C9A86A);
+  fill-opacity: 0.22;
+  animation: data-halo-land var(--motion-data-halo-pulse) 1820ms forwards;
+}
+
+.data-hero-motif__dot {
+  animation: data-dot-land var(--motion-dur-medium) var(--motion-ease-out-quart) 1900ms forwards;
+}
+
+@keyframes data-halo-land {
+  0%   { transform: scale(0.4); opacity: 0; }
+  60%  { transform: scale(1.15); opacity: 0.85; }
+  100% { transform: scale(1); opacity: 0.7; }
+}
+
+@keyframes data-dot-land {
+  0%   { transform: scale(0.2); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* Two faint chart bars rise behind at the right edge — staggered */
+.data-hero-motif__bar {
+  fill: currentColor;
+  fill-opacity: 0.28;
+  stroke: none;
+  transform-origin: bottom;
+  transform: scaleY(0);
+  opacity: 0;
+  animation: data-bar-rise var(--motion-data-bar-rise) var(--motion-ease-out-quart) forwards;
+}
+
+.data-hero-motif__bar--a {
+  transform-origin: 283px 82px;
+  animation-delay: 2080ms;
+}
+
+.data-hero-motif__bar--b {
+  transform-origin: 299px 82px;
+  animation-delay: 2260ms;
+}
+
+@keyframes data-bar-rise {
+  to { transform: scaleY(1); opacity: 1; }
+}
+
+/* Reduced motion — show outcome state immediately, no draw, no rise */
+@media (prefers-reduced-motion: reduce) {
+  .data-hero-motif__spark {
+    stroke-dashoffset: 0;
+    animation: none;
+  }
+  .data-hero-motif__halo {
+    opacity: 0.7;
+    animation: none;
+  }
+  .data-hero-motif__dot {
+    opacity: 1;
+    animation: none;
+  }
+  .data-hero-motif__bar {
+    transform: scaleY(1);
+    opacity: 1;
+    animation: none;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   BACKGROUND MESH — data-grid (wider, lighter than .bg-fx__grid)
+   ═══════════════════════════════════════════════════════════════════ */
+
+.bg-fx .data-bg-mesh,
+.data-bg-mesh {
+  /* Inherit from .bg-fx__grid by composing on the same element; this rule
+     fine-tunes the data-page variant: wider spacing, lower opacity. */
+  background-image:
+    linear-gradient(to right, rgba(201, 168, 106, 0.045) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(201, 168, 106, 0.045) 1px, transparent 1px);
+  background-size: 96px 96px;
+  background-position: 0 0;
+  opacity: 0.55;
+}
+
+@media (max-width: 768px) {
+  .data-bg-mesh {
+    background-size: 64px 64px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .data-bg-mesh {
+    background-position: 0 0 !important;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   CAPABILITY CARDS — shared scaffold (mirrors .ai-capability)
+   ═══════════════════════════════════════════════════════════════════ */
+
+.data-capability {
+  background: var(--color-surface-card, rgba(13, 27, 42, 0.62));
+  border: 1px solid var(--color-border-soft, rgba(255, 255, 255, 0.08));
+  border-radius: 16px;
+  padding: clamp(1.75rem, 2.5vw, 2.75rem);
+  margin-bottom: 1.75rem;
+  position: relative;
+  overflow: hidden;
+  transition: var(--motion-card-tilt), var(--motion-hover-quick);
+}
+
+.data-capability:last-child {
+  margin-bottom: 0;
+}
+
+.data-capability__header {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+.data-capability__icon-wrap {
+  width: 56px;
+  height: 56px;
+  flex-shrink: 0;
+  border-radius: 12px;
+  background: rgba(201, 168, 106, 0.08);
+  border: 1px solid rgba(201, 168, 106, 0.18);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--motion-icon-pulse), var(--motion-hover-quick);
+}
+
+.data-capability__icon {
+  width: 28px;
+  height: 28px;
+  color: var(--color-accent, #C9A86A);
+  transition: var(--motion-icon-pulse);
+}
+
+.data-capability__eyebrow {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-text-muted, rgba(255, 255, 255, 0.55));
+  margin: 0 0 0.35rem;
+}
+
+.data-capability__title {
+  font-family: var(--font-display, 'DM Serif Display', serif);
+  font-size: clamp(1.4rem, 2.2vw, 1.85rem);
+  line-height: 1.2;
+  margin: 0;
+  color: var(--color-text, #FFFFFF);
+}
+
+.data-capability__body p {
+  margin: 0 0 0.95rem;
+  color: var(--color-text-body, rgba(255, 255, 255, 0.82));
+  line-height: 1.65;
+}
+
+.data-capability__body p:last-of-type {
+  margin-bottom: 0;
+}
+
+.data-capability__body strong {
+  color: var(--color-text, #FFFFFF);
+  font-weight: 600;
+  letter-spacing: 0.005em;
+}
+
+.data-capability__cta {
+  margin-top: 1.5rem !important;
+}
+
+/* Hover — only on fine-pointer devices, gated per motion-shared contract */
+@media (hover: hover) and (pointer: fine) {
+  .data-capability:hover {
+    transform: translateY(-3px);
+    border-color: rgba(201, 168, 106, 0.32);
+    box-shadow: 0 18px 48px -24px rgba(0, 0, 0, 0.55);
+  }
+
+  /* Icon "morphs to chart fragment" — bars rise on hover */
+  .data-capability:hover .data-capability__icon-wrap {
+    background: rgba(201, 168, 106, 0.14);
+    border-color: rgba(201, 168, 106, 0.35);
+    transform: translateY(-1px);
+  }
+
+  /* Internal stroke morph — small chart-bar growth on hover.
+     The icon uses currentColor strokes; we tint the whole icon
+     subtly accent-side on hover so its structure reads as a
+     mini chart-fragment moment without re-drawing geometry. */
+  .data-capability:hover .data-capability__icon {
+    color: var(--color-accent, #C9A86A);
+    transform: scale(1.06) translateY(-1px);
+    filter: drop-shadow(0 2px 6px rgba(201, 168, 106, 0.28));
+  }
+}
+
+/* Reveal-on-scroll baseline */
+.data-capability.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: var(--motion-settle);
+}
+
+.data-capability.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   USE CASES — three-card layout (named-customer + pattern set)
+   ═══════════════════════════════════════════════════════════════════ */
+
+.data-usecases {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2.5rem;
+}
+
+.data-usecase {
+  background: var(--color-surface-card, rgba(13, 27, 42, 0.62));
+  border: 1px solid var(--color-border-soft, rgba(255, 255, 255, 0.08));
+  border-radius: 14px;
+  padding: clamp(1.5rem, 2vw, 2rem);
+  position: relative;
+  transition: var(--motion-card-tilt), var(--motion-hover-quick);
+}
+
+.data-usecase__tag {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-accent, #C9A86A);
+  background: rgba(201, 168, 106, 0.1);
+  border: 1px solid rgba(201, 168, 106, 0.22);
+  border-radius: 999px;
+  padding: 0.3rem 0.75rem;
+  margin: 0 0 1rem;
+}
+
+.data-usecase__title {
+  font-family: var(--font-display, 'DM Serif Display', serif);
+  font-size: clamp(1.15rem, 1.6vw, 1.4rem);
+  line-height: 1.3;
+  margin: 0 0 0.85rem;
+  color: var(--color-text, #FFFFFF);
+}
+
+.data-usecase__body {
+  color: var(--color-text-body, rgba(255, 255, 255, 0.82));
+  line-height: 1.6;
+  margin: 0 0 1.1rem;
+  font-size: 0.97rem;
+}
+
+.data-usecase__body strong {
+  color: var(--color-accent, #C9A86A);
+  font-weight: 600;
+}
+
+.data-usecase__cite {
+  margin: 0;
+  font-size: 0.8rem;
+  color: var(--color-text-muted, rgba(255, 255, 255, 0.5));
+  line-height: 1.5;
+}
+
+.data-usecase__cite a {
+  color: var(--color-text-muted, rgba(255, 255, 255, 0.7));
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  text-decoration-color: rgba(201, 168, 106, 0.4);
+  transition: var(--motion-hover-quick);
+}
+
+.data-usecase__cite a:hover,
+.data-usecase__cite a:focus-visible {
+  color: var(--color-accent, #C9A86A);
+  text-decoration-color: var(--color-accent, #C9A86A);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .data-usecase:hover {
+    transform: translateY(-3px);
+    border-color: rgba(201, 168, 106, 0.3);
+    box-shadow: 0 14px 38px -22px rgba(0, 0, 0, 0.5);
+  }
+}
+
+.data-usecase.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: var(--motion-settle);
+}
+
+.data-usecase.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   FOCUS-VISIBLE — keep keyboard users sharp
+   ═══════════════════════════════════════════════════════════════════ */
+
+.data-capability:focus-within,
+.data-usecase:focus-within {
+  outline: 2px solid var(--color-accent, #C9A86A);
+  outline-offset: 3px;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   RESPONSIVE — sparkline motif scales gracefully
+   ═══════════════════════════════════════════════════════════════════ */
+
+@media (max-width: 768px) {
+  .data-hero-motif {
+    inset: auto 0 4% 0;
+    opacity: 0.32;
+  }
+  .data-hero-motif__svg {
+    height: 72px;
+  }
+  .data-capability {
+    padding: 1.5rem 1.25rem;
+  }
+  .data-capability__header {
+    gap: 1rem;
+  }
+  .data-capability__icon-wrap {
+    width: 48px;
+    height: 48px;
+  }
+  .data-capability__icon {
+    width: 24px;
+    height: 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .data-usecases {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+}

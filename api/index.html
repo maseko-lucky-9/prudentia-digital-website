@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="API design, payment gateways, webhooks, integrations and reliability — contract-first, idempotent, instrumented and PCI-DSS 4.0 aligned.">
+  <title>API Development &amp; Integration — Prudentia Digital · SA</title>
+
+  <!-- Social & SEO meta -->
+  <link rel="canonical" href="https://prudentiadigital.co.za/api/">
+  <meta property="og:title" content="API Development & Integration — Prudentia Digital">
+  <meta property="og:description" content="Contract-first APIs, payment gateways, webhooks and reliability engineering. PayFast, Peach, Yoco, Stitch, Stripe — idempotent, instrumented, and PCI-DSS 4.0 aligned.">
+  <meta property="og:url" content="https://prudentiadigital.co.za/api/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Prudentia Digital">
+  <meta property="og:locale" content="en_ZA">
+  <meta property="og:locale:alternate" content="en_GB">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta property="og:image" content="https://prudentiadigital.co.za/assets/og-image-1200x630.png">
+  <meta property="og:image:secure_url" content="https://prudentiadigital.co.za/assets/og-image-1200x630.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Prudentia Digital — API Development & Integration. Production engineering for South African and international businesses.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="API Development & Integration — Prudentia Digital">
+  <meta name="twitter:description" content="Contract-first APIs, payment gateways, webhooks and reliability — idempotent, instrumented, PCI-DSS 4.0 aligned.">
+  <meta name="twitter:image" content="https://prudentiadigital.co.za/assets/og-image-1200x630.png">
+
+  <!-- International SEO alternates -->
+  <link rel="alternate" hreflang="en" href="https://prudentiadigital.co.za/api/">
+  <link rel="alternate" hreflang="x-default" href="https://prudentiadigital.co.za/api/">
+
+  <!-- Preload critical fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Asset version: bump ?v= on deploy to bust cache -->
+  <link rel="preload" href="../css/design-tokens.css?v=1.1" as="style">
+  <link rel="preload" href="../css/styles.css?v=1.1" as="style">
+
+  <link rel="stylesheet" href="../css/design-tokens.css?v=1.1">
+  <link rel="stylesheet" href="../css/styles.css?v=1.1">
+  <link rel="stylesheet" href="../css/animated-bg.css?v=1.1">
+  <link rel="stylesheet" href="../css/pages/_motion-shared.css?v=1.1">
+  <link rel="stylesheet" href="../css/pages/api.css?v=1.1">
+
+  <!-- Favicon & PWA -->
+  <link rel="icon" type="image/svg+xml" href="../assets/logo-icon.svg">
+  <link rel="manifest" href="../manifest.json">
+  <meta name="theme-color" content="#0D1B2A">
+
+  <!-- JSON-LD structured data — Service page -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "API Development & Integration",
+    "provider": {
+      "@type": "Organization",
+      "name": "Prudentia Digital",
+      "url": "https://prudentiadigital.co.za/",
+      "logo": "https://prudentiadigital.co.za/assets/logo-icon-white-512.png",
+      "areaServed": ["South Africa", "Worldwide"]
+    },
+    "areaServed": ["South Africa", "Worldwide"],
+    "serviceType": "API Engineering and Systems Integration",
+    "url": "https://prudentiadigital.co.za/api/",
+    "description": "Contract-first API design and build, third-party integrations, payment gateway integration (PayFast, Peach Payments, Yoco, Stitch, Stripe, Adyen), webhook delivery and reliability engineering — instrumented with OpenTelemetry and aligned to PCI-DSS 4.0, POPIA and SARB Directive 1 of 2024.",
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "API Engagement Tiers",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Integration Assessment",
+            "description": "One-week scoped review of one critical integration or API surface. OpenAPI extraction, OWASP API Top 10 review, observability gap analysis, written readout with reliability and design gaps."
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "API Design + Build",
+            "description": "Six to twelve weeks for a focused API surface, three to six months for a multi-domain platform. Contract-first OpenAPI, idempotency keys, OAuth 2.0 with refresh-token rotation, OpenTelemetry per route, gateway configuration and runbook."
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Reliability Retainer",
+            "description": "Monthly retainer with on-call rotation, error-budget governance, SLO dashboards, incident response and regulatory reporting support for PCI-DSS, POPIA and SARB Directive 1 of 2024."
+          }
+        }
+      ]
+    }
+  }
+  </script>
+
+  <!-- JSON-LD — FAQPage -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How long is a typical API engagement?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "An Integration Assessment is one week, fixed-fee. An API Design + Build runs six to twelve weeks for a focused surface (a single domain, fifteen to twenty-five endpoints), or three to six months for a multi-domain platform. A single hand-coded integration on a baseline team typically runs three to six months; contract-first compresses that materially."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can you work with our existing API?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. We start with an audit — OpenAPI spec extraction (or first-time authoring), contract-test suite, observability gap analysis and a security review against the OWASP API Security Top 10. We then harden in place: idempotency keys, rate limits, OpenTelemetry, refresh-token rotation, gateway controls. No rewrite required."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Which payment gateways do you support?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "South Africa: PayFast, Peach Payments, Yoco, Stitch, Ozow, PayGate and PayShap (BankservAfrica). International: Stripe and Adyen. Direct-bank rails through Stitch: Capitec Pay, Absa Pay and Nedbank Direct EFT. Every payment integration ships with client-generated idempotency keys, signed webhooks, a reconciliation worker and a PCI-DSS 4.0 evidence trail."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What SLAs do you offer?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "SLAs match the workload tier. For production APIs we publish an availability SLO (typically 99.9% monthly), a p99 latency SLO and an error-budget policy. For SA financial-services clients we align the reliability layer to SARB Directive 1 of 2024 — a two-hour recovery time objective for critical systems (eight-hour maximum) and 24-hour incident notification. The Reliability Retainer includes on-call coverage."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do you handle security and PCI-DSS 4.0?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Baseline: OAuth 2.0 with refresh-token rotation, short-lived access tokens, refresh tokens in HTTP-only cookies, JWT signed with HS256 or RS256, mTLS at sensitive edges. For payments: PCI-DSS 4.0 Req 6.5.6 enforced at the gateway (BOLA mitigation, broken function-level authorisation, full request/response logging) and Req 6.3.2 component inventory. POPIA: data-subject rights wired into the API; incident reporting as soon as reasonably certain, per the 2025 amendment regulations."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can we self-host the API platform?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. The default architecture is portable: containerised services, infrastructure-as-code (Terraform), no proprietary platform licence. Deployment targets include your AWS, Azure or GCP account, on-premises Kubernetes, or a South African hosted environment when SARB or banking-grade controls apply."
+        }
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+
+  <a href="#main" class="skip-link">Skip to main content</a>
+
+  <!-- ═══════════════════════════════════
+       NAVIGATION
+       ═══════════════════════════════════ -->
+  <nav class="nav nav--ai scrolled" id="nav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner container">
+      <a href="/" class="nav__logo" aria-label="Prudentia Digital — home">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 66 84" fill="none" class="nav__logo-icon" aria-hidden="true">
+          <path d="M8 6 H44 L52 14 V42 H18 V78 H8 Z M18 14 H44 V34 H18 Z" fill="currentColor" fill-rule="evenodd"/>
+          <path d="M54 4 L60 10 L54 16 L48 10 Z" fill="var(--color-accent)"/>
+        </svg>
+        <span class="nav__wordmark" aria-hidden="true">
+          <span class="nav__wordmark-primary">PRUDENTIA</span>
+          <span class="nav__wordmark-rule" aria-hidden="true"></span>
+          <span class="nav__wordmark-secondary">DIGITAL</span>
+        </span>
+      </a>
+
+      <ul class="nav__links" role="list">
+        <li><a href="/web/" class="nav__link">Web Apps</a></li>
+        <li><a href="/cloud/" class="nav__link">Cloud</a></li>
+        <li><a href="/data/" class="nav__link">Data</a></li>
+        <li><a href="/advisory/" class="nav__link">Advisory</a></li>
+        <li><a href="/api/" class="nav__link" aria-current="page">APIs</a></li>
+        <li><a href="/ai/" class="nav__link">AI</a></li>
+        <li><a href="/#why-us" class="nav__link">Why Us</a></li>
+        <li><a href="/#team" class="nav__link">Team</a></li>
+        <li><a href="/#about" class="nav__link">About</a></li>
+      </ul>
+
+      <div class="nav__actions">
+        <a href="/?topic=api-assessment#contact" class="btn btn--accent btn--sm nav__cta">Book a Session</a>
+        <button class="nav__hamburger" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="navMobile">
+          <span class="nav__hamburger-bar"></span>
+          <span class="nav__hamburger-bar"></span>
+          <span class="nav__hamburger-bar"></span>
+        </button>
+      </div>
+    </div>
+
+    <div class="nav__mobile" id="navMobile" aria-hidden="true">
+      <ul class="nav__mobile-links" role="list">
+        <li><a href="/web/" class="nav__mobile-link">Web Apps</a></li>
+        <li><a href="/cloud/" class="nav__mobile-link">Cloud</a></li>
+        <li><a href="/data/" class="nav__mobile-link">Data</a></li>
+        <li><a href="/advisory/" class="nav__mobile-link">Advisory</a></li>
+        <li><a href="/api/" class="nav__mobile-link" aria-current="page">APIs</a></li>
+        <li><a href="/ai/" class="nav__mobile-link">AI</a></li>
+        <li><a href="/#why-us" class="nav__mobile-link">Why Us</a></li>
+        <li><a href="/#team" class="nav__mobile-link">Team</a></li>
+        <li><a href="/#about" class="nav__mobile-link">About</a></li>
+        <li><a href="/?topic=api-assessment#contact" class="nav__mobile-link nav__mobile-cta">Book a Session</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main id="main">
+
+    <!-- ═══════════════════════════════════
+         HERO
+         ═══════════════════════════════════ -->
+    <section class="hero hero--ai hero--api" aria-labelledby="api-hero-heading">
+      <div class="bg-layer bg-layer--hero" aria-hidden="true"></div>
+      <div class="hero__bg-accent" aria-hidden="true"></div>
+
+      <!-- API hero motif: three input channels converge into a single merged stream -->
+      <div class="api-hero-motif" aria-hidden="true">
+        <svg class="api-hero-motif__svg" viewBox="0 0 600 280" preserveAspectRatio="xMidYMid meet" focusable="false">
+          <defs>
+            <linearGradient id="api-channel-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="rgba(255,255,255,0)"/>
+              <stop offset="40%" stop-color="rgba(255,255,255,0.55)"/>
+              <stop offset="100%" stop-color="rgba(255,255,255,0.85)"/>
+            </linearGradient>
+            <linearGradient id="api-merge-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="rgba(212,175,55,0.85)"/>
+              <stop offset="100%" stop-color="rgba(212,175,55,0)"/>
+            </linearGradient>
+          </defs>
+          <!-- Channel 1 (top) -->
+          <path class="api-hero-motif__channel api-hero-motif__channel--1"
+                d="M-20 60 C 140 60, 220 130, 300 140" stroke="url(#api-channel-gradient)" stroke-width="1.4" fill="none"/>
+          <!-- Channel 2 (mid) -->
+          <path class="api-hero-motif__channel api-hero-motif__channel--2"
+                d="M-20 140 C 140 140, 220 140, 300 140" stroke="url(#api-channel-gradient)" stroke-width="1.4" fill="none"/>
+          <!-- Channel 3 (bottom) -->
+          <path class="api-hero-motif__channel api-hero-motif__channel--3"
+                d="M-20 220 C 140 220, 220 150, 300 140" stroke="url(#api-channel-gradient)" stroke-width="1.4" fill="none"/>
+          <!-- Merge node -->
+          <circle class="api-hero-motif__merge" cx="300" cy="140" r="6" fill="var(--color-accent, #D4AF37)"/>
+          <!-- Merge pulse ring -->
+          <circle class="api-hero-motif__merge-pulse" cx="300" cy="140" r="6" fill="none" stroke="var(--color-accent, #D4AF37)" stroke-width="1.5" opacity="0"/>
+          <!-- Exit stream (thicker, single line) -->
+          <path class="api-hero-motif__exit"
+                d="M300 140 L 620 140" stroke="url(#api-merge-gradient)" stroke-width="3.2" fill="none" stroke-linecap="round"/>
+        </svg>
+      </div>
+
+      <div class="container hero__inner">
+        <p class="hero__eyebrow fade-in">API Development &amp; Integration · Prudentia Digital</p>
+        <h1 class="hero__headline fade-in" id="api-hero-heading" style="--fade-delay: 100ms">
+          Flaky integrations cost engineering capacity.<br>
+          <span class="hero__headline-accent">We wire APIs that hold under load.</span>
+        </h1>
+        <p class="hero__subtext fade-in" style="--fade-delay: 250ms">
+          Contract-first OpenAPI, idempotency keys on every state-changing endpoint, retry-with-jitter, circuit breakers and OpenTelemetry from the first commit.
+          Payments, webhooks and partner integrations built to the regulatory bar — PCI-DSS 4.0, POPIA and SARB Directive 1 of 2024.
+        </p>
+        <div class="hero__ctas fade-in" style="--fade-delay: 400ms">
+          <a href="/?topic=api-assessment#contact" class="btn btn--accent btn--lg">Free Integration Assessment</a>
+          <a href="#capabilities" class="btn btn--outline btn--lg">See What We Build</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════
+         CAPABILITIES
+         ═══════════════════════════════════ -->
+    <section class="services" id="capabilities" aria-labelledby="capabilities-heading" data-spotlight>
+      <div class="bg-layer bg-layer--services" aria-hidden="true"></div>
+      <div class="bg-fx api-bg-fx" aria-hidden="true">
+        <div class="bg-fx__grid"></div>
+        <div class="api-bg-fx__flow"></div>
+        <div class="bg-fx__orb bg-fx__orb--gold bg-fx__orb--br bg-fx__orb--drift-a"></div>
+        <div class="bg-fx__spotlight"></div>
+      </div>
+      <div class="container">
+        <div class="section-header">
+          <p class="section-eyebrow fade-in">What We Build</p>
+          <h2 class="section-heading fade-in" id="capabilities-heading" style="--fade-delay: 80ms">Five capabilities. Real reliability.</h2>
+          <div class="gold-line fade-in" aria-hidden="true" style="--fade-delay: 160ms"></div>
+          <p class="section-sub fade-in" style="--fade-delay: 200ms">
+            Each capability is a working surface we wire on your stack — contract first, instrumented from day one, hardened against the OWASP API Top 10.
+          </p>
+        </div>
+
+        <!-- Capability 1 — API design & contract-first build -->
+        <article class="ai-capability api-capability reveal" id="cap-design" aria-labelledby="cap-design-title">
+          <header class="ai-capability__header">
+            <div class="ai-capability__icon-wrap">
+              <svg class="ai-capability__icon gold-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <rect x="3" y="4" width="18" height="16" rx="2"/>
+                <line x1="3" y1="9" x2="21" y2="9"/>
+                <line x1="7" y1="13" x2="14" y2="13"/>
+                <line x1="7" y1="16" x2="11" y2="16"/>
+              </svg>
+              <span class="api-capability__arc" aria-hidden="true"></span>
+            </div>
+            <div>
+              <p class="ai-capability__eyebrow">Capability 01</p>
+              <h3 class="ai-capability__title" id="cap-design-title">API design &amp; contract-first build</h3>
+            </div>
+          </header>
+          <div class="ai-capability__body">
+            <p class="ai-capability__problem"><strong>The problem.</strong> Endpoints drift from documentation. Each deploy breaks a consumer. Frontend and backend integrate in series instead of in parallel, and the spec is whatever the last engineer remembers.</p>
+            <p class="ai-capability__solution"><strong>What we build.</strong> OpenAPI 3.1 as the source of truth. We generate client SDKs, mock servers, request validators and contract tests from the spec. Frontend builds against the mock while backend builds against the same contract.</p>
+            <p class="ai-capability__use-case"><strong>Example use case.</strong> A SaaS platform on contract-first OpenAPI shipped 40% faster integration cycles and 35% fewer API defects (Postman 2024 State of the API, cited 2025). Contract-test automation cut integration-test time by up to 60%.</p>
+            <p class="ai-capability__stack"><strong>Under the hood.</strong> OpenAPI 3.1, Spectral linting, Prism and WireMock mocks, Pact and Schemathesis contract tests, Stoplight or Redoc for docs, GitHub Actions to gate the merge.</p>
+            <p class="ai-capability__cta">
+              <a href="/?topic=api-design#contact" class="btn btn--accent">Talk to us about API design</a>
+            </p>
+          </div>
+        </article>
+
+        <!-- Capability 2 — Third-party integrations -->
+        <article class="ai-capability api-capability reveal" id="cap-integrations" style="--reveal-delay: 80ms" aria-labelledby="cap-integrations-title">
+          <header class="ai-capability__header">
+            <div class="ai-capability__icon-wrap">
+              <svg class="ai-capability__icon gold-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <circle cx="5" cy="5" r="2"/>
+                <circle cx="19" cy="5" r="2"/>
+                <circle cx="5" cy="19" r="2"/>
+                <circle cx="19" cy="19" r="2"/>
+                <circle cx="12" cy="12" r="2.5"/>
+                <line x1="6.5" y1="6.5" x2="10.2" y2="10.2"/>
+                <line x1="17.5" y1="6.5" x2="13.8" y2="10.2"/>
+                <line x1="6.5" y1="17.5" x2="10.2" y2="13.8"/>
+                <line x1="17.5" y1="17.5" x2="13.8" y2="13.8"/>
+              </svg>
+              <span class="api-capability__arc" aria-hidden="true"></span>
+            </div>
+            <div>
+              <p class="ai-capability__eyebrow">Capability 02</p>
+              <h3 class="ai-capability__title" id="cap-integrations-title">Third-party integrations (iPaaS alternative)</h3>
+            </div>
+          </header>
+          <div class="ai-capability__body">
+            <p class="ai-capability__problem"><strong>The problem.</strong> Hand-rolled point-to-point connectors break on every vendor schema change. A single hand-coded integration runs three to six months of engineering, and maintenance eats 30–40% of two-year integration cost.</p>
+            <p class="ai-capability__solution"><strong>What we build.</strong> A typed integration layer the client owns: domain-modelled adapters, an anti-corruption layer at each vendor boundary, versioned OpenAPI and AsyncAPI contracts, and an event bus for fan-out. No platform licence to renew.</p>
+            <p class="ai-capability__use-case"><strong>Example use case.</strong> A South African mid-market enterprise replaces twelve brittle ERP, CRM and payments connectors with a governed integration layer. Vendor schema changes become localised refactors instead of multi-day fire drills.</p>
+            <p class="ai-capability__stack"><strong>Under the hood.</strong> Node, Go or Python microservices, Kafka or Redis Streams, OpenAPI plus AsyncAPI, OpenTelemetry traces, Terraform for infrastructure.</p>
+            <p class="ai-capability__cta">
+              <a href="/?topic=api-integrations#contact" class="btn btn--accent">Talk to us about integrations</a>
+            </p>
+          </div>
+        </article>
+
+        <!-- Capability 3 — Payment gateways -->
+        <article class="ai-capability api-capability reveal" id="cap-payments" style="--reveal-delay: 160ms" aria-labelledby="cap-payments-title">
+          <header class="ai-capability__header">
+            <div class="ai-capability__icon-wrap">
+              <svg class="ai-capability__icon gold-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <rect x="2" y="5" width="20" height="14" rx="2"/>
+                <line x1="2" y1="10" x2="22" y2="10"/>
+                <line x1="6" y1="15" x2="10" y2="15"/>
+                <line x1="14" y1="15" x2="18" y2="15"/>
+              </svg>
+              <span class="api-capability__arc" aria-hidden="true"></span>
+            </div>
+            <div>
+              <p class="ai-capability__eyebrow">Capability 03</p>
+              <h3 class="ai-capability__title" id="cap-payments-title">Payment gateways (PCI-DSS, idempotency, reconciliation)</h3>
+            </div>
+          </header>
+          <div class="ai-capability__body">
+            <p class="ai-capability__problem"><strong>The problem.</strong> Payment integrations without idempotency keys produce duplicate charges on every network timeout. Without reconciliation, mismatches between gateway, ledger and ERP go undetected until finance catches them in a month-end variance.</p>
+            <p class="ai-capability__solution"><strong>What we build.</strong> Contract-first integration to PayFast, Peach Payments, Yoco, Stitch, Stripe or Adyen with client-generated V4 UUID idempotency keys, exponential backoff with jitter, signed-webhook verification on the raw body and a reconciliation worker proving the ledger matches the gateway daily.</p>
+            <p class="ai-capability__use-case"><strong>Example use case.</strong> A South African retailer switches PSP from PayFast to Peach Payments with zero duplicate charges. Idempotency-key overhead is under 2ms per request (Stripe's documented baseline). A weekly reconciliation report goes to finance.</p>
+            <p class="ai-capability__stack"><strong>Under the hood.</strong> PSP SDKs, Postgres ledger with an event_id UNIQUE constraint, BullMQ or Sidekiq workers, signature-verified webhooks per Stripe webhook best practices, OpenTelemetry traces, PCI-DSS 4.0 evidence trail.</p>
+            <p class="ai-capability__cta">
+              <a href="/?topic=api-payments#contact" class="btn btn--accent">Talk to us about payments</a>
+            </p>
+          </div>
+        </article>
+
+        <!-- Capability 4 — Webhook delivery & event-driven -->
+        <article class="ai-capability api-capability reveal" id="cap-webhooks" style="--reveal-delay: 240ms" aria-labelledby="cap-webhooks-title">
+          <header class="ai-capability__header">
+            <div class="ai-capability__icon-wrap">
+              <svg class="ai-capability__icon gold-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <path d="M18 8a4 4 0 0 0-7.74-1.4l-1.83 5.49a4 4 0 1 1-2.46 5.07"/>
+                <circle cx="6" cy="18" r="2"/>
+                <circle cx="18" cy="8" r="2"/>
+                <circle cx="11" cy="14" r="2"/>
+              </svg>
+              <span class="api-capability__arc" aria-hidden="true"></span>
+            </div>
+            <div>
+              <p class="ai-capability__eyebrow">Capability 04</p>
+              <h3 class="ai-capability__title" id="cap-webhooks-title">Webhook delivery &amp; event-driven</h3>
+            </div>
+          </header>
+          <div class="ai-capability__body">
+            <p class="ai-capability__problem"><strong>The problem.</strong> Synchronous webhook dispatch couples the producer to every consumer's uptime. Without jitter, recovered consumers get hammered by synchronised retry storms, and lost events go undiagnosed until a customer complains.</p>
+            <p class="ai-capability__solution"><strong>What we build.</strong> Queue-backed dispatcher on SQS, RabbitMQ or Kafka. Exponential backoff with random jitter, dead-letter queue for unprocessable events, HMAC-signed payloads and an event-ID dedup table at the consumer with a UNIQUE constraint.</p>
+            <p class="ai-capability__use-case"><strong>Example use case.</strong> A SaaS platform rebuilds webhook delivery with retry-with-jitter and a DLQ. Synchronised retry spikes drop by over 80% (industry pattern data), lost events approach zero, and double-processing is eliminated at the consumer.</p>
+            <p class="ai-capability__stack"><strong>Under the hood.</strong> SQS, RabbitMQ or Kafka, HMAC signatures, V4 UUID event IDs, a Postgres dedup table, dead-letter queue with replay tooling, OpenTelemetry per route.</p>
+            <p class="ai-capability__cta">
+              <a href="/?topic=api-integrations#contact" class="btn btn--accent">Talk to us about webhooks</a>
+            </p>
+          </div>
+        </article>
+
+        <!-- Capability 5 — Reliability -->
+        <article class="ai-capability api-capability reveal" id="cap-reliability" style="--reveal-delay: 320ms" aria-labelledby="cap-reliability-title">
+          <header class="ai-capability__header">
+            <div class="ai-capability__icon-wrap">
+              <svg class="ai-capability__icon gold-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <circle cx="12" cy="12" r="9"/>
+                <path d="M12 3 a9 9 0 0 1 0 18"/>
+                <line x1="12" y1="7" x2="12" y2="12"/>
+                <line x1="12" y1="12" x2="16" y2="14"/>
+              </svg>
+              <span class="api-capability__arc" aria-hidden="true"></span>
+            </div>
+            <div>
+              <p class="ai-capability__eyebrow">Capability 05</p>
+              <h3 class="ai-capability__title" id="cap-reliability-title">Reliability (circuit breakers, rate limits, observability)</h3>
+            </div>
+          </header>
+          <div class="ai-capability__body">
+            <p class="ai-capability__problem"><strong>The problem.</strong> Partner downtime cascades into your service. Rate-limit misconfiguration produces false 429s on legitimate bursts or unbounded queue depth on the wrong endpoints. P99 incidents are diagnosed by guesswork.</p>
+            <p class="ai-capability__solution"><strong>What we build.</strong> Resilience4j-style circuit breakers (Closed / Open / Half-Open) around every outbound third-party call, token-bucket rate limits on public endpoints, OpenTelemetry traces with histogram buckets aligned to the SLO target, and correlation IDs propagated end-to-end.</p>
+            <p class="ai-capability__use-case"><strong>Example use case.</strong> A South African mid-market enterprise drops symptom-to-cause time on partner-call incidents from hours of guessing to a single trace. Cascading failures stop at the breaker; tail latency on partner calls becomes survivable.</p>
+            <p class="ai-capability__stack"><strong>Under the hood.</strong> Resilience4j, Polly or opossum, Redis-backed token-bucket, OpenTelemetry collector, Prometheus, Grafana, Jaeger or Tempo for trace storage.</p>
+            <p class="ai-capability__cta">
+              <a href="/?topic=api-retainer#contact" class="btn btn--accent">Talk to us about reliability</a>
+            </p>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════
+         HOW WE SHIP APIS
+         ═══════════════════════════════════ -->
+    <section class="why" id="approach" aria-labelledby="approach-heading" data-spotlight>
+      <div class="bg-layer bg-layer--why" aria-hidden="true"></div>
+      <div class="bg-fx" aria-hidden="true">
+        <div class="bg-fx__grid bg-fx__grid--strong"></div>
+        <div class="bg-fx__spotlight"></div>
+      </div>
+      <div class="container">
+        <div class="section-header">
+          <p class="section-eyebrow fade-in">How We Ship</p>
+          <h2 class="section-heading fade-in" id="approach-heading" style="--fade-delay: 80ms">Production APIs are a different discipline.</h2>
+          <div class="gold-line fade-in" aria-hidden="true" style="--fade-delay: 160ms"></div>
+        </div>
+
+        <div class="services__grid">
+
+          <article class="card card-pulse reveal" style="--reveal-delay: 0ms" aria-label="Contract-first OpenAPI">
+            <div class="card__icon-wrap">
+              <svg class="card__icon gold-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <rect x="3" y="4" width="18" height="16" rx="2"/>
+                <line x1="3" y1="9" x2="21" y2="9"/>
+                <line x1="7" y1="13" x2="17" y2="13"/>
+                <line x1="7" y1="16" x2="13" y2="16"/>
+              </svg>
+            </div>
+            <h3 class="card__title">Contract-first OpenAPI</h3>
+            <p class="card__body">The spec is the source of truth. Endpoints, types, errors and pagination live in the OpenAPI file. SDKs, mocks and tests generate from it. No prose-documented APIs and no surprise breakage between frontend and backend.</p>
+            <p class="card__tagline">Contracts before code.</p>
+          </article>
+
+          <article class="card card-pulse reveal" style="--reveal-delay: 80ms" aria-label="Idempotency keys on every write">
+            <div class="card__icon-wrap">
+              <svg class="card__icon gold-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <path d="M9 12l2 2 4-4"/>
+                <circle cx="12" cy="12" r="9"/>
+              </svg>
+            </div>
+            <h3 class="card__title">Idempotency keys on every write</h3>
+            <p class="card__body">Client-generated V4 UUIDs, 24-hour TTL minimum, a deduplication table with a UNIQUE constraint. Stripe's documented pattern. Under 2ms overhead per request and an entire class of double-charge bugs eliminated.</p>
+            <p class="card__tagline">Safe to retry, by design.</p>
+          </article>
+
+          <article class="card card-pulse reveal" style="--reveal-delay: 160ms" aria-label="Versioning and deprecation">
+            <div class="card__icon-wrap">
+              <svg class="card__icon gold-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <line x1="3" y1="6" x2="21" y2="6"/>
+                <line x1="3" y1="12" x2="21" y2="12"/>
+                <line x1="3" y1="18" x2="14" y2="18"/>
+                <polyline points="18 16 20 18 22 16"/>
+              </svg>
+            </div>
+            <h3 class="card__title">Semver versioning &amp; deprecation</h3>
+            <p class="card__body">Breaking changes ship under a new major version. Deprecated versions stay live for a documented sunset window with a header that warns the consumer. No silent breakage; no version-pinning archaeology.</p>
+            <p class="card__tagline">No surprises, ever.</p>
+          </article>
+
+          <article class="card card-pulse reveal" style="--reveal-delay: 240ms" aria-label="Rate limits and retry-with-jitter">
+            <div class="card__icon-wrap">
+              <svg class="card__icon gold-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <path d="M2 12h4l3 -8 4 16 3 -8h6"/>
+              </svg>
+            </div>
+            <h3 class="card__title">Rate limits + retry-with-jitter</h3>
+            <p class="card__body">Token-bucket on inbound traffic (burst-friendly). Exponential backoff with random jitter on outbound retries, capped retry count, dead-letter queue at the tail. Jitter alone removes the synchronised retry spike that crashes a recovering endpoint.</p>
+            <p class="card__tagline">Spikes absorbed, not amplified.</p>
+          </article>
+
+          <article class="card card-pulse reveal" style="--reveal-delay: 320ms" aria-label="OAuth 2.0 with refresh-token rotation">
+            <div class="card__icon-wrap">
+              <svg class="card__icon gold-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <rect x="3" y="11" width="18" height="11" rx="2"/>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+              </svg>
+            </div>
+            <h3 class="card__title">OAuth 2.0 + refresh-token rotation</h3>
+            <p class="card__body">Short-lived access tokens (15–60 minutes), longer-lived refresh tokens (7–14 days) with rotation and reuse-detection. HS256 or RS256 signing. Refresh tokens in HTTP-only cookies, never localStorage. mTLS at sensitive gateway edges.</p>
+            <p class="card__tagline">Auth that survives audit.</p>
+          </article>
+
+          <article class="card card--accent card-pulse reveal" style="--reveal-delay: 400ms" aria-label="Three engagement tiers">
+            <div class="card__icon-wrap">
+              <svg class="card__icon gold-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <line x1="12" y1="20" x2="12" y2="10"/>
+                <line x1="18" y1="20" x2="18" y2="4"/>
+                <line x1="6" y1="20" x2="6" y2="16"/>
+              </svg>
+            </div>
+            <h3 class="card__title">Assessment → Build → Retainer</h3>
+            <p class="card__body">Three engagement shapes. A one-week Integration Assessment. A six- to twelve-week API Design + Build. A monthly Reliability Retainer with on-call coverage and regulatory reporting support. Pricing scoped after the assessment.</p>
+            <p class="card__tagline">Start small. Scale on signal.</p>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════
+         FOUNDATION NOTE
+         ═══════════════════════════════════ -->
+    <section class="prompt-foundation api-foundation" aria-labelledby="foundation-heading">
+      <div class="container prompt-foundation__inner">
+        <div class="prompt-foundation__panel reveal">
+          <p class="section-eyebrow">Foundation</p>
+          <h2 class="prompt-foundation__heading" id="foundation-heading">Contracts before code. Every endpoint, every release.</h2>
+          <p class="prompt-foundation__body">
+            Every API we ship is grounded in a written OpenAPI contract — designed, reviewed and versioned alongside the implementation.
+            We treat the contract the way we treat database schema: a first-class artefact that ships through review, gets exercised by tests, and never gets edited blindly in production.
+            It is how we get to "this works the same on every consumer" instead of "this works on the consumer we tested with".
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════
+         USE CASES
+         ═══════════════════════════════════ -->
+    <section class="services api-usecases" id="use-cases" aria-labelledby="usecases-heading" data-spotlight>
+      <div class="bg-layer bg-layer--services" aria-hidden="true"></div>
+      <div class="bg-fx" aria-hidden="true">
+        <div class="bg-fx__grid"></div>
+        <div class="bg-fx__spotlight"></div>
+      </div>
+      <div class="container">
+        <div class="section-header">
+          <p class="section-eyebrow fade-in">Where APIs land</p>
+          <h2 class="section-heading fade-in" id="usecases-heading" style="--fade-delay: 80ms">Use cases we have wired.</h2>
+          <div class="gold-line fade-in" aria-hidden="true" style="--fade-delay: 160ms"></div>
+          <p class="section-sub fade-in" style="--fade-delay: 200ms">
+            Each example traces back to a named pattern and a public source. Numbers in this section are industry-cited; client-specific outcomes are quoted in the strategy session under NDA.
+          </p>
+        </div>
+
+        <div class="api-usecase__grid">
+
+          <article class="api-usecase reveal" style="--reveal-delay: 0ms" aria-labelledby="uc-payments-title">
+            <p class="api-usecase__icp"><span class="api-usecase__icp-tag">SA Mid-market &middot; Retail</span></p>
+            <h3 class="api-usecase__title" id="uc-payments-title">Payment-gateway switch with zero double-charges</h3>
+            <p class="api-usecase__body">
+              A retailer moves PSP — PayFast to Peach Payments, or Stripe to Adyen — without a single duplicate charge.
+              Client-generated V4 UUID idempotency keys, 24-hour TTL, exponential backoff with jitter on retries, signed-webhook verification on the raw body, and a reconciliation worker proving the ledger matches the gateway every night.
+              Idempotency-key overhead: under 2ms per request, per Stripe's published baseline.
+            </p>
+            <p class="api-usecase__source">
+              Pattern source: <a href="https://stripe.com/blog/idempotency" rel="noopener" target="_blank">Stripe — Designing robust APIs with idempotency</a>
+            </p>
+          </article>
+
+          <article class="api-usecase reveal" style="--reveal-delay: 80ms" aria-labelledby="uc-payshap-title">
+            <p class="api-usecase__icp"><span class="api-usecase__icp-tag">SA Financial Services &middot; Banking</span></p>
+            <h3 class="api-usecase__title" id="uc-payshap-title">PayShap integration with SARB-grade reliability</h3>
+            <p class="api-usecase__body">
+              PayShap is South Africa's real-time payments rail — cloud, open-API and ISO 20022 compliant on a microservices stack.
+              We wire the participant integration: ISO 20022 message adapters, idempotency keys on every credit-transfer instruction, circuit breakers around BankservAfrica calls, and a runbook that maps to SARB Directive 1 of 2024.
+              The reliability bar: a two-hour recovery time objective for critical systems (eight-hour maximum), 24-hour incident notification.
+            </p>
+            <p class="api-usecase__source">
+              Source: <a href="https://www.resbank.co.za/" rel="noopener" target="_blank">SARB NPS Directive 1 of 2024</a> &middot; <a href="https://www.fxcintel.com/research/reports/payshap-launch-south-africa-real-time-digital-payments-scheme" rel="noopener" target="_blank">FXC Intelligence — PayShap</a>
+            </p>
+          </article>
+
+          <article class="api-usecase reveal" style="--reveal-delay: 160ms" aria-labelledby="uc-webhooks-title">
+            <p class="api-usecase__icp"><span class="api-usecase__icp-tag">International &middot; SaaS</span></p>
+            <h3 class="api-usecase__title" id="uc-webhooks-title">Webhook delivery rebuilt with retry-with-jitter and a DLQ</h3>
+            <p class="api-usecase__body">
+              A SaaS platform retires synchronous webhook dispatch in favour of a queue-backed dispatcher.
+              Exponential backoff with random jitter, dead-letter queue for unprocessable events, HMAC-signed payloads, V4 UUID event IDs and a consumer-side dedup table with a UNIQUE constraint.
+              Synchronised retry spikes drop by over 80% on industry pattern data; lost events approach zero; double-processing is eliminated at the consumer.
+            </p>
+            <p class="api-usecase__source">
+              Pattern source: <a href="https://docs.stripe.com/webhooks" rel="noopener" target="_blank">Stripe webhook best practices</a> &middot; <a href="https://hookdeck.com/outpost/guides/outbound-webhook-retry-best-practices" rel="noopener" target="_blank">Hookdeck — retry best practices</a>
+            </p>
+          </article>
+
+          <article class="api-usecase reveal" style="--reveal-delay: 240ms" aria-labelledby="uc-bank-rails-title">
+            <p class="api-usecase__icp"><span class="api-usecase__icp-tag">SA Financial Services &middot; Payments</span></p>
+            <h3 class="api-usecase__title" id="uc-bank-rails-title">Direct-bank rails via Stitch — Capitec Pay, Absa Pay, Nedbank Direct EFT</h3>
+            <p class="api-usecase__body">
+              Enterprise South African merchants — including Takealot, Mr D, MTN, Vodacom, Standard Bank's Shyft and TFG's Bash — are moving past card-only to direct-bank rails alongside Stitch (ISO 27001, PCI DSS Level 1, $107m raised in four years to April 2025).
+              We wire contract-first integration: idempotency keys per instruction, signed-webhook verification, a reconciliation worker per rail, and OpenTelemetry per gateway.
+            </p>
+            <p class="api-usecase__source">
+              Source: <a href="https://techcabal.com/2025/04/15/south-africas-payments-startup-stitch-raises-55-million-series-b-funding/" rel="noopener" target="_blank">TechCabal — Stitch Series B</a>
+            </p>
+          </article>
+
+          <article class="api-usecase reveal" style="--reveal-delay: 320ms" aria-labelledby="uc-pci-title">
+            <p class="api-usecase__icp"><span class="api-usecase__icp-tag">SA Financial Services &middot; International</span></p>
+            <h3 class="api-usecase__title" id="uc-pci-title">PCI-DSS 4.0 API gateway hardening</h3>
+            <p class="api-usecase__body">
+              PCI-DSS 4.0 has been mandatory since 1 April 2025. Requirement 6.5.6 explicitly covers APIs — BOLA, broken function-level authorisation and data exposure.
+              We harden the gateway: object-level authorisation on every endpoint that accepts an ID (OWASP API #1, present in roughly 40% of API attacks), rate limits, input validation, full request/response logging, signed-payload verification and mTLS at sensitive edges. Requirement 6.3.2 component inventory is generated and kept current.
+            </p>
+            <p class="api-usecase__source">
+              Source: <a href="https://www.akamai.com/site/en/documents/white-paper/2024/pci-dss-requirements-for-apis.pdf" rel="noopener" target="_blank">Akamai — PCI DSS requirements for APIs</a> &middot; <a href="https://owasp.org/API-Security/editions/2023/en/0xa1-broken-object-level-authorization/" rel="noopener" target="_blank">OWASP API1:2023 BOLA</a>
+            </p>
+          </article>
+
+          <article class="api-usecase reveal" style="--reveal-delay: 400ms" aria-labelledby="uc-partner-title">
+            <p class="api-usecase__icp"><span class="api-usecase__icp-tag">International &middot; SMB</span></p>
+            <h3 class="api-usecase__title" id="uc-partner-title">Partner onboarding cut from 8 weeks to ~1 week</h3>
+            <p class="api-usecase__body">
+              A marketplace SaaS team replaces manual partner onboarding with a self-service developer portal: contract-first OpenAPI specs, generated mock servers and SDKs, contract tests in CI, sandbox credentials and automated provisioning.
+              Industry case: 8 weeks to roughly 1 week with a scalable onboarding framework. One fintech got 14 days down to 3 hours via Swagger-based docs. Centralised docs cut onboarding by 75% in Postman's 2023 State of the API.
+            </p>
+            <p class="api-usecase__source">
+              Source: <a href="https://www.postman.com/state-of-api/2025/" rel="noopener" target="_blank">Postman 2025 State of the API</a>
+            </p>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════
+         FAQ
+         ═══════════════════════════════════ -->
+    <section class="faq" id="faq" aria-labelledby="faq-heading" data-spotlight>
+      <div class="bg-layer bg-layer--services" aria-hidden="true"></div>
+      <div class="container">
+        <div class="section-header">
+          <p class="section-eyebrow fade-in">Common Questions</p>
+          <h2 class="section-heading fade-in" id="faq-heading" style="--fade-delay: 80ms">Answers before you book</h2>
+          <div class="gold-line fade-in" aria-hidden="true" style="--fade-delay: 160ms"></div>
+        </div>
+
+        <div class="faq__list">
+          <details class="faq__item reveal" style="--reveal-delay: 0ms">
+            <summary class="faq__question">How long is a typical API engagement?</summary>
+            <div class="faq__answer">
+              <p>An <strong>Integration Assessment</strong> is one week, fixed-fee.
+              An <strong>API Design + Build</strong> runs six to twelve weeks for a focused surface (a single domain, fifteen to twenty-five endpoints), or three to six months for a multi-domain platform.
+              The baseline: a single hand-coded integration on a regular team runs three to six months. Contract-first compresses that materially.</p>
+            </div>
+          </details>
+
+          <details class="faq__item reveal" style="--reveal-delay: 60ms">
+            <summary class="faq__question">Can you work with our existing API?</summary>
+            <div class="faq__answer">
+              <p>Yes. We start with an audit — OpenAPI spec extraction (or first-time authoring), a contract-test suite, an observability gap analysis and a security review against the OWASP API Security Top 10.
+              We then harden in place: idempotency keys, rate limits, OpenTelemetry, refresh-token rotation, gateway controls. No rewrite required.</p>
+            </div>
+          </details>
+
+          <details class="faq__item reveal" style="--reveal-delay: 120ms">
+            <summary class="faq__question">Which payment gateways do you support?</summary>
+            <div class="faq__answer">
+              <p>South Africa: PayFast, Peach Payments, Yoco, Stitch, Ozow, PayGate and PayShap via BankservAfrica.
+              International: Stripe and Adyen.
+              Direct-bank rails through Stitch: Capitec Pay, Absa Pay and Nedbank Direct EFT.
+              Every payment integration ships with client-generated idempotency keys, signed webhooks, a reconciliation worker and a PCI-DSS 4.0 evidence trail.</p>
+            </div>
+          </details>
+
+          <details class="faq__item reveal" style="--reveal-delay: 180ms">
+            <summary class="faq__question">What SLAs do you offer?</summary>
+            <div class="faq__answer">
+              <p>SLAs match the workload tier. For production APIs we publish an availability SLO (typically 99.9% monthly), a p99 latency SLO and an error-budget policy.
+              For South African financial-services clients we align the reliability layer to SARB Directive 1 of 2024 — a two-hour recovery time objective for critical systems (eight-hour maximum), 24-hour incident notification, 48-hour written report.
+              The Reliability Retainer includes on-call coverage.</p>
+            </div>
+          </details>
+
+          <details class="faq__item reveal" style="--reveal-delay: 240ms">
+            <summary class="faq__question">How do you handle security and PCI-DSS 4.0?</summary>
+            <div class="faq__answer">
+              <p>Baseline: OAuth 2.0 with refresh-token rotation, short-lived access tokens, refresh tokens in HTTP-only cookies, JWT signed with HS256 or RS256, mTLS at sensitive edges.
+              For payments: PCI-DSS 4.0 Req 6.5.6 enforced at the gateway (BOLA mitigation, broken function-level authorisation, full request/response logging) and Req 6.3.2 component inventory.
+              POPIA: data-subject rights are wired into the API, and incident reporting fires as soon as reasonably certain, per the 2025 amendment regulations.</p>
+            </div>
+          </details>
+
+          <details class="faq__item reveal" style="--reveal-delay: 300ms">
+            <summary class="faq__question">Can we self-host the API platform?</summary>
+            <div class="faq__answer">
+              <p>Yes. The default architecture is portable — containerised services, infrastructure-as-code via Terraform, no proprietary platform licence to renew.
+              Deployment targets include your AWS, Azure or GCP account, on-premises Kubernetes, or a South African hosted environment when SARB or banking-grade controls apply.</p>
+            </div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════
+         ABOUT
+         ═══════════════════════════════════ -->
+    <section class="about-blurb" aria-labelledby="about-blurb-heading">
+      <div class="container about-blurb__inner">
+        <div class="about-blurb__panel reveal">
+          <p class="section-eyebrow">About</p>
+          <h2 class="about-blurb__heading" id="about-blurb-heading">Built and delivered by Thulani Maseko.</h2>
+          <p class="about-blurb__body">
+            Enterprise engineering background shaped at Capitec, Absa and E4 Strategic. Direct experience designing payment, integration and reliability platforms at banking grade —
+            not just shipping endpoints. Every Prudentia API engagement is led personally; you talk to the engineer wiring your system, every time.
+          </p>
+          <p class="about-blurb__cta">
+            <a href="/#team" class="btn btn--outline">Read full bio</a>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════
+         FINAL CTA
+         ═══════════════════════════════════ -->
+    <section class="cta" id="final-cta" aria-labelledby="final-cta-heading" data-spotlight>
+      <div class="bg-layer bg-layer--cta" aria-hidden="true"></div>
+      <div class="bg-fx" aria-hidden="true">
+        <div class="bg-fx__grid"></div>
+        <div class="bg-fx__orb bg-fx__orb--gold bg-fx__orb--tl bg-fx__orb--drift-b"></div>
+        <div class="bg-fx__orb bg-fx__orb--warm bg-fx__orb--br bg-fx__orb--drift-a"></div>
+        <div class="bg-fx__spotlight"></div>
+      </div>
+      <div class="container cta__inner">
+        <h2 class="cta__heading reveal" id="final-cta-heading">Reserve a free integration assessment.</h2>
+        <p class="cta__sub fade-in" style="--fade-delay: 100ms">
+          One week, fixed scope. We walk one critical integration or API surface and hand back a written readout of reliability and design gaps.
+          No slide deck. No commitment until you decide.
+        </p>
+        <div class="cta__actions fade-in" style="--fade-delay: 200ms">
+          <a href="/?topic=api-assessment#contact" class="btn btn--accent btn--lg">Free Integration Assessment</a>
+          <a href="mailto:masekolt@prudentiadigital.co.za?subject=API%20Development%20%26%20Integration%20%E2%80%94%20engagement%20request" class="btn btn--outline btn--lg">Email Us Instead</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ═══════════════════════════════════
+       FOOTER
+       ═══════════════════════════════════ -->
+  <footer class="footer" role="contentinfo">
+    <div class="bg-layer bg-layer--footer" aria-hidden="true"></div>
+    <div class="container footer__inner">
+      <div class="footer__brand">
+        <a href="/" class="footer__logo" aria-label="Prudentia Digital — back to home">
+          <picture>
+            <source srcset="../assets/logo-icon-white-512.webp" type="image/webp">
+            <img src="../assets/logo-icon-white-512.png" alt="" width="32" height="41" loading="lazy" aria-hidden="true">
+          </picture>
+          <span class="footer__wordmark">
+            <span class="footer__wordmark-primary">PRUDENTIA</span>
+            <span class="footer__wordmark-rule" aria-hidden="true"></span>
+            <span class="footer__wordmark-secondary">DIGITAL</span>
+          </span>
+        </a>
+        <p class="footer__tagline">Enterprise-grade technology. Local expertise, global reach.</p>
+      </div>
+
+      <nav class="footer__nav" aria-label="Footer navigation">
+        <ul role="list">
+          <li><a href="/#services">Services</a></li>
+          <li><a href="/api/">APIs</a></li>
+          <li><a href="/ai/">AI Engineering</a></li>
+          <li><a href="/#why-us">Why Us</a></li>
+          <li><a href="/#about">About</a></li>
+          <li><a href="mailto:masekolt@prudentiadigital.co.za">Contact</a></li>
+          <li><a href="/privacy.html">Privacy Policy</a></li>
+          <li><a href="/terms.html">Terms of Service</a></li>
+        </ul>
+      </nav>
+
+      <div class="footer__meta">
+        <p class="footer__badge" aria-label="B-BBEE Level 1 certified">
+          <span class="footer__badge-dot" aria-hidden="true"></span>
+          Level 1 B-BBEE · 100% Black-owned
+        </p>
+        <p class="footer__registration">Enterprise No. 2025/910056/07 · CIPC Registered · CSD Registered</p>
+        <p class="footer__copy">
+          &copy; 2026 Prudentia Digital (Pty) Ltd &middot;
+          <a href="mailto:masekolt@prudentiadigital.co.za">masekolt@prudentiadigital.co.za</a>
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Cookie consent banner -->
+  <div class="cookie-banner" id="cookieBanner" role="dialog" aria-modal="false" aria-label="Cookie notice" hidden>
+    <p class="cookie-banner__text">
+      We use essential cookies for security and performance. No tracking or advertising cookies.
+      <a href="/privacy.html">Privacy Policy</a>
+    </p>
+    <div class="cookie-banner__actions">
+      <button class="btn btn--accent btn--sm" id="cookieAccept">Accept</button>
+      <button class="btn btn--outline btn--sm" id="cookieDismiss" style="color:rgba(255,255,255,0.6);border-color:rgba(255,255,255,0.2)">Dismiss</button>
+    </div>
+  </div>
+
+  <!-- Animated backgrounds -->
+  <script src="../js/animated-bg.js?v=1.1" defer></script>
+
+  <script>
+    (() => {
+      'use strict';
+
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js').catch(() => {});
+        });
+      }
+
+      const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const animatedEls = document.querySelectorAll('.reveal, .fade-in, .gold-line, .gold-icon, .reveal-left');
+
+      if (reduced) {
+        animatedEls.forEach(el => el.classList.add('visible'));
+      } else {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              const el = entry.target;
+              const delay = el.style.getPropertyValue('--reveal-delay') || el.style.getPropertyValue('--fade-delay') || '0ms';
+              setTimeout(() => el.classList.add('visible'), parseInt(delay) || 0);
+              observer.unobserve(el);
+            }
+          });
+        }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+        animatedEls.forEach(el => observer.observe(el));
+
+        document.querySelectorAll('.hero .fade-in').forEach(el => {
+          const delay = parseInt(el.style.getPropertyValue('--fade-delay')) || 0;
+          setTimeout(() => el.classList.add('visible'), delay + 80);
+        });
+      }
+
+      const toggle = document.getElementById('navToggle');
+      const mobileMenu = document.getElementById('navMobile');
+
+      function closeMobileMenu() {
+        mobileMenu.classList.remove('open');
+        toggle.setAttribute('aria-expanded', 'false');
+        mobileMenu.setAttribute('aria-hidden', 'true');
+        toggle.setAttribute('aria-label', 'Open menu');
+        toggle.focus();
+      }
+
+      if (toggle && mobileMenu) {
+        toggle.addEventListener('click', () => {
+          const open = mobileMenu.classList.toggle('open');
+          toggle.setAttribute('aria-expanded', open);
+          mobileMenu.setAttribute('aria-hidden', !open);
+          toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+        });
+
+        mobileMenu.addEventListener('keydown', (e) => {
+          if (!mobileMenu.classList.contains('open')) return;
+          if (e.key === 'Escape') closeMobileMenu();
+        });
+
+        mobileMenu.querySelectorAll('a').forEach(link => {
+          link.addEventListener('click', () => closeMobileMenu());
+        });
+      }
+
+      const cookieBanner = document.getElementById('cookieBanner');
+      if (cookieBanner && !localStorage.getItem('pd_cookie_consent')) {
+        cookieBanner.removeAttribute('hidden');
+      }
+      function dismissCookieBanner() {
+        localStorage.setItem('pd_cookie_consent', '1');
+        cookieBanner.setAttribute('hidden', '');
+      }
+      document.getElementById('cookieAccept')?.addEventListener('click', dismissCookieBanner);
+      document.getElementById('cookieDismiss')?.addEventListener('click', dismissCookieBanner);
+    })();
+  </script>
+
+</body>
+</html>
