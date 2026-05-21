@@ -92,7 +92,7 @@ test.describe('Navigation — mobile', () => {
     await hamburger.click();
     await expect(mobileMenu).toBeVisible();
 
-    await mobileMenu.locator('a', { hasText: 'Services' }).click();
+    await mobileMenu.locator('a', { hasText: 'Why Us' }).click();
     await expect(mobileMenu).toBeHidden();
     await expect(hamburger).toHaveAttribute('aria-expanded', 'false');
   });
