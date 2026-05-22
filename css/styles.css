@@ -2761,7 +2761,7 @@ ul[role="list"] {
 }
 
 .faq__item {
-  border-bottom: 1px solid rgba(255,255,255,0.08);
+  border-bottom: 1px solid rgba(13, 27, 42, 0.12);
   padding: var(--space-4, 1rem) 0;
 }
 
@@ -2773,7 +2773,7 @@ ul[role="list"] {
   cursor: pointer;
   font-family: var(--font-display, 'DM Serif Display', serif);
   font-size: clamp(1.05rem, 1.8vw, 1.25rem);
-  color: #fff;
+  color: var(--color-foreground);
   list-style: none;
   position: relative;
   padding-right: var(--space-8, 2.5rem);
@@ -2801,7 +2801,7 @@ ul[role="list"] {
 
 .faq__answer {
   padding-top: var(--space-3, 0.75rem);
-  color: rgba(255,255,255,0.72);
+  color: rgba(13, 27, 42, 0.78);
   line-height: var(--leading-relaxed, 1.7);
 }
 
@@ -2816,7 +2816,7 @@ ul[role="list"] {
 }
 
 .faq__answer strong {
-  color: #fff;
+  color: var(--color-foreground);
 }
 
 /* ── About blurb (compact, links to home #team) ── */
