@@ -1,0 +1,122 @@
+[
+  {
+    "icp": "SMB",
+    "title": "SA SMB finance team migrates off spreadsheets",
+    "problem": "Owner-operated SA SMBs (turnover R5m-R50m) run finance, leave, payroll and inventory across disconnected spreadsheets — only 24.6% of businesses under R1m turnover use formal accounting systems, and reconciliations take days with no real-time cash view.",
+    "intervention": "Replace spreadsheet workflows with a typed web application — Postgres-backed forms, role-based access, automated bank-statement import, and a single source of truth. Phased rollout keeps the old sheets running for one cycle.",
+    "outcome": "Manual reconciliation collapses from days to under an hour; cash position visible same-day; audit-ready by default.",
+    "metric": "Reconciliation time: days → <1 hour; +1 working day per week reclaimed.",
+    "source_url": "https://www.probizserv.co.za/the-ultimate-guide-to-financial-statements-for-south-african-smes/",
+    "source_title": "The Ultimate Guide to Financial Statements for South African SMEs | Probizserv"
+  },
+  {
+    "icp": "SA-Mid",
+    "title": "SA wholesaler shifts B2B ordering off WhatsApp and email",
+    "problem": "Mid-market SA wholesale and manufacturing businesses receive resale orders via WhatsApp, phone calls, and emailed PDFs. Sales teams manually re-enter every line into the accounting and inventory systems — slow, error-prone, and invisible to management.",
+    "intervention": "Build a B2B wholesale portal with secure resale logins, role-based pricing, real-time stock visibility, automated credit controls, and direct integration with the existing ERP or accounting system. Phased deployment by reseller tier.",
+    "outcome": "Order data entry eliminated; pricing errors fall; stock-out exposure drops as the portal blocks orders against zero inventory.",
+    "metric": "Order re-entry: 100% manual → 0% manual; reseller order cycle hours → minutes.",
+    "source_url": "https://www.gwebdesign.co.za/b2b-wholesale-portals-moving-the-old-school-sa-manufacturing-industry-into-automated-digital-ordering/",
+    "source_title": "B2B Wholesale Portals — Moving Old-School SA Manufacturing Into Automated Digital Ordering | gWebDesign"
+  },
+  {
+    "icp": "SA-Mid",
+    "title": "Manufacturer replaces Excel scheduling for production lines",
+    "problem": "An SA mid-market manufacturer runs sterilisation-machine scheduling for fill lines in an Excel workbook. The planning window is 12-16 hours ahead; any change cascades into manual edits across the sheet.",
+    "intervention": "Replace the workbook with a web-based scheduling app — typed entities, constraint solving, conflict detection, and an audit log. Integrates with the existing MES or shop-floor signals via API.",
+    "outcome": "Planning window extends from same-shift to weeks in advance; data-entry errors eliminated; labour hours redirected to operations work.",
+    "metric": "Planning window 12-16hr → weeks; manual errors → 0.",
+    "source_url": "https://sandalwood.com/modernizing-legacy-manufacturing-systems-a-customer-case-study/",
+    "source_title": "Modernizing Legacy Manufacturing Systems — A Customer Case Study | Sandalwood"
+  },
+  {
+    "icp": "SA-Mid",
+    "title": "SA retailer rebuilds order-tracking page on a CDN-first stack",
+    "problem": "A SA mid-market retail or logistics operator's order-tracking page times out at peak traffic. Bounce rate climbs, customer-service calls spike, and the engineering team can't safely deploy fixes during business hours.",
+    "intervention": "Rebuild the page on a React/Next.js stack with server-rendered content, CDN edge caching, OpenTelemetry traces, and feature flags. Performance budget enforced in CI.",
+    "outcome": "P95 page load drops from double-digit seconds to about a second; bounce rate falls; engineering can ship hotfixes mid-day behind a flag.",
+    "metric": "Mobile bounce probability falls ~32-90% per second of LCP improvement (Google/SOASTA).",
+    "source_url": "https://www.thinkwithgoogle.com/_qs/documents/9757/Milliseconds_Make_Millions_report_hQYAbZJ.pdf",
+    "source_title": "Milliseconds Make Millions — Think with Google"
+  },
+  {
+    "icp": "INT",
+    "title": "Vodafone improves LCP, lifts sales 8%",
+    "problem": "Vodafone's checkout experience lagged on Core Web Vitals. Slow Largest Contentful Paint correlated with abandoned carts and falling sales conversion on its e-commerce path.",
+    "intervention": "Engineering rebuilt the LCP critical path — image priorities, resource hints, server-render and edge caching — and measured before/after using field data (CrUX) and synthetic checks.",
+    "outcome": "LCP improved 31%; sales lifted 8%; cart-to-visit rate up 15%.",
+    "metric": "LCP -31% → +8% sales, +15% cart/visit.",
+    "source_url": "https://web.dev/case-studies/vitals-business-impact",
+    "source_title": "The business impact of Core Web Vitals | web.dev"
+  },
+  {
+    "icp": "INT",
+    "title": "Agrofy Market cuts load abandonment 76%",
+    "problem": "Agrofy Market's product pages had high abandonment because slow LCP meant visitors left before content rendered. Engineering had no clear performance budget or pipeline gate.",
+    "intervention": "Performance-engineered the front-end — split bundles, deferred non-critical JS, optimised the LCP image — and added a perf budget to CI that blocks regressions.",
+    "outcome": "LCP improved 70%; load abandonment fell 76%.",
+    "metric": "LCP +70% / abandonment -76%.",
+    "source_url": "https://web.dev/case-studies/agrofy",
+    "source_title": "Agrofy case study | web.dev"
+  },
+  {
+    "icp": "INT",
+    "title": "SMB e-commerce ships WCAG fixes, lifts checkout completion",
+    "problem": "An SMB e-commerce site received an accessibility complaint. Audit found keyboard navigation gaps, low colour contrast on CTA buttons, and form labels that screen readers couldn't associate. Average ADA suit settlement is $25,000-$75,000.",
+    "intervention": "Triaged the three highest-impact fixes — keyboard-accessible navigation, WCAG-compliant colour contrast (4.5:1 on CTAs), and properly associated form labels with clear error messages. Added an automated axe-core scan to CI.",
+    "outcome": "Checkout completion rose from 64% to 78%; revenue lifted 19%. Lawsuit risk closed out with the same change.",
+    "metric": "Checkout 64% → 78% complete; +19% revenue.",
+    "source_url": "https://buildgrowscale.com/accessibility-conversion-improvement-case-study",
+    "source_title": "Accessibility Conversion Improvement: 19% Revenue Lift | Build Grow Scale"
+  },
+  {
+    "icp": "SA-FS",
+    "title": "SA financial-services customer-facing portal hardens to banking-grade",
+    "problem": "A SA financial-services operator's customer-facing web portal collects personal information regulated by POPIA. Recent enforcement saw the Information Regulator issue a R5 million administrative fine against a public-sector data controller; max admin fines are R10m. Customer-facing portals are also in-scope for SARB PA Directive D3/2018 if data offshores.",
+    "intervention": "Engineered POPIA-aware data flows — explicit lawful basis on every collection, retention defaults, deletion endpoints, audit logs, mTLS to internal services, security headers (CSP, HSTS), and an OWASP ZAP scan gating every deploy. Documented hosting region and any material cloud agreements.",
+    "outcome": "Portal passes internal compliance review; security incident class closed before audit; vendor-due-diligence pack ready for procurement.",
+    "metric": "Regulatory exposure: R10m max admin fine avoided; control gaps closed.",
+    "source_url": "https://www.itweb.co.za/article/education-dept-issued-r5m-fine-for-popia-violation/Pero3qZ3axdvQb6m",
+    "source_title": "Education dept issued R5m fine for POPIA violation | ITWeb"
+  },
+  {
+    "icp": "INT",
+    "title": "International SaaS reduces change failure rate behind feature flags",
+    "problem": "An international SaaS team can't ship Friday because every deploy carries blast-radius risk. They wait for big-bang releases, batch up changes, and recover slowly when things break.",
+    "intervention": "Migrate to progressive delivery — every change ships behind a feature flag, dark-launches to a 1% cohort, scales to 100% on health signals, kill-switch in milliseconds. Pair with OpenTelemetry and a SLO dashboard.",
+    "outcome": "Mean lead time for changes drops 76%; rollback incidents fall 82%; Friday deploys re-open.",
+    "metric": "Lead time -76%; rollback incidents -82%.",
+    "source_url": "https://launchdarkly.com/blog/change-failure-rate/",
+    "source_title": "Change Failure Rate: What It Is & How to Measure and Improve | LaunchDarkly"
+  },
+  {
+    "icp": "SMB",
+    "title": "SA owner-operated business goes from email-quote to self-serve quoting portal",
+    "problem": "A SA SMB (turnover R5m-R50m) handles every quote by email — owner reviews, sales rep amends in Word, customer signs by scan-and-return. Quote cycle is 3-5 days; quotes are lost; conversion is opaque.",
+    "intervention": "Build a customer-facing quoting portal — product catalogue, role-based pricing, downloadable PDF, e-signature, and a quote-status dashboard for the owner. Postgres backend, no third-party CRM lock-in.",
+    "outcome": "Quote cycle drops to same-day; conversion rate visible per rep, per product; lost-quote rate measurable for the first time.",
+    "metric": "Quote cycle 3-5 days → same day.",
+    "source_url": "https://www.ebnet.co.za/driving-economic-resilience-through-digital-transformation-of-south-africas-smb-sector/",
+    "source_title": "Driving economic resilience through digital transformation of South Africa's SMB sector | EBnet"
+  },
+  {
+    "icp": "INT",
+    "title": "NDTV halves LCP, cuts bounce 50%",
+    "problem": "NDTV's news pages had slow Largest Contentful Paint on mobile, which correlated with high bounce rates and reduced ad revenue per session.",
+    "intervention": "Engineering team rebuilt the article render path — preload critical assets, defer above-the-fold ads, server-render the LCP element, and ship a perf budget gate.",
+    "outcome": "LCP halved; bounce rate improved 50%.",
+    "metric": "LCP halved → bounce -50%.",
+    "source_url": "https://web.dev/case-studies/ndtv",
+    "source_title": "NDTV case study | web.dev"
+  },
+  {
+    "icp": "SA-Mid",
+    "title": "SA healthcare practice digitises patient intake under POPIA",
+    "problem": "A SA mid-market healthcare practice still runs patient intake on paper forms. Forms are scanned, emailed, lost, re-keyed into the practice management system. POPIA exposure is high — health data is a special-category processing under SA law.",
+    "intervention": "Build a patient-intake web app with explicit consent capture, encryption at rest, audit logs of every read/write, role-based access for clinicians vs admin, and a documented retention and deletion policy.",
+    "outcome": "Re-keying eliminated; data-handling defensible under POPIA; clinician sees patient history before the appointment, not after.",
+    "metric": "Re-keying time per patient: 5-10 min → 0; consent trail 100% auditable.",
+    "source_url": "https://healthtech.altron.com/press-releases/a-simplified-guide-to-popia-for-medical-practices",
+    "source_title": "A Simplified Guide to POPIA for Medical Practices | Altron HealthTech"
+  }
+]

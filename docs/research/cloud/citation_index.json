@@ -1,0 +1,304 @@
+{
+  "service": "cloud",
+  "retrieved": "2026-05-21",
+  "schema_version": "1.0",
+  "citations": [
+    {
+      "id": "C1",
+      "title": "Gartner Forecasts Worldwide Public Cloud End-User Spending to Total $723 Billion in 2025",
+      "publisher": "Gartner",
+      "url": "https://www.gartner.com/en/newsroom/press-releases/2024-11-19-gartner-forecasts-worldwide-public-cloud-end-user-spending-to-total-723-billion-dollars-in-2025",
+      "claim": "Global public cloud end-user spending $723.4B in 2025 (+21.5%); CIPS $301B (+24.2%); projected $1.42T by 2029.",
+      "tier": "T1",
+      "retrieved": "2026-05-21"
+    },
+    {
+      "id": "C2",
+      "title": "South Africa Cloud Computing Market Size & Forecast 2034",
+      "publisher": "IMARC Group",
+      "url": "https://www.imarcgroup.com/south-africa-cloud-computing-market",
+      "claim": "SA cloud market US$6.4B in 2025, growing to US$40.1B by 2034 at 21.84% CAGR.",
+      "tier": "T2",
+      "retrieved": "2026-05-21"
+    },
+    {
+      "id": "C3",
+      "title": "South Africa Cloud Computing Market Size, Share & Growth 2029",
+      "publisher": "BlueWeave Consulting",
+      "url": "https://www.blueweaveconsulting.com/report/south-africa-cloud-computing-market",
+      "claim": "SA cloud market US$3.12B (2022) → US$11.56B (2029) at 24.4% CAGR; BFSI leads adoption.",
+      "tier": "T2",
+      "retrieved": "2026-05-21"
+    },
+    {
+      "id": "C4",
+      "title": "Technology and skills: AWS's plan for Sub-Saharan Africa",
+      "publisher": "Ventureburn / AWS",
+      "url": "https://ventureburn.com/2024/12/aws-vision-for-sub-saharan-africa-technology-skills-and-innovation/",
+      "claim": "AWS invested R15.6B in SA since 2018, pledged R30.4B through 2029. Cape Town Skills Centre 26 000+ trained since 2023. Customer list includes Absa, Standard Bank, Discovery, Investec, Old Mutual.",
+      "tier": "T1",
+      "retrieved": "2026-05-21"
+    },
+    {
+      "id": "C5",
+      "title": "Gartner — Platform Engineering",
+      "publisher": "Gartner",
+      "url": "https://www.gartner.com/en/infrastructure-and-it-operations-leaders/topics/platform-engineering",
+      "claim": "By 2026, 80% of large software engineering organisations will run internal platform engineering teams (vs 45% in 2022).",
+      "tier": "T1",
+      "retrieved": "2026-05-21"
+    },
+    {
+      "id": "C6",
+      "title": "Top 5 Strategic Technology Trends in Software Engineering 2024",
+      "publisher": "Port.io / Gartner",
+      "url": "https://www.port.io/blog/key-takeaways-from-gartners-top-5-strategic-technology-trends-in-software-engineering",
+      "claim": "60%+ of Kubernetes-heavy enterprises have or plan dedicated platform teams in 2025.",
+      "tier": "T2",
+      "retrieved": "2026-05-21"
+    },
+    {
+      "id": "C7",
+      "title": "State of FinOps 2024 / FinOps Foundation Data Library",
+      "publisher": "FinOps Foundation",
+      "url": "https://data.finops.org/library/",
+      "claim": "Reducing cloud waste #1 FinOps priority 2024. 15–25% spend reduction achievable. Commitment-management priority rose from 7% to 43%.",
+      "tier": "T1",
+      "retrieved": "2026-05-21"
+    },
+    {
+      "id": "C8",
+      "title": "New Flexera Report Finds 84% of Organizations Struggle to Manage Cloud Spend",
+      "publisher": "Flexera",
+      "url": "https://www.flexera.com/about-us/press-center/new-flexera-report-finds-84-percent-of-organizations-struggle-to-manage-cloud-spend",
+      "claim": "84% struggle to manage cloud spend (top challenge 2 years running). 27–29% of cloud spend wasted. Organisations exceed cloud budgets by 17% on average.",
+      "tier": "T1",
+      "retrieved": "2026-05-21"
+    },
+    {
+      "id": "C9",
+      "title": "Alert Fatigue Solutions for DevOps Teams in 2025: What Works",
+      "publisher": "incident.io",
+      "url": "https://incident.io/blog/alert-fatigue-solutions-for-dev-ops-teams-in-2025-what-works",
+      "claim": "67% of engineers admit to ignoring/dismissing alerts; 85% of teams say majority of alerts are false positives; 74% report on-call overwhelm. 65% of engineers report burnout (2024). Google SRE benchmark: 2–3 actionable incidents per shift sustainable.",
+      "tier": "T2",
+      "retrieved": "2026-05-21"
+    },
+    {
+      "id": "C10",
+      "title": "Catchpoint SRE Report 2024 (referenced via incident.io)",
+      "publisher": "Catchpoint",
+      "url": "https://incident.io/blog/alert-fatigue-solutions-for-dev-ops-teams-in-2025-what-works",
+      "claim": "70% of SRE teams rank alert fatigue as a top-3 operational concern.",
+      "tier": "T2",
+      "retrieved": "2026-05-21"
+    },
+    {
+      "id": "C11",
+      "title": "DORA | Accelerate State of DevOps Report 2024",
+      "publisher": "DORA / Google Cloud",
+      "url": "https://dora.dev/research/2024/dora-report/",
+      "claim": "Four DORA performance levels (Elite/High/Medium/Low). Elite = on-demand deploy + <1 day lead time + <5% change failure + <1hr recovery. Only 19% of teams reach Elite in 2024.",
+      "tier": "T1",
+      "retrieved": "2026-05-21"
+    },
+    {
+      "id": "C12",
+      "title": "DORA Accelerate State of DevOps 2024: Key Takeaways",
+      "publisher": "Kodus / multiple secondary",
+      "url": "https://kodus.io/en/dora-accelerate-state-of-devops/",
+      "claim": "Elite 19% / High ~22% / Medium most. Elite recover <1hr; Medium recover <1 day; Low recover in weeks.",
+      "tier": "T2",
+      "retrieved": "2026-05-21"
+    },
+    {
+      "id": "C13",
+      "title": "Cloud Outsource Directive and Guidance Note issued by SARB (D3/2018, G5/2018)",
+      "publisher": "ENSafrica",
+      "url": "https://www.ensafrica.com/news/detail/1018/cloud-outsource-directive-and-guidance-note-i",
+      "claim": "SARB Prudential Authority Directive 3 of 2018 + Guidance Note 5 of 2018 govern bank cloud outsourcing in SA, effective 1 October 2018.",
+      "tier": "T1",
+      "retrieved": "2026-05-21"
+    },
+    {
+      "id": "C14",
+      "title": "FSCA + Prudential Authority Joint Standard 2 of 2024 on Cybersecurity and Cyber Resilience",
+      "publisher": "Webber Wentzel",
+      "url": "https://www.webberwentzel.com/News/Pages/financial-sector-regulation-and-prudential-authority-joint-standard-on-cybersecurity-and-cyber-resilience-requirements.aspx",
+      "claim": "Joint Standard 2 of 2024 published 17 May 2024; commences 1 June 2025. Applies to banks, insurers, retirement funds, CIS managers.",
+      "tier": "T1",
+      "retrieved": "2026-05-21"
+    },
+    {
+      "id": "C15",
+      "title": "Joint Standard 2 of 2024 — implications and requirements",
+      "publisher": "Michalsons",
+      "url": "https://www.michalsons.com/blog/cybersecurity-and-cyber-resilience-requirements-joint-standard/60149",
+      "claim": "MFA mandatory on critical systems; quarterly resilience testing including cloud vendors; material cyber incidents reported to FSCA/PA within 24 hours.",
+      "tier": "T1",
+      "retrieved": "2026-05-21"
+    },
+    {
+      "id": "C16",
+      "title": "It's time to throw open the cloud's exit doors",
+      "publisher": "HFS Research",
+      "url": "https://www.hfsresearch.com/research/its-time-to-throw-open-the-clouds-exit-doors/",
+      "claim": "~1/3 of cloud customers cite high switching cost as a reason for hyperscaler buyer's remorse.",
+      "tier": "T2",
+      "retrieved": "2026-05-21"
+    },
+    {
+      "id": "C17",
+      "title": "Cloud Exit Strategies: Why and How to Avoid Vendor Lock-in",
+      "publisher": "ISC2",
+      "url": "https://www.isc2.org/Insights/2024/04/Cloud-Exit-Strategies-Avoiding-Vendor-Lock-in",
+      "claim": "Lock-in compounds via proprietary services (DynamoDB, BigQuery, Cosmos DB). Kubernetes + Helm portable substrate the canonical mitigation.",
+      "tier": "T2",
+      "retrieved": "2026-05-21"
+    },
+    {
+      "id": "C18",
+      "title": "Annual Outage Analysis 2024",
+      "publisher": "Uptime Institute",
+      "url": "https://uptimeinstitute.com/resources/research-and-reports/annual-outage-analysis-2024",
+      "claim": "54% of significant outages cost >$100K; 16% cost >$1M. 80% of serious outages preventable with better management/processes/configuration. Financial-sector outage frequency declining.",
+      "tier": "T1",
+      "retrieved": "2026-05-21"
+    },
+    {
+      "id": "C19",
+      "title": "The True Costs of Downtime in 2025 (Gartner figures cited)",
+      "publisher": "Erwood Group (citing Gartner)",
+      "url": "https://www.erwoodgroup.com/blog/the-true-costs-of-downtime-in-2025-a-deep-dive-by-business-size-and-industry/",
+      "claim": "Gartner average IT downtime $5 600/min (~$336K/hr). Fortune 500 $500K–$1M/hr; financial services can exceed $5M/hr.",
+      "tier": "T2",
+      "retrieved": "2026-05-21"
+    },
+    {
+      "id": "C20",
+      "title": "3 Cloud Migration Success Stories / 25 Cloud Migration Case Studies",
+      "publisher": "Mission Cloud / The Marketing Agency",
+      "url": "https://www.missioncloud.com/blog/3-cloud-migration-success-stories-to-motivate-your-migration",
+      "claim": "Peer case studies: RupeeRedee 30% cost reduction + 5× capacity. The Times 30% operational cost reduction + 200% performance. Examity 30% reduction in design/build/implementation cost. Intruity 30% infrastructure cost reduction via right-sizing.",
+      "tier": "T3",
+      "retrieved": "2026-05-21"
+    },
+    {
+      "id": "C21",
+      "title": "Your best bank branch is in the cloud (Capitec scale on AWS)",
+      "publisher": "BusinessDay / Entelect / AWS",
+      "url": "https://www.businessday.co.za/bt/business-and-economy/2025-08-24-your-best-bank-branch-is-in-the-cloud/",
+      "claim": "Capitec runs 1.5T+ reports/month, 27 PB analytical data, 1 000+ technical users on AWS. Entelect migrated 15 years of business-critical data to AWS data lake.",
+      "tier": "T2",
+      "retrieved": "2026-05-21"
+    },
+    {
+      "id": "C22",
+      "title": "Synthesis — Cloud Services / AWS Premier Consulting Partner",
+      "publisher": "Synthesis Software Technologies",
+      "url": "https://www.synthesis.co.za/cloud/",
+      "claim": "Synthesis: AWS Premier Consulting Partner (one of two in MEA). 5 AWS Competencies: Migrations, Financial Services, Microsoft Workloads, DevOps, Security. Banking clients: Absa, Nedbank, Standard Bank, FNB, Capitec. Payments Centre of Excellence.",
+      "tier": "T1",
+      "retrieved": "2026-05-21"
+    },
+    {
+      "id": "C23",
+      "title": "Top 10 Digital Transformation Companies in South Africa",
+      "publisher": "Code District",
+      "url": "https://codedistrict.com/blog/digital-transformation-companies-in-south-africa",
+      "claim": "BBD: 35-year SA software engineering firm covering digital enablement, cloud engineering, DevOps. Entelect: large SA software firm offering DevOps, API integration, app development. Dimension Data: 15 000+ staff across 15 countries, NTT-owned.",
+      "tier": "T3",
+      "retrieved": "2026-05-21"
+    },
+    {
+      "id": "C24",
+      "title": "Vodacom Business — Managed Services and Multicloud",
+      "publisher": "Vodacom Business",
+      "url": "https://www.vodacombusiness.co.za/business/solutions/hosting/hyperscale",
+      "claim": "Vodacom is AWS Advanced Partner, Microsoft Gold Partner, Huawei Cloud Strategic Partner. Multi-cloud managed services bundled with connectivity.",
+      "tier": "T1",
+      "retrieved": "2026-05-21"
+    },
+    {
+      "id": "C25",
+      "title": "MTN Enterprise Services",
+      "publisher": "MTN Group",
+      "url": "https://www.mtn.com/enterprise-services/",
+      "claim": "MTN Business offers managed network services, cloud, unified communications, IoT, security-as-a-service.",
+      "tier": "T1",
+      "retrieved": "2026-05-21"
+    },
+    {
+      "id": "C26",
+      "title": "How Thoughtworks Bridges the Platform Engineering Gap / Container Solutions case studies",
+      "publisher": "The New Stack / Container Solutions",
+      "url": "https://thenewstack.io/how-thoughtworks-bridges-the-platform-engineering-gap/",
+      "claim": "Thoughtworks: UK-based global consultancy advising enterprises on modernisation, platform engineering, cloud. Container Solutions: Amsterdam-based cloud-native specialist (Shell, Adidas, FiduciaGAD).",
+      "tier": "T2",
+      "retrieved": "2026-05-21"
+    },
+    {
+      "id": "C27",
+      "title": "DoiT Cloud Intelligence",
+      "publisher": "DoiT International",
+      "url": "https://www.doit.com/",
+      "claim": "DoiT FinOps platform with Forward Deployed Engineers (no junior staff). 700+ collective cloud certifications. Kubernetes cost optimisation across EKS/GKE/AKS.",
+      "tier": "T1",
+      "retrieved": "2026-05-21"
+    },
+    {
+      "id": "C28",
+      "title": "Cross-border data transfers under POPIA s.72 / National Data and Cloud Policy",
+      "publisher": "Dentons / VDT Attorneys / ITIF",
+      "url": "https://www.dentons.com/en/insights/articles/2022/october/13/cross-border-data-transfers-under-the-protection-of-personal-information-act-4-of-2013",
+      "claim": "POPIA s.72: cross-border PI transfer requires (a) substantially-similar protection in recipient jurisdiction, (b) consent, (c) contract necessity, or (d) binding agreement. Cloud provider = operator; responsible party retains accountability. National Data and Cloud Policy (May 2024) requires national-security data to remain in-country.",
+      "tier": "T1",
+      "retrieved": "2026-05-21"
+    },
+    {
+      "id": "C29",
+      "title": "Cloud computing and data offshoring in the National Payment System — consultation paper (March 2025)",
+      "publisher": "South African Reserve Bank",
+      "url": "https://www.resbank.co.za/content/dam/sarb/what-we-do/payments-and-settlements/regulation-oversight-and-supervision/document-for-comments/doc-for-comments-2025/Cloud%20computing%20and%20offshoring%20of%20data%20consultation%20paper_March%202025.pdf",
+      "claim": "SARB March 2025 consultation paper extending cloud / offshoring scope to NPS participants beyond banks.",
+      "tier": "T1",
+      "retrieved": "2026-05-21"
+    },
+    {
+      "id": "C30",
+      "title": "SARB Cybersecurity and Cyber-Resilience Directive (NPS)",
+      "publisher": "SARB",
+      "url": "https://www.resbank.co.za/content/dam/sarb/what-we-do/payments-and-settlements/regulation-oversight/Directive%20in%20respect%20of%20cybersecurity%20and%20cyber-resilisnce%20within%20the%20national%20payment%20system.pdf",
+      "claim": "NPS directive requires quarterly resilience testing including third-party cloud vendors; 24-hour material incident report + 48-hour written report.",
+      "tier": "T1",
+      "retrieved": "2026-05-21"
+    },
+    {
+      "id": "C31",
+      "title": "Why BCBS 239 Compliance is essential in 2025 / RDARR Guide",
+      "publisher": "EY / ECB",
+      "url": "https://www.ey.com/en_nl/industries/banking-capital-markets/why-bcbs-239-compliance-is-essential-in-2025",
+      "claim": "BCBS 239 — 14 principles (governance, data architecture, accuracy, completeness, timeliness, adaptability). ECB RDARR Guide May 2024; remediation in top supervisory priorities 2025-2027.",
+      "tier": "T1",
+      "retrieved": "2026-05-21"
+    },
+    {
+      "id": "C32",
+      "title": "SOC 2 Compliance Explained / SOC 2 + ISO 27001 SaaS Guide",
+      "publisher": "Aikido / Andrew Odendaal / CSA",
+      "url": "https://www.aikido.dev/learn/compliance/compliance-frameworks/soc-2",
+      "claim": "SOC 2 adoption +40% in 2024. >60% of buyers more likely to partner with SOC2-compliant vendors. ~70% of VCs prefer SOC2-compliant startups. Audit prep traditionally 3–6+ months. ISO 27001:2022 ISMS common companion framework.",
+      "tier": "T2",
+      "retrieved": "2026-05-21"
+    },
+    {
+      "id": "C33",
+      "title": "Capitec modernizes contact center with Amazon Connect",
+      "publisher": "NTT DATA",
+      "url": "https://services.global.ntt/-/media/ntt/global/about-us/case-studies/capitec/capitec-amazon-case-study.pdf",
+      "claim": "Capitec migrated 600+ contact-centre agents to AWS Amazon Connect in 5 days with NTT DATA.",
+      "tier": "T1",
+      "retrieved": "2026-05-21"
+    }
+  ]
+}

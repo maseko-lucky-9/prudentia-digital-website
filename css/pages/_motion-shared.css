@@ -1,0 +1,87 @@
+/*
+ * Prudentia Digital — Shared motion tokens for service detail pages
+ *
+ * Every per-service CSS module under css/pages/{slug}.css MUST compose from
+ * these tokens. Raw `transition: ... ms ease` declarations are not allowed in
+ * per-service files — they create motion-vocabulary drift between the five
+ * pages and undermine the "one Prudentia" feel.
+ *
+ * Loaded after design-tokens.css, styles.css, animated-bg.css, service-illustrations.css.
+ * Loaded before css/pages/{slug}.css.
+ */
+
+:root {
+  /* Easing curves — shared with service-illustrations.css where applicable */
+  --motion-ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+  --motion-ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
+  --motion-ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+
+  /* Durations — pick from these instead of inventing per-service values */
+  --motion-dur-fast: 150ms;
+  --motion-dur-normal: 300ms;
+  --motion-dur-medium: 480ms;
+  --motion-dur-beat: 560ms;
+  --motion-dur-slow: 900ms;
+  --motion-dur-dwell: 2200ms;
+  --motion-dur-drift: 90s;
+
+  /* Stagger step — base unit for cascade entrance animations */
+  --motion-stagger: 80ms;
+
+  /* Composed transitions — these are what per-service files reference */
+  --motion-hero-rise: transform var(--motion-dur-normal) var(--motion-ease-out-quint),
+                      opacity var(--motion-dur-normal) var(--motion-ease-out-quint);
+
+  --motion-card-tilt: transform var(--motion-dur-medium) var(--motion-ease-out-quart),
+                      box-shadow var(--motion-dur-medium) var(--motion-ease-out-quart);
+
+  --motion-icon-pulse: transform var(--motion-dur-beat) var(--motion-ease-out-quart),
+                       opacity var(--motion-dur-beat) var(--motion-ease-out-quart);
+
+  --motion-settle: opacity var(--motion-dur-medium) var(--motion-ease-out-quart),
+                   transform var(--motion-dur-medium) var(--motion-ease-out-quart);
+
+  --motion-hover-quick: transform var(--motion-dur-normal) var(--motion-ease-out-quart),
+                        background-color var(--motion-dur-normal) var(--motion-ease-out-quart),
+                        border-color var(--motion-dur-normal) var(--motion-ease-out-quart),
+                        color var(--motion-dur-normal) var(--motion-ease-out-quart);
+
+  --motion-fade: opacity var(--motion-dur-normal) var(--motion-ease-out-quart);
+
+  /* Tilt amount cap — pointer-driven 3D tilt is bounded for taste, not literal */
+  --motion-tilt-max: 3deg;
+
+  /* Per-page hero outcome dwell (use only on hero motifs that loop) */
+  --motion-hero-dwell: var(--motion-dur-dwell);
+}
+
+/*
+ * Reduced-motion contract — kill all motion when the user has opted out.
+ * Per-service files inherit this; do NOT override.
+ */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --motion-hero-rise: none;
+    --motion-card-tilt: none;
+    --motion-icon-pulse: none;
+    --motion-settle: none;
+    --motion-hover-quick: none;
+    --motion-fade: none;
+    --motion-dur-fast: 0s;
+    --motion-dur-normal: 0s;
+    --motion-dur-medium: 0s;
+    --motion-dur-beat: 0s;
+    --motion-dur-slow: 0s;
+    --motion-stagger: 0s;
+  }
+}
+
+/*
+ * Pointer-coarse contract — disable pointer-driven flourishes on touch devices.
+ * Per-service files MUST gate their pointer effects with this media query.
+ *
+ * Example consumer:
+ *   @media (hover: hover) and (pointer: fine) {
+ *     .web__capability:hover { transform: translateY(-4px); }
+ *   }
+ */

@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Web application development for South Africa. Production React/Next.js + Postgres apps, perf-budgeted in CI, WCAG AA, POPIA-native. Book a discovery session.">
+  <title>Web Application Development — Prudentia Digital · South Africa</title>
+
+  <!-- Canonical & SEO -->
+  <link rel="canonical" href="https://prudentiadigital.co.za/web/">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Web Application Development — Prudentia Digital">
+  <meta property="og:description" content="React/Next.js + Postgres apps built for production: perf budgets in CI, WCAG AA, POPIA-native data flows. Book a discovery session.">
+  <meta property="og:url" content="https://prudentiadigital.co.za/web/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Prudentia Digital">
+  <meta property="og:locale" content="en_ZA">
+  <meta property="og:locale:alternate" content="en_GB">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta property="og:image" content="https://prudentiadigital.co.za/assets/og-image-1200x630.png">
+  <meta property="og:image:secure_url" content="https://prudentiadigital.co.za/assets/og-image-1200x630.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Prudentia Digital — Web Application Development. Production engineering for South African and international businesses.">
+
+  <!-- Twitter card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Web Application Development — Prudentia Digital">
+  <meta name="twitter:description" content="React/Next.js + Postgres apps for production. Perf budgets, WCAG AA, POPIA-native. Book a discovery session.">
+  <meta name="twitter:image" content="https://prudentiadigital.co.za/assets/og-image-1200x630.png">
+
+  <!-- hreflang alternates -->
+  <link rel="alternate" hreflang="en" href="https://prudentiadigital.co.za/web/">
+  <link rel="alternate" hreflang="x-default" href="https://prudentiadigital.co.za/web/">
+
+  <!-- Preload critical fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Asset version: bump ?v= on deploy to bust cache -->
+  <link rel="preload" href="../css/design-tokens.css?v=1.1" as="style">
+  <link rel="preload" href="../css/styles.css?v=1.1" as="style">
+
+  <link rel="stylesheet" href="../css/design-tokens.css?v=1.1">
+  <link rel="stylesheet" href="../css/styles.css?v=1.1">
+  <link rel="stylesheet" href="../css/animated-bg.css?v=1.1">
+  <link rel="stylesheet" href="../css/pages/_motion-shared.css?v=1.1">
+  <link rel="stylesheet" href="../css/pages/web.css?v=1.1">
+
+  <!-- Favicon & PWA -->
+  <link rel="icon" type="image/svg+xml" href="../assets/logo-icon.svg">
+  <link rel="manifest" href="../manifest.json">
+  <meta name="theme-color" content="#0D1B2A">
+
+  <!-- JSON-LD structured data — Service page -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Web Application Development",
+    "provider": {
+      "@type": "Organization",
+      "name": "Prudentia Digital",
+      "url": "https://prudentiadigital.co.za/",
+      "logo": "https://prudentiadigital.co.za/assets/logo-icon-white-512.png",
+      "areaServed": ["South Africa", "Worldwide"]
+    },
+    "areaServed": ["South Africa", "Worldwide"],
+    "serviceType": "Web Application Development",
+    "description": "Production web applications for South African and international businesses — React/Next.js front ends on a PostgreSQL backend, performance budgets in CI, WCAG AA accessibility, POPIA-native data flows, feature-flagged deploys, and OpenTelemetry observability from day one.",
+    "url": "https://prudentiadigital.co.za/web/",
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Web Engagement Tiers",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Discovery Sprint",
+            "description": "One to two weeks, fixed-fee. Workflow mapping, stakeholder interviews, a working prototype, success metrics, and a written build plan naming what we will and will not ship."
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Product Build",
+            "description": "Six to twelve weeks, fixed-fee per milestone. Discovery, UX, build, test, and deploy to a CDN-first stack with perf budget, WCAG AA, POPIA-native data flows, and a Playwright acceptance suite."
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Engineering Retainer",
+            "description": "Monthly retainer, capacity-based. Dependency upgrades, security patches, perf-budget enforcement, feature additions, on-call escalation. The engineer who built it stays on it."
+          }
+        }
+      ]
+    }
+  }
+  </script>
+
+  <!-- JSON-LD — FAQPage -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How long does a web engagement take?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "A Discovery Sprint is one to two weeks. A Product Build is typically six to twelve weeks for an MVP-to-production scope. Engineering Retainers are monthly with no fixed end date. Indicative ranges shared in the discovery session."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Do you sign NDAs?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. We send a counter-signed mutual NDA within 24 hours of a discovery session, before any of your confidential data is shared. If you have your own template, we will review and counter-sign that instead."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do you handle our customers' data under POPIA?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Every form has a documented purpose and lawful basis. Default retention is configured per data class. Deletion is a tested endpoint, not a wishlist item. We document operator agreements with any third-party processor. POPIA enforcement is real — the Information Regulator issued an R5 million administrative fine against the Department of Basic Education in November 2024 — and our defaults engineer above that floor."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What does pricing look like?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Three engagement shapes — Discovery Sprint, Product Build, and Engineering Retainer. Sprints and Builds are fixed-fee. Retainers are monthly. We price on scope and outcome, not hourly. Indicative ranges shared after the discovery session."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Where will our application be hosted?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "We default to Cloudflare or Vercel at the edge with a PostgreSQL database in a region that fits your data-residency posture — typically af-south-1 for South African workloads. If you require on-premise or in-VPC hosting, we deploy there instead. For regulated SA financial services, we document the hosting region and any material cloud agreements so you can notify SARB if your environment requires it under PA Directive D3/2018."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Why React/Next.js and Postgres — and not the framework I read about last week?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Because we ship the boring stack on purpose. React is used by 41.6% of professional developers and PostgreSQL by 49% (Stack Overflow 2024 Developer Survey). Depth of talent and tooling is decisive when you are operating a system for years. We pick boring fundamentals so the budget lands on the parts that move your business outcome, not on framework rewrites."
+        }
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+
+  <a href="#main" class="skip-link">Skip to main content</a>
+
+  <!-- ═══════════════════════════════════
+       NAVIGATION
+       ═══════════════════════════════════ -->
+  <nav class="nav nav--ai scrolled" id="nav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner container">
+      <a href="/" class="nav__logo" aria-label="Prudentia Digital — home">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 66 84" fill="none" class="nav__logo-icon" aria-hidden="true">
+          <path d="M8 6 H44 L52 14 V42 H18 V78 H8 Z M18 14 H44 V34 H18 Z" fill="currentColor" fill-rule="evenodd"/>
+          <path d="M54 4 L60 10 L54 16 L48 10 Z" fill="var(--color-accent)"/>
+        </svg>
+        <span class="nav__wordmark" aria-hidden="true">
+          <span class="nav__wordmark-primary">PRUDENTIA</span>
+          <span class="nav__wordmark-rule" aria-hidden="true"></span>
+          <span class="nav__wordmark-secondary">DIGITAL</span>
+        </span>
+      </a>
+
+      <ul class="nav__links" role="list">
+        <li><a href="/web/" class="nav__link" aria-current="page">Web Apps</a></li>
+        <li><a href="/cloud/" class="nav__link">Cloud</a></li>
+        <li><a href="/data/" class="nav__link">Data</a></li>
+        <li><a href="/advisory/" class="nav__link">Advisory</a></li>
+        <li><a href="/api/" class="nav__link">APIs</a></li>
+        <li><a href="/ai/" class="nav__link">AI</a></li>
+        <li><a href="/#why-us" class="nav__link">Why Us</a></li>
+        <li><a href="/#team" class="nav__link">Team</a></li>
+        <li><a href="/#about" class="nav__link">About</a></li>
+      </ul>
+
+      <div class="nav__actions">
+        <a href="/?topic=web-general#contact" class="btn btn--accent btn--sm nav__cta">Book a Session</a>
+        <button class="nav__hamburger" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="navMobile">
+          <span class="nav__hamburger-bar"></span>
+          <span class="nav__hamburger-bar"></span>
+          <span class="nav__hamburger-bar"></span>
+        </button>
+      </div>
+    </div>
+
+    <div class="nav__mobile" id="navMobile" aria-hidden="true">
+      <ul class="nav__mobile-links" role="list">
+        <li><a href="/web/" class="nav__mobile-link" aria-current="page">Web Apps</a></li>
+        <li><a href="/cloud/" class="nav__mobile-link">Cloud</a></li>
+        <li><a href="/data/" class="nav__mobile-link">Data</a></li>
+        <li><a href="/advisory/" class="nav__mobile-link">Advisory</a></li>
+        <li><a href="/api/" class="nav__mobile-link">APIs</a></li>
+        <li><a href="/ai/" class="nav__mobile-link">AI</a></li>
+        <li><a href="/#why-us" class="nav__mobile-link">Why Us</a></li>
+        <li><a href="/#team" class="nav__mobile-link">Team</a></li>
+        <li><a href="/#about" class="nav__mobile-link">About</a></li>
+        <li><a href="/?topic=web-general#contact" class="nav__mobile-link nav__mobile-cta">Book a Session</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main id="main">
+
+    <!-- ═══════════════════════════════════
+         HERO
+         ═══════════════════════════════════ -->
+    <section class="hero hero--ai hero--web" aria-labelledby="web-hero-heading">
+      <div class="bg-layer bg-layer--hero" aria-hidden="true"></div>
+      <div class="hero__bg-accent" aria-hidden="true"></div>
+
+      <!-- Web hero motif — wireframe shards self-assemble into a device frame -->
+      <div class="web-hero__motif" aria-hidden="true">
+        <svg class="web-hero__svg" viewBox="0 0 480 320" preserveAspectRatio="xMidYMid meet" role="presentation">
+          <!-- Device frame outline (outcome state) -->
+          <g class="web-hero__frame">
+            <rect class="web-hero__frame-body" x="60" y="40" width="360" height="220" rx="12" ry="12" fill="none" stroke="currentColor" stroke-width="1.2" />
+            <line class="web-hero__frame-toolbar" x1="60" y1="76" x2="420" y2="76" stroke="currentColor" stroke-width="1" />
+            <circle class="web-hero__frame-dot" cx="76" cy="58" r="3" fill="currentColor" opacity="0.5" />
+            <circle class="web-hero__frame-dot" cx="88" cy="58" r="3" fill="currentColor" opacity="0.5" />
+            <circle class="web-hero__frame-dot" cx="100" cy="58" r="3" fill="currentColor" opacity="0.5" />
+          </g>
+          <!-- Content shards (each animates in from off-canvas + stagger) -->
+          <g class="web-hero__shards">
+            <rect class="web-hero__shard web-hero__shard--1" x="84" y="100" width="160" height="14" rx="3" />
+            <rect class="web-hero__shard web-hero__shard--2" x="84" y="124" width="220" height="10" rx="2" />
+            <rect class="web-hero__shard web-hero__shard--3" x="84" y="156" width="100" height="72" rx="6" />
+            <rect class="web-hero__shard web-hero__shard--4" x="196" y="156" width="100" height="72" rx="6" />
+            <rect class="web-hero__shard web-hero__shard--5" x="308" y="156" width="100" height="72" rx="6" />
+          </g>
+          <!-- Single gold corner accent -->
+          <path class="web-hero__accent" d="M420 40 L420 60 L400 40 Z" fill="var(--color-accent)" />
+        </svg>
+      </div>
+
+      <div class="container hero__inner">
+        <p class="hero__eyebrow fade-in">Web Application Development · Prudentia Digital</p>
+        <h1 class="hero__headline fade-in" id="web-hero-heading" style="--fade-delay: 100ms">
+          Web applications<br>
+          <span class="hero__headline-accent">built to run for years, not weeks.</span>
+        </h1>
+        <p class="hero__subtext fade-in" style="--fade-delay: 250ms">
+          South Africa's SMME migration off spreadsheets is the largest digital-engineering opportunity locally — Microsoft alone committed R5.4bn in 2024-2025.
+          We build React/Next.js apps on PostgreSQL, perf-budgeted in CI, WCAG AA, POPIA-native.
+        </p>
+        <div class="hero__ctas fade-in" style="--fade-delay: 400ms">
+          <a href="/?topic=web-general#contact" class="btn btn--accent btn--lg">Book a Discovery Session</a>
+          <a href="#capabilities" class="btn btn--outline btn--lg">See What We Build</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════
+         CAPABILITIES
+         ═══════════════════════════════════ -->
+    <section class="services" id="capabilities" aria-labelledby="capabilities-heading" data-spotlight>
+      <div class="bg-layer bg-layer--services" aria-hidden="true"></div>
+      <div class="bg-fx" aria-hidden="true">
+        <div class="bg-fx__grid web-bg-fx__grid"></div>
+        <div class="bg-fx__orb bg-fx__orb--gold bg-fx__orb--tr bg-fx__orb--drift-a web-bg-fx__orb"></div>
+        <div class="bg-fx__spotlight"></div>
+      </div>
+      <div class="container">
+        <div class="section-header">
+          <p class="section-eyebrow fade-in">What We Build</p>
+          <h2 class="section-heading fade-in" id="capabilities-heading" style="--fade-delay: 80ms">Five capabilities. Real outcomes.</h2>
+          <div class="gold-line fade-in" aria-hidden="true" style="--fade-delay: 160ms"></div>
+          <p class="section-sub fade-in" style="--fade-delay: 200ms">
+            Each capability is a working system we ship on your stack — not a slide, not a generic demo.
+            Discovery sets the scope; the build proves it.
+          </p>
+        </div>
+
+        <!-- Capability 1 — Discovery and UX -->
+        <article class="web-capability reveal" id="cap-discovery" aria-labelledby="cap-discovery-title">
+          <header class="web-capability__header">
+            <div class="web-capability__icon-wrap">
+              <svg class="web-capability__icon gold-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <circle cx="11" cy="11" r="7"/>
+                <line x1="21" y1="21" x2="16" y2="16"/>
+                <line x1="8" y1="11" x2="14" y2="11"/>
+                <line x1="11" y1="8" x2="11" y2="14"/>
+              </svg>
+            </div>
+            <div>
+              <p class="web-capability__eyebrow">Capability 01</p>
+              <h3 class="web-capability__title" id="cap-discovery-title">Discovery and UX</h3>
+            </div>
+          </header>
+          <div class="web-capability__body">
+            <p class="web-capability__problem"><strong>The problem.</strong> Pendo research shows around 80% of shipped features are rarely or never used. Skipping discovery is the highest-cost mistake on the page. Nielsen Norman Group found discovery raises product-success odds by 59%.</p>
+            <p class="web-capability__solution"><strong>What we build.</strong> Structured discovery — stakeholder interviews, workflow mapping, a clickable prototype, and named success metrics. We document what we are not building, in writing, before any code ships.</p>
+            <p class="web-capability__use-case"><strong>Example use case.</strong> An owner-operated business pre-commits to fourteen features. Discovery surfaces the four that carry 80% of the value. Build cost is roughly halved; the four ship sooner and survive the first quarter of real use.</p>
+            <p class="web-capability__stack"><strong>Under the hood.</strong> Figma for prototypes, Next.js for clickable proofs, Linear or ClickUp for scope, Playwright acceptance tests written before the code they will gate.</p>
+            <p class="web-capability__cta">
+              <a href="/?topic=web-discovery#contact" class="btn btn--accent">Talk to us about Discovery</a>
+            </p>
+          </div>
+        </article>
+
+        <!-- Capability 2 — Production builds on React/Next.js + Postgres -->
+        <article class="web-capability reveal" id="cap-build" style="--reveal-delay: 80ms" aria-labelledby="cap-build-title">
+          <header class="web-capability__header">
+            <div class="web-capability__icon-wrap">
+              <svg class="web-capability__icon gold-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <polyline points="16 18 22 12 16 6"/>
+                <polyline points="8 6 2 12 8 18"/>
+                <line x1="14" y1="4" x2="10" y2="20"/>
+              </svg>
+            </div>
+            <div>
+              <p class="web-capability__eyebrow">Capability 02</p>
+              <h3 class="web-capability__title" id="cap-build-title">Production builds — React/Next.js + Postgres</h3>
+            </div>
+          </header>
+          <div class="web-capability__body">
+            <p class="web-capability__problem"><strong>The problem.</strong> SA SMB and mid-market teams need apps that are fast on mobile, accessible by default, and survive load-shedding. Generic agency stacks rarely meet the bar — 43% of sites still fail the INP 200ms threshold.</p>
+            <p class="web-capability__solution"><strong>What we build.</strong> A typed React/Next.js front end on a PostgreSQL backend. Server-render the first paint, edge-cache the repeat visits, instrument every route. POPIA-aware data flows from the schema up.</p>
+            <p class="web-capability__use-case"><strong>Example use case.</strong> A SA retailer rebuilds its order-tracking page on a CDN-first stack. Mobile bounce probability falls in line with Google/SOASTA — about 32% per second of LCP improvement between one and three seconds.</p>
+            <p class="web-capability__stack"><strong>Under the hood.</strong> React 19 plus Next.js, PostgreSQL, Drizzle or Prisma, Cloudflare or Vercel at the edge, Playwright, OpenTelemetry, Sentry for error tracking.</p>
+            <p class="web-capability__cta">
+              <a href="/?topic=web-product-build#contact" class="btn btn--accent">Talk to us about Product Build</a>
+            </p>
+          </div>
+        </article>
+
+        <!-- Capability 3 — Modernising legacy admin tools -->
+        <article class="web-capability reveal" id="cap-modernisation" style="--reveal-delay: 160ms" aria-labelledby="cap-modernisation-title">
+          <header class="web-capability__header">
+            <div class="web-capability__icon-wrap">
+              <svg class="web-capability__icon gold-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                <line x1="3" y1="9" x2="21" y2="9"/>
+                <line x1="9" y1="3" x2="9" y2="21"/>
+                <line x1="3" y1="15" x2="9" y2="15"/>
+              </svg>
+            </div>
+            <div>
+              <p class="web-capability__eyebrow">Capability 03</p>
+              <h3 class="web-capability__title" id="cap-modernisation-title">Modernising legacy admin tools</h3>
+            </div>
+          </header>
+          <div class="web-capability__body">
+            <p class="web-capability__problem"><strong>The problem.</strong> Many SA businesses run finance, scheduling, inventory and HR off spreadsheets — only 24.6% of businesses under R1m turnover use a formal accounting system. Reconciliation takes days, errors compound, and there is no real-time view of cash.</p>
+            <p class="web-capability__solution"><strong>What we build.</strong> A typed web app replaces the spreadsheet workflow — schema-first, role-based access, audit log, single source of truth. Phased rollout keeps operations running while the old sheets cycle out.</p>
+            <p class="web-capability__use-case"><strong>Example use case.</strong> A SA SMB finance team migrates off spreadsheets. Manual reconciliation collapses from days to under an hour; cash position is visible same-day; audit-ready by default.</p>
+            <p class="web-capability__stack"><strong>Under the hood.</strong> PostgreSQL, Zod-typed forms, Lucia or Auth.js for sessions, Excel importers for backfill, daily backups in af-south-1.</p>
+            <p class="web-capability__cta">
+              <a href="/?topic=web-modernisation#contact" class="btn btn--accent">Talk to us about Modernisation</a>
+            </p>
+          </div>
+        </article>
+
+        <!-- Capability 4 — Performance and accessibility engineering -->
+        <article class="web-capability reveal" id="cap-perf" style="--reveal-delay: 240ms" aria-labelledby="cap-perf-title">
+          <header class="web-capability__header">
+            <div class="web-capability__icon-wrap">
+              <svg class="web-capability__icon gold-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+              </svg>
+            </div>
+            <div>
+              <p class="web-capability__eyebrow">Capability 04</p>
+              <h3 class="web-capability__title" id="cap-perf-title">Performance and accessibility engineering</h3>
+            </div>
+          </header>
+          <div class="web-capability__body">
+            <p class="web-capability__problem"><strong>The problem.</strong> Only 47% of sites pass all Core Web Vitals; failures correlate with 8-35% loss in conversion, ranking and revenue. ADA accessibility suits hit 4,605 in 2024, with 67% targeting businesses under $25m revenue.</p>
+            <p class="web-capability__solution"><strong>What we build.</strong> Measure before changing anything. Field data from CrUX plus synthetic checks. A perf budget gated in CI. WCAG 2.1 AA baked in — keyboard nav, contrast, labels, and axe-core scans on every pull request.</p>
+            <p class="web-capability__use-case"><strong>Example use case.</strong> Vodafone improved LCP by 31% and saw an 8% sales lift with a 15% cart-to-visit improvement (web.dev). The same pattern applies to SA mid-market retail and international e-commerce.</p>
+            <p class="web-capability__stack"><strong>Under the hood.</strong> Lighthouse CI, axe-core, Web Vitals from CrUX, Sentry performance traces, BrowserStack for real-device verification.</p>
+            <p class="web-capability__cta">
+              <a href="/?topic=web-product-build#contact" class="btn btn--accent">Talk to us about Performance</a>
+            </p>
+          </div>
+        </article>
+
+        <!-- Capability 5 — Maintenance and engineering retainers -->
+        <article class="web-capability reveal" id="cap-retainer" style="--reveal-delay: 320ms" aria-labelledby="cap-retainer-title">
+          <header class="web-capability__header">
+            <div class="web-capability__icon-wrap">
+              <svg class="web-capability__icon gold-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <circle cx="12" cy="12" r="3"/>
+                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33h0a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51h0a1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82v0a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+              </svg>
+            </div>
+            <div>
+              <p class="web-capability__eyebrow">Capability 05</p>
+              <h3 class="web-capability__title" id="cap-retainer-title">Maintenance and engineering retainers</h3>
+            </div>
+          </header>
+          <div class="web-capability__body">
+            <p class="web-capability__problem"><strong>The problem.</strong> Most web apps ship and drift. Dependencies stale, security headers regress, the perf budget creeps, and there is no on-call ownership when the customer-facing page times out at peak.</p>
+            <p class="web-capability__solution"><strong>What we build.</strong> A monthly retainer covering dependency upgrades, security patches, perf-budget enforcement, feature additions, and on-call escalation. You speak to the engineer who built it.</p>
+            <p class="web-capability__use-case"><strong>Example use case.</strong> An international SaaS team puts every change behind a feature flag. LaunchDarkly customers see lead time for changes fall 76% and rollback incidents fall 82% — Friday deploys re-open.</p>
+            <p class="web-capability__stack"><strong>Under the hood.</strong> LaunchDarkly or OpenFeature for flags, OpenTelemetry for traces, a published on-call rotation, monthly perf and a11y report.</p>
+            <p class="web-capability__cta">
+              <a href="/?topic=web-retainer#contact" class="btn btn--accent">Talk to us about Retainer</a>
+            </p>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════
+         HOW WE SHIP WEB IN PRODUCTION
+         ═══════════════════════════════════ -->
+    <section class="why" id="approach" aria-labelledby="approach-heading" data-spotlight>
+      <div class="bg-layer bg-layer--why" aria-hidden="true"></div>
+      <div class="bg-fx" aria-hidden="true">
+        <div class="bg-fx__grid bg-fx__grid--strong web-bg-fx__grid"></div>
+        <div class="bg-fx__spotlight"></div>
+      </div>
+      <div class="container">
+        <div class="section-header">
+          <p class="section-eyebrow fade-in">How We Ship</p>
+          <h2 class="section-heading fade-in" id="approach-heading" style="--fade-delay: 80ms">Production web is a different discipline.</h2>
+          <div class="gold-line fade-in" aria-hidden="true" style="--fade-delay: 160ms"></div>
+        </div>
+
+        <div class="services__grid">
+
+          <article class="card card-pulse reveal" style="--reveal-delay: 0ms" aria-label="Perf budget in CI">
+            <div class="card__icon-wrap">
+              <svg class="card__icon gold-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <polyline points="3 17 9 11 13 15 21 7"/>
+                <polyline points="14 7 21 7 21 14"/>
+              </svg>
+            </div>
+            <h3 class="card__title">Perf budget in CI — measured, not assumed</h3>
+            <p class="card__body">Every pull request is checked against an LCP and INP budget. A regression over 10% fails the build before review. Field data from CrUX is reviewed monthly, not at launch only.</p>
+            <p class="card__tagline">If LCP regresses, the build fails.</p>
+          </article>
+
+          <article class="card card-pulse reveal" style="--reveal-delay: 80ms" aria-label="Accessibility AA from the first commit">
+            <div class="card__icon-wrap">
+              <svg class="card__icon gold-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <circle cx="12" cy="12" r="10"/>
+                <circle cx="12" cy="8" r="1.6" fill="currentColor"/>
+                <path d="M8 12h8M10 12v6M14 12v6"/>
+              </svg>
+            </div>
+            <h3 class="card__title">Accessibility AA from the first commit</h3>
+            <p class="card__body">WCAG 2.1 AA is wired into CI with axe-core. Keyboard navigation, contrast, focus order and form labelling are gates, not afterthoughts. Manual screen-reader checks ship at every milestone.</p>
+            <p class="card__tagline">Built for everyone, gated by tests.</p>
+          </article>
+
+          <article class="card card-pulse reveal" style="--reveal-delay: 160ms" aria-label="POPIA-native data flows">
+            <div class="card__icon-wrap">
+              <svg class="card__icon gold-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <path d="M12 2 L3 6 V12 C3 17 7 21 12 22 C17 21 21 17 21 12 V6 Z"/>
+                <polyline points="9 12 11 14 15 10"/>
+              </svg>
+            </div>
+            <h3 class="card__title">POPIA-native data flows</h3>
+            <p class="card__body">Every personal-information field has a documented purpose, a retention class, and a deletion endpoint. Audit logs are tamper-evident. The Information Regulator's R5 million DBE fine is the floor we engineer above.</p>
+            <p class="card__tagline">No collection without a documented purpose.</p>
+          </article>
+
+          <article class="card card-pulse reveal" style="--reveal-delay: 240ms" aria-label="Feature flags and progressive delivery">
+            <div class="card__icon-wrap">
+              <svg class="card__icon gold-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <line x1="4" y1="22" x2="4" y2="15"/>
+                <path d="M4 15 C 8 11, 12 19, 20 15 V 4 C 12 8, 8 0, 4 4 Z"/>
+              </svg>
+            </div>
+            <h3 class="card__title">Feature flags and progressive delivery</h3>
+            <p class="card__body">Every change ships behind a flag. Dark-launch to 1%, scale on health signals, kill-switch in milliseconds. LaunchDarkly customers report 76% lead-time reduction and 82% fewer rollback incidents — we use the same pattern.</p>
+            <p class="card__tagline">Ship Friday, sleep Saturday.</p>
+          </article>
+
+          <article class="card card-pulse reveal" style="--reveal-delay: 320ms" aria-label="OpenTelemetry from day one">
+            <div class="card__icon-wrap">
+              <svg class="card__icon gold-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <circle cx="12" cy="12" r="3"/>
+                <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/>
+              </svg>
+            </div>
+            <h3 class="card__title">OpenTelemetry from day one</h3>
+            <p class="card__body">Traces, structured logs, metrics. P50, P95 and P99 dashboards. We see how the app behaves in production, not how it behaved in a demo. Latency, error rate and saturation are first-class signals.</p>
+            <p class="card__tagline">You see it. You own it.</p>
+          </article>
+
+          <article class="card card--accent card-pulse reveal" style="--reveal-delay: 400ms" aria-label="Audit Pilot Retainer">
+            <div class="card__icon-wrap">
+              <svg class="card__icon gold-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <line x1="12" y1="20" x2="12" y2="10"/>
+                <line x1="18" y1="20" x2="18" y2="4"/>
+                <line x1="6" y1="20" x2="6" y2="16"/>
+              </svg>
+            </div>
+            <h3 class="card__title">Discovery → Build → Retainer</h3>
+            <p class="card__body">Three engagement shapes. A one-to-two-week Discovery Sprint. A six-to-twelve-week Product Build on your stack. A monthly Engineering Retainer for upgrades, perf, and on-call. Pricing scoped in the discovery session.</p>
+            <p class="card__tagline">Start small. Scale on results.</p>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════
+         USE CASES — NEW vs AI page
+         ═══════════════════════════════════ -->
+    <section class="web-usecases" id="use-cases" aria-labelledby="usecases-heading" data-spotlight>
+      <div class="bg-layer bg-layer--services" aria-hidden="true"></div>
+      <div class="bg-fx" aria-hidden="true">
+        <div class="bg-fx__grid web-bg-fx__grid"></div>
+        <div class="bg-fx__spotlight"></div>
+      </div>
+      <div class="container">
+        <div class="section-header">
+          <p class="section-eyebrow fade-in">Where it lands</p>
+          <h2 class="section-heading fade-in" id="usecases-heading" style="--fade-delay: 80ms">Three engagements, three outcomes.</h2>
+          <div class="gold-line fade-in" aria-hidden="true" style="--fade-delay: 160ms"></div>
+          <p class="section-sub fade-in" style="--fade-delay: 200ms">
+            One South African owner-operator. One mid-market wholesaler. One international e-commerce team.
+            Cited outcomes — no fabricated client names.
+          </p>
+        </div>
+
+        <div class="web-usecases__grid">
+
+          <!-- Use case 1 — SMB / Spreadsheet migration (#1 from bank) -->
+          <article class="web-usecase reveal" style="--reveal-delay: 0ms" aria-labelledby="uc-1-title">
+            <p class="web-usecase__icp-badge" aria-label="ICP: SMB">SMB</p>
+            <h3 class="web-usecase__title" id="uc-1-title">SA SMB finance team migrates off spreadsheets</h3>
+            <p class="web-usecase__body">
+              Only 24.6% of SA businesses under R1m turnover run on a formal accounting system; reconciliation takes days.
+              We replace the spreadsheet workflow with a typed PostgreSQL-backed app — role-based access, bank-statement import, single source of truth.
+              Reconciliation collapses from days to under an hour; cash position is visible same-day.
+            </p>
+            <p class="web-usecase__metric"><strong>Outcome:</strong> Reconciliation time: days → under one hour. One working day per week reclaimed.</p>
+            <p class="web-usecase__citation">
+              Source: <a href="https://www.probizserv.co.za/the-ultimate-guide-to-financial-statements-for-south-african-smes/" rel="noopener" target="_blank">Probizserv — Financial Statements for SA SMEs</a>
+            </p>
+          </article>
+
+          <!-- Use case 2 — SA-Mid / B2B wholesale (#2 from bank) -->
+          <article class="web-usecase reveal" style="--reveal-delay: 80ms" aria-labelledby="uc-2-title">
+            <p class="web-usecase__icp-badge" aria-label="ICP: SA Mid-market">SA Mid-market</p>
+            <h3 class="web-usecase__title" id="uc-2-title">SA wholesaler shifts B2B ordering off WhatsApp</h3>
+            <p class="web-usecase__body">
+              Mid-market SA wholesalers receive resale orders by WhatsApp, phone and emailed PDFs; sales staff re-key every line.
+              We build a B2B portal — secure resale logins, role-based pricing, real-time stock, direct ERP integration.
+              Re-entry stops, pricing errors fall, and the portal blocks orders against zero inventory.
+            </p>
+            <p class="web-usecase__metric"><strong>Outcome:</strong> Order re-entry: 100% manual → 0% manual. Reseller order cycle hours → minutes.</p>
+            <p class="web-usecase__citation">
+              Source: <a href="https://www.gwebdesign.co.za/b2b-wholesale-portals-moving-the-old-school-sa-manufacturing-industry-into-automated-digital-ordering/" rel="noopener" target="_blank">gWebDesign — B2B Wholesale Portals for SA Manufacturing</a>
+            </p>
+          </article>
+
+          <!-- Use case 3 — INT / Vodafone LCP (#5 from bank) -->
+          <article class="web-usecase reveal" style="--reveal-delay: 160ms" aria-labelledby="uc-3-title">
+            <p class="web-usecase__icp-badge" aria-label="ICP: International">International</p>
+            <h3 class="web-usecase__title" id="uc-3-title">Vodafone improves LCP, lifts sales 8%</h3>
+            <p class="web-usecase__body">
+              Vodafone's checkout lagged on Core Web Vitals; slow LCP correlated with abandoned carts.
+              Engineering rebuilt the LCP critical path — image priorities, resource hints, server-render and edge caching — and measured before and after using field data from CrUX.
+              The same pattern applies to SA mid-market retail and international e-commerce.
+            </p>
+            <p class="web-usecase__metric"><strong>Outcome:</strong> LCP -31% → +8% sales, +15% cart-to-visit rate.</p>
+            <p class="web-usecase__citation">
+              Source: <a href="https://web.dev/case-studies/vitals-business-impact" rel="noopener" target="_blank">web.dev — The business impact of Core Web Vitals</a>
+            </p>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════
+         FOUNDATION NOTE — Discovery is table stakes
+         ═══════════════════════════════════ -->
+    <section class="prompt-foundation" aria-labelledby="foundation-heading">
+      <div class="container prompt-foundation__inner">
+        <div class="prompt-foundation__panel reveal">
+          <p class="section-eyebrow">Foundation</p>
+          <h2 class="prompt-foundation__heading" id="foundation-heading">Discovery is table stakes for us, not a deliverable.</h2>
+          <p class="prompt-foundation__body">
+            Every product we ship is grounded in a written discovery — stakeholder interviews, workflow maps, a clickable prototype, and named success metrics. We treat the build plan the way we treat database schema: a first-class artefact that ships through review, gets exercised by tests, and never gets edited blindly in production. It is how we get to "this ships" instead of "this nearly shipped".
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════
+         FAQ
+         ═══════════════════════════════════ -->
+    <section class="faq" id="faq" aria-labelledby="faq-heading" data-spotlight>
+      <div class="bg-layer bg-layer--services" aria-hidden="true"></div>
+      <div class="container">
+        <div class="section-header">
+          <p class="section-eyebrow fade-in">Common Questions</p>
+          <h2 class="section-heading fade-in" id="faq-heading" style="--fade-delay: 80ms">Answers before you book</h2>
+          <div class="gold-line fade-in" aria-hidden="true" style="--fade-delay: 160ms"></div>
+        </div>
+
+        <div class="faq__list">
+          <details class="faq__item reveal" style="--reveal-delay: 0ms">
+            <summary class="faq__question">How long does a web engagement take?</summary>
+            <div class="faq__answer">
+              <p>A <strong>Discovery Sprint</strong> is one to two weeks.
+              A <strong>Product Build</strong> is typically six to twelve weeks for an MVP-to-production scope.
+              <strong>Engineering Retainers</strong> are monthly with no fixed end date. Indicative ranges are shared in the discovery session.</p>
+            </div>
+          </details>
+
+          <details class="faq__item reveal" style="--reveal-delay: 60ms">
+            <summary class="faq__question">Do you sign NDAs?</summary>
+            <div class="faq__answer">
+              <p>Yes. We send a counter-signed mutual NDA within 24 hours of a discovery session, before any of your confidential data is shared.
+              If you have your own NDA template, we will review and counter-sign that instead.</p>
+            </div>
+          </details>
+
+          <details class="faq__item reveal" style="--reveal-delay: 120ms">
+            <summary class="faq__question">How do you handle our customers' data under POPIA?</summary>
+            <div class="faq__answer">
+              <p>Every form has a documented purpose and lawful basis. Default retention is configured per data class. Deletion is a tested endpoint, not a wishlist item.
+              We document operator agreements with any third-party processor. POPIA enforcement is real — the Information Regulator issued an R5 million administrative fine against the Department of Basic Education in November 2024 — and our defaults engineer above that floor.</p>
+            </div>
+          </details>
+
+          <details class="faq__item reveal" style="--reveal-delay: 180ms">
+            <summary class="faq__question">What does pricing look like?</summary>
+            <div class="faq__answer">
+              <p>Three engagement shapes — Discovery Sprint, Product Build, and Engineering Retainer. Sprints and Builds are fixed-fee. Retainers are monthly.
+              We price on scope and outcome, not hourly, because hourly pricing rewards slow delivery. Indicative ranges are shared after the discovery session.</p>
+            </div>
+          </details>
+
+          <details class="faq__item reveal" style="--reveal-delay: 240ms">
+            <summary class="faq__question">Where will our application be hosted?</summary>
+            <div class="faq__answer">
+              <p>We default to Cloudflare or Vercel at the edge with a PostgreSQL database in a region that fits your data-residency posture (typically af-south-1 for SA workloads).
+              If you require on-premise or in-VPC hosting, we deploy there instead. For SA-regulated financial services we document the hosting region and any material cloud agreements so you can notify SARB under PA Directive D3/2018 if your environment requires it.</p>
+            </div>
+          </details>
+
+          <details class="faq__item reveal" style="--reveal-delay: 300ms">
+            <summary class="faq__question">Why React/Next.js and Postgres — and not the framework I read about last week?</summary>
+            <div class="faq__answer">
+              <p>Because we ship the boring stack on purpose. React is used by 41.6% of professional developers and PostgreSQL by 49% (Stack Overflow 2024 Developer Survey).
+              Depth of talent and tooling is decisive when you are operating a system for years. We pick boring fundamentals so the budget lands on the parts that move your business outcome, not on framework rewrites.</p>
+            </div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════
+         ABOUT
+         ═══════════════════════════════════ -->
+    <section class="about-blurb" aria-labelledby="about-blurb-heading">
+      <div class="container about-blurb__inner">
+        <div class="about-blurb__panel reveal">
+          <p class="section-eyebrow">About</p>
+          <h2 class="about-blurb__heading" id="about-blurb-heading">Built and delivered by Thulani Maseko.</h2>
+          <p class="about-blurb__body">
+            Enterprise engineering background shaped at Capitec, Absa and E4 Strategic. Direct experience designing web systems for production — not just shipping prototypes.
+            Prudentia is B-BBEE Level 1, 100% Black-owned, and CIPC-registered. Every web engagement is led personally; you speak to the engineer building the system, every time.
+          </p>
+          <p class="about-blurb__cta">
+            <a href="/#team" class="btn btn--outline">Read full bio</a>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════
+         FINAL CTA
+         ═══════════════════════════════════ -->
+    <section class="cta" id="final-cta" aria-labelledby="final-cta-heading" data-spotlight>
+      <div class="bg-layer bg-layer--cta" aria-hidden="true"></div>
+      <div class="bg-fx" aria-hidden="true">
+        <div class="bg-fx__grid web-bg-fx__grid"></div>
+        <div class="bg-fx__orb bg-fx__orb--gold bg-fx__orb--tl bg-fx__orb--drift-b web-bg-fx__orb"></div>
+        <div class="bg-fx__orb bg-fx__orb--warm bg-fx__orb--br bg-fx__orb--drift-a"></div>
+        <div class="bg-fx__spotlight"></div>
+      </div>
+      <div class="container cta__inner">
+        <h2 class="cta__heading reveal" id="final-cta-heading">Book a discovery session for your web product.</h2>
+        <p class="cta__sub fade-in" style="--fade-delay: 100ms">
+          A 45-minute scoping call. We walk through the current product, sketch an initial roadmap, identify quick wins.
+          No slides. No commitment until you decide.
+        </p>
+        <div class="cta__actions fade-in" style="--fade-delay: 200ms">
+          <a href="/?topic=web-general#contact" class="btn btn--accent btn--lg">Book a Discovery Session</a>
+          <a href="mailto:masekolt@prudentiadigital.co.za?subject=Web%20Application%20Development%20%E2%80%94%20discovery%20session" class="btn btn--outline btn--lg">Email Us Instead</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ═══════════════════════════════════
+       FOOTER
+       ═══════════════════════════════════ -->
+  <footer class="footer" role="contentinfo">
+    <div class="bg-layer bg-layer--footer" aria-hidden="true"></div>
+    <div class="container footer__inner">
+      <div class="footer__brand">
+        <a href="/" class="footer__logo" aria-label="Prudentia Digital — back to home">
+          <picture>
+            <source srcset="../assets/logo-icon-white-512.webp" type="image/webp">
+            <img src="../assets/logo-icon-white-512.png" alt="" width="32" height="41" loading="lazy" aria-hidden="true">
+          </picture>
+          <span class="footer__wordmark">
+            <span class="footer__wordmark-primary">PRUDENTIA</span>
+            <span class="footer__wordmark-rule" aria-hidden="true"></span>
+            <span class="footer__wordmark-secondary">DIGITAL</span>
+          </span>
+        </a>
+        <p class="footer__tagline">Enterprise-grade technology. Local expertise, global reach.</p>
+      </div>
+
+      <nav class="footer__nav" aria-label="Footer navigation">
+        <ul role="list">
+          <li><a href="/#services">Services</a></li>
+          <li><a href="/web/">Web Application Development</a></li>
+          <li><a href="/ai/">AI Engineering</a></li>
+          <li><a href="/#why-us">Why Us</a></li>
+          <li><a href="/#about">About</a></li>
+          <li><a href="mailto:masekolt@prudentiadigital.co.za">Contact</a></li>
+          <li><a href="/privacy.html">Privacy Policy</a></li>
+          <li><a href="/terms.html">Terms of Service</a></li>
+        </ul>
+      </nav>
+
+      <div class="footer__meta">
+        <p class="footer__badge" aria-label="B-BBEE Level 1 certified">
+          <span class="footer__badge-dot" aria-hidden="true"></span>
+          Level 1 B-BBEE · 100% Black-owned
+        </p>
+        <p class="footer__registration">Enterprise No. 2025/910056/07 · CIPC Registered · CSD Registered</p>
+        <p class="footer__copy">
+          &copy; 2026 Prudentia Digital (Pty) Ltd &middot;
+          <a href="mailto:masekolt@prudentiadigital.co.za">masekolt@prudentiadigital.co.za</a>
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Cookie consent banner -->
+  <div class="cookie-banner" id="cookieBanner" role="dialog" aria-modal="false" aria-label="Cookie notice" hidden>
+    <p class="cookie-banner__text">
+      We use essential cookies for security and performance. No tracking or advertising cookies.
+      <a href="/privacy.html">Privacy Policy</a>
+    </p>
+    <div class="cookie-banner__actions">
+      <button class="btn btn--accent btn--sm" id="cookieAccept">Accept</button>
+      <button class="btn btn--outline btn--sm" id="cookieDismiss" style="color:rgba(255,255,255,0.6);border-color:rgba(255,255,255,0.2)">Dismiss</button>
+    </div>
+  </div>
+
+  <!-- Animated backgrounds -->
+  <script src="../js/animated-bg.js?v=1.1" defer></script>
+
+  <script>
+    (() => {
+      'use strict';
+
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js').catch(() => {});
+        });
+      }
+
+      const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const animatedEls = document.querySelectorAll('.reveal, .fade-in, .gold-line, .gold-icon, .reveal-left');
+
+      if (reduced) {
+        animatedEls.forEach(el => el.classList.add('visible'));
+        // Hero motif: show outcome state immediately
+        document.querySelector('.web-hero__motif')?.classList.add('is-settled');
+      } else {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              const el = entry.target;
+              const delay = el.style.getPropertyValue('--reveal-delay') || el.style.getPropertyValue('--fade-delay') || '0ms';
+              setTimeout(() => el.classList.add('visible'), parseInt(delay) || 0);
+              observer.unobserve(el);
+            }
+          });
+        }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+        animatedEls.forEach(el => observer.observe(el));
+
+        document.querySelectorAll('.hero .fade-in').forEach(el => {
+          const delay = parseInt(el.style.getPropertyValue('--fade-delay')) || 0;
+          setTimeout(() => el.classList.add('visible'), delay + 80);
+        });
+
+        // Hero motif: trigger shard assembly after first paint, settle at the end.
+        const motif = document.querySelector('.web-hero__motif');
+        if (motif) {
+          requestAnimationFrame(() => {
+            motif.classList.add('is-assembling');
+            setTimeout(() => motif.classList.add('is-settled'), 700);
+          });
+        }
+      }
+
+      const toggle = document.getElementById('navToggle');
+      const mobileMenu = document.getElementById('navMobile');
+
+      function closeMobileMenu() {
+        mobileMenu.classList.remove('open');
+        toggle.setAttribute('aria-expanded', 'false');
+        mobileMenu.setAttribute('aria-hidden', 'true');
+        toggle.setAttribute('aria-label', 'Open menu');
+        toggle.focus();
+      }
+
+      if (toggle && mobileMenu) {
+        toggle.addEventListener('click', () => {
+          const open = mobileMenu.classList.toggle('open');
+          toggle.setAttribute('aria-expanded', open);
+          mobileMenu.setAttribute('aria-hidden', !open);
+          toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+        });
+
+        mobileMenu.addEventListener('keydown', (e) => {
+          if (!mobileMenu.classList.contains('open')) return;
+          if (e.key === 'Escape') closeMobileMenu();
+        });
+
+        mobileMenu.querySelectorAll('a').forEach(link => {
+          link.addEventListener('click', () => closeMobileMenu());
+        });
+      }
+
+      const cookieBanner = document.getElementById('cookieBanner');
+      if (cookieBanner && !localStorage.getItem('pd_cookie_consent')) {
+        cookieBanner.removeAttribute('hidden');
+      }
+      function dismissCookieBanner() {
+        localStorage.setItem('pd_cookie_consent', '1');
+        cookieBanner.setAttribute('hidden', '');
+      }
+      document.getElementById('cookieAccept')?.addEventListener('click', dismissCookieBanner);
+      document.getElementById('cookieDismiss')?.addEventListener('click', dismissCookieBanner);
+    })();
+  </script>
+
+
+<!-- 3d-scroll-web:start name="hero-reveal-web" version="1.0.0" -->
+<style>
+  [data-3d-scroll="z-axis-text-reveal"] {
+    --scroll-depth: 220px;
+    --scroll-intensity: 1;
+    --stagger-ms: 32ms;
+    --scroll-easing: cubic-bezier(0.16, 1, 0.3, 1);
+    transform-style: preserve-3d;
+    perspective: 1000px;
+    perspective-origin: 50% 60%;
+  }
+  [data-3d-scroll="z-axis-text-reveal"] .reveal-letter {
+    display: inline-block;
+    transform-style: preserve-3d;
+    opacity: 0;
+    transform:
+      translateZ(calc(-1 * var(--scroll-depth) * var(--scroll-intensity)))
+      scale(0.88);
+    transition:
+      transform 0.95s var(--scroll-easing),
+      opacity 0.6s var(--scroll-easing);
+    will-change: transform, opacity;
+  }
+  [data-3d-scroll="z-axis-text-reveal"].is-revealed .reveal-letter {
+    opacity: 1;
+    transform: translateZ(0) scale(1);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    [data-3d-scroll="z-axis-text-reveal"] .reveal-letter {
+      transform: none !important;
+      transition: opacity 0.3s ease-out;
+    }
+  }
+</style>
+<script>
+  (function init() {
+    var heading = document.getElementById("web-hero-heading");
+    if (!heading) return;
+    heading.setAttribute("data-3d-scroll", "z-axis-text-reveal");
+    if (!heading.getAttribute("aria-label")) {
+      heading.setAttribute("aria-label", heading.textContent.trim().replace(/\s+/g, " "));
+    }
+    var letterCount = 0;
+    var staggerMs = 32;
+    function splitTextNodes(node) {
+      var children = Array.prototype.slice.call(node.childNodes);
+      children.forEach(function (child) {
+        if (child.nodeType === 3) {
+          var text = child.textContent || "";
+          var frag = document.createDocumentFragment();
+          for (var i = 0; i < text.length; i++) {
+            var ch = text[i];
+            if (ch === " ") { frag.appendChild(document.createTextNode(" ")); continue; }
+            var span = document.createElement("span");
+            span.className = "reveal-letter";
+            span.textContent = ch;
+            span.setAttribute("aria-hidden", "true");
+            span.style.transitionDelay = (letterCount * staggerMs) + "ms";
+            frag.appendChild(span);
+            letterCount++;
+          }
+          node.replaceChild(frag, child);
+        } else if (child.nodeType === 1) {
+          splitTextNodes(child);
+        }
+      });
+    }
+    splitTextNodes(heading);
+    if (typeof console.group === "function") {
+      console.group("[3d-scroll-web] hero-reveal-web");
+      console.log("split into", letterCount, "letters");
+      console.groupEnd();
+    }
+    var reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reducedMotion) { heading.classList.add("is-revealed"); return; }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          heading.classList.add("is-revealed");
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.35 });
+    io.observe(heading);
+  })();
+</script>
+<!-- 3d-scroll-web:end name="hero-reveal-web" -->
+
+</body>
+</html>

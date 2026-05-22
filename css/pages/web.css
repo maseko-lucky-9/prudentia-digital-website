@@ -1,0 +1,468 @@
+/*
+ * Prudentia Digital — Web Application Development page (/web/)
+ *
+ * Loaded after design-tokens.css, styles.css, animated-bg.css, _motion-shared.css.
+ * All transitions reference tokens from _motion-shared.css. The one new token
+ * introduced here is --motion-web-shard-assembly (the hero shard cascade).
+ *
+ * Signature motion (per _motion-brief.md, Web):
+ *   - Hero: wireframe shards stagger in from off-canvas + assemble into a device frame
+ *           with one gold corner accent. Outcome is the held frame (no loop).
+ *   - Capability card hover: split a before/after sliver — legacy-grey left, modern-gold right.
+ *   - Background: finer dot-grid drift + one drifting gold orb at 8% opacity.
+ *
+ * Contracts:
+ *   - prefers-reduced-motion: show outcome state immediately, all transforms frozen.
+ *   - (hover: hover) and (pointer: fine): gate hover effects. Touch-only devices get static cards.
+ *   - Responsive breakpoints: 375 / 768 / 1280px.
+ */
+
+:root {
+  /* Web-page-only token. Per the brief, services may add one bespoke token. */
+  --motion-web-shard-assembly: transform 520ms var(--motion-ease-out-quint),
+                               opacity 520ms var(--motion-ease-out-quint);
+
+  /* Legacy / modern split palette used by capability hover and the hero shard fills */
+  --web-color-legacy: rgba(255, 255, 255, 0.04);     /* faint legacy slate */
+  --web-color-modern: rgba(212, 175, 55, 0.12);      /* accent-tinted modern */
+  --web-color-shard-stroke: rgba(255, 255, 255, 0.32);
+  --web-color-shard-fill: rgba(255, 255, 255, 0.06);
+}
+
+
+/* ════════════════════════════════════════════════════════
+   HERO — wireframe shard composition
+   ════════════════════════════════════════════════════════ */
+
+.hero--web {
+  position: relative;
+  overflow: hidden;
+}
+
+.web-hero__motif {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: clamp(1.5rem, 6vw, 5rem);
+  opacity: 0.55;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.web-hero__svg {
+  width: min(520px, 50vw);
+  height: auto;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+/* Default (pre-assembly) state — frame visible faint, shards offset & invisible */
+.web-hero__frame {
+  opacity: 0;
+  transition: var(--motion-settle);
+}
+.web-hero__frame-body,
+.web-hero__frame-toolbar {
+  stroke: var(--web-color-shard-stroke);
+}
+
+.web-hero__shard {
+  fill: var(--web-color-shard-fill);
+  stroke: var(--web-color-shard-stroke);
+  stroke-width: 0.8;
+  opacity: 0;
+  transform-origin: center;
+  transform-box: fill-box;
+  transition: var(--motion-web-shard-assembly);
+}
+
+/* Off-canvas starting positions per shard — staggered direction */
+.web-hero__shard--1 { transform: translate(-32px, -8px); }
+.web-hero__shard--2 { transform: translate(-48px, 0); }
+.web-hero__shard--3 { transform: translate(0, 36px); }
+.web-hero__shard--4 { transform: translate(0, 48px); }
+.web-hero__shard--5 { transform: translate(36px, 24px); }
+
+.web-hero__accent {
+  opacity: 0;
+  transform-origin: 420px 40px;
+  transform-box: fill-box;
+  transform: scale(0.4);
+  transition: var(--motion-settle);
+}
+
+/* Assembling state — shards slide into final position with 80ms cascade */
+.web-hero__motif.is-assembling .web-hero__frame { opacity: 1; }
+.web-hero__motif.is-assembling .web-hero__shard {
+  opacity: 1;
+  transform: translate(0, 0);
+}
+.web-hero__motif.is-assembling .web-hero__shard--1 { transition-delay: calc(var(--motion-stagger) * 0); }
+.web-hero__motif.is-assembling .web-hero__shard--2 { transition-delay: calc(var(--motion-stagger) * 1); }
+.web-hero__motif.is-assembling .web-hero__shard--3 { transition-delay: calc(var(--motion-stagger) * 2); }
+.web-hero__motif.is-assembling .web-hero__shard--4 { transition-delay: calc(var(--motion-stagger) * 3); }
+.web-hero__motif.is-assembling .web-hero__shard--5 { transition-delay: calc(var(--motion-stagger) * 4); }
+
+/* Settled state — final composition, gold corner accent lit */
+.web-hero__motif.is-settled .web-hero__accent {
+  opacity: 1;
+  transform: scale(1);
+  transition-delay: calc(var(--motion-stagger) * 5);
+}
+
+/* Reduced-motion override — render outcome immediately */
+@media (prefers-reduced-motion: reduce) {
+  .web-hero__frame,
+  .web-hero__accent {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .web-hero__shard {
+    opacity: 1 !important;
+    transform: translate(0, 0) !important;
+  }
+}
+
+/* Hero motif scales down on smaller viewports */
+@media (max-width: 768px) {
+  .web-hero__motif {
+    opacity: 0.32;
+    justify-content: center;
+    padding-right: 0;
+  }
+  .web-hero__svg {
+    width: 90vw;
+    max-width: 420px;
+  }
+}
+
+@media (max-width: 375px) {
+  .web-hero__motif {
+    opacity: 0.22;
+  }
+}
+
+
+/* ════════════════════════════════════════════════════════
+   BACKGROUND FX OVERRIDES — finer dot grid, slower drift
+   ════════════════════════════════════════════════════════ */
+
+.web-bg-fx__grid {
+  /* Finer spacing than the shared grid; slower drift duration. */
+  background-size: 22px 22px !important;
+  animation-duration: var(--motion-dur-drift) !important;
+  opacity: 0.55;
+}
+
+.web-bg-fx__orb {
+  /* Single drifting gold orb at 8% opacity per motion brief */
+  opacity: 0.08 !important;
+}
+
+
+/* ════════════════════════════════════════════════════════
+   CAPABILITY CARDS — .web-capability
+   Reuses .ai-capability chrome for layout but adds the
+   before/after legacy-vs-modern hover sliver.
+   ════════════════════════════════════════════════════════ */
+
+.web-capability {
+  position: relative;
+  background: var(--color-navy-800, #14253A);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: var(--radius-lg);
+  padding: var(--space-8, 2.5rem);
+  margin-bottom: var(--space-6, 2rem);
+  max-width: 980px;
+  margin-left: auto;
+  margin-right: auto;
+  overflow: hidden;
+  transition: var(--motion-card-tilt);
+}
+
+.web-capability__header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4, 1rem);
+  margin-bottom: var(--space-6, 2rem);
+  padding-bottom: var(--space-4, 1rem);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.web-capability__icon-wrap {
+  flex: 0 0 56px;
+  width: 56px;
+  height: 56px;
+  border-radius: var(--radius-md, 8px);
+  background: rgba(212, 175, 55, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--motion-hover-quick);
+}
+
+.web-capability__icon {
+  width: 32px;
+  height: 32px;
+  color: var(--color-accent);
+}
+
+.web-capability__eyebrow {
+  font-size: var(--text-xs, 0.75rem);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  margin: 0 0 var(--space-1, 0.25rem) 0;
+  font-weight: 500;
+}
+
+.web-capability__title {
+  font-family: var(--font-display, 'DM Serif Display', serif);
+  font-size: clamp(1.5rem, 2.5vw, 2rem);
+  color: #fff;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.web-capability__body p {
+  color: rgba(255, 255, 255, 0.78);
+  line-height: var(--leading-relaxed, 1.7);
+  margin: 0 0 var(--space-4, 1rem) 0;
+  position: relative;
+  z-index: 2;
+}
+
+.web-capability__body p strong {
+  color: #fff;
+  font-weight: 600;
+}
+
+.web-capability__cta {
+  margin-top: var(--space-6, 2rem);
+}
+
+/* Before/after sliver overlay — split the card visually on hover.
+   Two pseudo-elements: left half darkens (legacy-code feel),
+   right half brightens (modern-UI gold shimmer).
+   Rendered behind content via z-index. Gated by hover+pointer media query. */
+
+.web-capability::before,
+.web-capability::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 50%;
+  opacity: 0;
+  pointer-events: none;
+  transition: var(--motion-hover-quick);
+  z-index: 1;
+}
+
+.web-capability::before {
+  left: 0;
+  background: linear-gradient(90deg, var(--web-color-legacy) 0%, transparent 100%);
+}
+
+.web-capability::after {
+  right: 0;
+  background: linear-gradient(270deg, var(--web-color-modern) 0%, transparent 100%);
+}
+
+/* Pointer-coarse contract — only enable hover effects on real cursors */
+@media (hover: hover) and (pointer: fine) {
+  .web-capability:hover {
+    transform: translateY(-4px);
+    border-color: rgba(212, 175, 55, 0.18);
+  }
+  .web-capability:hover::before { opacity: 1; }
+  .web-capability:hover::after  { opacity: 1; }
+  .web-capability:hover .web-capability__icon-wrap {
+    background: rgba(212, 175, 55, 0.18);
+  }
+}
+
+/* Reduced-motion contract — kill the sliver entirely */
+@media (prefers-reduced-motion: reduce) {
+  .web-capability {
+    transform: none !important;
+    transition: none !important;
+  }
+  .web-capability::before,
+  .web-capability::after {
+    transition: none !important;
+    opacity: 0 !important;
+  }
+}
+
+
+/* ════════════════════════════════════════════════════════
+   USE CASES — new section, ICP-tagged cards
+   ════════════════════════════════════════════════════════ */
+
+.web-usecases {
+  padding: var(--space-12, 4rem) 0;
+  position: relative;
+}
+
+.web-usecases__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-6, 2rem);
+  margin-top: var(--space-8, 2.5rem);
+}
+
+.web-usecase {
+  position: relative;
+  background: var(--color-navy-800, #14253A);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6, 2rem);
+  display: flex;
+  flex-direction: column;
+  transition: var(--motion-card-tilt);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .web-usecase:hover {
+    transform: translateY(-3px);
+    border-color: rgba(212, 175, 55, 0.22);
+    box-shadow: 0 14px 32px rgba(0, 0, 0, 0.28);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .web-usecase {
+    transform: none !important;
+    transition: none !important;
+  }
+}
+
+.web-usecase__icp-badge {
+  display: inline-block;
+  align-self: flex-start;
+  font-size: 0.6875rem;      /* ≤ 12px target — 11px renders calm */
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--color-accent);
+  background: rgba(13, 27, 42, 0.8);
+  border: 1px solid var(--color-accent);
+  border-radius: 9999px;
+  padding: 4px 12px;
+  margin: 0 0 var(--space-4, 1rem) 0;
+  line-height: 1.4;
+}
+
+.web-usecase__title {
+  font-family: var(--font-display, 'DM Serif Display', serif);
+  font-size: clamp(1.25rem, 1.8vw, 1.5rem);
+  color: #fff;
+  margin: 0 0 var(--space-4, 1rem) 0;
+  line-height: 1.25;
+}
+
+.web-usecase__body {
+  color: rgba(255, 255, 255, 0.78);
+  line-height: var(--leading-relaxed, 1.7);
+  margin: 0 0 var(--space-4, 1rem) 0;
+  flex: 1 1 auto;
+}
+
+.web-usecase__metric {
+  color: #fff;
+  font-weight: 500;
+  background: rgba(212, 175, 55, 0.08);
+  border-left: 3px solid var(--color-accent);
+  padding: var(--space-3, 0.75rem) var(--space-4, 1rem);
+  border-radius: 0 var(--radius-sm, 4px) var(--radius-sm, 4px) 0;
+  margin: 0 0 var(--space-4, 1rem) 0;
+  font-size: 0.9375rem;
+}
+
+.web-usecase__metric strong {
+  color: var(--color-accent);
+}
+
+.web-usecase__citation {
+  font-size: 0.8125rem;
+  color: rgba(255, 255, 255, 0.5);
+  margin: 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  padding-top: var(--space-3, 0.75rem);
+}
+
+.web-usecase__citation a {
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: underline;
+  text-decoration-color: rgba(212, 175, 55, 0.4);
+  text-underline-offset: 3px;
+  transition: var(--motion-hover-quick);
+}
+
+.web-usecase__citation a:hover {
+  color: var(--color-accent);
+  text-decoration-color: var(--color-accent);
+}
+
+
+/* ════════════════════════════════════════════════════════
+   RESPONSIVE — 375 / 768 / 1280px
+   ════════════════════════════════════════════════════════ */
+
+/* Tablet (≤ 1280px desktop, ≥ 769px) — narrow the use-case grid to 2 cols */
+@media (max-width: 1280px) {
+  .web-usecases__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Tablet to large mobile */
+@media (max-width: 768px) {
+  .web-usecases__grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-5, 1.5rem);
+  }
+  .web-capability {
+    padding: var(--space-6, 2rem);
+  }
+  .web-capability__header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-3, 0.75rem);
+    text-align: left;
+  }
+  .web-usecase {
+    padding: var(--space-5, 1.5rem);
+  }
+}
+
+/* Small mobile */
+@media (max-width: 375px) {
+  .web-capability {
+    padding: var(--space-5, 1.5rem);
+  }
+  .web-capability__title {
+    font-size: 1.375rem;
+  }
+  .web-usecase__title {
+    font-size: 1.125rem;
+  }
+}
+
+
+/* ════════════════════════════════════════════════════════
+   TOUCH TARGET MINIMUM — per pointer-coarse contract
+   ════════════════════════════════════════════════════════ */
+
+@media (pointer: coarse), (hover: none) {
+  .web-capability__cta .btn,
+  .web-usecase__citation a {
+    min-height: 48px;
+  }
+  .web-usecase__citation a {
+    display: inline-block;
+    padding-block: 6px;
+  }
+}

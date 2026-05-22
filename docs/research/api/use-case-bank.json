@@ -1,0 +1,139 @@
+{
+  "service": "API Development & Integration",
+  "page_slug": "api",
+  "retrieval_date": "2026-05-21",
+  "schema_version": "1.0",
+  "use_cases": [
+    {
+      "id": "UC-API-01",
+      "title": "Webhook delivery rebuilt with retry-with-jitter and a DLQ",
+      "icp": ["INT", "SaaS"],
+      "problem": "Synchronous webhook dispatch from core business logic coupled producer availability to every consumer. Recovered endpoints were getting hammered by synchronised retry storms; events were being lost; consumers were silently double-processing duplicates.",
+      "intervention": "Queue-backed dispatcher (SQS / RabbitMQ / Kafka), exponential backoff with random jitter on retries, dead-letter queue for unprocessable events, V4 UUID event IDs, HMAC-signed payloads, dedup table at the consumer with UNIQUE constraint on event_id.",
+      "outcome_quantified": "Synchronised retry spikes drop by >80%; lost events approach zero; duplicate-processing class eliminated at the consumer.",
+      "named_pattern": "retry-with-jitter + dead-letter queue + idempotent receiver",
+      "named_gateway_or_vendor": null,
+      "evidence": "pattern",
+      "citations": ["C12", "C20", "C21"]
+    },
+    {
+      "id": "UC-API-02",
+      "title": "KYC API integration cuts onboarding from 24 hours to minutes",
+      "icp": ["SA-FS", "lending", "fintech"],
+      "problem": "Manual KYC review queues were a 24-hour customer-journey choke point; document handoffs, sanctions screening, and liveness verification were stitched together with email and spreadsheets.",
+      "intervention": "API-led KYC orchestration: document capture, liveness checks, sanctions screening, watchlist matching, and decisioning behind a contract-first OpenAPI surface; idempotency on submission; OpenTelemetry per stage.",
+      "outcome_quantified": "90% onboarding-time reduction (24h -> minutes); 40-60% cost savings on KYC ops; 50% reduction in fraudulent account registrations (documented industry cases).",
+      "named_pattern": "API orchestration + idempotency + observability",
+      "named_gateway_or_vendor": null,
+      "evidence": "pattern",
+      "citations": ["C15"]
+    },
+    {
+      "id": "UC-API-03",
+      "title": "Payment-gateway switch with zero double-charges via idempotency keys",
+      "icp": ["INT", "SA-Mid", "retail"],
+      "problem": "PSP migration risked duplicate charges, chargebacks, and customer-trust erosion. Without idempotency keys, network timeouts triggered client-side retries that processed twice.",
+      "intervention": "Client-generated V4 UUID idempotency keys on every charge / refund / capture; 24-hour key TTL; exponential backoff on retries; signed webhook verification on raw body; reconciliation worker proving the ledger matches the gateway daily.",
+      "outcome_quantified": "<2ms overhead per request (Stripe's documented baseline); duplicate-charge class eliminated; weekly finance-grade reconciliation report.",
+      "named_pattern": "idempotency keys + signed webhooks + reconciliation worker",
+      "named_gateway_or_vendor": ["PayFast", "Peach Payments", "Stripe", "Adyen"],
+      "evidence": "pattern",
+      "citations": ["C20", "C21", "C24"]
+    },
+    {
+      "id": "UC-API-04",
+      "title": "PayShap real-time payment integration with SARB-grade reliability",
+      "icp": ["SA-FS", "banking"],
+      "problem": "PayShap is the SARB-led real-time rail; participant integration requires ISO 20022 message handling, idempotency on credit-transfer instructions, and resilience that meets banking-grade RTOs.",
+      "intervention": "ISO 20022 message adapters, idempotency keys per instruction, circuit breakers around BankservAfrica calls, OpenTelemetry tracing per message, runbook for SARB incident reporting (24h notification, 48h written report).",
+      "outcome_quantified": "Meets SARB Directive 1 of 2024: 2-hour RTO for critical systems (max 8h); incident reporting workflow tested.",
+      "named_pattern": "ISO 20022 + idempotency + circuit breakers + SARB-grade runbook",
+      "named_gateway_or_vendor": ["PayShap", "BankservAfrica"],
+      "evidence": "pattern",
+      "citations": ["C8", "C14"]
+    },
+    {
+      "id": "UC-API-05",
+      "title": "Partner onboarding cut from 8 weeks to ~1 week with self-service developer portal",
+      "icp": ["INT", "marketplace SaaS", "SMB"],
+      "problem": "Manual partner onboarding consumed weeks of integration-engineering time per partner; documentation drift caused integration breakage on each release.",
+      "intervention": "Self-service developer portal, contract-first OpenAPI specs, generated mock servers and SDKs, contract tests in CI, sandbox credentials, automated provisioning.",
+      "outcome_quantified": "Industry case: 8 weeks -> ~1 week; one fintech got 14 days -> 3 hours via Swagger-based docs; centralised docs cut onboarding by 75% (Postman 2023 SOTI).",
+      "named_pattern": "contract-first OpenAPI + developer portal + automated provisioning",
+      "named_gateway_or_vendor": null,
+      "evidence": "pattern",
+      "citations": ["C19", "C4"]
+    },
+    {
+      "id": "UC-API-06",
+      "title": "Replace brittle ERP-CRM point-to-point integrations with contract-first integration layer",
+      "icp": ["SA-Mid", "enterprise"],
+      "problem": "SA mid-market enterprise running 10+ third-party systems on hand-rolled connectors; every vendor schema change broke production; no consistent error handling or observability.",
+      "intervention": "Typed integration layer the client owns: anti-corruption layer at each vendor boundary, versioned OpenAPI + AsyncAPI contracts, Kafka or Redis Streams event bus, OpenTelemetry instrumentation, Terraform for infrastructure.",
+      "outcome_quantified": "Vendor schema changes become localised refactors instead of multi-day fire drills; integration TCO maintenance share (30-40% of cost) materially reduced.",
+      "named_pattern": "contract-first integration layer + anti-corruption + event bus",
+      "named_gateway_or_vendor": null,
+      "evidence": "pattern",
+      "citations": ["C11", "C16"]
+    },
+    {
+      "id": "UC-API-07",
+      "title": "PCI-DSS 4.0 API gateway hardening (Req 6.5.6 + Req 6.3.2)",
+      "icp": ["SA-FS", "INT", "payments"],
+      "problem": "Bank / fintech preparing for PCI-DSS 4.0 (effective 1 April 2025) needed explicit API security controls: BOLA mitigation, broken function-level authorisation checks, data-exposure scans, full request/response logging, component inventory.",
+      "intervention": "API gateway-level enforcement of object-level authorisation, rate limits, input validation, signed-payload verification; bespoke + third-party component inventory; continuous patch management; mTLS at sensitive edges.",
+      "outcome_quantified": "Closes Req 6.5.6 / Req 6.3.2 gaps before assessment; addresses OWASP API #1 (BOLA, present in ~40% of attacks).",
+      "named_pattern": "PCI-DSS 4.0 + OWASP API Top 10 + mTLS at gateway",
+      "named_gateway_or_vendor": null,
+      "evidence": "pattern",
+      "citations": ["C13", "C25"]
+    },
+    {
+      "id": "UC-API-08",
+      "title": "Circuit breakers around third-party PSP calls",
+      "icp": ["INT", "fintech"],
+      "problem": "PSP latency spikes during peak load were cascading into the merchant's checkout: slow downstream calls exhausted the thread pool; entire merchant service degraded; p99 latency on partner calls spiked uncontrollably.",
+      "intervention": "Resilience4j-style circuit breaker (Closed / Open / Half-Open states) on outbound PSP calls; bulkheads to isolate slow downstreams; layered retry + rate limiter; structured logs with correlation IDs.",
+      "outcome_quantified": "Tail-latency on partner calls becomes survivable; cascading failure prevented; mean-time-to-diagnosis drops sharply.",
+      "named_pattern": "circuit breaker + bulkhead + structured logs",
+      "named_gateway_or_vendor": ["Stripe", "Adyen", "PayFast"],
+      "evidence": "pattern",
+      "citations": ["C27", "C17"]
+    },
+    {
+      "id": "UC-API-09",
+      "title": "OpenTelemetry distributed tracing across the API estate",
+      "icp": ["SA-Mid", "SMB", "INT"],
+      "problem": "p99 latency spikes diagnosed by guesswork; no causal chain across services A->B->C; observability bolted on after incidents instead of designed in.",
+      "intervention": "OpenTelemetry traces + metrics + logs from day one; histogram bucket boundaries set to SLO targets (e.g., 500ms for p99); correlation IDs propagated end-to-end; per-route latency + error-rate dashboards.",
+      "outcome_quantified": "Symptom-to-cause time on incidents drops from hours of guessing to a single trace; SLO compliance becomes measurable, not aspirational.",
+      "named_pattern": "OpenTelemetry + SLO-aligned histograms + correlation IDs",
+      "named_gateway_or_vendor": null,
+      "evidence": "pattern",
+      "citations": ["C17"]
+    },
+    {
+      "id": "UC-API-10",
+      "title": "Stitch / Capitec Pay / Absa Pay / Nedbank Direct EFT integration",
+      "icp": ["SA-FS", "payments", "INT-SA-crossover"],
+      "problem": "Enterprise SA merchants (Takealot, Mr D, MTN, Vodacom, TFG's Bash) are moving beyond card-only to direct-bank rails; integration scope spans pay-by-bank, debit order, DebiCheck, wallets, and reconciliation.",
+      "intervention": "Contract-first integration to Stitch (or direct to Capitec Pay / Absa Pay / Nedbank Direct EFT); idempotency keys; signed webhook verification; reconciliation worker; OpenTelemetry per gateway.",
+      "outcome_quantified": "End-to-end card + direct-bank product surface with daily reconciliation; named precedent: Stitch serves the enterprise SA merchant list cited.",
+      "named_pattern": "multi-rail payment integration + idempotency + reconciliation",
+      "named_gateway_or_vendor": ["Stitch", "Capitec Pay", "Absa Pay", "Nedbank Direct EFT"],
+      "evidence": "case-study (Stitch customer list named)",
+      "citations": ["C7", "C20"]
+    }
+  ],
+  "icp_coverage": {
+    "INT": ["UC-API-01", "UC-API-03", "UC-API-05", "UC-API-07", "UC-API-08", "UC-API-09", "UC-API-10"],
+    "SA-FS": ["UC-API-02", "UC-API-04", "UC-API-07", "UC-API-10"],
+    "SA-Mid": ["UC-API-03", "UC-API-06", "UC-API-09"],
+    "SMB": ["UC-API-05", "UC-API-09"]
+  },
+  "evidence_strength": {
+    "case-study": 1,
+    "pattern": 9,
+    "note": "SA-specific transaction-volume figures for individual gateways (PayFast/Yoco/Peach FY2025) were not surfaced in publicly available sources at retrieval time. Use cases that depend on those numbers are labelled evidence: pattern with industry-source citations rather than client-specific case studies. The Stitch customer-list use case (UC-API-10) is evidence: case-study because the named enterprise customers are published on Stitch's site and in TechCabal coverage."
+  }
+}

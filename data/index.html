@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Data analytics, dashboards, pipelines and ML categorisation built on dbt, Postgres and Metabase / Looker / Power BI. Audit-ready. Book a Data Audit.">
+  <title>Data Analytics & Dashboards — Prudentia Digital · South Africa</title>
+
+  <!-- Social & SEO meta -->
+  <link rel="canonical" href="https://prudentiadigital.co.za/data/">
+  <meta property="og:title" content="Data Analytics & Dashboards — Prudentia Digital">
+  <meta property="og:description" content="Trusted data products — dashboards, pipelines, ML categorisation, audit-ready lineage. dbt-native, POPIA by design. Book a one-day Data Audit.">
+  <meta property="og:url" content="https://prudentiadigital.co.za/data/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Prudentia Digital">
+  <meta property="og:locale" content="en_ZA">
+  <meta property="og:locale:alternate" content="en_GB">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta property="og:image" content="https://prudentiadigital.co.za/assets/og-image-1200x630.png">
+  <meta property="og:image:secure_url" content="https://prudentiadigital.co.za/assets/og-image-1200x630.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Prudentia Digital — Data Analytics & Dashboards. Production data engineering for South African and international businesses.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Data Analytics & Dashboards — Prudentia Digital">
+  <meta name="twitter:description" content="Trusted data products — dashboards, pipelines, ML categorisation, audit-ready lineage. dbt-native, POPIA by design. Book a Data Audit.">
+  <meta name="twitter:image" content="https://prudentiadigital.co.za/assets/og-image-1200x630.png">
+
+  <!-- hreflang alternates -->
+  <link rel="alternate" hreflang="en" href="https://prudentiadigital.co.za/data/">
+  <link rel="alternate" hreflang="x-default" href="https://prudentiadigital.co.za/data/">
+
+  <!-- Preload critical fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Asset version: bump ?v= on deploy to bust cache -->
+  <link rel="preload" href="../css/design-tokens.css?v=1.1" as="style">
+  <link rel="preload" href="../css/styles.css?v=1.1" as="style">
+
+  <link rel="stylesheet" href="../css/design-tokens.css?v=1.1">
+  <link rel="stylesheet" href="../css/styles.css?v=1.1">
+  <link rel="stylesheet" href="../css/animated-bg.css?v=1.1">
+  <link rel="stylesheet" href="../css/pages/_motion-shared.css?v=1.1">
+  <link rel="stylesheet" href="../css/pages/data.css?v=1.0">
+
+  <!-- Favicon & PWA -->
+  <link rel="icon" type="image/svg+xml" href="../assets/logo-icon.svg">
+  <link rel="manifest" href="../manifest.json">
+  <meta name="theme-color" content="#0D1B2A">
+
+  <!-- JSON-LD structured data — Service page -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Data Analytics & Dashboards",
+    "provider": {
+      "@type": "Organization",
+      "name": "Prudentia Digital",
+      "url": "https://prudentiadigital.co.za/",
+      "logo": "https://prudentiadigital.co.za/assets/logo-icon-white-512.png",
+      "areaServed": ["South Africa", "Worldwide"]
+    },
+    "areaServed": ["South Africa", "Worldwide"],
+    "serviceType": "Data Engineering & Analytics Consulting",
+    "url": "https://prudentiadigital.co.za/data/",
+    "description": "Trusted data products built on dbt, Postgres / BigQuery, and Metabase / Looker / Power BI. We trace, instrument, govern, and audit — dashboards never published before quality gates are in place. One-day Data Audit, four-to-eight-week dashboard or pipeline build, monthly Analytics Retainer.",
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Data Analytics & Dashboards engagements",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Data Audit",
+            "description": "One-day fixed-fee diagnostic. Inventory data sources, surface quality gaps, propose a metric layer, scope a four-to-eight-week pilot. Absorbed into the pilot fee if you engage."
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Dashboard or Pipeline Build",
+            "description": "Four-to-eight-week production-grade build of a dashboard set, multi-source pipeline, or ML classifier on your data. Fixed-fee per phase."
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Analytics Retainer",
+            "description": "Monthly retainer covering pipeline maintenance, dbt model upgrades, new metric definitions, dashboard adjustments, ML model retraining, and quarterly data-quality reviews."
+          }
+        }
+      ]
+    }
+  }
+  </script>
+
+  <!-- JSON-LD — FAQPage -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How long does a data engagement take?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "A Data Audit is one working day, fixed-fee. A dashboard or pipeline build runs four to eight weeks. Analytics Retainers are monthly with no fixed end date. Indicative ranges are shared in the audit readout."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do you handle our customers' data under POPIA?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Personally identifiable information is tokenised at the staging layer; only downstream consumers with a documented policy reason ever see raw values. Row-level security enforces access at the warehouse, not the dashboard. Retention is policy-driven. The Information Regulator's 2024 enforcement track — including the first administrative fine — is the floor we engineer above."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Which BI tool do you use — Power BI, Looker, Metabase, Tableau?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The one that fits. Microsoft-shop, Power BI. Self-hosted economy, Metabase. Governed semantic layer at scale, Looker. We have no licence kickback bias and we publish our trade-off note before we recommend."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What if three teams report three different numbers for the same KPI?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "That is exactly what the audit fixes. The deliverable is one canonical definition per metric — versioned, governed, documented in a semantic layer with dbt tests on uniqueness and referential integrity. The conversation shifts from \"whose number is right\" to \"what should our shared definition be.\""
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can you maintain this after launch, or do we need to hire a data team?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Either works. Analytics Retainers cover pipelines, dashboards, ML retraining, and quarterly quality reviews. Hiring economics typically cross over with a retainer at the 12-to-18-month mark for a fully-loaded senior data engineer — we will tell you when that point is approaching."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can we self-host instead of using a cloud warehouse?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Postgres, dbt, and Metabase run on your infrastructure with no per-seat licensing penalty. We pick the deployment that fits your data-residency and cost posture — not ours. Serverless Postgres covers most mid-market workloads under 500GB at a fraction of cloud-warehouse cost."
+        }
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+
+  <a href="#main" class="skip-link">Skip to main content</a>
+
+  <!-- ═══════════════════════════════════
+       NAVIGATION
+       ═══════════════════════════════════ -->
+  <nav class="nav nav--ai scrolled" id="nav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner container">
+      <a href="/" class="nav__logo" aria-label="Prudentia Digital — home">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 66 84" fill="none" class="nav__logo-icon" aria-hidden="true">
+          <path d="M8 6 H44 L52 14 V42 H18 V78 H8 Z M18 14 H44 V34 H18 Z" fill="currentColor" fill-rule="evenodd"/>
+          <path d="M54 4 L60 10 L54 16 L48 10 Z" fill="var(--color-accent)"/>
+        </svg>
+        <span class="nav__wordmark" aria-hidden="true">
+          <span class="nav__wordmark-primary">PRUDENTIA</span>
+          <span class="nav__wordmark-rule" aria-hidden="true"></span>
+          <span class="nav__wordmark-secondary">DIGITAL</span>
+        </span>
+      </a>
+
+      <ul class="nav__links" role="list">
+        <li><a href="/web/" class="nav__link">Web Apps</a></li>
+        <li><a href="/cloud/" class="nav__link">Cloud</a></li>
+        <li><a href="/data/" class="nav__link" aria-current="page">Data</a></li>
+        <li><a href="/advisory/" class="nav__link">Advisory</a></li>
+        <li><a href="/api/" class="nav__link">APIs</a></li>
+        <li><a href="/ai/" class="nav__link">AI</a></li>
+        <li><a href="/#why-us" class="nav__link">Why Us</a></li>
+        <li><a href="/#team" class="nav__link">Team</a></li>
+        <li><a href="/#about" class="nav__link">About</a></li>
+      </ul>
+
+      <div class="nav__actions">
+        <a href="/?topic=data-audit#contact" class="btn btn--accent btn--sm nav__cta">Book a Data Audit</a>
+        <button class="nav__hamburger" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="navMobile">
+          <span class="nav__hamburger-bar"></span>
+          <span class="nav__hamburger-bar"></span>
+          <span class="nav__hamburger-bar"></span>
+        </button>
+      </div>
+    </div>
+
+    <div class="nav__mobile" id="navMobile" aria-hidden="true">
+      <ul class="nav__mobile-links" role="list">
+        <li><a href="/web/" class="nav__mobile-link">Web Apps</a></li>
+        <li><a href="/cloud/" class="nav__mobile-link">Cloud</a></li>
+        <li><a href="/data/" class="nav__mobile-link" aria-current="page">Data</a></li>
+        <li><a href="/advisory/" class="nav__mobile-link">Advisory</a></li>
+        <li><a href="/api/" class="nav__mobile-link">APIs</a></li>
+        <li><a href="/ai/" class="nav__mobile-link">AI</a></li>
+        <li><a href="/?topic=data-audit#contact" class="nav__mobile-link nav__mobile-cta">Book a Data Audit</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main id="main">
+
+    <!-- ═══════════════════════════════════
+         HERO
+         ═══════════════════════════════════ -->
+    <section class="hero hero--data" aria-labelledby="data-hero-heading">
+      <div class="bg-layer bg-layer--hero" aria-hidden="true"></div>
+      <div class="hero__bg-accent" aria-hidden="true"></div>
+      <div class="data-hero-motif" aria-hidden="true">
+        <svg class="data-hero-motif__svg" viewBox="0 0 320 96" fill="none" stroke="currentColor" stroke-width="1.5" preserveAspectRatio="none">
+          <polyline class="data-hero-motif__spark" points="6,78 38,62 70,68 102,46 134,52 166,30 198,38 230,22 262,28"/>
+          <rect class="data-hero-motif__bar data-hero-motif__bar--a" x="278" y="44" width="10" height="38" rx="1"/>
+          <rect class="data-hero-motif__bar data-hero-motif__bar--b" x="294" y="28" width="10" height="54" rx="1"/>
+          <circle class="data-hero-motif__halo" cx="262" cy="28" r="9"/>
+          <circle class="data-hero-motif__dot" cx="262" cy="28" r="4"/>
+        </svg>
+      </div>
+      <div class="container hero__inner">
+        <p class="hero__eyebrow fade-in">Data Analytics &amp; Dashboards · Prudentia Digital</p>
+        <h1 class="hero__headline fade-in" id="data-hero-heading" style="--fade-delay: 100ms">
+          68% of mid-market CFOs don't trust their data.<br>
+          <span class="hero__headline-accent">We fix the pipeline, not the dashboard.</span>
+        </h1>
+        <p class="hero__subtext fade-in" style="--fade-delay: 250ms">
+          dbt-tested pipelines, audit-ready lineage, dashboards your CFO can sign.
+          Three teams stop arguing about revenue numbers because there is only one.
+          Built on Postgres or BigQuery, served through Metabase, Looker, or Power BI.
+        </p>
+        <div class="hero__ctas fade-in" style="--fade-delay: 400ms">
+          <a href="/?topic=data-audit#contact" class="btn btn--accent btn--lg">Book a Data Audit</a>
+          <a href="#capabilities" class="btn btn--outline btn--lg">See What We Build</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════
+         CAPABILITIES
+         ═══════════════════════════════════ -->
+    <section class="services" id="capabilities" aria-labelledby="capabilities-heading" data-spotlight>
+      <div class="bg-layer bg-layer--services" aria-hidden="true"></div>
+      <div class="bg-fx" aria-hidden="true">
+        <div class="bg-fx__grid data-bg-mesh"></div>
+        <div class="bg-fx__spotlight"></div>
+      </div>
+      <div class="container">
+        <div class="section-header">
+          <p class="section-eyebrow fade-in">What We Build</p>
+          <h2 class="section-heading fade-in" id="capabilities-heading" style="--fade-delay: 80ms">Five capabilities. One trusted metric layer.</h2>
+          <div class="gold-line fade-in" aria-hidden="true" style="--fade-delay: 160ms"></div>
+          <p class="section-sub fade-in" style="--fade-delay: 200ms">
+            Each capability is a working data product — pipeline, dashboard, or classifier — built on your sources, governed at the warehouse, and traceable to the row.
+            We show the lineage in a booked audit.
+          </p>
+        </div>
+
+        <!-- Capability 1 — Data Audit & Strategy -->
+        <article class="data-capability reveal" id="cap-audit" aria-labelledby="cap-audit-title">
+          <header class="data-capability__header">
+            <div class="data-capability__icon-wrap">
+              <svg class="data-capability__icon gold-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <circle cx="11" cy="11" r="7"/>
+                <line x1="21" y1="21" x2="16.5" y2="16.5"/>
+                <polyline points="8 11 11 14 14 8"/>
+              </svg>
+            </div>
+            <div>
+              <p class="data-capability__eyebrow">Capability 01</p>
+              <h3 class="data-capability__title" id="cap-audit-title">Data audit &amp; strategy</h3>
+            </div>
+          </header>
+          <div class="data-capability__body">
+            <p class="data-capability__problem"><strong>The problem.</strong> Gartner finds more than 60% of business intelligence (BI) initiatives underperform expectations. The dbt Labs 2024 State of Analytics Engineering report shows 57% of practitioners cite poor data quality as the predominant issue, up from 41% in 2022.</p>
+            <p class="data-capability__solution"><strong>What we build.</strong> A one-day Data Audit. We inventory sources, surface quality gaps, sketch the target metric layer, and scope a four-to-eight-week pilot. Fixed-fee. Absorbed into the pilot if you engage. The output is a written readout you can hand to your board.</p>
+            <p class="data-capability__use-case"><strong>Example use case.</strong> A mid-market CFO reconciling three conflicting revenue numbers. The audit surfaces 12 named data-quality issues, one definitive revenue definition, and a six-week pilot scope — without writing a line of pipeline code.</p>
+            <p class="data-capability__stack"><strong>Under the hood.</strong> Architecture decision records, source-to-mart lineage diagrams, a dbt model audit, and a documented quality rubric.</p>
+            <p class="data-capability__cta">
+              <a href="/?topic=data-audit#contact" class="btn btn--accent">Talk to us about an audit</a>
+            </p>
+          </div>
+        </article>
+
+        <!-- Capability 2 — Multi-source pipeline build -->
+        <article class="data-capability reveal" id="cap-pipelines" style="--reveal-delay: 80ms" aria-labelledby="cap-pipelines-title">
+          <header class="data-capability__header">
+            <div class="data-capability__icon-wrap">
+              <svg class="data-capability__icon gold-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <ellipse cx="5" cy="6" rx="3" ry="2"/>
+                <path d="M2 6v4c0 1 1.3 2 3 2s3-1 3-2V6"/>
+                <ellipse cx="19" cy="18" rx="3" ry="2"/>
+                <path d="M16 18v-4c0-1 1.3-2 3-2s3 1 3 2v4"/>
+                <line x1="8" y1="8" x2="16" y2="16"/>
+              </svg>
+            </div>
+            <div>
+              <p class="data-capability__eyebrow">Capability 02</p>
+              <h3 class="data-capability__title" id="cap-pipelines-title">Multi-source pipeline build</h3>
+            </div>
+          </header>
+          <div class="data-capability__body">
+            <p class="data-capability__problem"><strong>The problem.</strong> Data is scattered across point-of-sale, enterprise resource planning, customer relationship management, and ops systems. Analysts spend half their week reconciling spreadsheets. Pipeline freshness is measured in days, not minutes — and the source-to-dashboard chain breaks every time a vendor changes its export format.</p>
+            <p class="data-capability__solution"><strong>What we build.</strong> Hosted ingestion via Fivetran or self-hosted Airbyte; custom connectors for legacy systems. Postgres or BigQuery as the warehouse. dbt for transformations, with tests on uniqueness, referential integrity, and freshness. Dagster or Airflow for orchestration. Quality failures block the pipeline before they reach a dashboard.</p>
+            <p class="data-capability__use-case"><strong>Example use case.</strong> A multi-store retailer consolidates six legacy POS systems into one BigQuery warehouse with a Looker semantic layer. Transaction latency drops from a day to minutes; weekly reconciliation is eliminated; cross-format checkout layout decisions lift complementary product purchases 15%.</p>
+            <p class="data-capability__stack"><strong>Under the hood.</strong> Fivetran or Airbyte, Postgres / BigQuery, dbt with contract tests, Dagster / Airflow orchestration, freshness SLAs per dataset.</p>
+            <p class="data-capability__cta">
+              <a href="/?topic=data-pipelines#contact" class="btn btn--accent">Talk to us about pipelines</a>
+            </p>
+          </div>
+        </article>
+
+        <!-- Capability 3 — Dashboard build & semantic layer -->
+        <article class="data-capability reveal" id="cap-dashboards" style="--reveal-delay: 160ms" aria-labelledby="cap-dashboards-title">
+          <header class="data-capability__header">
+            <div class="data-capability__icon-wrap">
+              <svg class="data-capability__icon gold-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                <line x1="3" y1="9" x2="21" y2="9"/>
+                <line x1="9" y1="21" x2="9" y2="9"/>
+                <line x1="7" y1="16" x2="7" y2="13"/>
+                <line x1="13" y1="16" x2="13" y2="12"/>
+                <line x1="17" y1="16" x2="17" y2="14"/>
+              </svg>
+            </div>
+            <div>
+              <p class="data-capability__eyebrow">Capability 03</p>
+              <h3 class="data-capability__title" id="cap-dashboards-title">Dashboard build &amp; semantic layer</h3>
+            </div>
+          </header>
+          <div class="data-capability__body">
+            <p class="data-capability__problem"><strong>The problem.</strong> Different teams report different numbers. The CFO spends more time verifying reports than making decisions. BARC's 2024 survey finds average active BI tool usage stuck at 25% — a figure that has not moved in seven years. Licences scale faster than adoption.</p>
+            <p class="data-capability__solution"><strong>What we build.</strong> Dashboards matched to scale. Metabase for self-hosted economy, Looker for governed semantic layer, Power BI for Microsoft-shop reach. One canonical metric per definition. Row-level security at the warehouse. Naming, access tiers, and retention documented before launch.</p>
+            <p class="data-capability__use-case"><strong>Example use case.</strong> An SA logistics operator on Metabase + Postgres. Six to twelve hours of weekly ops report-prep recovered. Industry benchmark: 3.5x average ROI within twelve months and 27% reduction in total cost of ownership versus the prior reporting stack.</p>
+            <p class="data-capability__stack"><strong>Under the hood.</strong> Metabase, Looker, Power BI, or Tableau matched to your scale; dbt semantic layer; row-level security via warehouse roles; documented metric catalogue.</p>
+            <p class="data-capability__cta">
+              <a href="/?topic=data-dashboards#contact" class="btn btn--accent">Talk to us about dashboards</a>
+            </p>
+          </div>
+        </article>
+
+        <!-- Capability 4 — ML categorisation & reporting automation -->
+        <article class="data-capability reveal" id="cap-ml" style="--reveal-delay: 240ms" aria-labelledby="cap-ml-title">
+          <header class="data-capability__header">
+            <div class="data-capability__icon-wrap">
+              <svg class="data-capability__icon gold-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <rect x="3" y="4" width="6" height="6" rx="1"/>
+                <rect x="3" y="14" width="6" height="6" rx="1"/>
+                <rect x="15" y="9" width="6" height="6" rx="1"/>
+                <line x1="9" y1="7" x2="15" y2="11"/>
+                <line x1="9" y1="17" x2="15" y2="13"/>
+              </svg>
+            </div>
+            <div>
+              <p class="data-capability__eyebrow">Capability 04</p>
+              <h3 class="data-capability__title" id="cap-ml-title">ML categorisation &amp; reporting automation</h3>
+            </div>
+          </header>
+          <div class="data-capability__body">
+            <p class="data-capability__problem"><strong>The problem.</strong> Ops teams spend 30+ hours a week manually categorising transactions, triaging support tickets, or classifying defects. Industry data shows companies spend 30 to 40% of staff time on manual reporting. Senior agents firefight routing instead of resolving cases.</p>
+            <p class="data-capability__solution"><strong>What we build.</strong> A trained classifier on your historical labels — LightGBM baseline, escalated to a hybrid small-LLM where return on investment (ROI) justifies. Confidence-thresholded human review queue. Weekly retrain on corrected output. Per-category precision and recall reported to your ops lead.</p>
+            <p class="data-capability__use-case"><strong>Example use case.</strong> Meniga's ML transaction categorisation hits 95% accuracy across 80 billion+ transactions for 100 million banking customers. A hybrid DistilBERT + LightGBM ticket classifier benchmarked at 86.3% accuracy with first-response time improvements commonly in the 40% range.</p>
+            <p class="data-capability__stack"><strong>Under the hood.</strong> Python with scikit-learn, LightGBM, or DistilBERT; MLflow tracking; Prefect or Airflow orchestration; a weekly retrain pipeline.</p>
+            <p class="data-capability__cta">
+              <a href="/?topic=data-ml#contact" class="btn btn--accent">Talk to us about ML classifiers</a>
+            </p>
+          </div>
+        </article>
+
+        <!-- Capability 5 — Analytics retainer -->
+        <article class="data-capability reveal" id="cap-retainer" style="--reveal-delay: 320ms" aria-labelledby="cap-retainer-title">
+          <header class="data-capability__header">
+            <div class="data-capability__icon-wrap">
+              <svg class="data-capability__icon gold-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <polyline points="23 4 23 10 17 10"/>
+                <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/>
+                <circle cx="12" cy="12" r="2.5"/>
+              </svg>
+            </div>
+            <div>
+              <p class="data-capability__eyebrow">Capability 05</p>
+              <h3 class="data-capability__title" id="cap-retainer-title">Analytics retainer</h3>
+            </div>
+          </header>
+          <div class="data-capability__body">
+            <p class="data-capability__problem"><strong>The problem.</strong> Dashboards drift. Metric definitions diverge again. Pipeline freshness slips. ML model performance degrades. No one owns the data product end to end, and dashboards quietly start lying again six months after launch.</p>
+            <p class="data-capability__solution"><strong>What we build.</strong> A monthly retainer covering pipeline maintenance, dbt model upgrades, new metric definitions, dashboard adjustments, ML model retraining, and a quarterly data-quality review. We tell you when in-house hiring economics overtake the retainer — typically the 12-to-18-month mark for a senior data engineer.</p>
+            <p class="data-capability__use-case"><strong>Example use case.</strong> An international software-as-a-service (SaaS) finance team on retainer: quarterly close cycle shortened over six months as engineering is taken off the critical path for revenue, deferred revenue, and product-mix extracts. Finance becomes independent.</p>
+            <p class="data-capability__stack"><strong>Under the hood.</strong> dbt Cloud or self-hosted, Monte Carlo or dbt tests for quality, an on-call rotation for pipeline incidents.</p>
+            <p class="data-capability__cta">
+              <a href="/?topic=data-retainer#contact" class="btn btn--accent">Talk to us about a retainer</a>
+            </p>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════
+         HOW WE SHIP DATA IN PRODUCTION
+         ═══════════════════════════════════ -->
+    <section class="why" id="approach" aria-labelledby="approach-heading" data-spotlight>
+      <div class="bg-layer bg-layer--why" aria-hidden="true"></div>
+      <div class="bg-fx" aria-hidden="true">
+        <div class="bg-fx__grid bg-fx__grid--strong data-bg-mesh"></div>
+        <div class="bg-fx__spotlight"></div>
+      </div>
+      <div class="container">
+        <div class="section-header">
+          <p class="section-eyebrow fade-in">How We Ship</p>
+          <h2 class="section-heading fade-in" id="approach-heading" style="--fade-delay: 80ms">Production data is a different discipline.</h2>
+          <div class="gold-line fade-in" aria-hidden="true" style="--fade-delay: 160ms"></div>
+        </div>
+
+        <div class="services__grid">
+
+          <article class="card card-pulse reveal" style="--reveal-delay: 0ms" aria-label="Quality gates first">
+            <div class="card__icon-wrap">
+              <svg class="card__icon gold-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+              </svg>
+            </div>
+            <h3 class="card__title">Quality gates from day one</h3>
+            <p class="card__body">Every dbt model ships with tests on uniqueness, referential integrity, and freshness. Failures block the pipeline before they reach a dashboard. The dashboard never lies because the pipeline can't lie.</p>
+            <p class="card__tagline">Tests before dashboards.</p>
+          </article>
+
+          <article class="card card-pulse reveal" style="--reveal-delay: 80ms" aria-label="Lineage documented end to end">
+            <div class="card__icon-wrap">
+              <svg class="card__icon gold-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <circle cx="6" cy="6" r="2"/><circle cx="18" cy="6" r="2"/><circle cx="6" cy="18" r="2"/><circle cx="18" cy="18" r="2"/>
+                <line x1="8" y1="6" x2="16" y2="6"/><line x1="6" y1="8" x2="6" y2="16"/><line x1="18" y1="8" x2="18" y2="16"/><line x1="8" y1="18" x2="16" y2="18"/>
+              </svg>
+            </div>
+            <h3 class="card__title">Lineage is documented, not implied</h3>
+            <p class="card__body">Every metric traces from dashboard to semantic layer to dbt model to source table to operator system. When someone asks "where does this number come from?" you can answer in seconds, not days of forensic reconstruction.</p>
+            <p class="card__tagline">Every number, traceable.</p>
+          </article>
+
+          <article class="card card-pulse reveal" style="--reveal-delay: 160ms" aria-label="Freshness SLAs per dataset">
+            <div class="card__icon-wrap">
+              <svg class="card__icon gold-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 14"/>
+              </svg>
+            </div>
+            <h3 class="card__title">Freshness SLAs per dataset</h3>
+            <p class="card__body">Real-time isn't always needed; daily isn't always enough. We define freshness service-level agreements (SLAs) per dataset — 15 minutes for ops, 24 hours for commercial — and alert when they slip.</p>
+            <p class="card__tagline">Fresh enough, no fresher.</p>
+          </article>
+
+          <article class="card card-pulse reveal" style="--reveal-delay: 240ms" aria-label="Schema versioning without breakage">
+            <div class="card__icon-wrap">
+              <svg class="card__icon gold-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v6c0 1.7 4 3 9 3s9-1.3 9-3V5"/><path d="M3 11v6c0 1.7 4 3 9 3s9-1.3 9-3v-6"/>
+              </svg>
+            </div>
+            <h3 class="card__title">Schema versioning with contracts</h3>
+            <p class="card__body">Schemas change. We use dbt's versioning and contract patterns to evolve schemas without breaking downstream consumers. No mystery dashboard breakages on the Monday morning after a release.</p>
+            <p class="card__tagline">Change without breaking.</p>
+          </article>
+
+          <article class="card card-pulse reveal" style="--reveal-delay: 320ms" aria-label="Privacy by design">
+            <div class="card__icon-wrap">
+              <svg class="card__icon gold-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+              </svg>
+            </div>
+            <h3 class="card__title">Privacy by design — POPIA defaults</h3>
+            <p class="card__body">Personally identifiable information is tokenised at the staging layer. Row-level security enforces who-sees-what at the warehouse, not the dashboard. PII never reaches a downstream consumer unless the policy permits it.</p>
+            <p class="card__tagline">Privacy defaults, not afterthoughts.</p>
+          </article>
+
+          <article class="card card--accent card-pulse reveal" style="--reveal-delay: 400ms" aria-label="Three engagement tiers">
+            <div class="card__icon-wrap">
+              <svg class="card__icon gold-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/>
+              </svg>
+            </div>
+            <h3 class="card__title">Audit → Build → Retainer</h3>
+            <p class="card__body">Three engagement shapes. A one-day Data Audit. A four-to-eight-week dashboard or pipeline build on your data. A monthly Analytics Retainer for pipeline upkeep, model retraining, and quarterly quality reviews.</p>
+            <p class="card__tagline">Start small. Scale on results.</p>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════
+         DATA QUALITY — foundation note
+         ═══════════════════════════════════ -->
+    <section class="prompt-foundation" aria-labelledby="quality-foundation-heading">
+      <div class="container prompt-foundation__inner">
+        <div class="prompt-foundation__panel reveal">
+          <p class="section-eyebrow">Foundation</p>
+          <h2 class="prompt-foundation__heading" id="quality-foundation-heading">Quality gates before dashboards. Always.</h2>
+          <p class="prompt-foundation__body">
+            Every pipeline we ship has dbt tests on uniqueness, referential integrity, and freshness running in continuous integration before a dashboard is published.
+            We treat data contracts the way we treat database migrations: a first-class artefact that ships through review, gets exercised by tests, and never gets edited blindly in production.
+            It's how a single canonical metric layer replaces three teams' competing spreadsheets.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════
+         USE CASES
+         ═══════════════════════════════════ -->
+    <section class="services" id="use-cases" aria-labelledby="use-cases-heading" data-spotlight>
+      <div class="bg-layer bg-layer--services" aria-hidden="true"></div>
+      <div class="bg-fx" aria-hidden="true">
+        <div class="bg-fx__grid data-bg-mesh"></div>
+        <div class="bg-fx__spotlight"></div>
+      </div>
+      <div class="container">
+        <div class="section-header">
+          <p class="section-eyebrow fade-in">Use Cases</p>
+          <h2 class="section-heading fade-in" id="use-cases-heading" style="--fade-delay: 80ms">What this looks like in production.</h2>
+          <div class="gold-line fade-in" aria-hidden="true" style="--fade-delay: 160ms"></div>
+          <p class="section-sub fade-in" style="--fade-delay: 200ms">
+            Three patterns spanning South African financial services, South African mid-market, and international SaaS.
+            Two are publicly-named customer stories; one is a documented mid-market pattern with cited benchmarks.
+          </p>
+        </div>
+
+        <div class="data-usecases">
+
+          <article class="data-usecase reveal" style="--reveal-delay: 0ms" aria-labelledby="uc-discovery-bank-title">
+            <p class="data-usecase__tag">SA Financial Services</p>
+            <h3 class="data-usecase__title" id="uc-discovery-bank-title">Discovery Bank: 500% ROI on a data + AI platform</h3>
+            <p class="data-usecase__body">
+              Discovery Bank combined behavioural economics, actuarial science, and machine learning on an Azure Databricks data platform with an Azure OpenAI-powered client-services assistant.
+              The publicly-reported outcome: <strong>500% return on investment</strong> on the platform. It's the strongest cited proof point for a data-foundation-first approach in SA financial services.
+            </p>
+            <p class="data-usecase__cite">
+              Source: <a href="https://www.microsoft.com/en/customers/story/23562-discovery-bank-azure" target="_blank" rel="noopener noreferrer">Microsoft Customer Stories — Discovery Bank on Azure</a>.
+            </p>
+          </article>
+
+          <article class="data-usecase reveal" style="--reveal-delay: 80ms" aria-labelledby="uc-cfo-title">
+            <p class="data-usecase__tag">SA Mid-market</p>
+            <h3 class="data-usecase__title" id="uc-cfo-title">Single-source-of-truth rebuild for a mid-market CFO</h3>
+            <p class="data-usecase__body">
+              Three teams reporting three different revenue numbers. We rebuild the chart of accounts, enforce master-data discipline across CRM, billing, and ERP, and define one metric per metric in a dbt-tested semantic layer.
+              Sales, finance, and ops query the same marts. The argument shifts from "whose number is right" to "what should our shared definition be." Industry benchmark: <strong>68% of mid-market CFOs lack confidence</strong> in cross-system data consistency.
+            </p>
+            <p class="data-usecase__cite">
+              Source: <a href="https://www.onetribeadvisory.com/knowledge-hub/single-source-of-truth-finance/" target="_blank" rel="noopener noreferrer">Onetribe Advisory — single source of truth for finance</a>.
+            </p>
+          </article>
+
+          <article class="data-usecase reveal" style="--reveal-delay: 160ms" aria-labelledby="uc-saas-finance-title">
+            <p class="data-usecase__tag">International</p>
+            <h3 class="data-usecase__title" id="uc-saas-finance-title">SaaS finance self-serves on revenue and product mix</h3>
+            <p class="data-usecase__body">
+              A SaaS finance team's quarterly close was blocked on engineering pulling Stripe, billing, and product data. We build a single customer table, fact tables for revenue and deferred revenue, and a unified product taxonomy, served through Metabase.
+              Finance becomes independent on the metrics that matter; engineering exits the critical path; the data model refuses to lie because dbt tests enforce uniqueness end to end.
+            </p>
+            <p class="data-usecase__cite">
+              Pattern documented in <a href="https://medium.com/@delphine.soupault/how-self-service-bi-finally-worked-for-finance-thanks-to-a-bit-of-governance-and-omni-25421151d861" target="_blank" rel="noopener noreferrer">Delphine Soupault — self-service BI for finance</a>.
+            </p>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════
+         FAQ
+         ═══════════════════════════════════ -->
+    <section class="faq" id="faq" aria-labelledby="faq-heading" data-spotlight>
+      <div class="bg-layer bg-layer--services" aria-hidden="true"></div>
+      <div class="container">
+        <div class="section-header">
+          <p class="section-eyebrow fade-in">Common Questions</p>
+          <h2 class="section-heading fade-in" id="faq-heading" style="--fade-delay: 80ms">Answers before you book</h2>
+          <div class="gold-line fade-in" aria-hidden="true" style="--fade-delay: 160ms"></div>
+        </div>
+
+        <div class="faq__list">
+          <details class="faq__item reveal" style="--reveal-delay: 0ms">
+            <summary class="faq__question">How long does a data engagement take?</summary>
+            <div class="faq__answer">
+              <p>A <strong>Data Audit</strong> is one working day, fixed-fee, with a written readout delivered inside two weeks of the call.
+              A <strong>dashboard or pipeline build</strong> runs four to eight weeks, fixed-fee per phase, with a working data product at the end.
+              <strong>Analytics Retainers</strong> are monthly with no fixed end date — most clients run them for at least two quarters.</p>
+            </div>
+          </details>
+
+          <details class="faq__item reveal" style="--reveal-delay: 60ms">
+            <summary class="faq__question">How do you handle our customers' data under POPIA?</summary>
+            <div class="faq__answer">
+              <p>Personally identifiable information is tokenised at the staging layer; only downstream consumers with a documented policy reason ever see raw values.
+              Row-level security enforces access at the warehouse, not the dashboard. Retention is policy-driven, not folklore.
+              The Information Regulator's 2024 enforcement track — three POPIA enforcement notices, the first administrative fine on a government department, and 30+ PAIA assessments — is the floor we engineer above.</p>
+            </div>
+          </details>
+
+          <details class="faq__item reveal" style="--reveal-delay: 120ms">
+            <summary class="faq__question">Which BI tool do you use — Power BI, Looker, Metabase, Tableau?</summary>
+            <div class="faq__answer">
+              <p>The one that fits. Microsoft-shop, Power BI. Self-hosted economy, Metabase. Governed semantic layer at scale, Looker. Tableau for visual-analyst teams already invested in it.
+              We have no licence kickback bias, and we publish our trade-off note before we recommend.
+              Forrester's TEI for Power BI cites $3.70 returned per $1 spent when adoption is structured around real use cases — not when the licence is bought first and the use case is invented later.</p>
+            </div>
+          </details>
+
+          <details class="faq__item reveal" style="--reveal-delay: 180ms">
+            <summary class="faq__question">What if three teams report three different numbers for the same KPI?</summary>
+            <div class="faq__answer">
+              <p>That is exactly what the audit fixes. The deliverable is one canonical definition per metric — versioned, governed, documented in a semantic layer with dbt tests on uniqueness and referential integrity.
+              Conflict moves from "whose number is right" to "what should our shared definition be."
+              The average mid-market organisation reconciles three to five competing "sources of truth" for the same KPI; we don't merge them, we replace them with one.</p>
+            </div>
+          </details>
+
+          <details class="faq__item reveal" style="--reveal-delay: 240ms">
+            <summary class="faq__question">Can you maintain this after launch, or do we need to hire a data team?</summary>
+            <div class="faq__answer">
+              <p>Either works. Analytics Retainers cover pipelines, dashboards, machine-learning model retraining, and quarterly quality reviews on a monthly cadence.
+              Hiring economics typically cross over with a retainer at the 12-to-18-month mark for a fully-loaded senior data engineer.
+              When that point is approaching, we'll tell you — and we'll help you write the job spec and shape the handover.</p>
+            </div>
+          </details>
+
+          <details class="faq__item reveal" style="--reveal-delay: 300ms">
+            <summary class="faq__question">Can we self-host instead of using a cloud warehouse?</summary>
+            <div class="faq__answer">
+              <p>Yes. Postgres, dbt, and Metabase run on your infrastructure with no per-seat licensing penalty. We pick the deployment that fits your data-residency and cost posture — not ours.
+              Serverless Postgres covers most mid-market workloads under 500GB at a fraction of cloud-warehouse cost, and it sidesteps the worst of the SA National Data and Cloud Policy localisation risk for sovereign data.</p>
+            </div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════
+         ABOUT — short blurb, cross-link to home team section
+         ═══════════════════════════════════ -->
+    <section class="about-blurb" aria-labelledby="about-blurb-heading">
+      <div class="container about-blurb__inner">
+        <div class="about-blurb__panel reveal">
+          <p class="section-eyebrow">About</p>
+          <h2 class="about-blurb__heading" id="about-blurb-heading">Built and delivered by Thulani Maseko.</h2>
+          <p class="about-blurb__body">
+            Enterprise engineering background shaped at Capitec, Absa, and E4 Strategic. Direct experience designing data pipelines, dashboards, and ML classifiers for production —
+            not just running notebooks. Every Prudentia data engagement is led personally; you talk to the engineer building your pipeline, every time.
+          </p>
+          <p class="about-blurb__cta">
+            <a href="/#team" class="btn btn--outline">Read full bio</a>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════
+         FINAL CTA
+         ═══════════════════════════════════ -->
+    <section class="cta" id="final-cta" aria-labelledby="final-cta-heading" data-spotlight>
+      <div class="bg-layer bg-layer--cta" aria-hidden="true"></div>
+      <div class="bg-fx" aria-hidden="true">
+        <div class="bg-fx__grid data-bg-mesh"></div>
+        <div class="bg-fx__spotlight"></div>
+      </div>
+      <div class="container cta__inner">
+        <h2 class="cta__heading reveal" id="final-cta-heading">Book a one-day Data Audit.</h2>
+        <p class="cta__sub fade-in" style="--fade-delay: 100ms">
+          One day on your sources, quality gaps, and target metric layer. You leave with a readout, a sketched pilot scope, and a quality rubric. Fixed-fee. No slides, no commitment.
+        </p>
+        <div class="cta__actions fade-in" style="--fade-delay: 200ms">
+          <a href="/?topic=data-audit#contact" class="btn btn--accent btn--lg">Book a Data Audit</a>
+          <a href="mailto:masekolt@prudentiadigital.co.za?subject=Data%20Analytics%20%26%20Dashboards%20%E2%80%94%20Data%20Audit%20request" class="btn btn--outline btn--lg">Email Us Instead</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ═══════════════════════════════════
+       FOOTER
+       ═══════════════════════════════════ -->
+  <footer class="footer" role="contentinfo">
+    <div class="bg-layer bg-layer--footer" aria-hidden="true"></div>
+    <div class="container footer__inner">
+      <div class="footer__brand">
+        <a href="/" class="footer__logo" aria-label="Prudentia Digital — back to home">
+          <picture>
+            <source srcset="../assets/logo-icon-white-512.webp" type="image/webp">
+            <img src="../assets/logo-icon-white-512.png" alt="" width="32" height="41" loading="lazy" aria-hidden="true">
+          </picture>
+          <span class="footer__wordmark">
+            <span class="footer__wordmark-primary">PRUDENTIA</span>
+            <span class="footer__wordmark-rule" aria-hidden="true"></span>
+            <span class="footer__wordmark-secondary">DIGITAL</span>
+          </span>
+        </a>
+        <p class="footer__tagline">Enterprise-grade technology. Local expertise, global reach.</p>
+      </div>
+
+      <nav class="footer__nav" aria-label="Footer navigation">
+        <ul role="list">
+          <li><a href="/#services">Services</a></li>
+          <li><a href="/data/">Data Analytics</a></li>
+          <li><a href="/ai/">AI Engineering</a></li>
+          <li><a href="/#why-us">Why Us</a></li>
+          <li><a href="/#about">About</a></li>
+          <li><a href="mailto:masekolt@prudentiadigital.co.za">Contact</a></li>
+          <li><a href="/privacy.html">Privacy Policy</a></li>
+          <li><a href="/terms.html">Terms of Service</a></li>
+        </ul>
+      </nav>
+
+      <div class="footer__meta">
+        <p class="footer__badge" aria-label="B-BBEE Level 1 certified">
+          <span class="footer__badge-dot" aria-hidden="true"></span>
+          Level 1 B-BBEE · 100% Black-owned
+        </p>
+        <p class="footer__registration">Enterprise No. 2025/910056/07 · CIPC Registered · CSD Registered</p>
+        <p class="footer__copy">
+          &copy; 2026 Prudentia Digital (Pty) Ltd &middot;
+          <a href="mailto:masekolt@prudentiadigital.co.za">masekolt@prudentiadigital.co.za</a>
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Cookie consent banner -->
+  <div class="cookie-banner" id="cookieBanner" role="dialog" aria-modal="false" aria-label="Cookie notice" hidden>
+    <p class="cookie-banner__text">
+      We use essential cookies for security and performance. No tracking or advertising cookies.
+      <a href="/privacy.html">Privacy Policy</a>
+    </p>
+    <div class="cookie-banner__actions">
+      <button class="btn btn--accent btn--sm" id="cookieAccept">Accept</button>
+      <button class="btn btn--outline btn--sm" id="cookieDismiss" style="color:rgba(255,255,255,0.6);border-color:rgba(255,255,255,0.2)">Dismiss</button>
+    </div>
+  </div>
+
+  <!-- Animated backgrounds -->
+  <script src="../js/animated-bg.js?v=1.1" defer></script>
+
+  <script>
+    (() => {
+      'use strict';
+
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js').catch(() => {});
+        });
+      }
+
+      const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const animatedEls = document.querySelectorAll('.reveal, .fade-in, .gold-line, .gold-icon, .reveal-left');
+
+      if (reduced) {
+        animatedEls.forEach(el => el.classList.add('visible'));
+      } else {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              const el = entry.target;
+              const delay = el.style.getPropertyValue('--reveal-delay') || el.style.getPropertyValue('--fade-delay') || '0ms';
+              setTimeout(() => el.classList.add('visible'), parseInt(delay) || 0);
+              observer.unobserve(el);
+            }
+          });
+        }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+        animatedEls.forEach(el => observer.observe(el));
+
+        document.querySelectorAll('.hero .fade-in').forEach(el => {
+          const delay = parseInt(el.style.getPropertyValue('--fade-delay')) || 0;
+          setTimeout(() => el.classList.add('visible'), delay + 80);
+        });
+      }
+
+      const toggle = document.getElementById('navToggle');
+      const mobileMenu = document.getElementById('navMobile');
+
+      function closeMobileMenu() {
+        mobileMenu.classList.remove('open');
+        toggle.setAttribute('aria-expanded', 'false');
+        mobileMenu.setAttribute('aria-hidden', 'true');
+        toggle.setAttribute('aria-label', 'Open menu');
+        toggle.focus();
+      }
+
+      if (toggle && mobileMenu) {
+        toggle.addEventListener('click', () => {
+          const open = mobileMenu.classList.toggle('open');
+          toggle.setAttribute('aria-expanded', open);
+          mobileMenu.setAttribute('aria-hidden', !open);
+          toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+        });
+
+        mobileMenu.addEventListener('keydown', (e) => {
+          if (!mobileMenu.classList.contains('open')) return;
+          if (e.key === 'Escape') closeMobileMenu();
+        });
+
+        mobileMenu.querySelectorAll('a').forEach(link => {
+          link.addEventListener('click', () => closeMobileMenu());
+        });
+      }
+
+      const cookieBanner = document.getElementById('cookieBanner');
+      if (cookieBanner && !localStorage.getItem('pd_cookie_consent')) {
+        cookieBanner.removeAttribute('hidden');
+      }
+      function dismissCookieBanner() {
+        localStorage.setItem('pd_cookie_consent', '1');
+        cookieBanner.setAttribute('hidden', '');
+      }
+      document.getElementById('cookieAccept')?.addEventListener('click', dismissCookieBanner);
+      document.getElementById('cookieDismiss')?.addEventListener('click', dismissCookieBanner);
+    })();
+  </script>
+
+
+<!-- 3d-scroll-web:start name="hero-reveal-data" version="1.0.0" -->
+<style>
+  [data-3d-scroll="z-axis-text-reveal"] {
+    --scroll-depth: 220px;
+    --scroll-intensity: 1;
+    --stagger-ms: 32ms;
+    --scroll-easing: cubic-bezier(0.16, 1, 0.3, 1);
+    transform-style: preserve-3d;
+    perspective: 1000px;
+    perspective-origin: 50% 60%;
+  }
+  [data-3d-scroll="z-axis-text-reveal"] .reveal-letter {
+    display: inline-block;
+    transform-style: preserve-3d;
+    opacity: 0;
+    transform:
+      translateZ(calc(-1 * var(--scroll-depth) * var(--scroll-intensity)))
+      scale(0.88);
+    transition:
+      transform 0.95s var(--scroll-easing),
+      opacity 0.6s var(--scroll-easing);
+    will-change: transform, opacity;
+  }
+  [data-3d-scroll="z-axis-text-reveal"].is-revealed .reveal-letter {
+    opacity: 1;
+    transform: translateZ(0) scale(1);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    [data-3d-scroll="z-axis-text-reveal"] .reveal-letter {
+      transform: none !important;
+      transition: opacity 0.3s ease-out;
+    }
+  }
+</style>
+<script>
+  (function init() {
+    var heading = document.getElementById("data-hero-heading");
+    if (!heading) return;
+    heading.setAttribute("data-3d-scroll", "z-axis-text-reveal");
+    if (!heading.getAttribute("aria-label")) {
+      heading.setAttribute("aria-label", heading.textContent.trim().replace(/\s+/g, " "));
+    }
+    var letterCount = 0;
+    var staggerMs = 32;
+    function splitTextNodes(node) {
+      var children = Array.prototype.slice.call(node.childNodes);
+      children.forEach(function (child) {
+        if (child.nodeType === 3) {
+          var text = child.textContent || "";
+          var frag = document.createDocumentFragment();
+          for (var i = 0; i < text.length; i++) {
+            var ch = text[i];
+            if (ch === " ") { frag.appendChild(document.createTextNode(" ")); continue; }
+            var span = document.createElement("span");
+            span.className = "reveal-letter";
+            span.textContent = ch;
+            span.setAttribute("aria-hidden", "true");
+            span.style.transitionDelay = (letterCount * staggerMs) + "ms";
+            frag.appendChild(span);
+            letterCount++;
+          }
+          node.replaceChild(frag, child);
+        } else if (child.nodeType === 1) {
+          splitTextNodes(child);
+        }
+      });
+    }
+    splitTextNodes(heading);
+    if (typeof console.group === "function") {
+      console.group("[3d-scroll-web] hero-reveal-data");
+      console.log("split into", letterCount, "letters");
+      console.groupEnd();
+    }
+    var reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reducedMotion) { heading.classList.add("is-revealed"); return; }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          heading.classList.add("is-revealed");
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.35 });
+    io.observe(heading);
+  })();
+</script>
+<!-- 3d-scroll-web:end name="hero-reveal-data" -->
+
+
+<!-- 3d-scroll-web:start name="hero-depth-data" version="1.0.0" -->
+<div class="depth-scene-3dsw" data-3d-scroll="parallax-depth-layers" aria-hidden="true">
+  <div class="depth-layer-3dsw depth-layer-3dsw--back" data-depth="3"></div>
+  <div class="depth-layer-3dsw depth-layer-3dsw--mid" data-depth="2"></div>
+  <div class="depth-layer-3dsw depth-layer-3dsw--front" data-depth="1"></div>
+</div>
+<style>
+  [data-3d-scroll="parallax-depth-layers"].depth-scene-3dsw {
+    --scroll-depth: 150px;
+    --scroll-intensity: 0.75;
+    --scroll-easing: cubic-bezier(0.33, 1, 0.68, 1);
+    position: fixed; inset: 0; pointer-events: none;
+    perspective: 1000px; transform-style: preserve-3d;
+    z-index: 0; opacity: 0;
+    transition: opacity 0.6s ease-out;
+  }
+  [data-3d-scroll="parallax-depth-layers"].depth-scene-3dsw.is-active { opacity: 1; }
+  .depth-layer-3dsw {
+    position: absolute; inset: 0;
+    transform-style: preserve-3d;
+    will-change: transform;
+    transition: transform 0.5s var(--scroll-easing);
+  }
+  .depth-layer-3dsw--back {
+    background: radial-gradient(circle at 28% 38%, rgba(212, 175, 55, 0.16), transparent 55%);
+    filter: blur(2px);
+  }
+  .depth-layer-3dsw--mid {
+    background: radial-gradient(circle at 72% 62%, rgba(255, 255, 255, 0.07), transparent 60%);
+    filter: blur(0.5px);
+  }
+  .depth-layer-3dsw--front {
+    background: radial-gradient(circle at 50% 28%, rgba(13, 27, 42, 0.28), transparent 75%);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    [data-3d-scroll="parallax-depth-layers"].depth-scene-3dsw { opacity: 0 !important; }
+  }
+  @media (max-width: 768px) {
+    [data-3d-scroll="parallax-depth-layers"].depth-scene-3dsw { --scroll-intensity: 0.35; }
+  }
+</style>
+<script>
+  (function init() {
+    var scene = document.querySelector('[data-3d-scroll="parallax-depth-layers"].depth-scene-3dsw');
+    var sentinel = document.querySelector("section.hero");
+    if (!scene || !sentinel) return;
+    var reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reducedMotion) return;
+    var rafId = null;
+    var active = false;
+    var layers = scene.querySelectorAll(".depth-layer-3dsw");
+    function update() {
+      var rect = sentinel.getBoundingClientRect();
+      var vh = window.innerHeight;
+      var progress = Math.max(0, Math.min(1, 1 - (rect.top + rect.height * 0.5) / (vh + rect.height)));
+      layers.forEach(function (layer) {
+        var d = parseFloat(layer.getAttribute("data-depth") || "1");
+        var baseZ = -d * 150 * 0.75;
+        var extraZ = (progress - 0.5) * d * 40;
+        layer.style.transform = "translateZ(" + (baseZ - extraZ) + "px)";
+      });
+      rafId = null;
+    }
+    function onScroll() {
+      if (!active || rafId !== null) return;
+      rafId = requestAnimationFrame(update);
+    }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          scene.classList.add("is-active");
+          active = true; onScroll();
+        } else {
+          scene.classList.remove("is-active");
+          active = false;
+        }
+      });
+    }, { threshold: 0.05 });
+    io.observe(sentinel);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    if (typeof console.group === "function") {
+      console.group("[3d-scroll-web] hero-depth-data");
+      console.log("scene:", scene, "sentinel:", sentinel);
+      console.groupEnd();
+    }
+  })();
+</script>
+<!-- 3d-scroll-web:end name="hero-depth-data" -->
+
+</body>
+</html>

@@ -1,0 +1,1085 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Digital Transformation Advisory — Prudentia Digital. Vendor-neutral senior advisory, written ADRs, board-ready memos. The in-house architect you wish you had.">
+  <title>Digital Transformation Advisory — Prudentia Digital · SA</title>
+
+  <!-- Social & SEO meta -->
+  <link rel="canonical" href="https://prudentiadigital.co.za/advisory/">
+  <meta property="og:title" content="Digital Transformation Advisory — Prudentia Digital">
+  <meta property="og:description" content="Vendor-neutral senior advisory for South African and international businesses. Architecture reviews, written ADRs, board-ready memos. Schedule a transformation consult.">
+  <meta property="og:url" content="https://prudentiadigital.co.za/advisory/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Prudentia Digital">
+  <meta property="og:locale" content="en_ZA">
+  <meta property="og:locale:alternate" content="en_GB">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta property="og:image" content="https://prudentiadigital.co.za/assets/og-image-1200x630.png">
+  <meta property="og:image:secure_url" content="https://prudentiadigital.co.za/assets/og-image-1200x630.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Prudentia Digital — Digital Transformation Advisory. Vendor-neutral senior advisory for South African and international businesses.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Digital Transformation Advisory — Prudentia Digital">
+  <meta name="twitter:description" content="Vendor-neutral senior advisory for South African and international businesses. Written ADRs, board-ready memos. Schedule a transformation consult.">
+  <meta name="twitter:image" content="https://prudentiadigital.co.za/assets/og-image-1200x630.png">
+
+  <!-- International SEO — hreflang alternates -->
+  <link rel="alternate" hreflang="en" href="https://prudentiadigital.co.za/advisory/">
+  <link rel="alternate" hreflang="x-default" href="https://prudentiadigital.co.za/advisory/">
+
+  <!-- Preload critical fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Asset version: bump ?v= on deploy to bust cache -->
+  <link rel="preload" href="../css/design-tokens.css?v=1.1" as="style">
+  <link rel="preload" href="../css/styles.css?v=1.1" as="style">
+
+  <link rel="stylesheet" href="../css/design-tokens.css?v=1.1">
+  <link rel="stylesheet" href="../css/styles.css?v=1.1">
+  <link rel="stylesheet" href="../css/animated-bg.css?v=1.1">
+  <link rel="stylesheet" href="../css/pages/_motion-shared.css?v=1.1">
+  <link rel="stylesheet" href="../css/pages/advisory.css?v=1.1">
+
+  <!-- Favicon & PWA -->
+  <link rel="icon" type="image/svg+xml" href="../assets/logo-icon.svg">
+  <link rel="manifest" href="../manifest.json">
+  <meta name="theme-color" content="#0D1B2A">
+
+  <!-- JSON-LD structured data — Service page -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Digital Transformation Advisory",
+    "provider": {
+      "@type": "Organization",
+      "name": "Prudentia Digital",
+      "url": "https://prudentiadigital.co.za/",
+      "logo": "https://prudentiadigital.co.za/assets/logo-icon-white-512.png",
+      "areaServed": ["South Africa", "Worldwide"]
+    },
+    "areaServed": ["South Africa", "Worldwide"],
+    "serviceType": "Digital Transformation Advisory",
+    "url": "https://prudentiadigital.co.za/advisory/",
+    "description": "Vendor-neutral senior advisory for South African and international businesses. Architecture reviews, cloud migration strategy, legacy modernisation roadmaps, and steering retainers. Deliverables are written Architecture Decision Records, board-ready memos, and documented exit criteria — not slides.",
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Digital Transformation Advisory engagements",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Transformation Consult",
+            "description": "One to three days of senior time. A 90-minute structured session plus a written one-page memo with the three questions the board has not yet asked, two named risks, and a recommended decision sequence."
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Roadmap & ADRs Engagement",
+            "description": "Four to six weeks. Architecture review, cloud migration strategy, or modernisation roadmap. Output: TOGAF-aligned views, a written ADR set, a TCO model, and a board-ready memo."
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Steering Retainer",
+            "description": "Monthly cadence with documented exit criteria at signing. One steering meeting, two artefact reviews, one ADR per quarter. Founder-led."
+          }
+        }
+      ]
+    }
+  }
+  </script>
+
+  <!-- JSON-LD — FAQPage -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How long is a typical engagement?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Three options, each scoped at signing. A Transformation Consult is one to three days of senior time, output is a written memo. A Roadmap and ADRs engagement runs four to six weeks. A Steering Retainer is monthly, with documented exit criteria."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Do you implement, or just advise?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "We advise and we write. We do not implement, and we do not earn fees from the vendors you choose. If you need an implementation partner, the ADR we produce names two or three candidates by capability fit and your team selects."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How is vendor neutrality different from what Big 4 firms say?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The Big 4 hold platform partnerships — Deloitte with Microsoft, Accenture with AWS, PwC with Google Cloud — that generated over USD 15bn of revenue in 2024 (Gartner). Their advice routes to those platforms 67% of the time, against 23% for independent advisors (Gartner, 2024). We hold no such partnerships and we publish that fact."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can you support an RFP, including drafting and scoring?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. We draft the RFP requirements, score vendor responses against a written rubric you sign first, and write the ADR documenting the decision. Average ERP selection cycles run nine to twelve months; a Prudentia-led cycle runs eight to twelve weeks."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What does a board-level deliverable look like?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "A board-ready memo is one page. It states the decision being asked, two or three options scored against the same criteria, the recommended call, the named risks, and a single reversal point. The longer artefacts — ADRs, the architecture views, the TCO model — sit behind the memo. We do not deliver decks unless you explicitly want one."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What if our team disagrees with you?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The ADR records the alternatives considered and the constraint that ruled them out. If your team disagrees, the ADR is the document we update — not the position we defend. We will not win an architecture debate; we write down what was decided and why, so the next engineer can read it in three years."
+        }
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+
+  <a href="#main" class="skip-link">Skip to main content</a>
+
+  <!-- ═══════════════════════════════════
+       NAVIGATION
+       ═══════════════════════════════════ -->
+  <nav class="nav nav--ai scrolled" id="nav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner container">
+      <a href="/" class="nav__logo" aria-label="Prudentia Digital — home">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 66 84" fill="none" class="nav__logo-icon" aria-hidden="true">
+          <path d="M8 6 H44 L52 14 V42 H18 V78 H8 Z M18 14 H44 V34 H18 Z" fill="currentColor" fill-rule="evenodd"/>
+          <path d="M54 4 L60 10 L54 16 L48 10 Z" fill="var(--color-accent)"/>
+        </svg>
+        <span class="nav__wordmark" aria-hidden="true">
+          <span class="nav__wordmark-primary">PRUDENTIA</span>
+          <span class="nav__wordmark-rule" aria-hidden="true"></span>
+          <span class="nav__wordmark-secondary">DIGITAL</span>
+        </span>
+      </a>
+
+      <ul class="nav__links" role="list">
+        <li><a href="/web/" class="nav__link">Web Apps</a></li>
+        <li><a href="/cloud/" class="nav__link">Cloud</a></li>
+        <li><a href="/data/" class="nav__link">Data</a></li>
+        <li><a href="/advisory/" class="nav__link" aria-current="page">Advisory</a></li>
+        <li><a href="/api/" class="nav__link">APIs</a></li>
+        <li><a href="/ai/" class="nav__link">AI</a></li>
+        <li><a href="/#why-us" class="nav__link">Why Us</a></li>
+        <li><a href="/#team" class="nav__link">Team</a></li>
+        <li><a href="/#about" class="nav__link">About</a></li>
+      </ul>
+
+      <div class="nav__actions">
+        <a href="/?topic=advisory-consult#contact" class="btn btn--accent btn--sm nav__cta">Schedule a Consult</a>
+        <button class="nav__hamburger" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="navMobile">
+          <span class="nav__hamburger-bar"></span>
+          <span class="nav__hamburger-bar"></span>
+          <span class="nav__hamburger-bar"></span>
+        </button>
+      </div>
+    </div>
+
+    <div class="nav__mobile" id="navMobile" aria-hidden="true">
+      <ul class="nav__mobile-links" role="list">
+        <li><a href="/web/" class="nav__mobile-link">Web Apps</a></li>
+        <li><a href="/cloud/" class="nav__mobile-link">Cloud</a></li>
+        <li><a href="/data/" class="nav__mobile-link">Data</a></li>
+        <li><a href="/advisory/" class="nav__mobile-link" aria-current="page">Advisory</a></li>
+        <li><a href="/api/" class="nav__mobile-link">APIs</a></li>
+        <li><a href="/ai/" class="nav__mobile-link">AI</a></li>
+        <li><a href="/?topic=advisory-consult#contact" class="nav__mobile-link nav__mobile-cta">Schedule a Consult</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main id="main">
+
+    <!-- ═══════════════════════════════════
+         HERO — ghost trails resolve into a single arrow
+         ═══════════════════════════════════ -->
+    <section class="hero hero--ai hero--advisory" aria-labelledby="advisory-hero-heading">
+      <div class="bg-layer bg-layer--hero" aria-hidden="true"></div>
+      <div class="hero__bg-accent" aria-hidden="true"></div>
+
+      <!-- Advisory hero motif: three ghost trails → single resolved arrow -->
+      <div class="advisory-hero-motif" aria-hidden="true">
+        <div class="advisory-hero-motif__stage">
+          <svg class="advisory-hero-motif__svg" viewBox="0 0 600 220" preserveAspectRatio="xMidYMid meet" focusable="false">
+            <!-- Three ghost-trail Bézier paths fading in from the left edge -->
+            <path class="advisory-hero-motif__ghost advisory-hero-motif__ghost--a"
+                  d="M 20 110 C 140 30, 280 200, 480 110"
+                  fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="1.25" />
+            <path class="advisory-hero-motif__ghost advisory-hero-motif__ghost--b"
+                  d="M 20 110 C 160 180, 320 50, 480 110"
+                  fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="1.25" />
+            <path class="advisory-hero-motif__ghost advisory-hero-motif__ghost--c"
+                  d="M 20 110 C 180 110, 300 110, 480 110"
+                  fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="1.25" />
+
+            <!-- Resolved shaft + gold arrowhead -->
+            <line class="advisory-hero-motif__shaft"
+                  x1="20" y1="110" x2="510" y2="110"
+                  stroke="rgba(255,255,255,0.65)" stroke-width="1.5" stroke-linecap="round" />
+            <polygon class="advisory-hero-motif__arrowhead"
+                     points="510,110 488,98 488,122"
+                     fill="var(--color-accent)" />
+          </svg>
+        </div>
+      </div>
+
+      <div class="container hero__inner">
+        <p class="hero__eyebrow fade-in">Digital Transformation Advisory · Prudentia Digital</p>
+        <h1 class="hero__headline fade-in" id="advisory-hero-heading" style="--fade-delay: 100ms">
+          The in-house architect<br>
+          <span class="hero__headline-accent">you wish you had.</span>
+        </h1>
+        <p class="hero__subtext fade-in" style="--fade-delay: 250ms">
+          Senior, vendor-neutral advisory. Architecture reviews, cloud migration strategy, modernisation roadmaps.
+          Deliverables are written Architecture Decision Records and one-page board memos —
+          not slides, not vendor pitches.
+        </p>
+        <div class="hero__ctas fade-in" style="--fade-delay: 400ms">
+          <a href="/?topic=advisory-consult#contact" class="btn btn--accent btn--lg">Schedule a Transformation Consult</a>
+          <a href="#capabilities" class="btn btn--outline btn--lg">See How We Work</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════
+         CAPABILITIES
+         ═══════════════════════════════════ -->
+    <section class="services advisory-section" id="capabilities" aria-labelledby="capabilities-heading" data-spotlight>
+      <div class="bg-layer bg-layer--services" aria-hidden="true"></div>
+      <div class="advisory-bg-fx" aria-hidden="true">
+        <div class="advisory-bg-fx__fog"></div>
+        <div class="advisory-bg-fx__fog advisory-bg-fx__fog--secondary"></div>
+      </div>
+      <div class="container">
+        <div class="section-header">
+          <p class="section-eyebrow fade-in">What We Do</p>
+          <h2 class="section-heading fade-in" id="capabilities-heading" style="--fade-delay: 80ms">Five capabilities. Written deliverables.</h2>
+          <div class="gold-line fade-in" aria-hidden="true" style="--fade-delay: 160ms"></div>
+          <p class="section-sub fade-in" style="--fade-delay: 200ms">
+            Each capability ends in a document you own — an ADR, a roadmap, a board memo, a steering charter.
+            McKinsey puts the large-scale transformation failure rate at roughly 70%; our job is to write down
+            the decisions that move you into the other 30%.
+          </p>
+        </div>
+
+        <!-- Capability 1 — Transformation Consult -->
+        <article class="advisory-capability reveal" id="cap-consult" aria-labelledby="cap-consult-title">
+          <div class="advisory-capability__progression" aria-hidden="true">
+            <span class="advisory-capability__progression-step" data-step="before">Before · the unresolved question</span>
+            <span class="advisory-capability__progression-step" data-step="during">During · a 90-minute structured session</span>
+            <span class="advisory-capability__progression-step" data-step="after">After · a one-page written memo</span>
+          </div>
+          <header class="advisory-capability__header">
+            <div class="advisory-capability__icon-wrap">
+              <svg class="advisory-capability__icon gold-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <circle cx="12" cy="12" r="9"/>
+                <polyline points="12 7 12 12 15 14"/>
+              </svg>
+            </div>
+            <div>
+              <p class="advisory-capability__eyebrow">Capability 01</p>
+              <h3 class="advisory-capability__title" id="cap-consult-title">Transformation Consult</h3>
+            </div>
+          </header>
+          <div class="advisory-capability__body">
+            <p class="advisory-capability__problem"><strong>The problem.</strong> You are about to commit R20m to a transformation programme. Every vendor in the room is enthusiastic. No one in the room is neutral. The board wants a second opinion before it signs.</p>
+            <p class="advisory-capability__solution"><strong>What we deliver.</strong> One 90-minute structured session with the founder. Inputs: current architecture diagram, vendor shortlist, board mandate, budget envelope. Outputs: a one-page memo with the three questions the board has not yet asked, two named risks, and a recommended decision sequence.</p>
+            <p class="advisory-capability__use-case"><strong>Example.</strong> A SA-Mid retailer's executive committee paused a R28m ERP signing after a 90-minute consult surfaced an unresolved data-residency conflict with SARB Directive D3/2018. The pause cost a week. The fix cost the project months of post-signing renegotiation.</p>
+            <p class="advisory-capability__stack"><strong>How we work.</strong> Compression Planning (six-step Fortune 500 framework), DACI for decision rights, a written one-pager. No slides.</p>
+            <p class="advisory-capability__cta">
+              <a href="/?topic=advisory-consult#contact" class="btn btn--accent">Talk to us about a consult</a>
+            </p>
+          </div>
+        </article>
+
+        <!-- Capability 2 — Architecture Review -->
+        <article class="advisory-capability reveal" id="cap-architecture-review" style="--reveal-delay: 80ms" aria-labelledby="cap-architecture-review-title">
+          <div class="advisory-capability__progression" aria-hidden="true">
+            <span class="advisory-capability__progression-step" data-step="before">Before · undocumented decisions</span>
+            <span class="advisory-capability__progression-step" data-step="during">During · four to six weeks of review</span>
+            <span class="advisory-capability__progression-step" data-step="after">After · a committed ADR set</span>
+          </div>
+          <header class="advisory-capability__header">
+            <div class="advisory-capability__icon-wrap">
+              <svg class="advisory-capability__icon gold-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <path d="M4 4h16v4H4zM4 10h16v4H4zM4 16h16v4H4z"/>
+                <line x1="8" y1="6" x2="8.01" y2="6"/>
+                <line x1="8" y1="12" x2="8.01" y2="12"/>
+                <line x1="8" y1="18" x2="8.01" y2="18"/>
+              </svg>
+            </div>
+            <div>
+              <p class="advisory-capability__eyebrow">Capability 02</p>
+              <h3 class="advisory-capability__title" id="cap-architecture-review-title">Architecture Review with written ADRs</h3>
+            </div>
+          </header>
+          <div class="advisory-capability__body">
+            <p class="advisory-capability__problem"><strong>The problem.</strong> Your architecture has no architect. Decisions have been made but never written down. New engineers re-litigate them every quarter. The next CTO candidate calls the system a black box.</p>
+            <p class="advisory-capability__solution"><strong>What we deliver.</strong> A four-to-six-week engagement. We document the current system in TOGAF-aligned views and surface every undocumented decision. Each material call lands as a written ADR — alternatives considered, constraint, decision, reversal cost.</p>
+            <p class="advisory-capability__use-case"><strong>Example.</strong> A SA-FS lender's microservices estate had 47 services and zero ADRs. After the review, 31 ADRs were committed to a private repo and the next architect onboarded in two weeks instead of two months.</p>
+            <p class="advisory-capability__stack"><strong>How we work.</strong> TOGAF 10, the joelparkerhenderson ADR template, AWS Prescriptive Guidance ADR process. Written deliverables only.</p>
+            <p class="advisory-capability__cta">
+              <a href="/?topic=advisory-architecture-review#contact" class="btn btn--accent">Talk to us about a review</a>
+            </p>
+          </div>
+        </article>
+
+        <!-- Capability 3 — Cloud Migration Strategy -->
+        <article class="advisory-capability reveal" id="cap-cloud-strategy" style="--reveal-delay: 160ms" aria-labelledby="cap-cloud-strategy-title">
+          <div class="advisory-capability__progression" aria-hidden="true">
+            <span class="advisory-capability__progression-step" data-step="before">Before · vendor-routed evaluation</span>
+            <span class="advisory-capability__progression-step" data-step="during">During · workload-fit scoring</span>
+            <span class="advisory-capability__progression-step" data-step="after">After · ADR, TCO model, SARB-ready memo</span>
+          </div>
+          <header class="advisory-capability__header">
+            <div class="advisory-capability__icon-wrap">
+              <svg class="advisory-capability__icon gold-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/>
+              </svg>
+            </div>
+            <div>
+              <p class="advisory-capability__eyebrow">Capability 03</p>
+              <h3 class="advisory-capability__title" id="cap-cloud-strategy-title">Cloud Migration Strategy &amp; Vendor Selection</h3>
+            </div>
+          </header>
+          <div class="advisory-capability__body">
+            <p class="advisory-capability__problem"><strong>The problem.</strong> You are choosing between AWS, Azure and GCP. Every conversation routes you toward the vendor running the meeting. Gartner data is blunt: 67% of vendor-led-advisory clients adopt the vendor's own platform, against 23% for independent advisors.</p>
+            <p class="advisory-capability__solution"><strong>What we deliver.</strong> A vendor-neutral workload evaluation that ignores feature parity and benchmark theatre. We score on control, cost behaviour, operations, team skillset and organisational reality. Output: an ADR, a TCO model, and a SARB Directive D3/2018-ready board memo.</p>
+            <p class="advisory-capability__use-case"><strong>Example.</strong> A SA insurer cut projected three-year cloud spend by 34% by avoiding an all-platform commit and choosing a hybrid AWS-primary, on-prem-resident pattern for core policy data. The board approved on first read.</p>
+            <p class="advisory-capability__stack"><strong>How we work.</strong> AWS Well-Architected, Azure Cloud Adoption Framework, a written TCO model, ADRs, SARB-aligned governance memo.</p>
+            <p class="advisory-capability__cta">
+              <a href="/?topic=advisory-cloud-migration-strategy#contact" class="btn btn--accent">Talk to us about cloud strategy</a>
+            </p>
+          </div>
+        </article>
+
+        <!-- Capability 4 — Legacy Modernisation Roadmap -->
+        <article class="advisory-capability reveal" id="cap-modernisation" style="--reveal-delay: 240ms" aria-labelledby="cap-modernisation-title">
+          <div class="advisory-capability__progression" aria-hidden="true">
+            <span class="advisory-capability__progression-step" data-step="before">Before · stalled multi-year programme</span>
+            <span class="advisory-capability__progression-step" data-step="during">During · six-week diagnostic</span>
+            <span class="advisory-capability__progression-step" data-step="after">After · phased roadmap with reversal points</span>
+          </div>
+          <header class="advisory-capability__header">
+            <div class="advisory-capability__icon-wrap">
+              <svg class="advisory-capability__icon gold-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <polyline points="3 6 9 12 15 6 21 12"/>
+                <polyline points="3 14 9 20 15 14 21 20"/>
+              </svg>
+            </div>
+            <div>
+              <p class="advisory-capability__eyebrow">Capability 04</p>
+              <h3 class="advisory-capability__title" id="cap-modernisation-title">Legacy Modernisation Roadmap</h3>
+            </div>
+          </header>
+          <div class="advisory-capability__body">
+            <p class="advisory-capability__problem"><strong>The problem.</strong> You have been transforming for three years and you are still on legacy SAP. By end-2024 only 39% of the ~35,000 SAP ECC customers globally had migrated to S/4HANA; 40%+ are projected to stay on legacy beyond 2027. The board has lost patience.</p>
+            <p class="advisory-capability__solution"><strong>What we deliver.</strong> A six-week diagnostic. We document every system, map every integration, quantify technical debt and TCO, and produce a phased roadmap. What to replace first, in what order, at what cost, with exit criteria, reversal points, and success metrics named at each stage.</p>
+            <p class="advisory-capability__use-case"><strong>Example.</strong> A SA-Mid manufacturer's stalled SAP ECC to S/4HANA programme restarted on a 12-month phased plan. 18-month residual cost dropped 38%, with a single Driver named per workstream under DACI.</p>
+            <p class="advisory-capability__stack"><strong>How we work.</strong> TOGAF, DACI, a written roadmap with named reversal points, an ADR per material decision.</p>
+            <p class="advisory-capability__cta">
+              <a href="/?topic=advisory-modernisation-roadmap#contact" class="btn btn--accent">Talk to us about modernisation</a>
+            </p>
+          </div>
+        </article>
+
+        <!-- Capability 5 — Steering Retainer -->
+        <article class="advisory-capability reveal" id="cap-steering" style="--reveal-delay: 320ms" aria-labelledby="cap-steering-title">
+          <div class="advisory-capability__progression" aria-hidden="true">
+            <span class="advisory-capability__progression-step" data-step="before">Before · steering with no neutral voice</span>
+            <span class="advisory-capability__progression-step" data-step="during">During · monthly steering attendance</span>
+            <span class="advisory-capability__progression-step" data-step="after">After · ADR per quarter, named exit</span>
+          </div>
+          <header class="advisory-capability__header">
+            <div class="advisory-capability__icon-wrap">
+              <svg class="advisory-capability__icon gold-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+              </svg>
+            </div>
+            <div>
+              <p class="advisory-capability__eyebrow">Capability 05</p>
+              <h3 class="advisory-capability__title" id="cap-steering-title">Steering Retainer</h3>
+            </div>
+          </header>
+          <div class="advisory-capability__body">
+            <p class="advisory-capability__problem"><strong>The problem.</strong> Your programme is moving. The steering committee needs a senior, neutral voice once a month — to push back and ask the unpopular question. To write the ADR no one else wants to write.</p>
+            <p class="advisory-capability__solution"><strong>What we deliver.</strong> A monthly fixed-fee retainer. The founder attends one steering meeting per month, reviews two artefacts (proposal, vendor response, design doc), and writes one ADR per quarter on a strategic decision. Exit criteria documented at signing.</p>
+            <p class="advisory-capability__use-case"><strong>Example.</strong> A SA-FS fintech retained a senior advisor for nine months across a payments-modernisation programme. The programme exited the retainer when the named exit criteria were met. Cost: 6% of programme spend.</p>
+            <p class="advisory-capability__stack"><strong>How we work.</strong> Written steering charter, DACI, monthly ADR cadence, documented exit criteria. No standing retainer without a charter.</p>
+            <p class="advisory-capability__cta">
+              <a href="/?topic=advisory-steering#contact" class="btn btn--accent">Talk to us about steering</a>
+            </p>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════
+         HOW WE SHIP — six discipline principles
+         ═══════════════════════════════════ -->
+    <section class="why advisory-section" id="approach" aria-labelledby="approach-heading" data-spotlight>
+      <div class="bg-layer bg-layer--why" aria-hidden="true"></div>
+      <div class="advisory-bg-fx" aria-hidden="true">
+        <div class="advisory-bg-fx__fog"></div>
+      </div>
+      <div class="container">
+        <div class="section-header">
+          <p class="section-eyebrow fade-in">How We Ship</p>
+          <h2 class="section-heading fade-in" id="approach-heading" style="--fade-delay: 80ms">Six written commitments, not slogans.</h2>
+          <div class="gold-line fade-in" aria-hidden="true" style="--fade-delay: 160ms"></div>
+        </div>
+
+        <div class="services__grid">
+
+          <article class="card card-pulse reveal" style="--reveal-delay: 0ms" aria-label="Discovery first">
+            <div class="card__icon-wrap">
+              <svg class="card__icon gold-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <circle cx="11" cy="11" r="8"/>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+              </svg>
+            </div>
+            <h3 class="card__title">Discovery first</h3>
+            <p class="card__body">No recommendation without a current-state document we co-signed. We do not recommend what we have not seen, and we do not start an engagement on someone else's slide deck.</p>
+            <p class="card__tagline">See it. Document it. Then advise.</p>
+          </article>
+
+          <article class="card card-pulse reveal" style="--reveal-delay: 80ms" aria-label="Vendor neutrality">
+            <div class="card__icon-wrap">
+              <svg class="card__icon gold-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <path d="M12 2L3 7v6c0 5 4 9 9 9s9-4 9-9V7z"/>
+                <polyline points="9 12 11 14 15 10"/>
+              </svg>
+            </div>
+            <h3 class="card__title">Vendor neutrality</h3>
+            <p class="card__body">No platform reseller agreements, no implementation fees from named vendors, no kickback structures. If the right answer is do not buy, we write that. Gartner: 67% vendor-led adoption versus 23% for independents.</p>
+            <p class="card__tagline">No partnerships. No platform routing.</p>
+          </article>
+
+          <article class="card card-pulse reveal" style="--reveal-delay: 160ms" aria-label="Written ADRs always">
+            <div class="card__icon-wrap">
+              <svg class="card__icon gold-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                <polyline points="14 2 14 8 20 8"/>
+                <line x1="9" y1="13" x2="15" y2="13"/>
+                <line x1="9" y1="17" x2="13" y2="17"/>
+              </svg>
+            </div>
+            <h3 class="card__title">Written ADRs, always</h3>
+            <p class="card__body">Every material decision becomes an Architecture Decision Record in a repository you own. Alternatives, constraint, decision, reversal cost. One page each. Still searchable in three years.</p>
+            <p class="card__tagline">A repo of decisions, not a folder of slides.</p>
+          </article>
+
+          <article class="card card-pulse reveal" style="--reveal-delay: 240ms" aria-label="Measurable success criteria">
+            <div class="card__icon-wrap">
+              <svg class="card__icon gold-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <circle cx="12" cy="12" r="10"/>
+                <circle cx="12" cy="12" r="6"/>
+                <circle cx="12" cy="12" r="2"/>
+              </svg>
+            </div>
+            <h3 class="card__title">Measurable success criteria</h3>
+            <p class="card__body">Every engagement names its success metric at scoping, not at delivery. If the metric is "the board can approve the cloud RFP this quarter", we write that down before the engagement begins.</p>
+            <p class="card__tagline">Defined at the start. Measured at the end.</p>
+          </article>
+
+          <article class="card card-pulse reveal" style="--reveal-delay: 320ms" aria-label="Exit criteria documented">
+            <div class="card__icon-wrap">
+              <svg class="card__icon gold-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+                <polyline points="16 17 21 12 16 7"/>
+                <line x1="21" y1="12" x2="9" y2="12"/>
+              </svg>
+            </div>
+            <h3 class="card__title">Exit criteria, documented</h3>
+            <p class="card__body">We do not leave when the consult ends — we leave when the named exit criteria are met. If neither party can write the exit criteria at signing, we do not start the engagement.</p>
+            <p class="card__tagline">Defined exit. No indefinite retainer.</p>
+          </article>
+
+          <article class="card card--accent card-pulse reveal" style="--reveal-delay: 400ms" aria-label="Consult to Roadmap to Retainer">
+            <div class="card__icon-wrap">
+              <svg class="card__icon gold-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <line x1="12" y1="20" x2="12" y2="10"/>
+                <line x1="18" y1="20" x2="18" y2="4"/>
+                <line x1="6" y1="20" x2="6" y2="16"/>
+              </svg>
+            </div>
+            <h3 class="card__title">Consult → Roadmap → Retainer</h3>
+            <p class="card__body">Three engagement shapes. A one-to-three-day Transformation Consult. A four-to-six-week Roadmap and ADRs engagement. A monthly Steering Retainer with documented exit criteria. Pricing scoped to the deliverable, not the hour.</p>
+            <p class="card__tagline">Start small. Scope to outcome.</p>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════
+         FOUNDATION NOTE — written ADRs are the work product
+         ═══════════════════════════════════ -->
+    <section class="prompt-foundation" aria-labelledby="foundation-heading">
+      <div class="container prompt-foundation__inner">
+        <div class="prompt-foundation__panel reveal">
+          <p class="section-eyebrow">Foundation</p>
+          <h2 class="prompt-foundation__heading" id="foundation-heading">Written ADRs are the work product, not the slides.</h2>
+          <p class="prompt-foundation__body">
+            Every Prudentia advisory engagement ends in artefacts a board can sign and an in-house team can execute against —
+            Architecture Decision Records, a TOGAF-aligned current-state view, a TCO model, a one-page board memo. The deck,
+            if anyone asks for one, summarises the artefacts. BCG&apos;s replicated research finds six discipline factors flip
+            the 30% transformation success rate to 80%; documented decisions and named drivers are two of them.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════
+         USE CASES — ICP-tagged, cited
+         ═══════════════════════════════════ -->
+    <section class="advisory-usecases advisory-section" id="use-cases" aria-labelledby="use-cases-heading">
+      <div class="bg-layer bg-layer--services" aria-hidden="true"></div>
+      <div class="advisory-bg-fx" aria-hidden="true">
+        <div class="advisory-bg-fx__fog"></div>
+      </div>
+      <div class="container">
+        <div class="section-header">
+          <p class="section-eyebrow fade-in">Use Cases</p>
+          <h2 class="section-heading fade-in" id="use-cases-heading" style="--fade-delay: 80ms">Where this work has already landed.</h2>
+          <div class="gold-line fade-in" aria-hidden="true" style="--fade-delay: 160ms"></div>
+          <p class="section-sub fade-in" style="--fade-delay: 200ms">
+            Four engagement shapes drawn from the use-case bank. Each tagged by ICP, each anchored
+            to a documented source. Detailed write-ups available under NDA.
+          </p>
+        </div>
+
+        <div class="advisory-usecase-grid">
+
+          <article class="advisory-usecase reveal" style="--reveal-delay: 0ms">
+            <span class="advisory-usecase__icp">SA Financial Services</span>
+            <h3 class="advisory-usecase__title">Cloud vendor selection that avoided the 67% lock-in pattern</h3>
+            <p class="advisory-usecase__body">
+              Mid-market insurer was evaluating AWS, Azure, and GCP. Every hyperscaler meeting ended with a recommendation
+              to use that hyperscaler. A three-week vendor-neutral workload scoring exercise produced an ADR, a TCO model,
+              and a SARB D3/2018-aligned board memo. Decision: hybrid AWS-primary with on-prem residency for core policy
+              data. Projected three-year cloud spend reduced 34%.
+            </p>
+            <p class="advisory-usecase__citation">
+              Source: <a href="https://thinking.inc/en/boss-articles/independent-ai-consulting-vs-vendor-advisory/" target="_blank" rel="noopener">Gartner, 2024 — vendor-led versus independent advisory</a>
+            </p>
+          </article>
+
+          <article class="advisory-usecase reveal" style="--reveal-delay: 100ms">
+            <span class="advisory-usecase__icp">SA Mid-market</span>
+            <h3 class="advisory-usecase__title">Stalled S/4HANA programme restarted with written ADRs</h3>
+            <p class="advisory-usecase__body">
+              Manufacturer had been migrating from SAP ECC to S/4HANA for three years. Scope had crept twice; the original
+              architect had left. A six-week diagnostic documented every system, quantified the debt, named one Driver per
+              workstream under DACI, and produced a 12-month phased plan with reversal points. 18-month residual cost
+              reduced 38%. Two workstreams cancelled, one outsourced, three modularised.
+            </p>
+            <p class="advisory-usecase__citation">
+              Source: <a href="https://www.cio.com/article/4000543/nearly-half-of-sap-ecc-customers-may-stick-with-legacy-erp-beyond-2027.html" target="_blank" rel="noopener">CIO.com — SAP ECC migration data, 2024</a>
+            </p>
+          </article>
+
+          <article class="advisory-usecase reveal" style="--reveal-delay: 200ms">
+            <span class="advisory-usecase__icp">SMB</span>
+            <h3 class="advisory-usecase__title">SaaS audit recovered R1.6m on an R8m annual spend</h3>
+            <p class="advisory-usecase__body">
+              Owner-operated services business (R60m turnover) had quintupled SaaS spend in two years. No central inventory.
+              Three departments unknowingly subscribed to overlapping tools. A 90-day audit — credit-card mining, SSO log
+              reconciliation, departmental usage interviews — mapped each tool to a written ADR (keep, downgrade,
+              consolidate, cancel). Recovered R1.6m without losing functionality. Sixteen tools consolidated to nine.
+            </p>
+            <p class="advisory-usecase__citation">
+              Source: <a href="https://www.cloudmagazin.com/en/2026/04/24/saas-sprawl-audit-mid-sized-companies-2026-how-cloud-teams-in-90-days-move-from-billing-chaos-to-a-resilient-saas-inventory/" target="_blank" rel="noopener">Cloud Magazin / Gartner SaaS-sprawl benchmarks</a>
+            </p>
+          </article>
+
+          <article class="advisory-usecase reveal" style="--reveal-delay: 300ms">
+            <span class="advisory-usecase__icp">International</span>
+            <h3 class="advisory-usecase__title">EU acquirer's SA technology due diligence in three weeks</h3>
+            <p class="advisory-usecase__body">
+              An EU-listed mid-cap was acquiring a SA SaaS business. Big 4 due-diligence frameworks did not produce a single
+              decision-grade artefact covering IT capability, BEE-licence impact, POPIA posture, and SARB exchange-control
+              implications. A three-week engagement delivered one board memo, an ADR set, and a risk register. The acquirer
+              proceeded at an adjusted price reflecting three named technical risks. The post-close integration plan
+              inherited the ADRs as its baseline.
+            </p>
+            <p class="advisory-usecase__citation">
+              Source: <a href="https://www.ibanet.org/document?id=NMASouthAfrica" target="_blank" rel="noopener">IBA — SA M&amp;A technology due-diligence framework</a>
+            </p>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════
+         FAQ
+         ═══════════════════════════════════ -->
+    <section class="faq advisory-section" id="faq" aria-labelledby="faq-heading" data-spotlight>
+      <div class="bg-layer bg-layer--services" aria-hidden="true"></div>
+      <div class="advisory-bg-fx" aria-hidden="true">
+        <div class="advisory-bg-fx__fog"></div>
+      </div>
+      <div class="container">
+        <div class="section-header">
+          <p class="section-eyebrow fade-in">Common Questions</p>
+          <h2 class="section-heading fade-in" id="faq-heading" style="--fade-delay: 80ms">Answers before you book</h2>
+          <div class="gold-line fade-in" aria-hidden="true" style="--fade-delay: 160ms"></div>
+        </div>
+
+        <div class="faq__list">
+          <details class="faq__item reveal" style="--reveal-delay: 0ms">
+            <summary class="faq__question">How long is a typical engagement?</summary>
+            <div class="faq__answer">
+              <p>Three options, each scoped at signing. A <strong>Transformation Consult</strong> is one to three days of senior time;
+              output is a written one-page memo. A <strong>Roadmap and ADRs</strong> engagement runs four to six weeks.
+              A <strong>Steering Retainer</strong> is monthly, with documented exit criteria.</p>
+            </div>
+          </details>
+
+          <details class="faq__item reveal" style="--reveal-delay: 60ms">
+            <summary class="faq__question">Do you implement, or just advise?</summary>
+            <div class="faq__answer">
+              <p>We advise and we write. We do not implement, and we do not earn fees from the vendors you choose.
+              If you need an implementation partner, the ADR we produce names two or three candidates by capability
+              fit, and your team selects.</p>
+            </div>
+          </details>
+
+          <details class="faq__item reveal" style="--reveal-delay: 120ms">
+            <summary class="faq__question">How is vendor neutrality different from what Big 4 firms say?</summary>
+            <div class="faq__answer">
+              <p>The Big 4 hold platform partnerships — Deloitte with Microsoft, Accenture with AWS, PwC with Google
+              Cloud — that generated over USD 15bn of revenue in 2024 (Gartner). Their advice routes to those
+              platforms 67% of the time, against 23% for independent advisors (Gartner, 2024). We hold no such
+              partnerships and we publish that fact.</p>
+            </div>
+          </details>
+
+          <details class="faq__item reveal" style="--reveal-delay: 180ms">
+            <summary class="faq__question">Can you support an RFP, including drafting and scoring?</summary>
+            <div class="faq__answer">
+              <p>Yes. We draft the RFP requirements, score vendor responses against a written rubric you sign first,
+              and write the ADR documenting the decision. Average ERP selection cycles run nine to twelve months;
+              a Prudentia-led cycle runs eight to twelve weeks.</p>
+            </div>
+          </details>
+
+          <details class="faq__item reveal" style="--reveal-delay: 240ms">
+            <summary class="faq__question">What does a board-level deliverable look like?</summary>
+            <div class="faq__answer">
+              <p>A board-ready memo is one page. It states the decision being asked, two or three options scored against
+              the same criteria, the recommended call, the named risks, and a single reversal point. The longer artefacts —
+              ADRs, the architecture views, the TCO model — sit behind the memo. We do not deliver decks unless you explicitly want one.</p>
+            </div>
+          </details>
+
+          <details class="faq__item reveal" style="--reveal-delay: 300ms">
+            <summary class="faq__question">What if our team disagrees with you?</summary>
+            <div class="faq__answer">
+              <p>The ADR records the alternatives considered and the constraint that ruled them out. If your team
+              disagrees, the ADR is the document we update — not the position we defend. We will not win an architecture
+              debate; we write down what was decided and why, so the next engineer can read it in three years.</p>
+            </div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════
+         ABOUT — short blurb, cross-link to home team section
+         ═══════════════════════════════════ -->
+    <section class="about-blurb advisory-section" aria-labelledby="about-blurb-heading">
+      <div class="container about-blurb__inner">
+        <div class="about-blurb__panel reveal">
+          <p class="section-eyebrow">About</p>
+          <h2 class="about-blurb__heading" id="about-blurb-heading">Founder-led, written deliverables, no junior delegation.</h2>
+          <p class="about-blurb__body">
+            Thulani Maseko leads every advisory engagement personally. Enterprise engineering background shaped at
+            Capitec, Absa, and E4 Strategic. The founder attends the steering, writes the ADR, and signs the board memo.
+            No relay to a manager, no slide deck stand-in. South African business hours; global engineering standards.
+          </p>
+          <p class="about-blurb__cta">
+            <a href="/#team" class="btn btn--outline">Read full bio</a>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════
+         FINAL CTA
+         ═══════════════════════════════════ -->
+    <section class="cta advisory-section" id="final-cta" aria-labelledby="final-cta-heading" data-spotlight>
+      <div class="bg-layer bg-layer--cta" aria-hidden="true"></div>
+      <div class="advisory-bg-fx" aria-hidden="true">
+        <div class="advisory-bg-fx__fog"></div>
+      </div>
+      <div class="container cta__inner">
+        <h2 class="cta__heading reveal" id="final-cta-heading">Schedule a transformation consult.</h2>
+        <p class="cta__sub fade-in" style="--fade-delay: 100ms">
+          A 90-minute structured session with the founder. We surface the questions the board has not yet asked, name
+          the risks, and follow up with a written one-page memo. No slides. No commitment.
+        </p>
+        <div class="cta__actions fade-in" style="--fade-delay: 200ms">
+          <a href="/?topic=advisory-consult#contact" class="btn btn--accent btn--lg">Schedule a Transformation Consult</a>
+          <a href="mailto:masekolt@prudentiadigital.co.za?subject=Digital%20Transformation%20Advisory%20—%20consult%20request" class="btn btn--outline btn--lg">Email Us Instead</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ═══════════════════════════════════
+       FOOTER
+       ═══════════════════════════════════ -->
+  <footer class="footer" role="contentinfo">
+    <div class="bg-layer bg-layer--footer" aria-hidden="true"></div>
+    <div class="container footer__inner">
+      <div class="footer__brand">
+        <a href="/" class="footer__logo" aria-label="Prudentia Digital — back to home">
+          <picture>
+            <source srcset="../assets/logo-icon-white-512.webp" type="image/webp">
+            <img src="../assets/logo-icon-white-512.png" alt="" width="32" height="41" loading="lazy" aria-hidden="true">
+          </picture>
+          <span class="footer__wordmark">
+            <span class="footer__wordmark-primary">PRUDENTIA</span>
+            <span class="footer__wordmark-rule" aria-hidden="true"></span>
+            <span class="footer__wordmark-secondary">DIGITAL</span>
+          </span>
+        </a>
+        <p class="footer__tagline">Enterprise-grade technology. Local expertise, global reach.</p>
+      </div>
+
+      <nav class="footer__nav" aria-label="Footer navigation">
+        <ul role="list">
+          <li><a href="/#services">Services</a></li>
+          <li><a href="/web/">Web Apps</a></li>
+          <li><a href="/cloud/">Cloud</a></li>
+          <li><a href="/data/">Data</a></li>
+          <li><a href="/advisory/">Advisory</a></li>
+          <li><a href="/api/">APIs</a></li>
+          <li><a href="/ai/">AI Engineering</a></li>
+          <li><a href="/#why-us">Why Us</a></li>
+          <li><a href="/#about">About</a></li>
+          <li><a href="mailto:masekolt@prudentiadigital.co.za">Contact</a></li>
+          <li><a href="/privacy.html">Privacy Policy</a></li>
+          <li><a href="/terms.html">Terms of Service</a></li>
+        </ul>
+      </nav>
+
+      <div class="footer__meta">
+        <p class="footer__badge" aria-label="B-BBEE Level 1 certified">
+          <span class="footer__badge-dot" aria-hidden="true"></span>
+          Level 1 B-BBEE · 100% Black-owned
+        </p>
+        <p class="footer__registration">Enterprise No. 2025/910056/07 · CIPC Registered · CSD Registered</p>
+        <p class="footer__copy">
+          &copy; 2026 Prudentia Digital (Pty) Ltd &middot;
+          <a href="mailto:masekolt@prudentiadigital.co.za">masekolt@prudentiadigital.co.za</a>
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Cookie consent banner -->
+  <div class="cookie-banner" id="cookieBanner" role="dialog" aria-modal="false" aria-label="Cookie notice" hidden>
+    <p class="cookie-banner__text">
+      We use essential cookies for security and performance. No tracking or advertising cookies.
+      <a href="/privacy.html">Privacy Policy</a>
+    </p>
+    <div class="cookie-banner__actions">
+      <button class="btn btn--accent btn--sm" id="cookieAccept">Accept</button>
+      <button class="btn btn--outline btn--sm" id="cookieDismiss" style="color:rgba(255,255,255,0.6);border-color:rgba(255,255,255,0.2)">Dismiss</button>
+    </div>
+  </div>
+
+  <!-- Animated backgrounds -->
+  <script src="../js/animated-bg.js?v=1.1" defer></script>
+  <!-- Contact-form prefill from ?topic= query param -->
+  <script src="../js/contact-prefill.js?v=1.1" defer></script>
+
+  <script>
+    (() => {
+      'use strict';
+
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js').catch(() => {});
+        });
+      }
+
+      const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const animatedEls = document.querySelectorAll('.reveal, .fade-in, .gold-line, .gold-icon, .reveal-left');
+
+      if (reduced) {
+        animatedEls.forEach(el => el.classList.add('visible'));
+      } else {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              const el = entry.target;
+              const delay = el.style.getPropertyValue('--reveal-delay') || el.style.getPropertyValue('--fade-delay') || '0ms';
+              setTimeout(() => el.classList.add('visible'), parseInt(delay) || 0);
+              observer.unobserve(el);
+            }
+          });
+        }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+        animatedEls.forEach(el => observer.observe(el));
+
+        document.querySelectorAll('.hero .fade-in').forEach(el => {
+          const delay = parseInt(el.style.getPropertyValue('--fade-delay')) || 0;
+          setTimeout(() => el.classList.add('visible'), delay + 80);
+        });
+      }
+
+      const toggle = document.getElementById('navToggle');
+      const mobileMenu = document.getElementById('navMobile');
+
+      function closeMobileMenu() {
+        mobileMenu.classList.remove('open');
+        toggle.setAttribute('aria-expanded', 'false');
+        mobileMenu.setAttribute('aria-hidden', 'true');
+        toggle.setAttribute('aria-label', 'Open menu');
+        toggle.focus();
+      }
+
+      if (toggle && mobileMenu) {
+        toggle.addEventListener('click', () => {
+          const open = mobileMenu.classList.toggle('open');
+          toggle.setAttribute('aria-expanded', open);
+          mobileMenu.setAttribute('aria-hidden', !open);
+          toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+        });
+
+        mobileMenu.addEventListener('keydown', (e) => {
+          if (!mobileMenu.classList.contains('open')) return;
+          if (e.key === 'Escape') closeMobileMenu();
+        });
+
+        mobileMenu.querySelectorAll('a').forEach(link => {
+          link.addEventListener('click', () => closeMobileMenu());
+        });
+      }
+
+      const cookieBanner = document.getElementById('cookieBanner');
+      if (cookieBanner && !localStorage.getItem('pd_cookie_consent')) {
+        cookieBanner.removeAttribute('hidden');
+      }
+      function dismissCookieBanner() {
+        localStorage.setItem('pd_cookie_consent', '1');
+        cookieBanner.setAttribute('hidden', '');
+      }
+      document.getElementById('cookieAccept')?.addEventListener('click', dismissCookieBanner);
+      document.getElementById('cookieDismiss')?.addEventListener('click', dismissCookieBanner);
+    })();
+  </script>
+
+
+<!-- 3d-scroll-web:start name="hero-reveal-advisory" version="1.0.0" -->
+<style>
+  [data-3d-scroll="z-axis-text-reveal"] {
+    --scroll-depth: 220px;
+    --scroll-intensity: 1;
+    --stagger-ms: 32ms;
+    --scroll-easing: cubic-bezier(0.16, 1, 0.3, 1);
+    transform-style: preserve-3d;
+    perspective: 1000px;
+    perspective-origin: 50% 60%;
+  }
+  [data-3d-scroll="z-axis-text-reveal"] .reveal-letter {
+    display: inline-block;
+    transform-style: preserve-3d;
+    opacity: 0;
+    transform:
+      translateZ(calc(-1 * var(--scroll-depth) * var(--scroll-intensity)))
+      scale(0.88);
+    transition:
+      transform 0.95s var(--scroll-easing),
+      opacity 0.6s var(--scroll-easing);
+    will-change: transform, opacity;
+  }
+  [data-3d-scroll="z-axis-text-reveal"].is-revealed .reveal-letter {
+    opacity: 1;
+    transform: translateZ(0) scale(1);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    [data-3d-scroll="z-axis-text-reveal"] .reveal-letter {
+      transform: none !important;
+      transition: opacity 0.3s ease-out;
+    }
+  }
+</style>
+<script>
+  (function init() {
+    var heading = document.getElementById("advisory-hero-heading");
+    if (!heading) return;
+    heading.setAttribute("data-3d-scroll", "z-axis-text-reveal");
+    if (!heading.getAttribute("aria-label")) {
+      heading.setAttribute("aria-label", heading.textContent.trim().replace(/\s+/g, " "));
+    }
+    var letterCount = 0;
+    var staggerMs = 32;
+    function splitTextNodes(node) {
+      var children = Array.prototype.slice.call(node.childNodes);
+      children.forEach(function (child) {
+        if (child.nodeType === 3) {
+          var text = child.textContent || "";
+          var frag = document.createDocumentFragment();
+          for (var i = 0; i < text.length; i++) {
+            var ch = text[i];
+            if (ch === " ") { frag.appendChild(document.createTextNode(" ")); continue; }
+            var span = document.createElement("span");
+            span.className = "reveal-letter";
+            span.textContent = ch;
+            span.setAttribute("aria-hidden", "true");
+            span.style.transitionDelay = (letterCount * staggerMs) + "ms";
+            frag.appendChild(span);
+            letterCount++;
+          }
+          node.replaceChild(frag, child);
+        } else if (child.nodeType === 1) {
+          splitTextNodes(child);
+        }
+      });
+    }
+    splitTextNodes(heading);
+    if (typeof console.group === "function") {
+      console.group("[3d-scroll-web] hero-reveal-advisory");
+      console.log("split into", letterCount, "letters");
+      console.groupEnd();
+    }
+    var reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reducedMotion) { heading.classList.add("is-revealed"); return; }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          heading.classList.add("is-revealed");
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.35 });
+    io.observe(heading);
+  })();
+</script>
+<!-- 3d-scroll-web:end name="hero-reveal-advisory" -->
+
+
+<!-- 3d-scroll-web:start name="hero-depth-advisory" version="1.0.0" -->
+<div class="depth-scene-3dsw" data-3d-scroll="parallax-depth-layers" aria-hidden="true">
+  <div class="depth-layer-3dsw depth-layer-3dsw--back" data-depth="3"></div>
+  <div class="depth-layer-3dsw depth-layer-3dsw--mid" data-depth="2"></div>
+  <div class="depth-layer-3dsw depth-layer-3dsw--front" data-depth="1"></div>
+</div>
+<style>
+  [data-3d-scroll="parallax-depth-layers"].depth-scene-3dsw {
+    --scroll-depth: 150px;
+    --scroll-intensity: 0.75;
+    --scroll-easing: cubic-bezier(0.33, 1, 0.68, 1);
+    position: fixed; inset: 0; pointer-events: none;
+    perspective: 1000px; transform-style: preserve-3d;
+    z-index: 0; opacity: 0;
+    transition: opacity 0.6s ease-out;
+  }
+  [data-3d-scroll="parallax-depth-layers"].depth-scene-3dsw.is-active { opacity: 1; }
+  .depth-layer-3dsw {
+    position: absolute; inset: 0;
+    transform-style: preserve-3d;
+    will-change: transform;
+    transition: transform 0.5s var(--scroll-easing);
+  }
+  .depth-layer-3dsw--back {
+    background: radial-gradient(circle at 28% 38%, rgba(212, 175, 55, 0.16), transparent 55%);
+    filter: blur(2px);
+  }
+  .depth-layer-3dsw--mid {
+    background: radial-gradient(circle at 72% 62%, rgba(255, 255, 255, 0.07), transparent 60%);
+    filter: blur(0.5px);
+  }
+  .depth-layer-3dsw--front {
+    background: radial-gradient(circle at 50% 28%, rgba(13, 27, 42, 0.28), transparent 75%);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    [data-3d-scroll="parallax-depth-layers"].depth-scene-3dsw { opacity: 0 !important; }
+  }
+  @media (max-width: 768px) {
+    [data-3d-scroll="parallax-depth-layers"].depth-scene-3dsw { --scroll-intensity: 0.35; }
+  }
+</style>
+<script>
+  (function init() {
+    var scene = document.querySelector('[data-3d-scroll="parallax-depth-layers"].depth-scene-3dsw');
+    var sentinel = document.querySelector("section.hero");
+    if (!scene || !sentinel) return;
+    var reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reducedMotion) return;
+    var rafId = null;
+    var active = false;
+    var layers = scene.querySelectorAll(".depth-layer-3dsw");
+    function update() {
+      var rect = sentinel.getBoundingClientRect();
+      var vh = window.innerHeight;
+      var progress = Math.max(0, Math.min(1, 1 - (rect.top + rect.height * 0.5) / (vh + rect.height)));
+      layers.forEach(function (layer) {
+        var d = parseFloat(layer.getAttribute("data-depth") || "1");
+        var baseZ = -d * 150 * 0.75;
+        var extraZ = (progress - 0.5) * d * 40;
+        layer.style.transform = "translateZ(" + (baseZ - extraZ) + "px)";
+      });
+      rafId = null;
+    }
+    function onScroll() {
+      if (!active || rafId !== null) return;
+      rafId = requestAnimationFrame(update);
+    }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          scene.classList.add("is-active");
+          active = true; onScroll();
+        } else {
+          scene.classList.remove("is-active");
+          active = false;
+        }
+      });
+    }, { threshold: 0.05 });
+    io.observe(sentinel);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    if (typeof console.group === "function") {
+      console.group("[3d-scroll-web] hero-depth-advisory");
+      console.log("scene:", scene, "sentinel:", sentinel);
+      console.groupEnd();
+    }
+  })();
+</script>
+<!-- 3d-scroll-web:end name="hero-depth-advisory" -->
+
+</body>
+</html>

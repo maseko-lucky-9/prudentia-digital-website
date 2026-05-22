@@ -248,5 +248,94 @@
   </script>
   <script src="../js/nav.js"></script>
 
+
+<!-- 3d-scroll-web:start name="hero-reveal-blog" version="1.0.0" -->
+<style>
+  [data-3d-scroll="z-axis-text-reveal"] {
+    --scroll-depth: 220px;
+    --scroll-intensity: 1;
+    --stagger-ms: 32ms;
+    --scroll-easing: cubic-bezier(0.16, 1, 0.3, 1);
+    transform-style: preserve-3d;
+    perspective: 1000px;
+    perspective-origin: 50% 60%;
+  }
+  [data-3d-scroll="z-axis-text-reveal"] .reveal-letter {
+    display: inline-block;
+    transform-style: preserve-3d;
+    opacity: 0;
+    transform:
+      translateZ(calc(-1 * var(--scroll-depth) * var(--scroll-intensity)))
+      scale(0.88);
+    transition:
+      transform 0.95s var(--scroll-easing),
+      opacity 0.6s var(--scroll-easing);
+    will-change: transform, opacity;
+  }
+  [data-3d-scroll="z-axis-text-reveal"].is-revealed .reveal-letter {
+    opacity: 1;
+    transform: translateZ(0) scale(1);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    [data-3d-scroll="z-axis-text-reveal"] .reveal-letter {
+      transform: none !important;
+      transition: opacity 0.3s ease-out;
+    }
+  }
+</style>
+<script>
+  (function init() {
+    var heading = document.querySelector("main h1.section-heading");
+    if (!heading) return;
+    heading.setAttribute("data-3d-scroll", "z-axis-text-reveal");
+    if (!heading.getAttribute("aria-label")) {
+      heading.setAttribute("aria-label", heading.textContent.trim().replace(/\s+/g, " "));
+    }
+    var letterCount = 0;
+    var staggerMs = 32;
+    function splitTextNodes(node) {
+      var children = Array.prototype.slice.call(node.childNodes);
+      children.forEach(function (child) {
+        if (child.nodeType === 3) {
+          var text = child.textContent || "";
+          var frag = document.createDocumentFragment();
+          for (var i = 0; i < text.length; i++) {
+            var ch = text[i];
+            if (ch === " ") { frag.appendChild(document.createTextNode(" ")); continue; }
+            var span = document.createElement("span");
+            span.className = "reveal-letter";
+            span.textContent = ch;
+            span.setAttribute("aria-hidden", "true");
+            span.style.transitionDelay = (letterCount * staggerMs) + "ms";
+            frag.appendChild(span);
+            letterCount++;
+          }
+          node.replaceChild(frag, child);
+        } else if (child.nodeType === 1) {
+          splitTextNodes(child);
+        }
+      });
+    }
+    splitTextNodes(heading);
+    if (typeof console.group === "function") {
+      console.group("[3d-scroll-web] hero-reveal-blog");
+      console.log("split into", letterCount, "letters");
+      console.groupEnd();
+    }
+    var reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reducedMotion) { heading.classList.add("is-revealed"); return; }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          heading.classList.add("is-revealed");
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.35 });
+    io.observe(heading);
+  })();
+</script>
+<!-- 3d-scroll-web:end name="hero-reveal-blog" -->
+
 </body>
 </html>

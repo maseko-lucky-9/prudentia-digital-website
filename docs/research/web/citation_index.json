@@ -1,0 +1,298 @@
+[
+  {
+    "claim": "Worldwide IT spending to total $5.43 trillion in 2025; software spending expected to grow 14% to $1.23 trillion.",
+    "value": "$5.43T total IT; +14% software to $1.23T",
+    "source_url": "https://www.gartner.com/en/newsroom/press-releases/2025-07-15-gartner-forecasts-worldwide-it-spending-to-grow-7-point-9-percent-in-2025",
+    "source_title": "Gartner Forecasts Worldwide IT Spending to Grow 7.9% in 2025",
+    "retrieval_date": "2026-05-21",
+    "tier": "T1"
+  },
+  {
+    "claim": "Global Application Development Software market projected revenue $195.77bn in 2025; 5.09% CAGR 2025-2030.",
+    "value": "$195.77B (2025); 5.09% CAGR",
+    "source_url": "https://www.statista.com/outlook/tmo/software/application-development-software/worldwide",
+    "source_title": "Application Development Software — Worldwide | Statista Market Forecast",
+    "retrieval_date": "2026-05-21",
+    "tier": "T2"
+  },
+  {
+    "claim": "South Africa Enterprise Software market projected revenue $1.12bn in 2025; CAGR 4.17% to $1.37bn by 2030.",
+    "value": "$1.12B (2025) → $1.37B (2030)",
+    "source_url": "https://www.statista.com/outlook/tmo/software/enterprise-software/south-africa",
+    "source_title": "Enterprise Software — South Africa | Statista Market Forecast",
+    "retrieval_date": "2026-05-21",
+    "tier": "T2"
+  },
+  {
+    "claim": "South Africa IT Services average spend per employee projected $246.82 in 2025; CAGR 3.53% to $7.70bn market volume by 2030.",
+    "value": "$246.82/employee; market $7.70B by 2030",
+    "source_url": "https://www.statista.com/outlook/tmo/it-services/south-africa",
+    "source_title": "IT Services — South Africa | Statista Market Forecast",
+    "retrieval_date": "2026-05-21",
+    "tier": "T2"
+  },
+  {
+    "claim": "78% of SA SMBs say digital technology is important to operations; cloud adoption alone could unlock R186 billion in economic value for SA SMMEs 2023-2030.",
+    "value": "78% SMBs digital-positive; R186bn cloud value 2023-2030",
+    "source_url": "https://www.ebnet.co.za/driving-economic-resilience-through-digital-transformation-of-south-africas-smb-sector/",
+    "source_title": "Driving economic resilience through digital transformation of South Africa's SMB sector | EBnet",
+    "retrieval_date": "2026-05-21",
+    "tier": "T2"
+  },
+  {
+    "claim": "Only 24.6% of SA businesses under R1m turnover use formal accounting systems; 16.6% have payroll systems; reconciliations on spreadsheets take days with no real-time cash view.",
+    "value": "24.6% formal accounting / 16.6% payroll under R1m",
+    "source_url": "https://www.probizserv.co.za/the-ultimate-guide-to-financial-statements-for-south-african-smes/",
+    "source_title": "The Ultimate Guide to Financial Statements for South African SMEs | Probizserv",
+    "retrieval_date": "2026-05-21",
+    "tier": "T3"
+  },
+  {
+    "claim": "South Africa's Department of Basic Education ordered to pay R5 million administrative fine by the Information Regulator for POPIA non-compliance (Nov 2024).",
+    "value": "R5 million POPIA fine, DBE, Nov 2024",
+    "source_url": "https://www.itweb.co.za/article/education-dept-issued-r5m-fine-for-popia-violation/Pero3qZ3axdvQb6m",
+    "source_title": "Education dept issued R5m fine for POPIA violation | ITWeb",
+    "retrieval_date": "2026-05-21",
+    "tier": "T1"
+  },
+  {
+    "claim": "POPIA administrative fines capped at R10 million; serious criminal offences R10m fine and/or up to 10 years imprisonment.",
+    "value": "Max R10M admin / R10M + 10yrs criminal",
+    "source_url": "https://resourcehub.bakermckenzie.com/en/resources/global-data-and-cyber-handbook/emea/south-africa/topics/regulators-enforcement-priorities-and-penalties",
+    "source_title": "Regulators, Enforcement Priorities and Penalties — South Africa | Baker McKenzie Global Data and Cyber Handbook",
+    "retrieval_date": "2026-05-21",
+    "tier": "T1"
+  },
+  {
+    "claim": "SARB Prudential Authority issued Directive D3/2018 (effective 1 October 2018) governing bank cloud computing and data offshoring; principles-based, requires risk-mitigation and notification of material agreements.",
+    "value": "PA Directive D3/2018 (banks, cloud, offshoring)",
+    "source_url": "https://www.ensafrica.com/news/detail/1018/cloud-outsource-directive-and-guidance-note-i",
+    "source_title": "Cloud outsource directive and guidance note issued by the South African Reserve Bank | ENSafrica",
+    "retrieval_date": "2026-05-21",
+    "tier": "T1"
+  },
+  {
+    "claim": "Mobile bounce probability increases 32% as page load goes from 1s to 3s, and 90% as it goes from 1s to 5s (Google/SOASTA).",
+    "value": "+32% bounce (1→3s); +90% (1→5s)",
+    "source_url": "https://www.thinkwithgoogle.com/_qs/documents/9757/Milliseconds_Make_Millions_report_hQYAbZJ.pdf",
+    "source_title": "Milliseconds Make Millions — Think with Google",
+    "retrieval_date": "2026-05-21",
+    "tier": "T1"
+  },
+  {
+    "claim": "Amazon found every 100ms of latency cost 1% in sales; Walmart found up to 2% conversion lift per 1s LCP improvement.",
+    "value": "Amazon: 100ms = 1% sales loss; Walmart: 1s = 2% conv lift",
+    "source_url": "https://wpostats.com/2015/11/04/walmart-revenue/",
+    "source_title": "Walmart: 2% conversion lift per second of load-time improvement | WPO Stats",
+    "retrieval_date": "2026-05-21",
+    "tier": "T2"
+  },
+  {
+    "claim": "Vodafone improved LCP by 31% and saw 8% more sales and 15% cart-to-visit rate improvement.",
+    "value": "LCP -31% → +8% sales, +15% cart/visit",
+    "source_url": "https://web.dev/case-studies/vitals-business-impact",
+    "source_title": "The business impact of Core Web Vitals | web.dev",
+    "retrieval_date": "2026-05-21",
+    "tier": "T1"
+  },
+  {
+    "claim": "Agrofy Market improved LCP by 70% and cut load abandonment by 76%.",
+    "value": "LCP +70% → abandonment -76%",
+    "source_url": "https://web.dev/case-studies/agrofy",
+    "source_title": "Agrofy case study | web.dev",
+    "retrieval_date": "2026-05-21",
+    "tier": "T1"
+  },
+  {
+    "claim": "NDTV halved LCP and saw 50% better bounce rate.",
+    "value": "LCP halved → bounce -50%",
+    "source_url": "https://web.dev/case-studies/ndtv",
+    "source_title": "NDTV case study | web.dev",
+    "retrieval_date": "2026-05-21",
+    "tier": "T1"
+  },
+  {
+    "claim": "Yahoo! Japan News fixed CLS: 98% reduction in poor pages, 15% uplift in page views.",
+    "value": "CLS fix → 98% poor pages reduction, +15% PV",
+    "source_url": "https://web.dev/case-studies/yahoo-japan-news",
+    "source_title": "Yahoo! Japan News case study | web.dev",
+    "retrieval_date": "2026-05-21",
+    "tier": "T1"
+  },
+  {
+    "claim": "43% of websites still fail the INP threshold of 200 milliseconds — the most commonly failed Core Web Vital.",
+    "value": "43% INP fail rate",
+    "source_url": "https://nitropack.io/blog/most-important-core-web-vitals-metrics/",
+    "source_title": "The Most Important Core Web Vitals Metrics in 2026 | NitroPack",
+    "retrieval_date": "2026-05-21",
+    "tier": "T3"
+  },
+  {
+    "claim": "Only 47% of sites meet Google's Core Web Vitals thresholds; failure correlates with 8-35% loss in conversions, rankings, revenue.",
+    "value": "47% pass; 8-35% loss when failing",
+    "source_url": "https://nitropack.io/blog/post/improve-conversion-rates-cwv",
+    "source_title": "The Role of Core Web Vitals In Improving Conversion Rates | NitroPack",
+    "retrieval_date": "2026-05-21",
+    "tier": "T3"
+  },
+  {
+    "claim": "4,605 ADA web accessibility lawsuits filed in 2024; 68% targeted e-commerce; nearly 67% targeted companies under $25M annual revenue.",
+    "value": "4,605 ADA suits (2024); 68% ecommerce; 67% <$25M",
+    "source_url": "https://www.accessibility.works/blog/ada-lawsuit-trends-statistics-2024-summary/",
+    "source_title": "ADA Web Accessibility Lawsuit Trends: 2024 in Review | Accessibility.Works",
+    "retrieval_date": "2026-05-21",
+    "tier": "T2"
+  },
+  {
+    "claim": "WCAG-compliant accessibility fixes: ClearVision Optics lifted checkout completion 64% → 78% (+19% revenue).",
+    "value": "Checkout 64→78%, +19% revenue",
+    "source_url": "https://buildgrowscale.com/accessibility-conversion-improvement-case-study",
+    "source_title": "Accessibility Conversion Improvement: 19% Revenue Lift | Build Grow Scale",
+    "retrieval_date": "2026-05-21",
+    "tier": "T3"
+  },
+  {
+    "claim": "10,000-website study: WCAG-compliant sites had 23% more organic traffic and 15% higher conversion rates than non-compliant competitors.",
+    "value": "+23% organic traffic, +15% conversion",
+    "source_url": "https://www.accessibility.works/blog/web-accessibility-roi-seo-traffic-ai-bot-agent-optimization/",
+    "source_title": "Web Accessibility ROI: 23% Traffic Gain from WCAG Compliance | Accessibility.Works",
+    "retrieval_date": "2026-05-21",
+    "tier": "T2"
+  },
+  {
+    "claim": "OWASP Top 10: 61% of all breaches involve Broken Access Control (2024 data).",
+    "value": "61% breaches = Broken Access Control",
+    "source_url": "https://owasp.org/www-project-top-ten/",
+    "source_title": "OWASP Top Ten Web Application Security Risks | OWASP Foundation",
+    "retrieval_date": "2026-05-21",
+    "tier": "T1"
+  },
+  {
+    "claim": "IBM 2023 Cost of a Data Breach Report: global average breach cost $4.45 million.",
+    "value": "$4.45M avg breach cost",
+    "source_url": "https://www.kiuwan.com/blog/owasp-top-10/",
+    "source_title": "What's New in the OWASP Top 10 in 2024 | Kiuwan (citing IBM 2023 Cost of a Data Breach Report)",
+    "retrieval_date": "2026-05-21",
+    "tier": "T3"
+  },
+  {
+    "claim": "McKinsey: companies integrating AI/digital deeply experience 20-30% productivity gains; 26% surge in profitability for businesses embracing digital transformation; only 31% of expected revenue lift / 25% of cost savings captured.",
+    "value": "+20-30% productivity, +26% profit, 31% rev / 25% cost capture",
+    "source_url": "https://www.mckinsey.com/capabilities/mckinsey-digital/our-insights/the-top-trends-in-tech",
+    "source_title": "McKinsey technology trends outlook 2025 | McKinsey",
+    "retrieval_date": "2026-05-21",
+    "tier": "T1"
+  },
+  {
+    "claim": "2024 Accelerate State of DevOps: elite teams deploy multiple times/day, lead time for changes under 1 day, change failure rate <15%, recovery <1 hour.",
+    "value": "Elite: multi-deploy/day, <1d lead, <15% CFR, <1h MTTR",
+    "source_url": "https://www.augmentcode.com/guides/enterprise-development-velocity-measuring-ai-automation-impact",
+    "source_title": "Enterprise Development Velocity (citing DORA 2024 Accelerate State of DevOps) | Augment Code",
+    "retrieval_date": "2026-05-21",
+    "tier": "T3"
+  },
+  {
+    "claim": "LaunchDarkly customers: 76% reduction in lead time for changes; one team cut feature flag rollout from 14.2min to 4.26min (70%) and rollback incidents fell 82%.",
+    "value": "-76% lead time; -82% rollback incidents",
+    "source_url": "https://launchdarkly.com/blog/change-failure-rate/",
+    "source_title": "Change Failure Rate: What It Is & How to Measure and Improve | LaunchDarkly",
+    "retrieval_date": "2026-05-21",
+    "tier": "T2"
+  },
+  {
+    "claim": "Stack Overflow 2024 Developer Survey: React used by 41.6% of pro developers; Node.js 40.7%; PostgreSQL 49% (most popular DB second year running).",
+    "value": "React 41.6% / Node 40.7% / Postgres 49%",
+    "source_url": "https://survey.stackoverflow.co/2024/technology",
+    "source_title": "Technology | 2024 Stack Overflow Developer Survey",
+    "retrieval_date": "2026-05-21",
+    "tier": "T1"
+  },
+  {
+    "claim": "Pendo research: ~80% of features in shipped applications are rarely or never used by end users.",
+    "value": "~80% features unused / rarely used",
+    "source_url": "https://uxcam.com/blog/ux-statistics/",
+    "source_title": "50+ Powerful UX Statistics To Impress Stakeholders 2025 | UXCam (citing Pendo)",
+    "retrieval_date": "2026-05-21",
+    "tier": "T3"
+  },
+  {
+    "claim": "NN/g: 84% of practitioners said discovery phases positively impact the products and services they build; discoveries increase chance of success by 59%.",
+    "value": "84% positive impact / +59% success",
+    "source_url": "https://www.nngroup.com/articles/discoveries-in-industry-revealed/",
+    "source_title": "How Well Discovery Phases Are Performed in UX Projects | Nielsen Norman Group",
+    "retrieval_date": "2026-05-21",
+    "tier": "T1"
+  },
+  {
+    "claim": "South Africa developer hourly rate range: $20–$55/hr for mobile, web, and .NET talent in Cape Town and Lagos hubs (2024-2025).",
+    "value": "$20-$55/hr SA & Lagos hubs",
+    "source_url": "https://distantjob.com/blog/offshore-software-development-rates-by-country-2025/",
+    "source_title": "Offshore Software Development Rates by Country (2025) | DistantJob",
+    "retrieval_date": "2026-05-21",
+    "tier": "T3"
+  },
+  {
+    "claim": "Manufacturing modernisation case: Unilever rolled AI-driven analytics across 124 factories; downtime reduction, factory efficiency +3-5%, costs -8%, millions in annual savings.",
+    "value": "+3-5% efficiency, -8% cost",
+    "source_url": "https://tech-stack.com/blog/5-legacy-modernization-examples-that-delivered-roi/",
+    "source_title": "5 Legacy Modernization Examples That Delivered ROI | Tech-Stack",
+    "retrieval_date": "2026-05-21",
+    "tier": "T3"
+  },
+  {
+    "claim": "Pharmaceutical manufacturer modernised Excel-based sterilisation scheduling system: planning window expanded from 12-16 hours to weeks in advance, eliminated data-entry errors.",
+    "value": "12-16hr → weeks planning window",
+    "source_url": "https://sandalwood.com/modernizing-legacy-manufacturing-systems-a-customer-case-study/",
+    "source_title": "Modernizing Legacy Manufacturing Systems — A Customer Case Study | Sandalwood",
+    "retrieval_date": "2026-05-21",
+    "tier": "T3"
+  },
+  {
+    "claim": "Codehesion (Cape Town): voted most-trusted SA dev company 2024; founded 2017; 70+ apps delivered; client list includes Woolworths, Hyundai, Leroy Merlin, Tiger Wheel & Tyre, City Lodge, Peermont Global.",
+    "value": "70+ apps, founded 2017, top SA clients",
+    "source_url": "https://businesstech.co.za/news/industry-news/856178/codehesion-south-africas-leading-software-development-company/",
+    "source_title": "Codehesion — South Africa's leading software development company | BusinessTech",
+    "retrieval_date": "2026-05-21",
+    "tier": "T3"
+  },
+  {
+    "claim": "Entelect: 22 years operating, 150+ active projects, large-scale enterprise SA software house.",
+    "value": "22 yrs, 150+ active projects",
+    "source_url": "https://entelect.co.za/",
+    "source_title": "End-to-end technology services and solutions | Entelect",
+    "retrieval_date": "2026-05-21",
+    "tier": "T2"
+  },
+  {
+    "claim": "Yoco: payments + software platform serving 300,000+ SA small businesses, processes USD-billions annually.",
+    "value": "300k+ SMBs; USD-billions/yr",
+    "source_url": "https://www.crunchbase.com/organization/yoco",
+    "source_title": "Yoco — Crunchbase Company Profile & Funding",
+    "retrieval_date": "2026-05-21",
+    "tier": "T2"
+  },
+  {
+    "claim": "Generative AI assistance cut time-to-market by 10-30% and boosted sprint velocity 11-27% in controlled pilots.",
+    "value": "Time-to-market -10-30%, velocity +11-27%",
+    "source_url": "https://www.augmentcode.com/guides/enterprise-development-velocity-measuring-ai-automation-impact",
+    "source_title": "Enterprise Development Velocity (citing 2024 productivity studies) | Augment Code",
+    "retrieval_date": "2026-05-21",
+    "tier": "T3"
+  },
+  {
+    "claim": "South Africa internet access ~15 million people in 2024; smartphone penetration ~90% of households.",
+    "value": "15M internet users; 90% smartphone HHs",
+    "source_url": "https://www.bizcommunity.com/article/10-factors-reshaping-sas-online-retail-economy-in-2026-and-beyond-170626a",
+    "source_title": "10 factors reshaping SA's online retail economy in 2026 | Bizcommunity",
+    "retrieval_date": "2026-05-21",
+    "tier": "T3"
+  },
+  {
+    "claim": "Microsoft committed an additional ZAR 5.4 billion (2024-2025) to expanding SA cloud, AI and digital skills — indicator of accelerating SA cloud spend.",
+    "value": "+R5.4bn Microsoft SA investment",
+    "source_url": "https://news.microsoft.com/source/emea/features/microsoft-invests-zar-5-4bn-in-south-africa/",
+    "source_title": "Microsoft invests an additional ZAR 5.4bn in South Africa | Microsoft News",
+    "retrieval_date": "2026-05-21",
+    "tier": "T1"
+  }
+]

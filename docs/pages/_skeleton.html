@@ -1,0 +1,170 @@
+<!--
+  Prudentia Digital — Service Detail Page Skeleton
+  =================================================
+
+  This file is the SCHEMA, not a literal template to copy-paste. Phase 2 writers:
+  1. Start from /ai/index.html as the literal HTML reference
+  2. Substitute the {{PLACEHOLDER}} slots below into their service page
+  3. Respect every word/character budget — these are HARD caps, not suggestions
+  4. Layer in per-service motion using css/pages/{slug}.css and tokens from _motion-shared.css
+
+  All claims must trace to docs/research/{slug}/citation_index.json.
+  All paragraphs validated against docs/pages/_voice-guide.md.
+  All CTAs use the entry-offer copy from docs/pages/_cta-strategy.md.
+  All og:image references stay on assets/og-image-1200x630.png (shared brand image, do not invent paths).
+
+  Section list (in order):
+    01  <head> meta + SEO + JSON-LD
+    02  Skip link
+    03  Cookie consent banner placeholder
+    04  Nav (all 6 services listed)
+    05  Hero
+    06  Capabilities (5 cards: problem / solution / use case / stack / CTA)
+    07  How we ship (6 service-discipline principles)
+    08  Foundation note (1 panel)
+    09  Use Cases section (NEW vs AI page — 3 cards minimum, ICP-tagged)
+    10  FAQ (6 Q&A minimum)
+    11  About blurb
+    12  Final CTA
+    13  Footer (shared)
+    14  Cookie banner script + analytics if any (currently none)
+
+  =================================================
+  WORD / CHARACTER BUDGETS (HARD CAPS)
+  =================================================
+
+  | Slot                              | Budget                   |
+  |-----------------------------------|--------------------------|
+  | <title>                           | ≤ 65 chars               |
+  | meta description                  | ≤ 160 chars              |
+  | hero eyebrow                      | ≤ 60 chars               |
+  | hero headline (h1)                | ≤ 90 chars               |
+  | hero subhead                      | ≤ 240 chars              |
+  | capability eyebrow                | ≤ 40 chars               |
+  | capability title (h3)             | ≤ 60 chars               |
+  | capability problem paragraph      | ≤ 45 words               |
+  | capability solution paragraph     | ≤ 50 words               |
+  | capability use-case paragraph     | ≤ 50 words               |
+  | capability stack paragraph        | ≤ 35 words               |
+  | how-we-ship title (h3)            | ≤ 45 chars               |
+  | how-we-ship body                  | ≤ 55 words               |
+  | how-we-ship tagline               | ≤ 60 chars               |
+  | foundation note heading           | ≤ 80 chars               |
+  | foundation note body              | ≤ 75 words               |
+  | use-case card title               | ≤ 60 chars               |
+  | use-case card body                | ≤ 70 words               |
+  | FAQ question                      | ≤ 90 chars               |
+  | FAQ answer                        | ≤ 120 words              |
+  | about blurb                       | ≤ 90 words               |
+  | final CTA heading                 | ≤ 60 chars               |
+  | final CTA subtext                 | ≤ 200 chars              |
+
+  Hitting a budget cap is fine; exceeding requires explicit sign-off (and probably means the copy is bloated).
+
+  =================================================
+  PLACEHOLDER REFERENCE
+  =================================================
+
+  {{SLUG}}                          → web | cloud | data | advisory | api
+  {{SERVICE_NAME}}                  → "Web Application Development" etc.
+  {{SERVICE_NAME_SHORT}}            → "Web Apps" etc. (for nav labels)
+  {{SERVICE_TAGLINE}}               → 5-9 word descriptor matching homepage card tagline
+  {{HERO_EYEBROW}}                  → "{Service Name} · Prudentia Digital"
+  {{HERO_HEADLINE}}                 → 6-12 words, ends with a span.hero__headline-accent gold highlight
+  {{HERO_SUBHEAD}}                  → 1-2 sentences, ≤ 240 chars
+  {{HERO_PRIMARY_CTA_LABEL}}        → from _cta-strategy.md (e.g., "Book a Discovery Session")
+  {{HERO_PRIMARY_CTA_TOPIC}}        → from _topic-slugs.md (e.g., "web-general")
+  {{HERO_SECONDARY_CTA_LABEL}}      → "See What We Build" (default) or per-service variant
+  {{HERO_SECONDARY_CTA_ANCHOR}}     → "#capabilities" (default)
+
+  {{CAPABILITY_N_*}}                → repeat for N = 1..5
+    {{CAPABILITY_N_EYEBROW}}        → "Capability 01" .. "Capability 05"
+    {{CAPABILITY_N_TITLE}}          → service-specific capability name
+    {{CAPABILITY_N_PROBLEM}}        → 1-3 sentences, ≤ 45 words; cite at least one pain from research
+    {{CAPABILITY_N_SOLUTION}}       → 1-3 sentences, ≤ 50 words; what we build
+    {{CAPABILITY_N_USECASE}}        → 1-3 sentences, ≤ 50 words; specific example with metric
+    {{CAPABILITY_N_STACK}}          → 1 sentence, ≤ 35 words; named tech
+    {{CAPABILITY_N_CTA_TOPIC}}      → e.g., "web-discovery"
+    {{CAPABILITY_N_CTA_LABEL}}      → "Talk to us about {Capability}"
+    {{CAPABILITY_N_ICON_SVG}}       → 32×32px stroke=currentColor SVG, gold accent on outcome shape
+
+  {{PRINCIPLE_N_*}}                 → repeat for N = 1..6 (the "how we ship" cards)
+    {{PRINCIPLE_N_TITLE}}           → service-discipline-specific (see _voice-guide.md and the plan)
+    {{PRINCIPLE_N_BODY}}            → 1-3 sentences, ≤ 55 words
+    {{PRINCIPLE_N_TAGLINE}}         → ≤ 60 chars, the snappy callout
+    {{PRINCIPLE_N_ICON_SVG}}        → 32×32 stroke=currentColor
+
+  {{FOUNDATION_HEADING}}            → 1 sentence stating what's table-stakes for this service
+  {{FOUNDATION_BODY}}               → 1-2 short paragraphs
+
+  {{USECASE_N_*}}                   → repeat for N = 1..3 minimum
+    {{USECASE_N_ICP_TAG}}           → "International" | "SA Financial Services" | "SA Mid-market" | "SMB"
+    {{USECASE_N_TITLE}}             → ≤ 60 chars
+    {{USECASE_N_BODY}}              → ≤ 70 words; problem → intervention → outcome with metric
+    {{USECASE_N_CITATION_URL}}      → from citation_index.json
+    {{USECASE_N_CITATION_LABEL}}    → publication/source name
+
+  {{FAQ_N_*}}                       → repeat for N = 1..6
+    {{FAQ_N_Q}}                     → ≤ 90 chars
+    {{FAQ_N_A}}                     → ≤ 120 words; cite if making quantified claims
+
+  {{ABOUT_BODY}}                    → 3-4 sentences, ≤ 90 words; same chrome as /ai/
+
+  {{FINAL_CTA_HEADING}}             → 1 sentence
+  {{FINAL_CTA_SUBTEXT}}             → 1-2 sentences
+  {{FINAL_CTA_PRIMARY_LABEL}}       → from _cta-strategy.md
+  {{FINAL_CTA_PRIMARY_TOPIC}}       → from _topic-slugs.md
+
+  =================================================
+  JSON-LD REQUIREMENTS (both schemas mandatory)
+  =================================================
+
+  - schema.org/Service with provider, areaServed (["South Africa", "Worldwide"]), serviceType, and hasOfferCatalog
+    listing the 3 engagement tiers (Audit / Pilot / Retainer) — see _seo-template.md for shape
+  - schema.org/FAQPage mirroring the 6 Q&A items
+
+  =================================================
+  INTERNATIONAL SEO SIGNALS (required on every new page)
+  =================================================
+
+  <meta property="og:locale" content="en_ZA">
+  <meta property="og:locale:alternate" content="en_GB">
+  <meta property="og:locale:alternate" content="en_US">
+  <link rel="alternate" hreflang="en" href="https://prudentiadigital.co.za/{slug}/">
+  <link rel="alternate" hreflang="x-default" href="https://prudentiadigital.co.za/{slug}/">
+
+  =================================================
+  NAVIGATION REQUIREMENT
+  =================================================
+
+  Every new page's <nav> block must list links to all 6 services (5 new + AI). The label set:
+    - Web Apps       → /web/
+    - Cloud          → /cloud/
+    - Data           → /data/
+    - Advisory       → /advisory/
+    - APIs           → /api/
+    - AI             → /ai/
+
+  Plus the existing nav items: Why Us (/#why-us), Team (/#team), About (/#about), Book a Session CTA.
+
+  =================================================
+  CSS LINKS (load order matters)
+  =================================================
+
+  <link rel="stylesheet" href="/css/design-tokens.css?v={{BUMP}}">
+  <link rel="stylesheet" href="/css/styles.css?v={{BUMP}}">
+  <link rel="stylesheet" href="/css/animated-bg.css?v={{BUMP}}">
+  <link rel="stylesheet" href="/css/service-illustrations.css?v={{BUMP}}">
+  <link rel="stylesheet" href="/css/pages/_motion-shared.css?v={{BUMP}}">
+  <link rel="stylesheet" href="/css/pages/{{SLUG}}.css?v={{BUMP}}">
+
+  =================================================
+  JS LINKS (defer-loaded)
+  =================================================
+
+  <script src="/js/animated-bg.js?v={{BUMP}}" defer></script>
+  <script src="/js/contact-prefill.js?v={{BUMP}}" defer></script>
+  <script src="/js/nav.js?v={{BUMP}}" defer></script>
+  <!-- Only if the page has bespoke interactions beyond animated-bg + nav: -->
+  <script src="/js/pages/{{SLUG}}.js?v={{BUMP}}" defer></script>
+-->

@@ -163,8 +163,12 @@
     <!-- Mobile menu -->
     <div class="nav__mobile" id="navMobile" aria-hidden="true">
       <ul class="nav__mobile-links" role="list">
-        <li><a href="#services" class="nav__mobile-link">Services</a></li>
-        <li><a href="#portfolio" class="nav__mobile-link">Work</a></li>
+        <li><a href="/web/" class="nav__mobile-link">Web Apps</a></li>
+        <li><a href="/cloud/" class="nav__mobile-link">Cloud</a></li>
+        <li><a href="/data/" class="nav__mobile-link">Data</a></li>
+        <li><a href="/advisory/" class="nav__mobile-link">Advisory</a></li>
+        <li><a href="/api/" class="nav__mobile-link">APIs</a></li>
+        <li><a href="/ai/" class="nav__mobile-link">AI</a></li>
         <li><a href="#why-us" class="nav__mobile-link">Why Us</a></li>
         <li><a href="#team" class="nav__mobile-link">Team</a></li>
         <li><a href="#about" class="nav__mobile-link">About</a></li>
@@ -261,7 +265,8 @@
 
         <div class="services__grid">
 
-          <article class="card card-pulse card--has-illustration reveal" style="--reveal-delay: 0ms" aria-label="Web Application Development">
+          <a href="/web/" class="card-link" aria-label="Web Application Development — view details">
+          <article class="card card-pulse card--has-illustration reveal" style="--reveal-delay: 0ms">
             <div class="card__icon-wrap">
               <div class="service-illustration service-illustration--web-app" aria-hidden="true">
                 <svg viewBox="0 0 240 160" preserveAspectRatio="xMidYMid meet" fill="none" stroke="currentColor">
@@ -296,8 +301,10 @@
             <p class="card__tagline">Prototype to production-grade.</p>
             <p class="card__scope">Includes: discovery, UI/UX, development, testing, deployment</p>
           </article>
+          </a>
 
-          <article class="card card-pulse card--has-illustration reveal" style="--reveal-delay: 80ms" aria-label="Cloud Infrastructure and DevOps">
+          <a href="/cloud/" class="card-link" aria-label="Cloud Infrastructure & DevOps — view details">
+          <article class="card card-pulse card--has-illustration reveal" style="--reveal-delay: 80ms">
             <div class="card__icon-wrap">
               <div class="service-illustration service-illustration--cloud" aria-hidden="true">
                 <svg viewBox="0 0 240 160" preserveAspectRatio="xMidYMid meet" fill="none" stroke="currentColor">
@@ -325,8 +332,10 @@
             <p class="card__tagline">Zero downtime. Zero guesswork.</p>
             <p class="card__scope">Includes: architecture, IaC setup, CI/CD, monitoring</p>
           </article>
+          </a>
 
-          <article class="card card-pulse card--has-illustration reveal" style="--reveal-delay: 160ms" aria-label="Data Analytics and Dashboards">
+          <a href="/data/" class="card-link" aria-label="Data Analytics & Dashboards — view details">
+          <article class="card card-pulse card--has-illustration reveal" style="--reveal-delay: 160ms">
             <div class="card__icon-wrap">
               <div class="service-illustration service-illustration--data" aria-hidden="true">
                 <svg viewBox="0 0 240 160" preserveAspectRatio="xMidYMid meet" fill="none" stroke="currentColor">
@@ -348,8 +357,10 @@
             <p class="card__tagline">Decisions, not just data.</p>
             <p class="card__scope">Includes: data audit, pipeline setup, dashboard build, training</p>
           </article>
+          </a>
 
-          <article class="card card-pulse card--has-illustration reveal" style="--reveal-delay: 240ms" aria-label="Digital Transformation Advisory">
+          <a href="/advisory/" class="card-link" aria-label="Digital Transformation Advisory — view details">
+          <article class="card card-pulse card--has-illustration reveal" style="--reveal-delay: 240ms">
             <div class="card__icon-wrap">
               <div class="service-illustration service-illustration--advisory" aria-hidden="true">
                 <svg viewBox="0 0 240 160" preserveAspectRatio="xMidYMid meet" fill="none" stroke="currentColor">
@@ -369,8 +380,10 @@
             <p class="card__tagline">Clarity that pays for itself.</p>
             <p class="card__scope">Includes: assessment, roadmap, vendor evaluation, governance</p>
           </article>
+          </a>
 
-          <article class="card card-pulse card--has-illustration reveal" style="--reveal-delay: 320ms" aria-label="API Development and Integration">
+          <a href="/api/" class="card-link" aria-label="API Development & Integration — view details">
+          <article class="card card-pulse card--has-illustration reveal" style="--reveal-delay: 320ms">
             <div class="card__icon-wrap">
               <div class="service-illustration service-illustration--api" aria-hidden="true">
                 <svg viewBox="0 0 240 160" preserveAspectRatio="xMidYMid meet" fill="none" stroke="currentColor">
@@ -395,6 +408,7 @@
             <p class="card__tagline">Connect everything, reliably.</p>
             <p class="card__scope">Includes: API design, development, documentation, testing</p>
           </article>
+          </a>
 
           <a href="/ai/" class="card-link" aria-label="AI Agent Engineering — view details">
             <article class="card card--accent card-pulse card--has-illustration reveal" style="--reveal-delay: 400ms">
@@ -1229,6 +1243,183 @@
 
     })();
   </script>
+
+<!-- 3d-scroll-web:start name="hero-reveal-root" version="1.0.0" -->
+<style>
+  [data-3d-scroll="z-axis-text-reveal"] {
+    --scroll-depth: 220px;
+    --scroll-intensity: 1;
+    --stagger-ms: 32ms;
+    --scroll-easing: cubic-bezier(0.16, 1, 0.3, 1);
+    transform-style: preserve-3d;
+    perspective: 1000px;
+    perspective-origin: 50% 60%;
+  }
+  [data-3d-scroll="z-axis-text-reveal"] .reveal-letter {
+    display: inline-block;
+    transform-style: preserve-3d;
+    opacity: 0;
+    transform:
+      translateZ(calc(-1 * var(--scroll-depth) * var(--scroll-intensity)))
+      scale(0.88);
+    transition:
+      transform 0.95s var(--scroll-easing),
+      opacity 0.6s var(--scroll-easing);
+    will-change: transform, opacity;
+  }
+  [data-3d-scroll="z-axis-text-reveal"].is-revealed .reveal-letter {
+    opacity: 1;
+    transform: translateZ(0) scale(1);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    [data-3d-scroll="z-axis-text-reveal"] .reveal-letter {
+      transform: none !important;
+      transition: opacity 0.3s ease-out;
+    }
+  }
+</style>
+<script>
+  (function init() {
+    var heading = document.getElementById("hero-heading");
+    if (!heading) return;
+    heading.setAttribute("data-3d-scroll", "z-axis-text-reveal");
+    if (!heading.getAttribute("aria-label")) {
+      heading.setAttribute("aria-label", heading.textContent.trim().replace(/\s+/g, " "));
+    }
+    var letterCount = 0;
+    var staggerMs = 32;
+    function splitTextNodes(node) {
+      var children = Array.prototype.slice.call(node.childNodes);
+      children.forEach(function (child) {
+        if (child.nodeType === 3) {
+          var text = child.textContent || "";
+          var frag = document.createDocumentFragment();
+          for (var i = 0; i < text.length; i++) {
+            var ch = text[i];
+            if (ch === " ") { frag.appendChild(document.createTextNode(" ")); continue; }
+            var span = document.createElement("span");
+            span.className = "reveal-letter";
+            span.textContent = ch;
+            span.setAttribute("aria-hidden", "true");
+            span.style.transitionDelay = (letterCount * staggerMs) + "ms";
+            frag.appendChild(span);
+            letterCount++;
+          }
+          node.replaceChild(frag, child);
+        } else if (child.nodeType === 1) {
+          splitTextNodes(child);
+        }
+      });
+    }
+    splitTextNodes(heading);
+    if (typeof console.group === "function") {
+      console.group("[3d-scroll-web] hero-reveal-root");
+      console.log("h1#hero-heading split into", letterCount, "letters");
+      console.groupEnd();
+    }
+    var reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reducedMotion) { heading.classList.add("is-revealed"); return; }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          heading.classList.add("is-revealed");
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.35 });
+    io.observe(heading);
+  })();
+</script>
+<!-- 3d-scroll-web:end name="hero-reveal-root" -->
+
+<!-- 3d-scroll-web:start name="hero-depth-root" version="1.0.0" -->
+<div class="depth-scene-3dsw" data-3d-scroll="parallax-depth-layers" aria-hidden="true">
+  <div class="depth-layer-3dsw depth-layer-3dsw--back" data-depth="3"></div>
+  <div class="depth-layer-3dsw depth-layer-3dsw--mid" data-depth="2"></div>
+  <div class="depth-layer-3dsw depth-layer-3dsw--front" data-depth="1"></div>
+</div>
+<style>
+  [data-3d-scroll="parallax-depth-layers"].depth-scene-3dsw {
+    --scroll-depth: 180px;
+    --scroll-intensity: 1;
+    --scroll-easing: cubic-bezier(0.33, 1, 0.68, 1);
+    position: fixed; inset: 0; pointer-events: none;
+    perspective: 1000px; transform-style: preserve-3d;
+    z-index: 0; opacity: 0;
+    transition: opacity 0.6s ease-out;
+  }
+  [data-3d-scroll="parallax-depth-layers"].depth-scene-3dsw.is-active { opacity: 1; }
+  .depth-layer-3dsw {
+    position: absolute; inset: 0;
+    transform-style: preserve-3d;
+    will-change: transform;
+    transition: transform 0.5s var(--scroll-easing);
+  }
+  .depth-layer-3dsw--back {
+    background: radial-gradient(circle at 28% 38%, rgba(212, 175, 55, 0.18), transparent 55%);
+    filter: blur(2px);
+  }
+  .depth-layer-3dsw--mid {
+    background: radial-gradient(circle at 72% 62%, rgba(255, 255, 255, 0.08), transparent 60%);
+    filter: blur(0.5px);
+  }
+  .depth-layer-3dsw--front {
+    background: radial-gradient(circle at 50% 28%, rgba(13, 27, 42, 0.32), transparent 75%);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    [data-3d-scroll="parallax-depth-layers"].depth-scene-3dsw { opacity: 0 !important; }
+  }
+  @media (max-width: 768px) {
+    [data-3d-scroll="parallax-depth-layers"].depth-scene-3dsw { --scroll-intensity: 0.4; }
+  }
+</style>
+<script>
+  (function init() {
+    var scene = document.querySelector('[data-3d-scroll="parallax-depth-layers"].depth-scene-3dsw');
+    var sentinel = document.getElementById("heroSentinel") || document.querySelector("section.hero");
+    if (!scene || !sentinel) return;
+    var reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reducedMotion) return;
+    var rafId = null;
+    var active = false;
+    var layers = scene.querySelectorAll(".depth-layer-3dsw");
+    function update() {
+      var rect = sentinel.getBoundingClientRect();
+      var vh = window.innerHeight;
+      var progress = Math.max(0, Math.min(1, 1 - (rect.top + rect.height * 0.5) / (vh + rect.height)));
+      layers.forEach(function (layer) {
+        var d = parseFloat(layer.getAttribute("data-depth") || "1");
+        var baseZ = -d * 180;
+        var extraZ = (progress - 0.5) * d * 50;
+        layer.style.transform = "translateZ(" + (baseZ - extraZ) + "px)";
+      });
+      rafId = null;
+    }
+    function onScroll() {
+      if (!active || rafId !== null) return;
+      rafId = requestAnimationFrame(update);
+    }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          scene.classList.add("is-active");
+          active = true; onScroll();
+        } else {
+          scene.classList.remove("is-active");
+          active = false;
+        }
+      });
+    }, { threshold: 0.05 });
+    io.observe(sentinel);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    if (typeof console.group === "function") {
+      console.group("[3d-scroll-web] hero-depth-root");
+      console.log("scene:", scene, "sentinel:", sentinel);
+      console.groupEnd();
+    }
+  })();
+</script>
+<!-- 3d-scroll-web:end name="hero-depth-root" -->
 
 </body>
 </html>

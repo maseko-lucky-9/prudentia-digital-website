@@ -1,0 +1,364 @@
+/*
+ * Prudentia Digital — /api/ page motion + composition
+ *
+ * Signature motion:
+ *   1. Hero motif — three input channels converge into a merge point, then exit
+ *      as a single thicker stream to the right. Gold mid-flow marker pulses
+ *      once when convergence completes, then continues with a long-period
+ *      gentle pulse (every 9s) as the only loop element.
+ *   2. Capability card hover — request-response arc draws from card edge to icon
+ *      and back (outbound + inbound pair, 600ms total). Mimics an API call
+ *      returning.
+ *   3. Background fx — diagonal flow lines drifting top-left → bottom-right
+ *      (90s, 5% opacity); one gold orb at bottom-right at ~10% opacity (handled
+ *      in markup via .bg-fx__orb).
+ *
+ * All durations / easings reference tokens defined in _motion-shared.css.
+ * Per-service signature token introduced: --motion-api-arc-flight.
+ */
+
+:root {
+  /* Signature token: total flight time of the request-response arc on capability hover. */
+  --motion-api-arc-flight: 600ms;
+
+  /* Channel entrance stagger: 150ms cascade between the three hero channels. */
+  --motion-api-channel-stagger: 150ms;
+
+  /* Hero loop period for the gold merge pulse (only loop element on the page). */
+  --motion-api-merge-period: 9s;
+}
+
+/* =====================================================================
+ * Hero — converging channels
+ * ===================================================================== */
+
+.hero--api {
+  position: relative;
+  overflow: hidden;
+}
+
+.api-hero-motif {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0 clamp(1rem, 6vw, 6rem);
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.85;
+}
+
+.api-hero-motif__svg {
+  width: min(720px, 60%);
+  height: auto;
+  max-height: 320px;
+}
+
+.api-hero-motif__channel {
+  stroke-dasharray: 600;
+  stroke-dashoffset: 600;
+  opacity: 0;
+  animation: api-channel-draw 1100ms var(--motion-ease-out-quint) forwards;
+}
+
+.api-hero-motif__channel--1 { animation-delay: 200ms; }
+.api-hero-motif__channel--2 { animation-delay: calc(200ms + var(--motion-api-channel-stagger)); }
+.api-hero-motif__channel--3 { animation-delay: calc(200ms + (var(--motion-api-channel-stagger) * 2)); }
+
+@keyframes api-channel-draw {
+  0%   { opacity: 0; stroke-dashoffset: 600; }
+  20%  { opacity: 0.7; }
+  100% { opacity: 0.7; stroke-dashoffset: 0; }
+}
+
+.api-hero-motif__merge {
+  opacity: 0;
+  transform-origin: 300px 140px;
+  transform: scale(0.4);
+  animation: api-merge-land 480ms var(--motion-ease-out-quart) forwards;
+  animation-delay: 1400ms;
+}
+
+@keyframes api-merge-land {
+  0%   { opacity: 0; transform: scale(0.4); }
+  60%  { opacity: 1; transform: scale(1.25); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+.api-hero-motif__merge-pulse {
+  transform-origin: 300px 140px;
+  transform-box: fill-box;
+  animation: api-merge-pulse var(--motion-api-merge-period) ease-out infinite;
+  animation-delay: 2200ms;
+}
+
+@keyframes api-merge-pulse {
+  0%   { opacity: 0.85; transform: scale(1); }
+  40%  { opacity: 0;    transform: scale(3.5); }
+  100% { opacity: 0;    transform: scale(3.5); }
+}
+
+.api-hero-motif__exit {
+  stroke-dasharray: 360;
+  stroke-dashoffset: 360;
+  opacity: 0;
+  animation: api-exit-draw 700ms var(--motion-ease-out-quint) forwards;
+  animation-delay: 1700ms;
+}
+
+@keyframes api-exit-draw {
+  0%   { opacity: 0; stroke-dashoffset: 360; }
+  20%  { opacity: 1; }
+  100% { opacity: 1; stroke-dashoffset: 0; }
+}
+
+/* Hero motif must sit behind text on small screens to keep copy legible. */
+@media (max-width: 880px) {
+  .api-hero-motif {
+    opacity: 0.35;
+    justify-content: center;
+  }
+  .api-hero-motif__svg { width: 90%; }
+}
+
+/* =====================================================================
+ * Background — diagonal flow lines (drift top-left → bottom-right)
+ * ===================================================================== */
+
+.api-bg-fx {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.api-bg-fx__flow {
+  position: absolute;
+  inset: -40%;
+  background-image: repeating-linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0) 0px,
+    rgba(255, 255, 255, 0) 56px,
+    rgba(255, 255, 255, 0.05) 56px,
+    rgba(255, 255, 255, 0.05) 57px
+  );
+  background-size: 200% 200%;
+  animation: api-flow-drift var(--motion-dur-drift) linear infinite;
+  opacity: 1;
+  will-change: background-position;
+}
+
+@keyframes api-flow-drift {
+  0%   { background-position: 0% 0%; }
+  100% { background-position: 200% 200%; }
+}
+
+/* =====================================================================
+ * Capability cards — request-response arc on hover
+ * ===================================================================== */
+
+.api-capability {
+  position: relative;
+}
+
+.api-capability .ai-capability__icon-wrap {
+  position: relative;
+  isolation: isolate;
+}
+
+.api-capability__arc {
+  position: absolute;
+  inset: -14px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: -1;
+  /* Conic gradient mimics a request-response arc; rotates into view on hover. */
+  background: conic-gradient(
+    from -20deg,
+    transparent 0deg,
+    rgba(212, 175, 55, 0.55) 30deg,
+    rgba(212, 175, 55, 0.25) 60deg,
+    transparent 80deg,
+    transparent 180deg,
+    rgba(212, 175, 55, 0.55) 210deg,
+    rgba(212, 175, 55, 0.25) 240deg,
+    transparent 260deg,
+    transparent 360deg
+  );
+  opacity: 0;
+  transform: scale(0.65) rotate(-90deg);
+  transition:
+    opacity calc(var(--motion-api-arc-flight) / 2) var(--motion-ease-out-quart),
+    transform var(--motion-api-arc-flight) var(--motion-ease-out-quart);
+  mask-image: radial-gradient(circle, transparent 38%, black 42%, black 62%, transparent 66%);
+  -webkit-mask-image: radial-gradient(circle, transparent 38%, black 42%, black 62%, transparent 66%);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .api-capability:hover .api-capability__arc {
+    opacity: 1;
+    transform: scale(1) rotate(270deg);
+  }
+
+  .api-capability:hover .ai-capability__icon-wrap {
+    transition: var(--motion-card-tilt);
+    transform: translateY(-2px);
+  }
+}
+
+/* =====================================================================
+ * Use-case cards — composition + entrance
+ * ===================================================================== */
+
+.api-usecase__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+  gap: clamp(1.5rem, 3vw, 2.25rem);
+  margin-top: clamp(2rem, 4vw, 3rem);
+}
+
+.api-usecase {
+  position: relative;
+  padding: clamp(1.5rem, 2.8vw, 2.25rem);
+  background: rgba(13, 27, 42, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  transition: var(--motion-hover-quick);
+}
+
+.api-usecase::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 1.5rem;
+  right: 1.5rem;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(212, 175, 55, 0.65) 30%,
+    rgba(212, 175, 55, 0.65) 70%,
+    transparent 100%
+  );
+  opacity: 0.55;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .api-usecase:hover {
+    border-color: rgba(212, 175, 55, 0.35);
+    transform: translateY(-3px);
+    background: rgba(13, 27, 42, 0.75);
+  }
+}
+
+.api-usecase__icp {
+  margin: 0;
+}
+
+.api-usecase__icp-tag {
+  display: inline-block;
+  padding: 0.25rem 0.65rem;
+  border: 1px solid rgba(212, 175, 55, 0.45);
+  border-radius: 999px;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-accent, #D4AF37);
+  background: rgba(212, 175, 55, 0.06);
+}
+
+.api-usecase__title {
+  font-family: var(--font-heading, "DM Serif Display", serif);
+  font-size: clamp(1.15rem, 1.8vw, 1.4rem);
+  line-height: 1.25;
+  color: rgba(255, 255, 255, 0.95);
+  margin: 0;
+}
+
+.api-usecase__body {
+  font-size: 0.96rem;
+  line-height: 1.65;
+  color: rgba(255, 255, 255, 0.78);
+  margin: 0;
+}
+
+.api-usecase__source {
+  margin-top: auto;
+  padding-top: 0.85rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  font-size: 0.82rem;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.api-usecase__source a {
+  color: rgba(212, 175, 55, 0.85);
+  text-decoration: none;
+  border-bottom: 1px dotted rgba(212, 175, 55, 0.45);
+  transition: var(--motion-hover-quick);
+}
+
+.api-usecase__source a:hover,
+.api-usecase__source a:focus-visible {
+  color: var(--color-accent, #D4AF37);
+  border-bottom-color: var(--color-accent, #D4AF37);
+}
+
+/* =====================================================================
+ * Foundation panel — gentle adornment specific to API
+ * ===================================================================== */
+
+.api-foundation .prompt-foundation__panel {
+  position: relative;
+}
+
+.api-foundation .prompt-foundation__panel::after {
+  content: "";
+  position: absolute;
+  right: 1.5rem;
+  bottom: 1.25rem;
+  width: 56px;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(212, 175, 55, 0.7) 100%
+  );
+  opacity: 0.85;
+}
+
+/* =====================================================================
+ * Reduced-motion contract
+ * ===================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  /* Hero motif — render the outcome state immediately. */
+  .api-hero-motif__channel,
+  .api-hero-motif__exit {
+    stroke-dashoffset: 0 !important;
+    opacity: 0.7 !important;
+    animation: none !important;
+  }
+  .api-hero-motif__merge {
+    opacity: 1 !important;
+    transform: scale(1) !important;
+    animation: none !important;
+  }
+  .api-hero-motif__merge-pulse {
+    animation: none !important;
+    opacity: 0 !important;
+  }
+
+  /* Background drift halted. */
+  .api-bg-fx__flow {
+    animation: none !important;
+  }
+
+  /* Hover arcs disabled. */
+  .api-capability__arc {
+    transition: none !important;
+  }
+}
