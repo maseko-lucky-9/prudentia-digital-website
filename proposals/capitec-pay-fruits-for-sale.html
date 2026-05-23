@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="en-ZA">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Capitec Pay Integration — Proposal for Fruits For Sale | Prudentia Digital</title>
+<meta name="description" content="Proposal for enabling Capitec Pay on Fruits For Sale's Wix store via the Peach Payments path. Prepared by Prudentia Digital.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy-100: #C5CDD8;
+  --navy-300: #6B7F99;
+  --navy-500: #2A3F5A;
+  --navy-700: #162A40;
+  --navy-900: #0D1B2A;
+  --gold-100: #F5EDD8;
+  --gold-200: #E8D5A3;
+  --gold-300: #DCBF7E;
+  --gold-500: #C9A96E;
+  --gold-700: #A68845;
+  --warm-white: #FAFAF9;
+  --gray-50:  #F9FAFB;
+  --gray-100: #F3F4F6;
+  --gray-200: #E5E7EB;
+  --gray-300: #D1D5DB;
+  --gray-500: #6B7280;
+  --gray-700: #374151;
+  --gray-900: #111827;
+  --slate-500: #64748B;
+  --red-500: #EF4444;
+  --green-500: #22C55E;
+  --yellow-500: #F59E0B;
+  --font-heading: 'DM Serif Display', Georgia, serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'JetBrains Mono', Menlo, monospace;
+  --shadow-sm: 0 1px 2px rgba(13, 27, 42, 0.05);
+  --shadow-md: 0 4px 12px rgba(13, 27, 42, 0.08);
+  --shadow-lg: 0 12px 32px rgba(13, 27, 42, 0.12);
+  --shadow-gold: 0 8px 24px rgba(201, 169, 110, 0.18);
+  --radius: 8px;
+  --radius-lg: 16px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.625;
+  color: var(--gray-700);
+  background: var(--warm-white);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+h1, h2, h3, h4 { font-family: var(--font-heading); font-weight: 400; color: var(--navy-900); line-height: 1.2; letter-spacing: -0.01em; }
+h1 { font-size: clamp(2.25rem, 5vw, 3.75rem); }
+h2 { font-size: clamp(1.75rem, 3.5vw, 2.5rem); margin-bottom: 0.75rem; }
+h3 { font-size: 1.5rem; margin-bottom: 0.5rem; }
+h4 { font-size: 1.125rem; font-family: var(--font-body); font-weight: 600; }
+p { margin-bottom: 1rem; }
+a { color: var(--gold-700); text-decoration: none; transition: color 0.2s; }
+a:hover { color: var(--gold-500); }
+.mono { font-family: var(--font-mono); font-size: 0.875em; }
+
+section { padding: 4rem 2rem; }
+.container { max-width: 1120px; margin: 0 auto; }
+.eyebrow { font-family: var(--font-body); font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.12em; color: var(--gold-700); margin-bottom: 0.75rem; }
+.dark .eyebrow { color: var(--gold-500); }
+
+/* ─── COVER PAGE ─── */
+.cover {
+  background: linear-gradient(135deg, var(--navy-900) 0%, var(--navy-700) 100%);
+  color: var(--warm-white);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  overflow: hidden;
+  padding: 3rem 2rem;
+}
+.cover::before {
+  content: ''; position: absolute; top: -10%; right: -10%; width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(201, 169, 110, 0.18) 0%, transparent 70%);
+  pointer-events: none;
+}
+.cover-header {
+  display: flex; align-items: center; justify-content: space-between;
+  position: relative; z-index: 2;
+}
+.brand { display: flex; align-items: center; gap: 0.75rem; }
+.brand-logo { width: 36px; height: 46px; }
+.brand-name { font-family: var(--font-heading); font-size: 1.375rem; color: var(--warm-white); letter-spacing: -0.01em; }
+.cover-date { font-family: var(--font-mono); font-size: 0.875rem; color: var(--navy-100); }
+
+.cover-body { max-width: 800px; position: relative; z-index: 2; padding-top: 2rem; }
+.cover-eyebrow {
+  display: inline-block; padding: 0.375rem 0.875rem; border: 1px solid var(--gold-500);
+  color: var(--gold-300); font-size: 0.75rem; font-weight: 600; letter-spacing: 0.12em;
+  text-transform: uppercase; border-radius: 999px; margin-bottom: 1.5rem;
+}
+.cover h1 { color: var(--warm-white); font-size: clamp(2.5rem, 6vw, 4.5rem); line-height: 1.05; margin-bottom: 1rem; }
+.cover h1 .accent { color: var(--gold-500); }
+.cover-sub { font-size: 1.25rem; color: var(--navy-100); max-width: 640px; margin-bottom: 2.5rem; line-height: 1.4; }
+
+.cover-facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1.5rem; max-width: 720px; }
+.fact { border-left: 2px solid var(--gold-500); padding-left: 1rem; }
+.fact-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--gold-300); margin-bottom: 0.25rem; font-weight: 600; }
+.fact-value { font-family: var(--font-heading); font-size: 1.5rem; color: var(--warm-white); line-height: 1.2; }
+
+.cover-footer {
+  display: flex; justify-content: space-between; align-items: end; gap: 2rem;
+  position: relative; z-index: 2; padding-top: 3rem; flex-wrap: wrap;
+}
+.prepared-block { font-size: 0.875rem; color: var(--navy-100); line-height: 1.6; }
+.prepared-block strong { color: var(--warm-white); display: block; font-weight: 600; font-size: 1rem; margin-bottom: 0.125rem; }
+.confidential { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--navy-300); }
+
+/* ─── BAND SECTIONS ─── */
+.band-navy { background: var(--navy-900); color: var(--navy-100); }
+.band-navy h2, .band-navy h3, .band-navy h4 { color: var(--warm-white); }
+.band-navy .eyebrow { color: var(--gold-300); }
+.band-light { background: var(--warm-white); }
+.band-cream { background: var(--gold-100); }
+
+/* ─── EXECUTIVE SUMMARY ─── */
+.exec-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; margin-top: 2rem; }
+.exec-card {
+  background: var(--warm-white); border: 1px solid var(--gray-200); border-radius: var(--radius-lg);
+  padding: 1.75rem; box-shadow: var(--shadow-sm); transition: box-shadow 0.2s, transform 0.2s;
+  position: relative; overflow: hidden;
+}
+.exec-card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
+.exec-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: var(--gold-500);
+}
+.exec-card-icon {
+  width: 40px; height: 40px; border-radius: 8px;
+  background: var(--gold-100); display: inline-flex; align-items: center; justify-content: center;
+  margin-bottom: 1rem; color: var(--gold-700);
+}
+.exec-card h4 { color: var(--navy-900); margin-bottom: 0.5rem; }
+.exec-card p { font-size: 0.9375rem; line-height: 1.5; color: var(--gray-700); margin: 0; }
+
+/* ─── GAP DIAGRAM ─── */
+.diagram-wrap { background: var(--warm-white); border: 1px solid var(--gray-200); border-radius: var(--radius-lg); padding: 2.5rem 2rem; margin-top: 2rem; }
+.gap-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; margin-top: 2rem; }
+.gap-stat { text-align: center; padding: 1.5rem; background: var(--warm-white); border: 1px solid var(--gray-200); border-radius: var(--radius); }
+.dark .gap-stat { background: var(--navy-700); border-color: var(--navy-500); }
+.gap-stat-num { font-family: var(--font-heading); font-size: 3rem; color: var(--red-500); line-height: 1; margin-bottom: 0.5rem; }
+.gap-stat-num.green { color: var(--green-500); }
+.gap-stat-label { font-size: 0.8125rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--slate-500); font-weight: 600; }
+
+/* ─── SOLUTION ─── */
+.solution-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; align-items: center; margin-top: 2rem; }
+@media (max-width: 768px) { .solution-grid { grid-template-columns: 1fr; } }
+.solution-text ul { list-style: none; padding: 0; }
+.solution-text li { padding: 0.625rem 0 0.625rem 1.75rem; position: relative; color: var(--navy-100); font-size: 0.9375rem; line-height: 1.5; }
+.band-navy .solution-text li { color: var(--navy-100); }
+.solution-text li::before {
+  content: '✓'; position: absolute; left: 0; top: 0.5rem; width: 1.125rem; height: 1.125rem;
+  background: var(--gold-500); color: var(--navy-900); border-radius: 50%;
+  display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.75rem;
+}
+
+/* ─── SCOPE TABLE ─── */
+.scope-table { width: 100%; border-collapse: collapse; margin-top: 1.5rem; background: var(--warm-white); border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-sm); }
+.scope-table th, .scope-table td { padding: 1rem 1.25rem; text-align: left; border-bottom: 1px solid var(--gray-200); font-size: 0.9375rem; }
+.scope-table th { background: var(--navy-900); color: var(--warm-white); font-family: var(--font-body); font-weight: 600; font-size: 0.8125rem; text-transform: uppercase; letter-spacing: 0.08em; }
+.scope-table tr:last-child td { border-bottom: none; }
+.scope-table tr:hover td { background: var(--gold-100); }
+.included { color: var(--green-500); font-weight: 700; }
+.excluded { color: var(--red-500); font-weight: 700; }
+.scope-table td:first-child { font-weight: 600; color: var(--navy-900); }
+
+/* ─── TIMELINE ─── */
+.timeline { position: relative; margin-top: 2.5rem; }
+.timeline-rail { position: absolute; top: 24px; left: 24px; right: 24px; height: 2px; background: var(--gray-200); }
+.timeline-fill { position: absolute; top: 24px; left: 24px; width: calc(100% - 48px); height: 2px; background: linear-gradient(90deg, var(--gold-500), var(--gold-300)); }
+.timeline-steps { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.5rem; position: relative; }
+@media (max-width: 768px) { .timeline-steps { grid-template-columns: 1fr; gap: 1rem; } .timeline-rail, .timeline-fill { display: none; } }
+.tstep { position: relative; padding-top: 60px; text-align: center; }
+@media (max-width: 768px) { .tstep { padding-top: 0; padding-left: 60px; text-align: left; } }
+.tstep-dot {
+  position: absolute; top: 12px; left: 50%; transform: translateX(-50%);
+  width: 28px; height: 28px; background: var(--gold-500); color: var(--navy-900);
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 0.875rem; box-shadow: 0 0 0 4px var(--warm-white), var(--shadow-md);
+}
+@media (max-width: 768px) { .tstep-dot { left: 14px; top: 0; transform: none; } }
+.tstep-days { font-family: var(--font-mono); font-size: 0.75rem; color: var(--gold-700); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.25rem; font-weight: 600; }
+.tstep-label { font-family: var(--font-heading); font-size: 1.0625rem; color: var(--navy-900); line-height: 1.3; margin-bottom: 0.375rem; }
+.tstep-desc { font-size: 0.8125rem; color: var(--slate-500); line-height: 1.4; }
+
+/* ─── INVESTMENT ─── */
+.investment-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 2.5rem; margin-top: 2rem; align-items: start; }
+@media (max-width: 900px) { .investment-grid { grid-template-columns: 1fr; } }
+.price-card {
+  background: linear-gradient(135deg, var(--navy-900) 0%, var(--navy-700) 100%);
+  color: var(--warm-white); border-radius: var(--radius-lg); padding: 2.5rem;
+  box-shadow: var(--shadow-gold); position: relative; overflow: hidden;
+}
+.price-card::before {
+  content: ''; position: absolute; top: -50px; right: -50px; width: 200px; height: 200px;
+  background: radial-gradient(circle, rgba(201, 169, 110, 0.25) 0%, transparent 70%);
+}
+.price-eyebrow { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--gold-300); font-weight: 600; margin-bottom: 0.5rem; }
+.price-amount { font-family: var(--font-heading); font-size: 4rem; color: var(--warm-white); line-height: 1; margin: 0.25rem 0 0.5rem; }
+.price-amount .currency { color: var(--gold-500); font-size: 2rem; vertical-align: top; line-height: 1; margin-right: 0.25rem; }
+.price-note { font-size: 0.875rem; color: var(--navy-100); margin-bottom: 1.5rem; }
+.price-tag {
+  display: inline-block; padding: 0.25rem 0.75rem; background: var(--gold-500); color: var(--navy-900);
+  font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; border-radius: 4px; margin-bottom: 1rem;
+}
+.price-breakdown { border-top: 1px solid var(--navy-500); padding-top: 1.25rem; margin-top: 1.25rem; }
+.price-breakdown-row { display: flex; justify-content: space-between; padding: 0.5rem 0; font-size: 0.875rem; color: var(--navy-100); }
+.price-breakdown-row strong { color: var(--warm-white); }
+.value-list { padding: 0; list-style: none; }
+.value-list li {
+  padding: 0.875rem 0; padding-left: 2rem; position: relative;
+  border-bottom: 1px solid var(--gray-200); font-size: 0.9375rem; color: var(--gray-700);
+}
+.value-list li:last-child { border-bottom: none; }
+.value-list li::before {
+  content: ''; position: absolute; left: 0; top: 1.125rem; width: 18px; height: 18px;
+  background: var(--green-500); border-radius: 50%;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='white'%3E%3Cpath d='M13.5 4.5L6.5 11.5L2.5 7.5' stroke='white' stroke-width='2.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-size: 12px; background-repeat: no-repeat; background-position: center;
+}
+.value-list li strong { color: var(--navy-900); display: block; margin-bottom: 0.125rem; }
+
+.out-of-scope {
+  margin-top: 2rem; padding: 1.25rem 1.5rem; background: var(--gray-100); border-left: 3px solid var(--yellow-500); border-radius: 4px; font-size: 0.875rem;
+}
+.out-of-scope strong { color: var(--navy-900); }
+
+/* ─── CREDENTIALS ─── */
+.creds-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.25rem; margin-top: 2rem; }
+.cred-card {
+  background: var(--navy-700); padding: 1.5rem; border-radius: var(--radius);
+  border: 1px solid var(--navy-500); display: flex; flex-direction: column; gap: 0.5rem;
+}
+.cred-icon { width: 28px; height: 28px; color: var(--gold-500); margin-bottom: 0.5rem; }
+.cred-title { font-family: var(--font-heading); font-size: 1.125rem; color: var(--warm-white); }
+.cred-detail { font-size: 0.8125rem; color: var(--navy-100); line-height: 1.5; }
+.cred-detail .mono { color: var(--gold-300); }
+
+/* ─── NEXT STEPS ─── */
+.next-steps {
+  background: linear-gradient(135deg, var(--gold-100) 0%, var(--gold-200) 100%);
+  text-align: center; padding: 5rem 2rem;
+}
+.next-steps h2 { color: var(--navy-900); }
+.next-steps p { max-width: 640px; margin: 1rem auto 2.5rem; font-size: 1.0625rem; color: var(--navy-700); }
+.cta {
+  display: inline-flex; align-items: center; gap: 0.75rem; padding: 1rem 2rem;
+  background: var(--navy-900); color: var(--warm-white); border-radius: 999px;
+  font-weight: 600; font-size: 1rem; box-shadow: var(--shadow-lg); transition: all 0.2s;
+}
+.cta:hover { background: var(--navy-700); color: var(--warm-white); transform: translateY(-2px); }
+.cta-secondary { background: var(--warm-white); color: var(--navy-900); border: 1px solid var(--gold-500); margin-left: 1rem; }
+.cta-secondary:hover { background: var(--gold-100); color: var(--navy-900); }
+.cta-row { display: flex; justify-content: center; flex-wrap: wrap; gap: 1rem; }
+
+/* ─── FOOTER ─── */
+footer {
+  background: var(--navy-900); color: var(--navy-300);
+  padding: 3rem 2rem 2rem; text-align: center; font-size: 0.8125rem; line-height: 1.7;
+}
+footer strong { color: var(--warm-white); }
+footer a { color: var(--gold-300); }
+footer .footer-brand { display: flex; align-items: center; justify-content: center; gap: 0.75rem; margin-bottom: 1rem; }
+footer .footer-brand svg { width: 28px; height: 36px; }
+footer .footer-name { font-family: var(--font-heading); font-size: 1.25rem; color: var(--warm-white); }
+.footer-meta { max-width: 720px; margin: 0 auto; padding-top: 1.5rem; border-top: 1px solid var(--navy-700); margin-top: 1.5rem; color: var(--navy-300); font-size: 0.75rem; }
+
+/* ─── PRINT ─── */
+@media print {
+  body { background: white; color: black; }
+  .cover { min-height: auto; page-break-after: always; }
+  section { page-break-inside: avoid; padding: 2rem 1rem; }
+  .price-card, .exec-card, .scope-table { box-shadow: none; }
+  .cta { display: none; }
+  a { color: black; text-decoration: underline; }
+}
+</style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════════
+     COVER PAGE
+════════════════════════════════════════════ -->
+<section class="cover">
+  <div class="cover-header">
+    <div class="brand">
+      <svg class="brand-logo" viewBox="0 0 66 84" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M8 6 H44 L52 14 V42 H18 V78 H8 Z M18 14 H44 V34 H18 Z" fill="#FAFAF9" fill-rule="evenodd"/>
+        <path d="M54 4 L60 10 L54 16 L48 10 Z" fill="#C9A96E"/>
+      </svg>
+      <span class="brand-name">Prudentia Digital</span>
+    </div>
+    <div class="cover-date">23 May 2026</div>
+  </div>
+
+  <div class="cover-body">
+    <span class="cover-eyebrow">Proposal · PRD-2026-CPW-001</span>
+    <h1>Capitec Pay,<br>Live on <span class="accent">Fruits&nbsp;For&nbsp;Sale</span>.</h1>
+    <p class="cover-sub">A pragmatic integration plan that lets your South African customers pay with Capitec Pay at checkout — without rebuilding your site, learning code, or signing a long-term contract.</p>
+
+    <div class="cover-facts">
+      <div class="fact">
+        <div class="fact-label">Investment</div>
+        <div class="fact-value">R12 500</div>
+      </div>
+      <div class="fact">
+        <div class="fact-label">Delivery</div>
+        <div class="fact-value">2 weeks</div>
+      </div>
+      <div class="fact">
+        <div class="fact-label">Method</div>
+        <div class="fact-value">Peach&nbsp;Payments</div>
+      </div>
+      <div class="fact">
+        <div class="fact-label">Stack change</div>
+        <div class="fact-value">None</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cover-footer">
+    <div class="prepared-block">
+      <strong>Prepared for</strong>
+      Mhlanga Collin<br>
+      Fruits For Sale · mhlangacollin1.wixsite.com/fruits-for-sale
+    </div>
+    <div class="prepared-block" style="text-align:right;">
+      <strong>Prepared by</strong>
+      Thulani Maseko · Prudentia Digital<br>
+      <a href="mailto:masekolt@prudentiadigital.co.za" style="color:#DCBF7E;">masekolt@prudentiadigital.co.za</a>
+    </div>
+    <div class="confidential">Confidential · Valid 30 days</div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     EXECUTIVE SUMMARY
+════════════════════════════════════════════ -->
+<section class="band-light">
+  <div class="container">
+    <div class="eyebrow">Executive Summary</div>
+    <h2>What we found, and what we recommend.</h2>
+    <p style="max-width:760px;font-size:1.0625rem;color:var(--gray-700);">We audited your live Wix store and the official Capitec Pay merchant list. Direct Capitec Pay on Wix doesn't exist as of <strong>23 May 2026</strong>. But there is one clean path that delivers everything you actually want — a named "Capitec Pay" button at your checkout, no code, no Velo, no aggregator-rejection from your customers.</p>
+
+    <div class="exec-grid">
+      <div class="exec-card">
+        <div class="exec-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg></div>
+        <h4>The Gap</h4>
+        <p>Wix doesn't ship a native Capitec Pay connector. 0 of 187 ZA payment methods we enumerated on your live store match "Capitec".</p>
+      </div>
+      <div class="exec-card">
+        <div class="exec-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
+        <h4>The Solution</h4>
+        <p>Connect Peach Payments via Wix → enable Capitec Pay inside Peach. The only path Wix and Capitec both support today.</p>
+      </div>
+      <div class="exec-card">
+        <div class="exec-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+        <h4>The Timeline</h4>
+        <p>2 weeks end-to-end. ~24h is Peach's underwriting; the rest is configuration, sandbox testing, and a live R1 verification transaction.</p>
+      </div>
+      <div class="exec-card">
+        <div class="exec-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+        <h4>The Investment</h4>
+        <p><strong>R12 500</strong> fixed fee — discounted intro rate for the Fruits For Sale launch. Excludes Wix's own Premium plan fee (paid to Wix).</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     THE GAP
+════════════════════════════════════════════ -->
+<section class="band-navy">
+  <div class="container">
+    <div class="eyebrow">The Gap</div>
+    <h2>What Wix can and can't do, today.</h2>
+    <p style="max-width:760px;color:var(--navy-100);font-size:1.0625rem;">We queried the Wix Site Payment Method Types API directly against your store (ID&nbsp;<span class="mono" style="color:var(--gold-300);">19a7b2b3…</span>) on 23&nbsp;May&nbsp;2026 and cross-referenced Capitec's official Capitec Pay provider list. Three facts emerge:</p>
+
+    <div class="diagram-wrap" style="background:var(--navy-700);border-color:var(--navy-500);">
+      <svg viewBox="0 0 800 280" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;max-height:280px;font-family:Inter,sans-serif;">
+        <!-- Wix box -->
+        <rect x="20" y="100" width="180" height="80" rx="8" fill="#FAFAF9" stroke="#C9A96E" stroke-width="2"/>
+        <text x="110" y="135" text-anchor="middle" fill="#0D1B2A" font-size="18" font-weight="600">Wix Editor</text>
+        <text x="110" y="158" text-anchor="middle" fill="#6B7280" font-size="12">Fruits For Sale · ZAR · no Velo</text>
+
+        <!-- Broken arrow -->
+        <line x1="200" y1="140" x2="370" y2="140" stroke="#EF4444" stroke-width="3" stroke-dasharray="8 6"/>
+        <text x="285" y="125" text-anchor="middle" fill="#EF4444" font-size="13" font-weight="600">No native path</text>
+        <text x="285" y="170" text-anchor="middle" fill="#EF4444" font-size="13" font-weight="600">✗</text>
+
+        <!-- Capitec Pay box -->
+        <rect x="380" y="100" width="180" height="80" rx="8" fill="#FAFAF9" stroke="#EF4444" stroke-width="2"/>
+        <text x="470" y="135" text-anchor="middle" fill="#0D1B2A" font-size="18" font-weight="600">Capitec Pay</text>
+        <text x="470" y="158" text-anchor="middle" fill="#6B7280" font-size="12">Open-banking · 25M users</text>
+
+        <!-- Subtitle -->
+        <text x="400" y="50" text-anchor="middle" fill="#FAFAF9" font-size="14" font-weight="600" font-family="DM Serif Display, serif">Direct integration: does not exist</text>
+        <text x="400" y="240" text-anchor="middle" fill="#C5CDD8" font-size="12">Verified via live Wix MCP enumeration · 23 May 2026 · 0 / 187 ZA-ZAR methods match "Capitec"</text>
+
+        <!-- Wix Payments callout -->
+        <rect x="600" y="100" width="180" height="80" rx="8" fill="#162A40" stroke="#6B7280" stroke-width="1" stroke-dasharray="4 4"/>
+        <text x="690" y="130" text-anchor="middle" fill="#C5CDD8" font-size="13" font-weight="600">Wix Payments</text>
+        <text x="690" y="150" text-anchor="middle" fill="#6B7280" font-size="11">(USA-only — also blocked)</text>
+        <text x="690" y="167" text-anchor="middle" fill="#EF4444" font-size="14" font-weight="700">✗</text>
+      </svg>
+    </div>
+
+    <div class="gap-stats" style="--dark:true;">
+      <div class="gap-stat" style="background:var(--navy-700);border-color:var(--navy-500);">
+        <div class="gap-stat-num">0</div>
+        <div class="gap-stat-label" style="color:var(--navy-100);">of 187 ZA payment methods<br>match "Capitec"</div>
+      </div>
+      <div class="gap-stat" style="background:var(--navy-700);border-color:var(--navy-500);">
+        <div class="gap-stat-num">21</div>
+        <div class="gap-stat-label" style="color:var(--navy-100);">Capitec-approved providers —<br>Wix is not one</div>
+      </div>
+      <div class="gap-stat" style="background:var(--navy-700);border-color:var(--navy-500);">
+        <div class="gap-stat-num">USA</div>
+        <div class="gap-stat-label" style="color:var(--navy-100);">Wix's own Wix Payments<br>is geo-locked to one country</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     THE SOLUTION
+════════════════════════════════════════════ -->
+<section class="band-light">
+  <div class="container">
+    <div class="eyebrow">The Solution</div>
+    <h2>Peach Payments — the unique intersection.</h2>
+    <p style="max-width:760px;font-size:1.0625rem;color:var(--gray-700);">Of the 21 gateways Capitec officially supports for Capitec Pay, only one is also in Wix's curated payment-provider catalogue for South Africa: <strong>Peach Payments</strong>. PayFast, Stitch, Ozow and PayU all support Capitec Pay — but none have a Wix connector. Yoco has a Wix connector but doesn't surface "Capitec Pay" by name. Peach is the only path that wins on every constraint.</p>
+
+    <div class="diagram-wrap">
+      <svg viewBox="0 0 880 280" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;max-height:280px;font-family:Inter,sans-serif;">
+        <!-- Customer -->
+        <circle cx="80" cy="140" r="42" fill="#FAFAF9" stroke="#0D1B2A" stroke-width="2"/>
+        <text x="80" y="135" text-anchor="middle" fill="#0D1B2A" font-size="13" font-weight="600">Customer</text>
+        <text x="80" y="155" text-anchor="middle" fill="#6B7280" font-size="10">on phone</text>
+
+        <!-- Arrow 1 -->
+        <line x1="125" y1="140" x2="195" y2="140" stroke="#0D1B2A" stroke-width="2" marker-end="url(#arrow)"/>
+        <text x="160" y="128" text-anchor="middle" fill="#6B7280" font-size="11">checks out</text>
+
+        <!-- Wix box -->
+        <rect x="200" y="100" width="160" height="80" rx="8" fill="#FAFAF9" stroke="#0D1B2A" stroke-width="2"/>
+        <text x="280" y="130" text-anchor="middle" fill="#0D1B2A" font-size="15" font-weight="600">Wix Checkout</text>
+        <text x="280" y="148" text-anchor="middle" fill="#6B7280" font-size="11">Fruits For Sale</text>
+        <text x="280" y="166" text-anchor="middle" fill="#C9A96E" font-size="11" font-weight="600">no code · no Velo</text>
+
+        <!-- Arrow 2 -->
+        <line x1="365" y1="140" x2="425" y2="140" stroke="#0D1B2A" stroke-width="2" marker-end="url(#arrow)"/>
+
+        <!-- Peach box -->
+        <rect x="430" y="100" width="160" height="80" rx="8" fill="#0D1B2A" stroke="#C9A96E" stroke-width="2"/>
+        <text x="510" y="130" text-anchor="middle" fill="#FAFAF9" font-size="15" font-weight="600">Peach Payments</text>
+        <text x="510" y="148" text-anchor="middle" fill="#C5CDD8" font-size="11">Wix-connected gateway</text>
+        <text x="510" y="166" text-anchor="middle" fill="#C9A96E" font-size="11" font-weight="600">CAPITECPAY enabled</text>
+
+        <!-- Arrow 3 -->
+        <line x1="595" y1="140" x2="655" y2="140" stroke="#0D1B2A" stroke-width="2" marker-end="url(#arrow)"/>
+
+        <!-- Capitec box -->
+        <rect x="660" y="100" width="160" height="80" rx="8" fill="#FAFAF9" stroke="#C9A96E" stroke-width="2"/>
+        <text x="740" y="130" text-anchor="middle" fill="#0D1B2A" font-size="15" font-weight="600">Capitec Pay</text>
+        <text x="740" y="148" text-anchor="middle" fill="#6B7280" font-size="11">Open-banking auth</text>
+        <text x="740" y="166" text-anchor="middle" fill="#22C55E" font-size="11" font-weight="600">in Capitec app</text>
+
+        <!-- Title -->
+        <text x="440" y="50" text-anchor="middle" fill="#0D1B2A" font-size="14" font-weight="600" font-family="DM Serif Display, serif">The working path: 3 hops, 1 gateway, full Capitec Pay branding at checkout</text>
+        <text x="440" y="240" text-anchor="middle" fill="#6B7280" font-size="12">Settlement back to your bank via Peach · Refunds initiated from Wix Orders dashboard</text>
+
+        <defs>
+          <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M0,0 L10,5 L0,10 Z" fill="#0D1B2A"/>
+          </marker>
+        </defs>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     SOLUTION ADVANTAGES
+════════════════════════════════════════════ -->
+<section class="band-navy">
+  <div class="container">
+    <div class="eyebrow">Why this works</div>
+    <h2>Every constraint, satisfied.</h2>
+    <div class="solution-grid">
+      <div class="solution-text">
+        <ul>
+          <li><strong style="color:#FAFAF9;">"Capitec Pay" appears by name at your checkout</strong> — not a generic "EFT" or card option. Customers see the brand they trust.</li>
+          <li><strong style="color:#FAFAF9;">No Velo, no code.</strong> All configuration happens in two web dashboards: Wix's and Peach Payments'. You can drive it yourself after delivery.</li>
+          <li><strong style="color:#FAFAF9;">Wix officially supports Peach Payments.</strong> Listed on Wix's South Africa providers page — no workarounds, no warranty risk.</li>
+          <li><strong style="color:#FAFAF9;">Capitec officially supports Peach Payments.</strong> Named on Capitec's own Capitec Pay provider list.</li>
+          <li><strong style="color:#FAFAF9;">Refunds work natively.</strong> Initiate from your Wix Orders dashboard — Peach handles the rest.</li>
+          <li><strong style="color:#FAFAF9;">POPIA-friendly by design.</strong> Open-banking flow means no card numbers ever touch your store.</li>
+          <li><strong style="color:#FAFAF9;">Same gateway, more methods.</strong> Once Peach is connected, you also unlock cards, Ozow, Apple Pay and EFT without further work.</li>
+        </ul>
+      </div>
+      <div>
+        <svg viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:320px;display:block;margin:0 auto;">
+          <!-- Venn diagram: Wix supports vs Capitec supports -->
+          <text x="160" y="30" text-anchor="middle" fill="#FAFAF9" font-size="15" font-weight="600" font-family="DM Serif Display, serif">The unique intersection</text>
+
+          <circle cx="115" cy="170" r="90" fill="rgba(13, 27, 42, 0.6)" stroke="#C9A96E" stroke-width="2"/>
+          <circle cx="205" cy="170" r="90" fill="rgba(201, 169, 110, 0.15)" stroke="#C9A96E" stroke-width="2"/>
+
+          <text x="75" y="105" fill="#C9A96E" font-size="11" font-weight="600" text-anchor="middle">Wix supports</text>
+          <text x="75" y="155" fill="#FAFAF9" font-size="10" text-anchor="middle">PayPal</text>
+          <text x="75" y="170" fill="#FAFAF9" font-size="10" text-anchor="middle">Yoco</text>
+          <text x="75" y="185" fill="#FAFAF9" font-size="10" text-anchor="middle">Paystack</text>
+          <text x="75" y="200" fill="#FAFAF9" font-size="10" text-anchor="middle">iKhokha</text>
+          <text x="75" y="215" fill="#FAFAF9" font-size="10" text-anchor="middle">Payflex</text>
+          <text x="75" y="230" fill="#FAFAF9" font-size="10" text-anchor="middle">DPO</text>
+
+          <text x="245" y="105" fill="#C9A96E" font-size="11" font-weight="600" text-anchor="middle">Capitec supports</text>
+          <text x="255" y="155" fill="#FAFAF9" font-size="10" text-anchor="middle">PayFast</text>
+          <text x="255" y="170" fill="#FAFAF9" font-size="10" text-anchor="middle">Stitch</text>
+          <text x="255" y="185" fill="#FAFAF9" font-size="10" text-anchor="middle">Ozow</text>
+          <text x="255" y="200" fill="#FAFAF9" font-size="10" text-anchor="middle">PayU</text>
+          <text x="255" y="215" fill="#FAFAF9" font-size="10" text-anchor="middle">Netcash</text>
+          <text x="255" y="230" fill="#FAFAF9" font-size="10" text-anchor="middle">+15 more</text>
+
+          <!-- Intersection label -->
+          <rect x="135" y="155" width="50" height="28" rx="14" fill="#C9A96E"/>
+          <text x="160" y="174" text-anchor="middle" fill="#0D1B2A" font-size="11" font-weight="700">Peach</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     SCOPE
+════════════════════════════════════════════ -->
+<section class="band-light">
+  <div class="container">
+    <div class="eyebrow">Scope of Work</div>
+    <h2>What you get for R12 500.</h2>
+    <table class="scope-table">
+      <thead>
+        <tr><th>Deliverable</th><th style="width:120px;">In scope</th><th>Detail</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Wix Premium plan activation guidance</td>
+          <td class="included">✓ Included</td>
+          <td>Walk-through of the right plan tier; you pay Wix's fee directly to Wix.</td>
+        </tr>
+        <tr>
+          <td>Peach Payments merchant onboarding</td>
+          <td class="included">✓ Included</td>
+          <td>We prepare your KYC pack, submit on your behalf, manage Peach's queries.</td>
+        </tr>
+        <tr>
+          <td>Capitec Pay enablement inside Peach</td>
+          <td class="included">✓ Included</td>
+          <td>Configure the CAPITECPAY method end-to-end. Verify sandbox + live.</td>
+        </tr>
+        <tr>
+          <td>Wix ↔ Peach connector setup</td>
+          <td class="included">✓ Included</td>
+          <td>Entity ID binding, currency-region sanity check, status-sync verification.</td>
+        </tr>
+        <tr>
+          <td>Sandbox transaction tests (3 scenarios)</td>
+          <td class="included">✓ Included</td>
+          <td>Successful payment, declined payment, refund flow — documented in a handover PDF.</td>
+        </tr>
+        <tr>
+          <td>Live R1 verification transaction</td>
+          <td class="included">✓ Included</td>
+          <td>End-to-end smoke test using real Capitec Pay before public launch.</td>
+        </tr>
+        <tr>
+          <td>POPIA privacy posture review</td>
+          <td class="included">✓ Included</td>
+          <td>One-page summary of what Capitec Pay flow means for your PII obligations.</td>
+        </tr>
+        <tr>
+          <td>30-day post-launch support</td>
+          <td class="included">✓ Included</td>
+          <td>Email support and one 30-min troubleshooting call within 30 days of go-live.</td>
+        </tr>
+        <tr>
+          <td>Wix Premium plan fee (~R200–R500/mo)</td>
+          <td class="excluded">✗ Excluded</td>
+          <td>Paid directly to Wix. Required for any online payments.</td>
+        </tr>
+        <tr>
+          <td>Peach Payments transaction fees</td>
+          <td class="excluded">✗ Excluded</td>
+          <td>Peach's per-transaction fee structure — paid as you sell. We help you understand it.</td>
+        </tr>
+        <tr>
+          <td>Custom domain purchase</td>
+          <td class="excluded">✗ Excluded</td>
+          <td>Optional. We recommend a .co.za domain — separate quote available if you'd like our help.</td>
+        </tr>
+        <tr>
+          <td>Branding / category mismatch fix</td>
+          <td class="excluded">✗ Excluded</td>
+          <td>Your store name is "Fruits For Sale" but the category and description say "smartphones". Separate scope.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     TIMELINE
+════════════════════════════════════════════ -->
+<section class="band-cream">
+  <div class="container">
+    <div class="eyebrow">Timeline</div>
+    <h2>Live in two weeks from PO.</h2>
+    <p style="max-width:680px;font-size:1.0625rem;color:var(--navy-700);">A standard 14-day delivery cadence with a 4-day buffer. The single hard dependency is Peach Payments' underwriting (~24 hours, client-side).</p>
+
+    <div class="timeline">
+      <div class="timeline-rail"></div>
+      <div class="timeline-fill"></div>
+      <div class="timeline-steps">
+        <div class="tstep">
+          <div class="tstep-dot">1</div>
+          <div class="tstep-days">Day 1</div>
+          <div class="tstep-label">Kickoff</div>
+          <div class="tstep-desc">PO signed · KYC pack prepared · Wix Premium upgrade scheduled.</div>
+        </div>
+        <div class="tstep">
+          <div class="tstep-dot">2</div>
+          <div class="tstep-days">Days 2–3</div>
+          <div class="tstep-label">Peach KYC</div>
+          <div class="tstep-desc">Submit Peach Payments application; ~24h underwriting; bank details set.</div>
+        </div>
+        <div class="tstep">
+          <div class="tstep-dot">3</div>
+          <div class="tstep-days">Days 4–7</div>
+          <div class="tstep-label">Build & Test</div>
+          <div class="tstep-desc">Wix–Peach connector · Capitec Pay enablement · 3 sandbox scenarios.</div>
+        </div>
+        <div class="tstep">
+          <div class="tstep-dot">4</div>
+          <div class="tstep-days">Days 8–10</div>
+          <div class="tstep-label">Go-live</div>
+          <div class="tstep-desc">Switch to production · live R1 verification · POPIA summary delivered.</div>
+        </div>
+        <div class="tstep">
+          <div class="tstep-dot">5</div>
+          <div class="tstep-days">Day 11–14</div>
+          <div class="tstep-label">Buffer + Handover</div>
+          <div class="tstep-desc">Slack period for surprises · final walkthrough · 30-day support starts.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     INVESTMENT
+════════════════════════════════════════════ -->
+<section class="band-light">
+  <div class="container">
+    <div class="eyebrow">Investment</div>
+    <h2>Fixed fee. No surprises.</h2>
+    <div class="investment-grid">
+      <div>
+        <ul class="value-list">
+          <li><strong>Senior-led delivery</strong>Hands-on engineering work, not a junior reading a script.</li>
+          <li><strong>No code dependencies</strong>You can run the store yourself after delivery — nothing to maintain.</li>
+          <li><strong>Documented handover</strong>Sandbox tests, configuration screenshots, POPIA summary, runbook.</li>
+          <li><strong>30-day post-launch support</strong>One troubleshooting call + email coverage for the first month.</li>
+          <li><strong>Future-proofed</strong>Adding cards, Ozow, Apple Pay later requires zero re-work — same gateway.</li>
+        </ul>
+
+        <div class="out-of-scope">
+          <strong>What this does not include:</strong> Wix's own Premium plan fee (you pay Wix directly, ~R200–R500/month depending on tier), Peach Payments' per-transaction fees (industry-standard, paid as you sell), and a `.co.za` custom domain. We can quote these separately if useful.
+        </div>
+      </div>
+
+      <div class="price-card">
+        <span class="price-tag">Intro rate · SME launch</span>
+        <div class="price-eyebrow">Total investment</div>
+        <div class="price-amount"><span class="currency">R</span>12&nbsp;500</div>
+        <div class="price-note">Fixed fee. Excludes VAT (not applicable — Prudentia Digital is below VAT threshold). 50% on PO, 50% on go-live.</div>
+        <div class="price-breakdown">
+          <div class="price-breakdown-row"><span>Discovery + KYC prep</span><strong>R 2 500</strong></div>
+          <div class="price-breakdown-row"><span>Connector configuration</span><strong>R 4 000</strong></div>
+          <div class="price-breakdown-row"><span>Sandbox + live testing</span><strong>R 3 000</strong></div>
+          <div class="price-breakdown-row"><span>POPIA review + handover</span><strong>R 2 000</strong></div>
+          <div class="price-breakdown-row"><span>30-day support</span><strong>R 1 000</strong></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     WHY PRUDENTIA
+════════════════════════════════════════════ -->
+<section class="band-navy">
+  <div class="container">
+    <div class="eyebrow">Why Prudentia Digital</div>
+    <h2>Credentials, in plain language.</h2>
+    <p style="max-width:760px;color:var(--navy-100);font-size:1.0625rem;">Prudentia Digital is a South African technology consultancy specialising in enterprise-grade integration work for SMEs, startups, and government. Our credentials are tender-ready and our delivery is senior-led.</p>
+
+    <div class="creds-grid">
+      <div class="cred-card">
+        <svg class="cred-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M5 21V7l8-4v18M19 21V11l-6-4"/></svg>
+        <div class="cred-title">Registered Entity</div>
+        <div class="cred-detail">Prudentia Digital (Pty)&nbsp;Ltd<br><span class="mono">Enterprise No. 2025/910056/07</span><br>CIPC registered · CSD registered</div>
+      </div>
+      <div class="cred-card">
+        <svg class="cred-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        <div class="cred-title">B-BBEE</div>
+        <div class="cred-detail">100% Black-owned<br>Level 1 EME<br><span class="mono" style="color:#DCBF7E;">135% procurement recognition</span></div>
+      </div>
+      <div class="cred-card">
+        <svg class="cred-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        <div class="cred-title">Regulatory</div>
+        <div class="cred-detail">POPIA compliant<br>PFMA · PPPFA aligned<br>Privacy-by-design posture</div>
+      </div>
+      <div class="cred-card">
+        <svg class="cred-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33h0a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51h0a1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82v0a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        <div class="cred-title">Delivery Style</div>
+        <div class="cred-detail">Senior-led engineering<br>AI-augmented workflow<br>Fixed-fee, documented handover</div>
+      </div>
+      <div class="cred-card">
+        <svg class="cred-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+        <div class="cred-title">Track Record</div>
+        <div class="cred-detail">Enterprise IT pedigree<br>Public + private sector work<br>Web · cloud · data · integration</div>
+      </div>
+      <div class="cred-card">
+        <svg class="cred-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+        <div class="cred-title">Local Reach</div>
+        <div class="cred-detail">Based in South Africa<br>ZAR-billed, ZAR-payable<br>SAST timezone availability</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     NEXT STEPS
+════════════════════════════════════════════ -->
+<section class="next-steps">
+  <div class="container">
+    <div class="eyebrow">Next Steps</div>
+    <h2>Ready to give your customers Capitec Pay?</h2>
+    <p>Reply to this proposal by email or call us to confirm. We'll send a one-page PO covering the R12 500 fixed fee and kick off the same day.</p>
+    <div class="cta-row">
+      <a href="mailto:masekolt@prudentiadigital.co.za?subject=Capitec%20Pay%20Integration%20%E2%80%94%20Proposal%20Acceptance%20%E2%80%94%20Fruits%20For%20Sale&amp;body=Hi%20Thulani%2C%0A%0AI'd%20like%20to%20proceed%20with%20the%20Capitec%20Pay%20integration%20proposal%20(PRD-2026-CPW-001).%0A%0APlease%20send%20the%20PO.%0A%0AThanks%2C%0A" class="cta">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        Accept Proposal
+      </a>
+      <a href="mailto:masekolt@prudentiadigital.co.za?subject=Capitec%20Pay%20Integration%20%E2%80%94%20Questions%20%E2%80%94%20Fruits%20For%20Sale" class="cta cta-secondary">Ask a Question</a>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     FOOTER
+════════════════════════════════════════════ -->
+<footer>
+  <div class="footer-brand">
+    <svg viewBox="0 0 66 84" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M8 6 H44 L52 14 V42 H18 V78 H8 Z M18 14 H44 V34 H18 Z" fill="#FAFAF9" fill-rule="evenodd"/>
+      <path d="M54 4 L60 10 L54 16 L48 10 Z" fill="#C9A96E"/>
+    </svg>
+    <span class="footer-name">Prudentia Digital</span>
+  </div>
+  <div><strong>Prudentia Digital (Pty) Ltd</strong> · <a href="https://prudentiadigital.co.za">prudentiadigital.co.za</a> · <a href="mailto:masekolt@prudentiadigital.co.za">masekolt@prudentiadigital.co.za</a></div>
+  <div class="footer-meta">
+    Enterprise No. 2025/910056/07 · CIPC registered · CSD registered · 100% Black-owned · Level 1 B-BBEE EME (135% procurement recognition) · POPIA · PFMA · PPPFA compliant<br>
+    Proposal ref: <span style="font-family:JetBrains Mono,monospace;color:#DCBF7E;">PRD-2026-CPW-001</span> · Generated 23 May 2026 · Valid for 30 days · Confidential
+  </div>
+</footer>
+
+</body>
+</html>
