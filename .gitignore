@@ -14,6 +14,12 @@ Desktop.ini
 
 # ── Claude Code ───────────────────────────────────────────
 .claude/launch.json
+.claude/settings.local.json
+
+# ── Local dev artifacts (ruflo / RAG DB) ─────────────────
+agentdb.rvf
+agentdb.rvf.lock
+ruvector.db
 
 # ── Node.js (npx serve, etc.) ────────────────────────────
 node_modules/
