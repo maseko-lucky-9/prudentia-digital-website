@@ -1,7 +1,7 @@
 # Prudentia Digital — Company Website
 
 Landing page for [Prudentia Digital](https://prudentiadigital.co.za) — an AI-augmented IT consultancy based in South Africa.  
-Live at **prudentiadigital.co.za**, deployed via Cloudflare Pages.
+Live at **prudentiadigital.co.za**, deployed as a Cloudflare Worker with the Workers Static Assets binding.
 
 ---
 
@@ -13,9 +13,12 @@ Live at **prudentiadigital.co.za**, deployed via Cloudflare Pages.
 | Styles | Vanilla CSS (custom design tokens, no framework) |
 | Scripts | Vanilla JS (no libraries or bundler) |
 | Fonts | DM Serif Display + Inter (Google Fonts) |
-| CI/CD | GitHub Actions → Cloudflare Pages (`wrangler-action`) |
+| Server runtime | Cloudflare Worker (`worker.js`) + Workers Static Assets binding (`[assets]`) |
+| Route handlers | ES modules under `functions/` — imported by `worker.js`, bundled by wrangler |
+| Email delivery | Resend HTTP API via `functions/_lib/sendEmail.js` |
+| CI/CD | GitHub Actions → `cloudflare/wrangler-action@v3` → `wrangler deploy` (local fallback: `npx wrangler deploy`) |
 
-Zero runtime dependencies. No build step required.
+Zero runtime dependencies on the client. A trivial build step (`npm run build`) stages static assets into `dist/`; wrangler bundles `worker.js` + handlers into the deployed Worker.
 
 ---
 
@@ -23,6 +26,11 @@ Zero runtime dependencies. No build step required.
 
 ```
 prudentia-digital-website/
+├── worker.js                       # Cloudflare Worker entrypoint — routes /contact-submit + /api/email-health, falls through to env.ASSETS.fetch
+├── wrangler.toml                   # Workers config — main, [assets] binding=ASSETS, custom_domain routes
+├── _headers                        # Static-asset response headers (incl. CSP)
+├── index.html                      # Single-page site
+├── 404.html / privacy.html / terms.html
 ├── assets/
 │   ├── logo-icon.svg               # "Precision P" SVG logo
 │   └── logo-icon-white-512.png     # PNG variant for footer
@@ -31,12 +39,18 @@ prudentia-digital-website/
 │   ├── styles.css                  # Page layout and component styles
 │   └── animated-bg.css             # Canvas animation layer styles
 ├── js/
-│   └── animated-bg.js              # IntersectionObserver-driven canvas backgrounds
+│   ├── animated-bg.js              # IntersectionObserver-driven canvas backgrounds
+│   └── contact-form.js             # Client-side fetch handler for the Get Started form
+├── functions/                      # Worker route handlers (imported by worker.js — NOT Pages Functions)
+│   ├── contact-submit.js           # POST /contact-submit — form validation + Resend dispatch + auto-ack
+│   ├── _lib/sendEmail.js           # Shared Resend HTTP-API sender (5s timeout, graceful degrade)
+│   └── api/email-health.js         # GET /api/email-health — token-gated Resend wiring probe
 ├── .claude/
 │   └── skills/                     # Department AI personas (engineering, design, etc.)
 ├── .github/
-│   └── workflows/deploy.yml        # Cloudflare Pages deployment pipeline
-└── index.html                      # Single-page site
+│   └── workflows/deploy.yml        # CI deploy via wrangler-action
+├── CHANGELOG.md                    # Notable changes log
+└── package.json                    # build script + dev tooling only (Playwright, serve)
 ```
 
 ---
@@ -69,41 +83,116 @@ Design tokens are defined once in `css/design-tokens.css` and consumed everywher
 5. **Our Work** — 3 anonymised case-study cards (AI · Cloud · Data)
 6. **Why Us** — senior-led delivery, delivery without ceremony, regulatory fluency, full-stack accountability
 7. **About** — company story and the meaning of *Prudentia*
-8. **Contact / CTA** — multi-step "Get Started" form (POST → `/contact-submit` Cloudflare Pages Function → Resend)
+8. **Contact / CTA** — multi-step "Get Started" form (POST → `/contact-submit` Worker route handler → Resend)
 9. **Footer** — brand, nav links, registration details, copyright
 
 ---
 
 ## Local Development
 
-No build step or package manager needed. Open directly in a browser:
+Two modes, depending on whether you need the Worker route handlers (`/contact-submit`, `/api/email-health`) or just the static HTML.
 
 ```bash
-open index.html
-# or serve locally to avoid CORS issues with fonts:
+# Static-only preview — fast, no Worker, no env vars needed:
 npx serve .
+
+# Full Worker + static-assets emulation (recommended for any change to
+# worker.js, functions/, or _headers):
+npm run build            # populates dist/ (the assets binding source)
+npx wrangler dev         # http://localhost:8787 with main = worker.js
+```
+
+`wrangler dev` reads env vars from a gitignored `.dev.vars` file at project root. For local `/api/email-health` testing, create:
+
+```bash
+# .dev.vars (already covered by .gitignore — never commit)
+HEALTH_TOKEN=testtoken
+# Optional, if testing Resend wiring locally with a real key:
+# RESEND_API_KEY=re_xxx
+```
+
+Without `RESEND_API_KEY` the contact form returns `{ok: true, queued: false}` — graceful degrade so you can iterate without burning quota.
+
+---
+
+## Architecture
+
+A single Worker entrypoint (`worker.js`) does dynamic routing; everything else falls through to the Workers Static Assets binding for normal HTML/CSS/JS serving.
+
+```
+                       ┌───────────────────────────────┐
+   request ───────────▶│  worker.js  (main entrypoint) │
+                       │                               │
+                       │  • POST /contact-submit       │──▶ functions/contact-submit.js
+                       │  • GET  /api/email-health     │──▶ functions/api/email-health.js
+                       │  • everything else            │──▶ env.ASSETS.fetch(request)
+                       └───────────────────────────────┘                │
+                                                                       ▼
+                                                          ┌─────────────────────────┐
+                                                          │  Static assets (dist/)  │
+                                                          │  _headers applied       │
+                                                          │  404.html for unknowns  │
+                                                          └─────────────────────────┘
+```
+
+**Why not Cloudflare Pages Functions?** The project switched to **Workers Static Assets** so it can use the `routes = [{ custom_domain: true }]` config in `wrangler.toml` (declared deploy targets in version control). In that deploy mode, files under `functions/` are NOT auto-routed by Cloudflare — they have to be imported and dispatched explicitly by `worker.js`. The folder is named `functions/` historically; the named exports (`onRequestPost`, `onRequestGet`) match what Pages Functions would expect, so the same files would work in either deploy mode.
+
+`wrangler.toml` key config:
+
+```toml
+name = "prudentia-digital-website"
+main = "worker.js"                          # the Worker entrypoint
+compatibility_date = "2026-04-12"
+
+routes = [
+  { pattern = "prudentiadigital.co.za", custom_domain = true },
+  { pattern = "www.prudentiadigital.co.za", custom_domain = true },
+]
+
+[build]
+command = "npm run build"
+
+[assets]
+directory = "./dist"                        # static files come from here
+binding = "ASSETS"                          # env.ASSETS.fetch(request)
+not_found_handling = "404-page"             # serve dist/404.html on unknowns
 ```
 
 ---
 
 ## Deployment
 
-Push to `main` → GitHub Actions runs `.github/workflows/deploy.yml` → Cloudflare Pages deploy.
+Two paths, both deploy the same Worker artifact:
 
-**Required secrets** (set in GitHub repository settings):
+### Primary: GitHub Actions (when account is healthy)
+
+Push to `main` → `.github/workflows/deploy.yml` runs `cloudflare/wrangler-action@v3` with `command: deploy` → Cloudflare picks up changes within ~30 s.
+
+**Required GitHub repo secrets:**
 
 | Secret | Description |
 |---|---|
-| `CF_API_TOKEN` | Cloudflare API token with Pages write permission |
+| `CF_API_TOKEN` | Cloudflare API token with: `Account:Workers Scripts:Edit`, `Account:Cloudflare Pages:Edit` (if you ever switch back), `Zone:Workers Routes:Edit` for `prudentiadigital.co.za`, `Zone:Zone:Read` |
 | `CF_ACCOUNT_ID` | Cloudflare account ID |
 
-The Cloudflare project name is `prudentia-digital`.
+The Cloudflare Worker name is `prudentia-digital-website` (matches `wrangler.toml` `name`).
+
+### Fallback: local `wrangler deploy`
+
+Useful when CI is unavailable (account suspension, runner queue stuck, network issues). Uses your local OAuth via `wrangler login`:
+
+```bash
+npx wrangler whoami       # confirm you're authed
+npx wrangler deploy       # build + bundle + deploy in ~25 s
+```
+
+The deploy is identical to what CI would produce — wrangler runs `npm run build` (the `[build] command` in `wrangler.toml`), bundles `worker.js` + handlers, uploads assets, and binds custom domains.
 
 ---
 
 ## Email delivery (contact form)
 
-The "Get Started" contact form posts to `/contact-submit`, a Cloudflare Pages Function (`functions/contact-submit.js`). It validates the payload and forwards via the **Resend** HTTP API.
+The "Get Started" contact form posts to `/contact-submit`, a Worker route handler (`functions/contact-submit.js`, dispatched by `worker.js`). It validates the payload and forwards via the **Resend** HTTP API.
 
 ### Required setup
 
@@ -117,16 +206,16 @@ The "Get Started" contact form posts to `/contact-submit`, a Cloudflare Pages Fu
    - **DMARC is at `p=quarantine`.** Mail that fails alignment lands in spam (not bounced). Resend's DKIM alignment satisfies DMARC once the record propagates. Consider tightening to `p=reject` after 24 h of stable Resend delivery — out of scope for initial setup.
 4. Wait for the Resend dashboard to mark the domain "verified" (usually 5–60 min after the DNS records propagate).
 5. **Create an API key** in Resend → API Keys.
-6. **Set Cloudflare Pages environment variables** (Project → Settings → Environment variables) for **both Production and Preview**:
+6. **Set Cloudflare Worker environment variables** (Cloudflare dashboard → Workers & Pages → `prudentia-digital-website` → Settings → Variables and Secrets) for **both Production and Preview**:
 
 | Variable | Value | Required? |
 |---|---|---|
 | `RESEND_API_KEY` | the key from step 3 | yes — without it the function logs and returns `{ok: true, queued: false}` |
 | `RESEND_FROM_ADDRESS` | `contact-form@prudentiadigital.co.za` (post-verification) — defaults to `onboarding@resend.dev` (Resend's universal test sender, sends only to the Resend account email) | optional |
 | `CONTACT_TO_ADDRESS` | `masekolt@prudentiadigital.co.za` (default) | optional override |
-| `HEALTH_TOKEN` | any random 32+ character string — generate with `openssl rand -hex 32` | required to use `/api/email-health` (Pages Functions endpoint returns 503 without it) |
+| `HEALTH_TOKEN` | any random 32+ character string — generate with `openssl rand -hex 32` | required to use `/api/email-health` (Worker endpoint returns 503 without it) |
 
-7. **Optional: per-IP rate limit.** Create a KV namespace called `FORM_RATELIMIT` and bind it to the Pages project. The function throttles each IP to 5 submissions / 10 min. If the binding is absent, the function accepts all requests (honeypot remains the only spam line of defence).
+7. **Optional: per-IP rate limit.** Create a KV namespace called `FORM_RATELIMIT` and bind it to the Worker (`wrangler.toml` `[[kv_namespaces]]`). The handler throttles each IP to 5 submissions / 10 min. If the binding is absent, the handler accepts all requests (honeypot remains the only spam line of defence).
 
 ### What the contact form sends
 
@@ -135,18 +224,21 @@ When `RESEND_API_KEY` is configured AND the Resend domain is verified, every suc
 1. **Primary** → `CONTACT_TO_ADDRESS` (you) with the full payload, reply-to = submitter's address. This is the message you act on.
 2. **Auto-acknowledgement** → the submitter's address with a one-line "we've received your message" courtesy receipt, reply-to = `masekolt@prudentiadigital.co.za`. Fires only when the primary succeeded; failures here are logged and never affect the request outcome (form's job is to capture; the ack is a bonus).
 
-### Local development
+### Local development of the form
+
+See the project-wide [Local Development](#local-development) section above. Quick recap for the contact form:
 
 ```bash
-# Static preview (no functions):
-npx serve .
+npm run build            # stage dist/
+npx wrangler dev         # http://localhost:8787 — POST /contact-submit hits the Worker
 
-# Full local environment with functions + KV emulation:
-npx wrangler pages dev .
-# then visit http://localhost:8788 — submitting the form will log to the terminal.
+# In another shell, submit a test payload:
+curl -sS -X POST http://localhost:8787/contact-submit \
+  -d "name=test&email=t@t.com&challenge=hi&timeline=exploring&budget=lt-25k&services=software-dev"
+# → {"ok":true,"queued":false}
 ```
 
-If `RESEND_API_KEY` is unset locally, the function logs the payload and returns success — useful for testing without burning quota.
+If `RESEND_API_KEY` is unset locally (the default), the handler logs the payload and returns success — useful for testing without burning quota.
 
 ### Verifying live
 
@@ -162,7 +254,7 @@ After deploying:
 The token-gated `/api/email-health` endpoint lets you confirm the Resend wiring is configured WITHOUT firing a real email. Useful right after DNS records propagate and before you trust the form for real submissions.
 
 ```bash
-# Set HEALTH_TOKEN to whatever you put in Cloudflare Pages env vars.
+# Set HEALTH_TOKEN to whatever you put in the Cloudflare Worker env vars.
 curl -sS -H "X-Health-Token: $HEALTH_TOKEN" \
   https://prudentiadigital.co.za/api/email-health | jq .
 ```
@@ -183,8 +275,17 @@ Expected response on full-green (Resend signed up, domain verified, env vars set
 
 If `prudentiaDomainStatus` is `pending` or `not_started`, finish the DNS step. If `apiKeyConfigured: false`, set `RESEND_API_KEY` in the Pages env vars.
 
-Endpoint security: the probe is token-gated (`X-Health-Token` header must match `HEALTH_TOKEN` env var). Without a token, requests get a 401. If `HEALTH_TOKEN` itself isn't set on the function, the endpoint returns 503. Responses set `Cache-Control: no-store` + `X-Robots-Tag: noindex`. Only the `prudentiadigital.co.za` domain status is exposed — other domains in your Resend account are never returned.
-4. Check Cloudflare Pages → Functions → Logs for the structured submission log.
+Endpoint security: the probe is token-gated (`X-Health-Token` header must match `HEALTH_TOKEN` env var). Without a token, requests get a 401. If `HEALTH_TOKEN` itself isn't set on the Worker, the endpoint returns 503. Responses set `Cache-Control: no-store` + `X-Robots-Tag: noindex`. Only the `prudentiadigital.co.za` domain status is exposed — other domains in your Resend account are never returned.
+
+### Inspecting submission logs
+
+Submissions are logged via `console.log` from the Worker. View live in real time with:
+
+```bash
+npx wrangler tail prudentia-digital-website
+```
+
+Or via the Cloudflare dashboard → Workers & Pages → `prudentia-digital-website` → Logs.
 
 ---
 
