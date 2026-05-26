@@ -58,7 +58,7 @@ Design tokens are defined once in `css/design-tokens.css` and consumed everywher
 
 1. **Navigation** — sticky, scroll-aware, responsive (hamburger on mobile)
 2. **Hero** — headline, subtext, dual CTA buttons
-3. **Proof strip** — animated stat counters (enterprise pedigree, B-BBEE level, stack coverage)
+3. **Proof strip** — animated stat counters (enterprise pedigree, AI-augmented delivery, stack coverage, accountability)
 4. **Services** — 6 service cards with pricing:
    - Web Application Development — from R50 000
    - Cloud Infrastructure & DevOps — from R30 000
@@ -66,10 +66,11 @@ Design tokens are defined once in `css/design-tokens.css` and consumed everywher
    - Digital Transformation Advisory — from R15 000
    - API Development & Integration — from R20 000
    - Government & Enterprise Tenders — contact for scope
-5. **Why Us** — senior-led delivery, B-BBEE, regulatory fluency, full-stack accountability
-6. **About** — company story and the meaning of *Prudentia*
-7. **Contact / CTA** — mailto link
-8. **Footer** — brand, nav links, B-BBEE badge, copyright
+5. **Our Work** — 3 anonymised case-study cards (AI · Cloud · Data)
+6. **Why Us** — senior-led delivery, delivery without ceremony, regulatory fluency, full-stack accountability
+7. **About** — company story and the meaning of *Prudentia*
+8. **Contact / CTA** — multi-step "Get Started" form (POST → `/contact-submit` Cloudflare Pages Function → Resend)
+9. **Footer** — brand, nav links, registration details, copyright
 
 ---
 
@@ -100,11 +101,53 @@ The Cloudflare project name is `prudentia-digital`.
 
 ---
 
+## Email delivery (contact form)
+
+The "Get Started" contact form posts to `/contact-submit`, a Cloudflare Pages Function (`functions/contact-submit.js`). It validates the payload and forwards via the **Resend** HTTP API.
+
+### Required setup
+
+1. **Sign up for Resend** at [resend.com](https://resend.com) using `masekolt@prudentiadigital.co.za` as the account email (so the pre-verification fallback can send to that address).
+2. **Add a domain** for `prudentiadigital.co.za` in the Resend dashboard. Add the DKIM, SPF, and return-path DNS records to the domain registrar. Wait for the dashboard to mark the domain "verified" (usually 5–60 min).
+3. **Create an API key** in Resend → API Keys.
+4. **Set Cloudflare Pages environment variables** (Project → Settings → Environment variables) for **both Production and Preview**:
+
+| Variable | Value | Required? |
+|---|---|---|
+| `RESEND_API_KEY` | the key from step 3 | yes — without it the function logs and returns `{ok: true, queued: false}` |
+| `RESEND_FROM_ADDRESS` | `contact-form@prudentiadigital.co.za` (post-verification) — defaults to `onboarding@resend.dev` (Resend's universal test sender, sends only to the Resend account email) | optional |
+| `CONTACT_TO_ADDRESS` | `masekolt@prudentiadigital.co.za` (default) | optional override |
+
+5. **Optional: per-IP rate limit.** Create a KV namespace called `FORM_RATELIMIT` and bind it to the Pages project. The function throttles each IP to 5 submissions / 10 min. If the binding is absent, the function accepts all requests (honeypot remains the only spam line of defence).
+
+### Local development
+
+```bash
+# Static preview (no functions):
+npx serve .
+
+# Full local environment with functions + KV emulation:
+npx wrangler pages dev .
+# then visit http://localhost:8788 — submitting the form will log to the terminal.
+```
+
+If `RESEND_API_KEY` is unset locally, the function logs the payload and returns success — useful for testing without burning quota.
+
+### Verifying live
+
+After deploying:
+
+1. Send a test message via the form on `prudentiadigital.co.za#contact`.
+2. Confirm the email lands at `masekolt@prudentiadigital.co.za` within ~30 s.
+3. Reply-to should be the submitter's address.
+4. Check Cloudflare Pages → Functions → Logs for the structured submission log.
+
+---
+
 ## Company
 
 **Prudentia Digital (Pty) Ltd**  
 Enterprise No. 2025/910056/07 · CIPC registered · CSD registered  
-100% Black-owned · Level 1 B-BBEE EME (135% procurement recognition)  
 POPIA · PFMA · PPPFA compliant  
 
 Contact: masekolt@prudentiadigital.co.za

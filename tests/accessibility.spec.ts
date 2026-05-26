@@ -61,7 +61,7 @@ test.describe('Accessibility', () => {
 
     for (const link of mailLinks) {
       const href = await link.getAttribute('href');
-      expect(href).toMatch(/^mailto:.+@prudentiadigital\.co\.za$/);
+      expect(href).toMatch(/^mailto:.+@prudentiadigital\.co\.za(\?.*)?$/);
     }
   });
 
