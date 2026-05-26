@@ -922,6 +922,10 @@
       opacity 0.6s var(--scroll-easing);
     will-change: transform, opacity;
   }
+  [data-3d-scroll="z-axis-text-reveal"] .reveal-word {
+    display: inline-block;
+    white-space: nowrap;
+  }
   [data-3d-scroll="z-axis-text-reveal"].is-revealed .reveal-letter {
     opacity: 1;
     transform: translateZ(0) scale(1);
@@ -949,16 +953,26 @@
         if (child.nodeType === 3) {
           var text = child.textContent || "";
           var frag = document.createDocumentFragment();
-          for (var i = 0; i < text.length; i++) {
-            var ch = text[i];
-            if (ch === " ") { frag.appendChild(document.createTextNode(" ")); continue; }
-            var span = document.createElement("span");
-            span.className = "reveal-letter";
-            span.textContent = ch;
-            span.setAttribute("aria-hidden", "true");
-            span.style.transitionDelay = (letterCount * staggerMs) + "ms";
-            frag.appendChild(span);
-            letterCount++;
+          var parts = text.split(/(\s+)/);
+          for (var p = 0; p < parts.length; p++) {
+            var part = parts[p];
+            if (!part) continue;
+            if (/^\s+$/.test(part)) {
+              frag.appendChild(document.createTextNode(part));
+              continue;
+            }
+            var word = document.createElement("span");
+            word.className = "reveal-word";
+            word.setAttribute("aria-hidden", "true");
+            for (var i = 0; i < part.length; i++) {
+              var span = document.createElement("span");
+              span.className = "reveal-letter";
+              span.textContent = part[i];
+              span.style.transitionDelay = (letterCount * staggerMs) + "ms";
+              word.appendChild(span);
+              letterCount++;
+            }
+            frag.appendChild(word);
           }
           node.replaceChild(frag, child);
         } else if (child.nodeType === 1) {
