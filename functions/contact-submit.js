@@ -7,8 +7,9 @@
  *   2. Honeypot check (silent 200)
  *   3. Validate every field against allow-lists
  *   4. Optional per-IP rate limit (requires FORM_RATELIMIT KV binding; graceful degrade)
- *   5. Send via Resend HTTP API (requires RESEND_API_KEY; graceful degrade to log-only)
- *   6. Always return { ok: true, queued: <bool> } on success path
+ *   5. Send via shared sendEmail() helper (functions/_lib/sendEmail.js)
+ *   6. (When configured) auto-acknowledge to the submitter
+ *   7. Always return { ok: true, queued: <bool> } on success path
  *      — no error oracle for attackers; users always see in-page success.
  *
  * Environment variables (set in Cloudflare Pages → Settings → Environment vars,
@@ -21,6 +22,8 @@
  * Optional bindings:
  *   FORM_RATELIMIT  KV namespace for per-IP throttle (5 submissions / 10 min)
  */
+
+import { sendEmail } from './_lib/sendEmail.js';
 
 const ALLOWED_SERVICES = new Set([
   'software-dev',
@@ -123,43 +126,20 @@ function buildEmailBodies(payload) {
   return { text, html };
 }
 
-async function sendViaResend(env, payload) {
-  if (!env.RESEND_API_KEY) {
-    return { sent: false, reason: 'no-api-key' };
-  }
-
+async function sendPrimary(env, payload) {
   const fromAddress = env.RESEND_FROM_ADDRESS || DEFAULT_FROM_ADDRESS;
   const toAddress = env.CONTACT_TO_ADDRESS || DEFAULT_TO_ADDRESS;
   const { text, html } = buildEmailBodies(payload);
 
-  try {
-    const response = await fetch('https://api.resend.com/emails', {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${env.RESEND_API_KEY}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        from: `Prudentia Digital <${fromAddress}>`,
-        to: [toAddress],
-        reply_to: payload.email,
-        subject: payload.subject || 'New Get Started inquiry from prudentiadigital.co.za',
-        text,
-        html,
-      }),
-    });
-
-    if (!response.ok) {
-      const errBody = (await response.text()).slice(0, 200);
-      console.warn(`Resend ${response.status}: ${errBody}`);
-      return { sent: false, reason: `resend-${response.status}` };
-    }
-
-    return { sent: true };
-  } catch (err) {
-    console.warn('Resend network error:', err && err.message);
-    return { sent: false, reason: 'network-error' };
-  }
+  return sendEmail({
+    env,
+    from: `Prudentia Digital <${fromAddress}>`,
+    to: toAddress,
+    replyTo: payload.email,
+    subject: payload.subject || 'New Get Started inquiry from prudentiadigital.co.za',
+    text,
+    html,
+  });
 }
 
 export async function onRequestPost(context) {
@@ -256,7 +236,7 @@ export async function onRequestPost(context) {
     clientIp,
   });
 
-  const result = await sendViaResend(env, payload);
+  const primary = await sendPrimary(env, payload);
 
-  return json({ ok: true, queued: result.sent });
+  return json({ ok: true, queued: primary.queued });
 }
