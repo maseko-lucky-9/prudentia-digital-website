@@ -1,4 +1,5 @@
 name = "prudentia-digital-website"
+main = "worker.js"
 compatibility_date = "2026-04-12"
 
 # Production custom domain wiring for the company website.
@@ -12,3 +13,5 @@ command = "npm run build"
 
 [assets]
 directory = "./dist"
+binding = "ASSETS"
+not_found_handling = "404-page"
