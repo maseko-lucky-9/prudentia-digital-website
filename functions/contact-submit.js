@@ -142,6 +142,46 @@ async function sendPrimary(env, payload) {
   });
 }
 
+function buildAckBodies(name) {
+  const safeName = escapeHtml(name).trim() || 'there';
+  const text =
+    `Thanks, ${name || 'there'}.\n\n` +
+    "We've received your message and will get back to you within 1 business day.\n\n" +
+    '— Prudentia Digital · masekolt@prudentiadigital.co.za';
+
+  const html =
+    '<div style="font-family:Inter,Arial,sans-serif;font-size:15px;color:#0D1B2A;line-height:1.6">' +
+    `<p>Thanks, ${safeName}.</p>` +
+    "<p>We've received your message and will get back to you within 1 business day.</p>" +
+    '<p style="margin-top:24px;color:#475569;font-size:13px">— Prudentia Digital · ' +
+    '<a href="mailto:masekolt@prudentiadigital.co.za" style="color:#C9A96E;text-decoration:none">masekolt@prudentiadigital.co.za</a>' +
+    '</p>' +
+    '</div>';
+
+  return { text, html };
+}
+
+async function sendAck(env, payload) {
+  // Only attempt the ack when the primary actually queued AND we have an API key.
+  // sendEmail() itself short-circuits on missing key, but this avoids unnecessary
+  // log noise.
+  if (!env.RESEND_API_KEY) {
+    return { queued: false, status: null, error: 'no-api-key', id: null };
+  }
+  const fromAddress = env.RESEND_FROM_ADDRESS || DEFAULT_FROM_ADDRESS;
+  const { text, html } = buildAckBodies(payload.name);
+
+  return sendEmail({
+    env,
+    from: `Prudentia Digital <${fromAddress}>`,
+    to: payload.email,
+    replyTo: 'masekolt@prudentiadigital.co.za',
+    subject: 'We received your message — Prudentia Digital',
+    text,
+    html,
+  });
+}
+
 export async function onRequestPost(context) {
   const { request, env } = context;
 
@@ -237,6 +277,17 @@ export async function onRequestPost(context) {
   });
 
   const primary = await sendPrimary(env, payload);
+
+  // Auto-acknowledgement to submitter — only fires when the primary send
+  // succeeded AND Resend is configured. Failures are logged but do NOT
+  // affect the request outcome (the form's job is to capture the message;
+  // the ack is a courtesy bonus).
+  if (primary.queued) {
+    const ack = await sendAck(env, payload);
+    if (!ack.queued) {
+      console.warn(`ack failed for ${email}: ${ack.error || ack.status || 'unknown'}`);
+    }
+  }
 
   return json({ ok: true, queued: primary.queued });
 }
