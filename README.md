@@ -107,10 +107,17 @@ The "Get Started" contact form posts to `/contact-submit`, a Cloudflare Pages Fu
 
 ### Required setup
 
+> **DNS lives at Cloudflare**; inbound email is handled by **GoDaddy / Titan** (MX records point to `secureserver.net`). Add Resend's records in the Cloudflare DNS dashboard, not in GoDaddy. **Do not touch MX records** — leave Titan in place.
+
 1. **Sign up for Resend** at [resend.com](https://resend.com) using `masekolt@prudentiadigital.co.za` as the account email (so the pre-verification fallback can send to that address).
-2. **Add a domain** for `prudentiadigital.co.za` in the Resend dashboard. Add the DKIM, SPF, and return-path DNS records to the domain registrar. Wait for the dashboard to mark the domain "verified" (usually 5–60 min).
-3. **Create an API key** in Resend → API Keys.
-4. **Set Cloudflare Pages environment variables** (Project → Settings → Environment variables) for **both Production and Preview**:
+2. **Add a domain** for `prudentiadigital.co.za` in the Resend dashboard. Resend will list the DNS records you need.
+3. **Add the records in Cloudflare DNS** (dash.cloudflare.com → prudentiadigital.co.za → DNS → Records). Two important gotchas for this domain:
+   - **SPF merge — do NOT add a second SPF record.** The domain already has `v=spf1 include:secureserver.net -all` (Titan). A domain may only publish ONE SPF TXT. **Edit the existing record** to add Resend's include: `v=spf1 include:secureserver.net include:_spf.resend.com -all`.
+   - **DKIM is safe to add as-is.** Resend gives a unique selector (e.g. `resend._domainkey`) that doesn't collide with any Titan selectors. Add it exactly as Resend specifies.
+   - **DMARC is already strict (`p=reject`).** Resend mail must align via DKIM or it'll be rejected. This is fine once the DKIM record is verified — just don't loosen DMARC.
+4. Wait for the Resend dashboard to mark the domain "verified" (usually 5–60 min after the DNS records propagate).
+5. **Create an API key** in Resend → API Keys.
+6. **Set Cloudflare Pages environment variables** (Project → Settings → Environment variables) for **both Production and Preview**:
 
 | Variable | Value | Required? |
 |---|---|---|
@@ -118,7 +125,7 @@ The "Get Started" contact form posts to `/contact-submit`, a Cloudflare Pages Fu
 | `RESEND_FROM_ADDRESS` | `contact-form@prudentiadigital.co.za` (post-verification) — defaults to `onboarding@resend.dev` (Resend's universal test sender, sends only to the Resend account email) | optional |
 | `CONTACT_TO_ADDRESS` | `masekolt@prudentiadigital.co.za` (default) | optional override |
 
-5. **Optional: per-IP rate limit.** Create a KV namespace called `FORM_RATELIMIT` and bind it to the Pages project. The function throttles each IP to 5 submissions / 10 min. If the binding is absent, the function accepts all requests (honeypot remains the only spam line of defence).
+7. **Optional: per-IP rate limit.** Create a KV namespace called `FORM_RATELIMIT` and bind it to the Pages project. The function throttles each IP to 5 submissions / 10 min. If the binding is absent, the function accepts all requests (honeypot remains the only spam line of defence).
 
 ### Local development
 
