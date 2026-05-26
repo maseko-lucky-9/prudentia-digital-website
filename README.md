@@ -114,7 +114,7 @@ The "Get Started" contact form posts to `/contact-submit`, a Cloudflare Pages Fu
 3. **Add the records in Cloudflare DNS** (dash.cloudflare.com → prudentiadigital.co.za → DNS → Records). Two important gotchas for this domain:
    - **SPF merge — do NOT add a second SPF record.** The domain already has `v=spf1 include:secureserver.net -all` (Titan). A domain may only publish ONE SPF TXT. **Edit the existing record** to add Resend's include: `v=spf1 include:secureserver.net include:_spf.resend.com -all`.
    - **DKIM is safe to add as-is.** Resend gives a unique selector (e.g. `resend._domainkey`) that doesn't collide with any Titan selectors. Add it exactly as Resend specifies.
-   - **DMARC is already strict (`p=reject`).** Resend mail must align via DKIM or it'll be rejected. This is fine once the DKIM record is verified — just don't loosen DMARC.
+   - **DMARC is at `p=quarantine`.** Mail that fails alignment lands in spam (not bounced). Resend's DKIM alignment satisfies DMARC once the record propagates. Consider tightening to `p=reject` after 24 h of stable Resend delivery — out of scope for initial setup.
 4. Wait for the Resend dashboard to mark the domain "verified" (usually 5–60 min after the DNS records propagate).
 5. **Create an API key** in Resend → API Keys.
 6. **Set Cloudflare Pages environment variables** (Project → Settings → Environment variables) for **both Production and Preview**:
@@ -124,8 +124,16 @@ The "Get Started" contact form posts to `/contact-submit`, a Cloudflare Pages Fu
 | `RESEND_API_KEY` | the key from step 3 | yes — without it the function logs and returns `{ok: true, queued: false}` |
 | `RESEND_FROM_ADDRESS` | `contact-form@prudentiadigital.co.za` (post-verification) — defaults to `onboarding@resend.dev` (Resend's universal test sender, sends only to the Resend account email) | optional |
 | `CONTACT_TO_ADDRESS` | `masekolt@prudentiadigital.co.za` (default) | optional override |
+| `HEALTH_TOKEN` | any random 32+ character string — generate with `openssl rand -hex 32` | required to use `/api/email-health` (Pages Functions endpoint returns 503 without it) |
 
 7. **Optional: per-IP rate limit.** Create a KV namespace called `FORM_RATELIMIT` and bind it to the Pages project. The function throttles each IP to 5 submissions / 10 min. If the binding is absent, the function accepts all requests (honeypot remains the only spam line of defence).
+
+### What the contact form sends
+
+When `RESEND_API_KEY` is configured AND the Resend domain is verified, every successful submission triggers TWO emails (both via the shared `functions/_lib/sendEmail.js` helper):
+
+1. **Primary** → `CONTACT_TO_ADDRESS` (you) with the full payload, reply-to = submitter's address. This is the message you act on.
+2. **Auto-acknowledgement** → the submitter's address with a one-line "we've received your message" courtesy receipt, reply-to = `masekolt@prudentiadigital.co.za`. Fires only when the primary succeeded; failures here are logged and never affect the request outcome (form's job is to capture; the ack is a bonus).
 
 ### Local development
 
@@ -147,6 +155,35 @@ After deploying:
 1. Send a test message via the form on `prudentiadigital.co.za#contact`.
 2. Confirm the email lands at `masekolt@prudentiadigital.co.za` within ~30 s.
 3. Reply-to should be the submitter's address.
+4. Confirm the submitter inbox also receives the courtesy auto-acknowledgement.
+
+### Verify with `/api/email-health` (no-send probe)
+
+The token-gated `/api/email-health` endpoint lets you confirm the Resend wiring is configured WITHOUT firing a real email. Useful right after DNS records propagate and before you trust the form for real submissions.
+
+```bash
+# Set HEALTH_TOKEN to whatever you put in Cloudflare Pages env vars.
+curl -sS -H "X-Health-Token: $HEALTH_TOKEN" \
+  https://prudentiadigital.co.za/api/email-health | jq .
+```
+
+Expected response on full-green (Resend signed up, domain verified, env vars set):
+
+```json
+{
+  "apiKeyConfigured": true,
+  "fromAddress": "contact-form@prudentiadigital.co.za",
+  "toAddress": "masekolt@prudentiadigital.co.za",
+  "resendReachable": true,
+  "resendStatus": 200,
+  "prudentiaDomainStatus": "verified",
+  "error": null
+}
+```
+
+If `prudentiaDomainStatus` is `pending` or `not_started`, finish the DNS step. If `apiKeyConfigured: false`, set `RESEND_API_KEY` in the Pages env vars.
+
+Endpoint security: the probe is token-gated (`X-Health-Token` header must match `HEALTH_TOKEN` env var). Without a token, requests get a 401. If `HEALTH_TOKEN` itself isn't set on the function, the endpoint returns 503. Responses set `Cache-Control: no-store` + `X-Robots-Tag: noindex`. Only the `prudentiadigital.co.za` domain status is exposed — other domains in your Resend account are never returned.
 4. Check Cloudflare Pages → Functions → Logs for the structured submission log.
 
 ---
