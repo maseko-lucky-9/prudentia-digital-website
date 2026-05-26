@@ -2,12 +2,6 @@ name = "prudentia-digital-website"
 main = "worker.js"
 compatibility_date = "2026-04-12"
 
-# Production custom domain wiring for the company website.
-routes = [
-  { pattern = "prudentiadigital.co.za", custom_domain = true },
-  { pattern = "www.prudentiadigital.co.za", custom_domain = true },
-]
-
 [build]
 command = "npm run build"
 
