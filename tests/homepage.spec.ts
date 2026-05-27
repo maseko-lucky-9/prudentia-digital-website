@@ -15,16 +15,17 @@ test.describe('Homepage — static content', () => {
     await expect(page.locator('.hero__eyebrow')).toContainText(
       'Technology Consultancy · South Africa'
     );
-    await expect(page.locator('h1.hero__headline')).toContainText('Enterprise-grade technology');
+    await expect(page.locator('h1.hero__headline')).toContainText('Enterprise platforms');
+    await expect(page.locator('h1.hero__headline')).toContainText('without the enterprise overhead');
     await expect(page.locator('.hero__subtext')).toContainText('Full-stack delivery');
   });
 
   test('hero CTAs have correct links', async ({ page }) => {
-    const viewServices = page.locator('.hero__ctas a', { hasText: 'View Services' });
-    const getInTouch = page.locator('.hero__ctas a', { hasText: 'Get in Touch' });
+    const startProject = page.locator('.hero__ctas a', { hasText: 'Start your project' });
+    const viewServices = page.locator('.hero__ctas a', { hasText: 'View services' });
 
+    await expect(startProject).toHaveAttribute('href', '#contact');
     await expect(viewServices).toHaveAttribute('href', '#services');
-    await expect(getInTouch).toHaveAttribute('href', /^mailto:/);
   });
 
   test('proof strip has 4 items', async ({ page }) => {
