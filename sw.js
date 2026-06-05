@@ -3,7 +3,7 @@
  * Strategy: Cache-first for static assets, network-first for HTML.
  */
 
-const CACHE_NAME = 'prudentia-v1.2';
+const CACHE_NAME = 'prudentia-v1.3';
 const STATIC_ASSETS = [
   '/',
   '/index.html',
@@ -34,6 +34,12 @@ self.addEventListener('activate', (event) => {
 
 self.addEventListener('fetch', (event) => {
   const { request } = event;
+
+  // Never intercept non-GET (e.g. POST /contact-submit). The Cache API rejects
+  // cache.put() on non-GET requests; letting these pass straight to the network
+  // avoids an unhandled rejection and any risk of interfering with form submits.
+  if (request.method !== 'GET') return;
+
   const url = new URL(request.url);
 
   // Only handle same-origin requests

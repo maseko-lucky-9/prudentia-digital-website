@@ -69,6 +69,13 @@ const escapeHtml = (str) =>
     .replace(/"/g, '&quot;')
     .replace(/'/g, '&#39;');
 
+// Mask an address for logs (POPIA): keep the first char + the domain only.
+const maskEmail = (str) => {
+  const s = String(str || '');
+  const at = s.indexOf('@');
+  return at > 0 ? `${s[0]}***${s.slice(at)}` : '[redacted]';
+};
+
 async function checkRateLimit(env, clientIp) {
   if (!env.FORM_RATELIMIT || !clientIp) return { allowed: true };
   try {
@@ -266,26 +273,34 @@ export async function onRequestPost(context) {
     userAgent,
   };
 
+  // PII-safe submission log (POPIA): email masked, no client IP retained.
   console.log('Get Started submission:', {
     name,
-    email,
+    email: maskEmail(email),
     services,
     timeline,
     budget,
     topic,
-    clientIp,
   });
 
   const primary = await sendPrimary(env, payload);
 
-  // Auto-acknowledgement to submitter — only fires when the primary send
-  // succeeded AND Resend is configured. Failures are logged but do NOT
-  // affect the request outcome (the form's job is to capture the message;
-  // the ack is a courtesy bonus).
-  if (primary.queued) {
+  if (!primary.queued) {
+    // PAGE-WORTHY: the company did NOT receive this inquiry. Status/enum only —
+    // never log payload.email/name/IP. Build alerts on this exact marker.
+    console.error('EMAIL_DELIVERY_FAILURE', {
+      status: primary.status,
+      error: primary.error,
+    });
+  } else {
+    // Auto-acknowledgement to the submitter — courtesy only; never affects the
+    // request outcome. Fires only when the primary actually queued.
     const ack = await sendAck(env, payload);
     if (!ack.queued) {
-      console.warn(`ack failed for ${email}: ${ack.error || ack.status || 'unknown'}`);
+      // Distinct, NON-page-worthy marker. Expected during the pre-verification
+      // window (Resend 403 to non-account recipients) — must not share the
+      // primary marker or it would drown the real delivery alert. No PII.
+      console.warn('EMAIL_ACK_FAILED', { status: ack.status, error: ack.error });
     }
   }
 

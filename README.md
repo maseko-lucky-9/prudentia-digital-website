@@ -200,22 +200,34 @@ The "Get Started" contact form posts to `/contact-submit`, a Worker route handle
 
 1. **Sign up for Resend** at [resend.com](https://resend.com) using `masekolt@prudentiadigital.co.za` as the account email (so the pre-verification fallback can send to that address).
 2. **Add a domain** for `prudentiadigital.co.za` in the Resend dashboard. Resend will list the DNS records you need.
-3. **Add the records in Cloudflare DNS** (dash.cloudflare.com → prudentiadigital.co.za → DNS → Records). Two important gotchas for this domain:
-   - **SPF merge — do NOT add a second SPF record.** The domain already has `v=spf1 include:secureserver.net -all` (Titan). A domain may only publish ONE SPF TXT. **Edit the existing record** to add Resend's include: `v=spf1 include:secureserver.net include:_spf.resend.com -all`.
-   - **DKIM is safe to add as-is.** Resend gives a unique selector (e.g. `resend._domainkey`) that doesn't collide with any Titan selectors. Add it exactly as Resend specifies.
-   - **DMARC is at `p=quarantine`.** Mail that fails alignment lands in spam (not bounced). Resend's DKIM alignment satisfies DMARC once the record propagates. Consider tightening to `p=reject` after 24 h of stable Resend delivery — out of scope for initial setup.
-4. Wait for the Resend dashboard to mark the domain "verified" (usually 5–60 min after the DNS records propagate).
+3. **Add the records in Cloudflare DNS** (dash.cloudflare.com → prudentiadigital.co.za → DNS → Records) **exactly as the Resend dashboard lists them — do NOT hand-author or modify any value.** For this domain:
+   - **Resend's records live on the `send.` subdomain and on `resend._domainkey` — NOT on the apex.** Resend sends via Amazon SES, so it generates an SPF `TXT` on `send` (typically `v=spf1 include:amazonses.com ~all`), an **MX** on `send` (→ `feedback-smtp.<region>.amazonses.com`), and a DKIM record at `resend._domainkey`. Add all of them verbatim.
+   - **Do NOT touch the apex SPF** (`v=spf1 include:secureserver.net -all`, Titan) and **do NOT touch the apex MX** (Titan inbound). The `send.` subdomain MX is a *separate host* and does not affect Titan. ⚠️ Earlier guidance here to merge `include:_spf.resend.com` into the apex SPF was **incorrect** — ignore it; Resend does not use the apex record.
+   - **DKIM (`resend._domainkey`) is the record that carries the DMARC pass** at `p=quarantine` — SPF alignment rides on the `send.` subdomain, not the apex. Wait for the Resend dashboard to show **DKIM verified** specifically.
+   - **DMARC is at `p=quarantine`** — mail failing alignment lands in **spam, not bounced**. Confirm a real send shows `dkim=pass` / `dmarc=pass` in its **Authentication-Results** header before trusting the form. Consider tightening to `p=reject` only after 24 h of stable delivery.
+4. Wait for the Resend dashboard to mark the domain **verified** (DKIM green; usually 5–60 min after the records propagate).
 5. **Create an API key** in Resend → API Keys.
-6. **Set Cloudflare Worker environment variables** (Cloudflare dashboard → Workers & Pages → `prudentia-digital-website` → Settings → Variables and Secrets) for **both Production and Preview**:
+6. **Set the two secrets, then the two addresses — they live in different places** (this matters: CI runs `wrangler deploy`, whose default `--keep-vars=false` **deletes dashboard plaintext vars not in `wrangler.toml`**; encrypted Secrets are preserved):
 
-| Variable | Value | Required? |
-|---|---|---|
-| `RESEND_API_KEY` | the key from step 3 | yes — without it the function logs and returns `{ok: true, queued: false}` |
-| `RESEND_FROM_ADDRESS` | `contact-form@prudentiadigital.co.za` (post-verification) — defaults to `onboarding@resend.dev` (Resend's universal test sender, sends only to the Resend account email) | optional |
-| `CONTACT_TO_ADDRESS` | `masekolt@prudentiadigital.co.za` (default) | optional override |
-| `HEALTH_TOKEN` | any random 32+ character string — generate with `openssl rand -hex 32` | required to use `/api/email-health` (Worker endpoint returns 503 without it) |
+   - **Secrets** — `wrangler secret put <NAME>` (or dashboard → Variables and **Secrets**), for **both Production and Preview**:
 
-7. **Optional: per-IP rate limit.** Create a KV namespace called `FORM_RATELIMIT` and bind it to the Worker (`wrangler.toml` `[[kv_namespaces]]`). The handler throttles each IP to 5 submissions / 10 min. If the binding is absent, the handler accepts all requests (honeypot remains the only spam line of defence).
+     | Secret | Value | Required? |
+     |---|---|---|
+     | `RESEND_API_KEY` | the key from step 5 | yes — without it every send returns `{ok:true, queued:false}` and logs `EMAIL_DELIVERY_FAILURE` |
+     | `HEALTH_TOKEN` | random 32+ chars — `openssl rand -hex 32` | required to use `/api/email-health` (returns 503 without it) |
+
+   - **Non-secret addresses** — committed in `wrangler.toml` `[vars]` (deploy-stable; do **not** set these as dashboard plaintext vars or they get wiped on the next deploy):
+
+     | Var | Value | Notes |
+     |---|---|---|
+     | `CONTACT_TO_ADDRESS` | `masekolt@prudentiadigital.co.za` | already committed; code default matches |
+     | `RESEND_FROM_ADDRESS` | `contact-form@prudentiadigital.co.za` | **uncomment in `wrangler.toml` only AFTER DKIM verified.** Until then leave unset → falls back to `onboarding@resend.dev` (sends only to the Resend account email; the auto-ack to other addresses will 403 — expected) |
+
+7. **Bind the per-IP rate limit BEFORE `RESEND_API_KEY` goes live** (abuse gate — the auto-ack sends to an attacker-controllable address, so an unthrottled live form is a mail-amplification vector). Create the namespace and uncomment the `[[kv_namespaces]]` block in `wrangler.toml`:
+   ```bash
+   npx wrangler kv namespace create FORM_RATELIMIT   # paste the id into wrangler.toml
+   ```
+   The handler then throttles each IP to 5 submissions / 10 min. (Durable abuse control = Cloudflare Turnstile on the form — recommended fast-follow; zero MX/DNS impact.)
 
 ### What the contact form sends
 
@@ -286,6 +298,13 @@ npx wrangler tail prudentia-digital-website
 ```
 
 Or via the Cloudflare dashboard → Workers & Pages → `prudentia-digital-website` → Logs.
+
+Logs are retained/queryable because `wrangler.toml` enables `[observability]`. Two greppable markers:
+
+- **`EMAIL_DELIVERY_FAILURE`** — **page-worthy.** The company did **not** receive an inquiry (missing key, unverified domain, Resend 4xx/5xx, timeout, or 429 quota). Build alerts on this string. Submission PII is masked in logs (email → `a***@domain`, no client IP).
+- **`EMAIL_ACK_FAILED`** — informational. The courtesy auto-acknowledgement to the submitter failed; the company copy still arrived. **Expected** during the pre-verification window (Resend 403 to non-account recipients) — do not alert on it.
+
+> **Free-tier quota:** Resend free = **100 emails/day, 3,000/month**. Each submission sends **2** emails (company copy + auto-ack) ⇒ ~**50 submissions/day**. Quota exhaustion surfaces as a Resend **429** → `EMAIL_DELIVERY_FAILURE` (a distinct failure mode from a missing key). Upgrade the plan or drop the auto-ack if volume approaches the cap.
 
 ---
 

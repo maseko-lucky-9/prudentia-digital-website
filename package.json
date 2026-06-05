@@ -5,6 +5,7 @@
   "scripts": {
     "build": "rm -rf dist && mkdir dist && cp index.html 404.html privacy.html terms.html robots.txt sitemap.xml manifest.json sw.js _headers dist/ && cp -r css js assets blog ai web cloud data advisory api proposals dist/",
     "test": "playwright test",
+    "test:worker": "node --test tests/worker/*.test.mjs",
     "test:ui": "playwright test --ui",
     "test:headed": "playwright test --headed",
     "test:debug": "playwright test --debug"

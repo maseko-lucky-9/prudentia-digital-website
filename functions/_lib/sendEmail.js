@@ -103,7 +103,9 @@ export async function sendEmail({ env, from, to, replyTo, subject, html, text })
 
     if (!response.ok) {
       const errText = await safeReadText(response);
-      console.warn(`sendEmail Resend ${response.status}: ${errText}`);
+      // Redact email-shaped tokens — Resend 4xx bodies can echo the recipient
+      // address (PII). The caller emits the alert marker; this line is detail only.
+      console.warn(`sendEmail Resend ${response.status}: ${redactEmails(errText)}`);
       return {
         queued: false,
         status: response.status,
@@ -147,4 +149,8 @@ async function safeReadText(response) {
   } catch {
     return '<unreadable>';
   }
+}
+
+function redactEmails(str) {
+  return String(str || '').replace(/[^\s@]+@[^\s@]+\.[^\s@]+/g, '[redacted-email]');
 }
