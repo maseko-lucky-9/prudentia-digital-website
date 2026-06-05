@@ -9,3 +9,26 @@ command = "npm run build"
 directory = "./dist"
 binding = "ASSETS"
 not_found_handling = "404-page"
+
+# Retain Worker logs (console.* incl. EMAIL_DELIVERY_FAILURE) so they are queryable
+# in Workers Logs and alertable. Without this, console output is visible only during
+# a live `wrangler tail`. head_sampling_rate = 1 keeps 100% of invocations.
+[observability]
+enabled = true
+head_sampling_rate = 1
+
+# Non-secret config committed here so CI `wrangler deploy` (default --keep-vars=false)
+# does NOT wipe it. Secrets (RESEND_API_KEY, HEALTH_TOKEN) are set via
+# `wrangler secret put` / dashboard and are preserved across deploys.
+[vars]
+CONTACT_TO_ADDRESS = "masekolt@prudentiadigital.co.za"
+# Add ONLY AFTER the Resend domain shows DKIM verified (see README → Email delivery):
+# RESEND_FROM_ADDRESS = "contact-form@prudentiadigital.co.za"
+
+# Per-IP submission throttle (5 / 10 min). Arms the rate limiter that is currently a
+# no-op because no namespace is bound — bind this BEFORE RESEND_API_KEY goes live.
+# Create the namespace, then uncomment and paste the id:
+#   npx wrangler kv namespace create FORM_RATELIMIT
+# [[kv_namespaces]]
+# binding = "FORM_RATELIMIT"
+# id = "<paste-id-from-the-create-command>"
