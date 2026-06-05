@@ -2,6 +2,11 @@ import { defineConfig, devices } from '@playwright/test';
 
 export default defineConfig({
   testDir: './tests',
+  // Browser/UI specs only. Worker-contract tests (tests/worker/*.test.mjs) run
+  // under `node --test` (npm run test:worker), not Playwright — without this,
+  // Playwright's default matcher would also pick up *.test.mjs and fail to load
+  // them (they import Worker ESM modules, not Playwright's test runner).
+  testMatch: '**/*.spec.ts',
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
