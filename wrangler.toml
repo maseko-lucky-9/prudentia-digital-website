@@ -17,18 +17,27 @@ not_found_handling = "404-page"
 enabled = true
 head_sampling_rate = 1
 
+# Cloudflare Email Service (Email Sending) binding — no API key needed.
+# The from-domain must be onboarded first: npx wrangler email sending enable prudentiadigital.co.za
+# (requires the account's Email Service beta opt-in in the dashboard).
+[[send_email]]
+name = "EMAIL"
+
 # Non-secret config committed here so CI `wrangler deploy` (default --keep-vars=false)
-# does NOT wipe it. Secrets (RESEND_API_KEY, HEALTH_TOKEN) are set via
-# `wrangler secret put` / dashboard and are preserved across deploys.
+# does NOT wipe it. The only remaining secret (HEALTH_TOKEN) is set via
+# `wrangler secret put` / dashboard and is preserved across deploys.
 [vars]
 CONTACT_TO_ADDRESS = "masekolt@prudentiadigital.co.za"
-# Add ONLY AFTER the Resend domain shows DKIM verified (see README → Email delivery):
-# RESEND_FROM_ADDRESS = "contact-form@prudentiadigital.co.za"
+EMAIL_FROM_ADDRESS = "contact-form@prudentiadigital.co.za"
+# Auto-ack to the submitter requires the Workers Paid plan (free plan can only send
+# to VERIFIED destination addresses — the visitor's address is arbitrary). Flip to
+# "true" only after upgrading; the primary lead email is unaffected either way.
+SEND_AUTO_ACK = "false"
 
-# Per-IP submission throttle (5 / 10 min). Arms the rate limiter that is currently a
-# no-op because no namespace is bound — bind this BEFORE RESEND_API_KEY goes live.
-# Create the namespace, then uncomment and paste the id:
-#   npx wrangler kv namespace create FORM_RATELIMIT
-# [[kv_namespaces]]
-# binding = "FORM_RATELIMIT"
-# id = "<paste-id-from-the-create-command>"
+# Per-IP submission throttle (5 / 10 min). Bound BEFORE sending went live so the
+# form cannot be used as a mail-amplification vector.
+[[kv_namespaces]]
+binding = "FORM_RATELIMIT"
+id = "9c9658ca81e74c0aaa42e9693eafd4bc"
+# Same namespace for `wrangler dev` so the rate limiter is exercisable locally.
+preview_id = "9c9658ca81e74c0aaa42e9693eafd4bc"
