@@ -12,14 +12,16 @@
  *   7. Always return { ok: true, queued: <bool> } on success path
  *      — no error oracle for attackers; users always see in-page success.
  *
- * Environment variables (set in Cloudflare Pages → Settings → Environment vars,
- * BOTH Production and Preview):
- *   RESEND_API_KEY            required to send
- *   RESEND_FROM_ADDRESS       optional; defaults to onboarding@resend.dev (Resend test sender)
- *                             update to contact-form@prudentiadigital.co.za once DNS verified
- *   CONTACT_TO_ADDRESS        optional; defaults to masekolt@prudentiadigital.co.za
+ * Environment (committed in wrangler.toml [vars] — no secrets needed to send):
+ *   EMAIL_FROM_ADDRESS  optional; defaults to contact-form@prudentiadigital.co.za
+ *   CONTACT_TO_ADDRESS  optional; defaults to masekolt@prudentiadigital.co.za
+ *   SEND_AUTO_ACK       "true" to email a courtesy receipt to the submitter.
+ *                       Requires the Workers Paid plan — the free plan can only
+ *                       send to VERIFIED destination addresses, and the visitor's
+ *                       address is arbitrary. Keep "false" on the free plan.
  *
- * Optional bindings:
+ * Bindings:
+ *   EMAIL           send_email binding (Cloudflare Email Service) — required to send
  *   FORM_RATELIMIT  KV namespace for per-IP throttle (5 submissions / 10 min)
  */
 
@@ -53,7 +55,7 @@ const ALLOWED_TOPICS = new Set([
 const RATE_LIMIT_MAX = 5;
 const RATE_LIMIT_WINDOW_SECONDS = 600;
 const DEFAULT_TO_ADDRESS = 'masekolt@prudentiadigital.co.za';
-const DEFAULT_FROM_ADDRESS = 'onboarding@resend.dev';
+const DEFAULT_FROM_ADDRESS = 'contact-form@prudentiadigital.co.za';
 
 const json = (body, status = 200) =>
   new Response(JSON.stringify(body), {
@@ -134,7 +136,7 @@ function buildEmailBodies(payload) {
 }
 
 async function sendPrimary(env, payload) {
-  const fromAddress = env.RESEND_FROM_ADDRESS || DEFAULT_FROM_ADDRESS;
+  const fromAddress = env.EMAIL_FROM_ADDRESS || DEFAULT_FROM_ADDRESS;
   const toAddress = env.CONTACT_TO_ADDRESS || DEFAULT_TO_ADDRESS;
   const { text, html } = buildEmailBodies(payload);
 
@@ -169,13 +171,7 @@ function buildAckBodies(name) {
 }
 
 async function sendAck(env, payload) {
-  // Only attempt the ack when the primary actually queued AND we have an API key.
-  // sendEmail() itself short-circuits on missing key, but this avoids unnecessary
-  // log noise.
-  if (!env.RESEND_API_KEY) {
-    return { queued: false, status: null, error: 'no-api-key', id: null };
-  }
-  const fromAddress = env.RESEND_FROM_ADDRESS || DEFAULT_FROM_ADDRESS;
+  const fromAddress = env.EMAIL_FROM_ADDRESS || DEFAULT_FROM_ADDRESS;
   const { text, html } = buildAckBodies(payload.name);
 
   return sendEmail({
@@ -292,14 +288,14 @@ export async function onRequestPost(context) {
       status: primary.status,
       error: primary.error,
     });
-  } else {
+  } else if (env.SEND_AUTO_ACK === 'true') {
     // Auto-acknowledgement to the submitter — courtesy only; never affects the
-    // request outcome. Fires only when the primary actually queued.
+    // request outcome. Fires only when the primary actually queued AND the flag
+    // is on (requires Workers Paid: free plan can't email arbitrary addresses).
     const ack = await sendAck(env, payload);
     if (!ack.queued) {
-      // Distinct, NON-page-worthy marker. Expected during the pre-verification
-      // window (Resend 403 to non-account recipients) — must not share the
-      // primary marker or it would drown the real delivery alert. No PII.
+      // Distinct, NON-page-worthy marker — must not share the primary marker
+      // or it would drown the real delivery alert. No PII.
       console.warn('EMAIL_ACK_FAILED', { status: ack.status, error: ack.error });
     }
   }

@@ -1,18 +1,18 @@
 /**
  * functions/_lib/sendEmail.js
  *
- * Shared Resend HTTP-API sender used by every Pages Function that needs
- * to dispatch transactional email from prudentiadigital.co.za.
+ * Shared Cloudflare Email Service sender used by every Pages Function that
+ * needs to dispatch transactional email from prudentiadigital.co.za.
  *
- * Design goals:
+ * Uses the native `send_email` Worker binding (env.EMAIL) — no API key, no
+ * third-party vendor. The from-domain must be onboarded to Email Sending
+ * (npx wrangler email sending enable prudentiadigital.co.za).
+ *
+ * Design goals (unchanged from the Resend era — same return contract):
  *   - Never throws; caller decides on retry/log.
- *   - 5s AbortController timeout on the Resend fetch.
- *   - Graceful degrade when RESEND_API_KEY is missing (returns queued:false).
- *   - Best-effort guard: refuses to send if RESEND_FROM_ADDRESS is explicitly
- *     set AND doesn't end in @prudentiadigital.co.za. The fallback
- *     onboarding@resend.dev (used when RESEND_FROM_ADDRESS is unset) is
- *     exempt — that's Resend's universal test sender and must always work
- *     during the pre-verification window.
+ *   - Graceful degrade when the EMAIL binding is missing (returns queued:false).
+ *   - Guard: refuses to send unless the from address is on prudentiadigital.co.za
+ *     (anything else would be rejected by Email Sending as an unverified sender).
  *
  * Usage:
  *   import { sendEmail } from '../_lib/sendEmail.js';
@@ -26,18 +26,16 @@
  *     text: '…',
  *   });
  *   // result = { queued: bool, status: number|null, error: string|null, id: string|null }
+ *   // status is always null with the binding (no HTTP layer); kept for contract stability.
  */
 
-const RESEND_ENDPOINT = 'https://api.resend.com/emails';
-const FETCH_TIMEOUT_MS = 5000;
-const FALLBACK_FROM = 'onboarding@resend.dev';
 const ALLOWED_DOMAIN_SUFFIX = '@prudentiadigital.co.za';
 
 /**
- * Send a transactional email via Resend. Never throws.
+ * Send a transactional email via the Cloudflare Email Service binding. Never throws.
  *
  * @param {object} args
- * @param {object} args.env       Cloudflare Pages env (must contain RESEND_API_KEY).
+ * @param {object} args.env       Worker env (must contain the EMAIL send_email binding).
  * @param {string} args.from      Sender address (raw or `Name <addr>` form).
  * @param {string|string[]} args.to  Recipient(s).
  * @param {string} [args.replyTo] Optional reply-to.
@@ -47,25 +45,17 @@ const ALLOWED_DOMAIN_SUFFIX = '@prudentiadigital.co.za';
  * @returns {Promise<{queued: boolean, status: number|null, error: string|null, id: string|null}>}
  */
 export async function sendEmail({ env, from, to, replyTo, subject, html, text }) {
-  if (!env || !env.RESEND_API_KEY) {
+  if (!env || !env.EMAIL || typeof env.EMAIL.send !== 'function') {
     return {
       queued: false,
       status: null,
-      error: 'RESEND_API_KEY missing',
+      error: 'EMAIL binding missing',
       id: null,
     };
   }
 
-  // Extract bare address from "Name <addr@example>" form for the guard check.
   const bareFrom = extractBareAddress(from);
-
-  // Best-effort guard: if RESEND_FROM_ADDRESS is explicitly set, it must be on
-  // our verified domain. The unset fallback (onboarding@resend.dev) is exempt.
-  if (
-    env.RESEND_FROM_ADDRESS &&
-    bareFrom !== FALLBACK_FROM &&
-    !bareFrom.endsWith(ALLOWED_DOMAIN_SUFFIX)
-  ) {
+  if (!bareFrom.endsWith(ALLOWED_DOMAIN_SUFFIX)) {
     return {
       queued: false,
       status: null,
@@ -74,63 +64,35 @@ export async function sendEmail({ env, from, to, replyTo, subject, html, text })
     };
   }
 
-  const controller = new AbortController();
-  const timeoutId = setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS);
-
   try {
-    const body = {
-      from,
+    const message = {
       to: Array.isArray(to) ? to : [to],
+      from: { email: bareFrom, name: extractDisplayName(from) },
       subject,
       text,
       html,
     };
     if (replyTo) {
-      body.reply_to = replyTo;
+      message.replyTo = replyTo;
     }
 
-    const response = await fetch(RESEND_ENDPOINT, {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${env.RESEND_API_KEY}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(body),
-      signal: controller.signal,
-    });
+    const response = await env.EMAIL.send(message);
 
-    clearTimeout(timeoutId);
-
-    if (!response.ok) {
-      const errText = await safeReadText(response);
-      // Redact email-shaped tokens — Resend 4xx bodies can echo the recipient
-      // address (PII). The caller emits the alert marker; this line is detail only.
-      console.warn(`sendEmail Resend ${response.status}: ${redactEmails(errText)}`);
-      return {
-        queued: false,
-        status: response.status,
-        error: `resend-${response.status}`,
-        id: null,
-      };
-    }
-
-    let id = null;
-    try {
-      const json = await response.json();
-      id = json && typeof json.id === 'string' ? json.id : null;
-    } catch {
-      // Body parse failure is non-fatal — Resend accepted the request.
-    }
-
-    return { queued: true, status: response.status, error: null, id };
+    return {
+      queued: true,
+      status: null,
+      error: null,
+      id: response && typeof response.messageId === 'string' ? response.messageId : null,
+    };
   } catch (err) {
-    clearTimeout(timeoutId);
-    const reason = err && err.name === 'AbortError' ? 'timeout' : 'network-error';
-    console.warn(`sendEmail ${reason}:`, err && err.message);
+    // Binding errors carry an E_* code (E_SENDER_NOT_VERIFIED, E_RECIPIENT_NOT_ALLOWED,
+    // E_DAILY_LIMIT_EXCEEDED, …). Message may echo addresses — redact before logging.
+    const code = err && typeof err.code === 'string' ? err.code : 'send-failed';
+    console.warn(`sendEmail ${code}: ${redactEmails(err && err.message)}`);
     return {
       queued: false,
       status: null,
-      error: reason,
+      error: code,
       id: null,
     };
   }
@@ -142,13 +104,11 @@ function extractBareAddress(fromHeader) {
   return m ? m[1].trim() : String(fromHeader || '').trim();
 }
 
-async function safeReadText(response) {
-  try {
-    const t = await response.text();
-    return t.slice(0, 200);
-  } catch {
-    return '<unreadable>';
-  }
+function extractDisplayName(fromHeader) {
+  const s = String(fromHeader || '');
+  const m = s.match(/^(.*?)<[^>]+>\s*$/);
+  const name = m ? m[1].trim() : '';
+  return name || 'Prudentia Digital';
 }
 
 function redactEmails(str) {
