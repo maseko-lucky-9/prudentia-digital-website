@@ -85,6 +85,16 @@ jobs:
           echo "  CF_API_TOKEN length: ${#CF_API_TOKEN} chars"
           echo "  CF_ACCOUNT_ID length: ${#CF_ACCOUNT_ID} chars"
 
+      # worker.js imports npm packages (worker-mailer) — wrangler's esbuild
+      # bundling needs node_modules present in THIS job, not just the test job.
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies for the worker bundle
+        run: npm ci
+
       - name: Build deployment bundle
         run: npm run build
 

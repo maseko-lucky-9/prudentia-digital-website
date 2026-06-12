@@ -1,6 +1,8 @@
 name = "prudentia-digital-website"
 main = "worker.js"
 compatibility_date = "2026-04-12"
+# nodejs_compat is required by worker-mailer (SMTP over Cloudflare TCP sockets).
+compatibility_flags = ["nodejs_compat"]
 
 [build]
 command = "npm run build"
@@ -17,22 +19,24 @@ not_found_handling = "404-page"
 enabled = true
 head_sampling_rate = 1
 
-# Cloudflare Email Service (Email Sending) binding — no API key needed.
-# The from-domain must be onboarded first: npx wrangler email sending enable prudentiadigital.co.za
-# (requires the account's Email Service beta opt-in in the dashboard).
-[[send_email]]
-name = "EMAIL"
-
-# Non-secret config committed here so CI `wrangler deploy` (default --keep-vars=false)
-# does NOT wipe it. The only remaining secret (HEALTH_TOKEN) is set via
-# `wrangler secret put` / dashboard and is preserved across deploys.
+# Email is sent via the GoDaddy/Titan SMTP relay the business already pays for
+# (ADR-013) — no Cloudflare Email Service (paid-plan gated) and no third-party
+# vendor. The ONLY sending secret is SMTP_PASSWORD (the mailbox password):
+#   npx wrangler secret put SMTP_PASSWORD
+# HEALTH_TOKEN (also a secret) gates /api/email-health.
+#
+# Non-secret config committed here so CI `wrangler deploy` (default
+# --keep-vars=false) does NOT wipe it. Encrypted Secrets are preserved.
 [vars]
 CONTACT_TO_ADDRESS = "masekolt@prudentiadigital.co.za"
-EMAIL_FROM_ADDRESS = "contact-form@prudentiadigital.co.za"
-# Auto-ack to the submitter requires the Workers Paid plan (free plan can only send
-# to VERIFIED destination addresses — the visitor's address is arbitrary). Flip to
-# "true" only after upgrading; the primary lead email is unaffected either way.
-SEND_AUTO_ACK = "false"
+# GoDaddy's relay only sends from the AUTHENTICATED mailbox — keep these two equal.
+SMTP_USERNAME = "masekolt@prudentiadigital.co.za"
+EMAIL_FROM_ADDRESS = "masekolt@prudentiadigital.co.za"
+SMTP_HOST = "smtpout.secureserver.net"
+SMTP_PORT = "465"
+# Courtesy receipt to the visitor (reply-to = company inbox). Free via the GoDaddy
+# relay; flip to "false" to disable if relay quota or spam complaints become an issue.
+SEND_AUTO_ACK = "true"
 
 # Per-IP submission throttle (5 / 10 min). Bound BEFORE sending went live so the
 # form cannot be used as a mail-amplification vector.

@@ -192,44 +192,38 @@ The deploy is identical to what CI would produce — wrangler runs `npm run buil
 
 ## Email delivery (contact form)
 
-The "Get Started" contact form posts to `/contact-submit`, a Worker route handler (`functions/contact-submit.js`, dispatched by `worker.js`). It validates the payload and sends via **Cloudflare Email Service** — the native `send_email` Worker binding (`env.EMAIL.send()`). No API keys, no third-party vendor (see ADR-012; Resend was dropped before it ever went live).
+The "Get Started" contact form posts to `/contact-submit`, a Worker route handler (`functions/contact-submit.js`, dispatched by `worker.js`). It validates the payload and sends via the **GoDaddy/Titan SMTP relay the business already pays for** (`smtpout.secureserver.net:465`), using the [`worker-mailer`](https://github.com/zou-yu/worker-mailer) SMTP client over Cloudflare TCP sockets. See ADR-013 (supersedes ADR-012: Cloudflare Email Sending turned out to be Workers-Paid-gated; Resend was dropped earlier by owner decision).
 
-### Required setup (one-time, account-level)
+### Required setup (one-time)
 
-> **DNS lives at Cloudflare**; inbound email is handled by **GoDaddy / Titan** (apex MX → `secureserver.net`). Email Sending onboards the domain inside the same Cloudflare account and auto-creates its DNS records on the zone. **Do not touch the apex MX/SPF or DMARC** — Titan inbound stays exactly as-is.
+> **No DNS changes at all.** Mail is sent from the company's own GoDaddy mailbox, and the apex SPF (`v=spf1 include:secureserver.net -all`) already authorizes GoDaddy's relay. Apex MX/SPF/DMARC stay exactly as they are.
 
-1. **Opt the account into Email Service (beta)**: dashboard → **Compute & AI → Email Service**. Until this is done, every `wrangler email sending` command fails with `Unauthorized [code: 2036]`.
-2. **Onboard the sending domain** — auto-creates the SPF/DKIM records in the Cloudflare zone (5–15 min propagation):
-
-   ```bash
-   npx wrangler email sending enable prudentiadigital.co.za
-   npx wrangler email sending dns get prudentiadigital.co.za   # confirm the records
-   ```
-
-3. **Verify the destination address** — on the Workers **free** plan, Email Sending only delivers to *verified* destination addresses:
+1. **Set the mailbox password as the one sending secret** (for **both** Production and Preview):
 
    ```bash
-   npx wrangler email routing addresses create masekolt@prudentiadigital.co.za
-   npx wrangler email routing addresses list   # status must show verified
+   npx wrangler secret put SMTP_PASSWORD     # password for masekolt@prudentiadigital.co.za
    ```
 
-   Click the link in the verification email Cloudflare sends to that inbox.
-4. `HEALTH_TOKEN` remains the **only Worker secret** (`wrangler secret put HEALTH_TOKEN`) — it gates `/api/email-health`. Sending itself needs no secret.
+2. `HEALTH_TOKEN` (secret) gates `/api/email-health` — already set.
+
+That's it. Without `SMTP_PASSWORD`, every send degrades gracefully to `{ok:true, queued:false}` and logs `EMAIL_DELIVERY_FAILURE`.
 
 ### Configuration (committed in `wrangler.toml` — survives `wrangler deploy --keep-vars=false`)
 
 | Item | Value | Notes |
 |---|---|---|
-| `[[send_email]]` binding `EMAIL` | — | the sender; no API key |
-| `CONTACT_TO_ADDRESS` | `masekolt@prudentiadigital.co.za` | must be a **verified destination address** on the free plan |
-| `EMAIL_FROM_ADDRESS` | `contact-form@prudentiadigital.co.za` | must be on the onboarded domain; `sendEmail()` guards this |
-| `SEND_AUTO_ACK` | `"false"` | courtesy receipt to the visitor. Requires **Workers Paid** ($5/mo, 3,000 emails/mo incl.) because visitor addresses are arbitrary/unverified. Flip to `"true"` only after upgrading. |
+| `SMTP_HOST` / `SMTP_PORT` | `smtpout.secureserver.net` / `465` | GoDaddy Workspace relay; 465 = implicit TLS (587/STARTTLS also works) |
+| `SMTP_USERNAME` | `masekolt@prudentiadigital.co.za` | the authenticated mailbox |
+| `EMAIL_FROM_ADDRESS` | `masekolt@prudentiadigital.co.za` | **must equal `SMTP_USERNAME`** — GoDaddy only relays the authed mailbox |
+| `CONTACT_TO_ADDRESS` | `masekolt@prudentiadigital.co.za` | self-send; reply-to carries the visitor's address |
+| `SEND_AUTO_ACK` | `"true"` | courtesy receipt to the visitor; flip to `"false"` if relay quota or complaints become an issue |
 | `[[kv_namespaces]]` `FORM_RATELIMIT` | bound | per-IP throttle: 5 submissions / 10 min (anti mail-amplification) |
+| `compatibility_flags` | `["nodejs_compat"]` | required by `worker-mailer` |
 
 ### What the contact form sends
 
 1. **Primary** → `CONTACT_TO_ADDRESS` with the full payload, reply-to = submitter's address. This is the message you act on.
-2. **Auto-acknowledgement** → the submitter — **only when `SEND_AUTO_ACK = "true"`** (Workers Paid). Failures log `EMAIL_ACK_FAILED` and never affect the request outcome.
+2. **Auto-acknowledgement** → the submitter (when `SEND_AUTO_ACK = "true"`). Failures log `EMAIL_ACK_FAILED` and never affect the request outcome.
 
 ### Local development of the form
 
@@ -239,10 +233,10 @@ npx wrangler dev         # http://localhost:8787 — POST /contact-submit hits t
 
 curl -sS -X POST http://localhost:8787/contact-submit \
   -d "name=test&email=t@t.com&challenge=hi&timeline=exploring&budget=lt-25k&services=software-dev"
-# → {"ok":true,"queued":false}   (no EMAIL binding locally — graceful degrade)
+# → {"ok":true,"queued":false}   (no SMTP_PASSWORD locally — graceful degrade)
 ```
 
-To send **real** emails from `wrangler dev`, temporarily add `remote = true` under `[[send_email]]` in `wrangler.toml` — and remove it before committing.
+To send real emails from dev, add `SMTP_PASSWORD=...` to the gitignored `.dev.vars`.
 
 ### Verify with `/api/email-health` (no-send probe)
 
@@ -255,15 +249,15 @@ Expected on full-green:
 
 ```json
 {
-  "bindingConfigured": true,
-  "fromAddress": "contact-form@prudentiadigital.co.za",
+  "smtpConfigured": true,
+  "fromAddress": "masekolt@prudentiadigital.co.za",
   "toAddress": "masekolt@prudentiadigital.co.za",
-  "autoAck": false,
+  "autoAck": true,
   "error": null
 }
 ```
 
-Domain onboarding status is **not** visible from the Worker runtime — check `npx wrangler email sending list`. A send against an un-onboarded domain surfaces as `queued:false` + `E_SENDER_NOT_VERIFIED` in the logs.
+The probe checks configuration only — it does not open an SMTP connection. A live relay/auth failure surfaces as `queued:false` + `error:"smtp-failed"` in the logs.
 
 ### Inspecting submission logs
 
@@ -273,12 +267,12 @@ npx wrangler tail prudentia-digital-website
 
 Logs are retained/queryable because `wrangler.toml` enables `[observability]`. Two greppable markers:
 
-- **`EMAIL_DELIVERY_FAILURE`** — **page-worthy.** The company did **not** receive an inquiry. The `error` field carries the binding code: `EMAIL binding missing`, `E_SENDER_NOT_VERIFIED` (domain not onboarded), `E_RECIPIENT_NOT_ALLOWED` (free plan → unverified recipient), `E_DAILY_LIMIT_EXCEEDED`, … Build alerts on this string. PII is masked in logs (email → `a***@domain`, no client IP).
+- **`EMAIL_DELIVERY_FAILURE`** — **page-worthy.** The company did **not** receive an inquiry. `error` is `SMTP credentials missing` or `smtp-failed` (relay/auth/timeout — details in the adjacent redacted warn line). Build alerts on this string. PII is masked in logs (email → `a***@domain`, no client IP).
 - **`EMAIL_ACK_FAILED`** — informational. The courtesy auto-ack failed; the company copy still arrived. Do not alert on it.
 
-> **Quotas:** new accounts start with a conservative daily sending quota that scales with sending behaviour. Message size ≤ 5 MiB to arbitrary recipients (25 MiB to verified destinations); ≤ 50 recipients per send. Quota exhaustion surfaces as `E_DAILY_LIMIT_EXCEEDED` → `EMAIL_DELIVERY_FAILURE`.
+> **Quotas:** GoDaddy Workspace relay allows roughly 250–500 messages/day — each submission consumes 2 (company copy + ack), far below quota for a contact form. SMTP failures (including quota) surface as `smtp-failed` → `EMAIL_DELIVERY_FAILURE`.
 
----
+
 
 ## Company
 

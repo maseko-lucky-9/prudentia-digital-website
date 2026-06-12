@@ -12,16 +12,15 @@
  *   7. Always return { ok: true, queued: <bool> } on success path
  *      — no error oracle for attackers; users always see in-page success.
  *
- * Environment (committed in wrangler.toml [vars] — no secrets needed to send):
- *   EMAIL_FROM_ADDRESS  optional; defaults to contact-form@prudentiadigital.co.za
+ * Environment (vars committed in wrangler.toml; one secret):
+ *   SMTP_USERNAME       GoDaddy mailbox doing the sending (masekolt@prudentiadigital.co.za)
+ *   SMTP_PASSWORD       SECRET — the mailbox password (wrangler secret put SMTP_PASSWORD)
+ *   SMTP_HOST/SMTP_PORT relay endpoint; defaults smtpout.secureserver.net:465
+ *   EMAIL_FROM_ADDRESS  must equal SMTP_USERNAME (GoDaddy relays only the authed mailbox)
  *   CONTACT_TO_ADDRESS  optional; defaults to masekolt@prudentiadigital.co.za
- *   SEND_AUTO_ACK       "true" to email a courtesy receipt to the submitter.
- *                       Requires the Workers Paid plan — the free plan can only
- *                       send to VERIFIED destination addresses, and the visitor's
- *                       address is arbitrary. Keep "false" on the free plan.
+ *   SEND_AUTO_ACK       "true" to email a courtesy receipt to the submitter
  *
  * Bindings:
- *   EMAIL           send_email binding (Cloudflare Email Service) — required to send
  *   FORM_RATELIMIT  KV namespace for per-IP throttle (5 submissions / 10 min)
  */
 
@@ -55,7 +54,7 @@ const ALLOWED_TOPICS = new Set([
 const RATE_LIMIT_MAX = 5;
 const RATE_LIMIT_WINDOW_SECONDS = 600;
 const DEFAULT_TO_ADDRESS = 'masekolt@prudentiadigital.co.za';
-const DEFAULT_FROM_ADDRESS = 'contact-form@prudentiadigital.co.za';
+const DEFAULT_FROM_ADDRESS = 'masekolt@prudentiadigital.co.za';
 
 const json = (body, status = 200) =>
   new Response(JSON.stringify(body), {
@@ -172,8 +171,8 @@ function buildAckBodies(name) {
 
 async function sendAck(env, payload) {
   // NOTE: no internal gate — the SEND_AUTO_ACK check lives at the single call
-  // site in onRequestPost(). Any new caller must apply the same gate (free plan
-  // cannot send to arbitrary visitor addresses).
+  // site in onRequestPost(). Any new caller must apply the same gate (each ack
+  // spends GoDaddy relay quota on a visitor-controlled address).
   const fromAddress = env.EMAIL_FROM_ADDRESS || DEFAULT_FROM_ADDRESS;
   const { text, html } = buildAckBodies(payload.name);
 
@@ -241,7 +240,12 @@ export async function onRequestPost(context) {
 
   const rawTopic = (formData.get('topic') || '').trim();
   const topic = ALLOWED_TOPICS.has(rawTopic) ? rawTopic : null;
-  const subject = (formData.get('_subject') || '').trim();
+  // _subject is visitor-controlled and becomes the email Subject header — strip
+  // CR/LF to block header injection (e.g. "x\r\nBcc: attacker@…") and cap length.
+  const subject = (formData.get('_subject') || '')
+    .replace(/[\r\n]+/g, ' ')
+    .trim()
+    .slice(0, 200);
 
   const clientIp =
     request.headers.get('cf-connecting-ip') ||
@@ -294,7 +298,7 @@ export async function onRequestPost(context) {
   } else if (env.SEND_AUTO_ACK === 'true') {
     // Auto-acknowledgement to the submitter — courtesy only; never affects the
     // request outcome. Fires only when the primary actually queued AND the flag
-    // is on (requires Workers Paid: free plan can't email arbitrary addresses).
+    // is on (each ack spends GoDaddy relay quota; throttled by FORM_RATELIMIT).
     const ack = await sendAck(env, payload);
     if (!ack.queued) {
       // Distinct, NON-page-worthy marker — must not share the primary marker

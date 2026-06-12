@@ -1,24 +1,29 @@
 /**
  * functions/_lib/sendEmail.js
  *
- * Shared Cloudflare Email Service sender used by every Pages Function that
- * needs to dispatch transactional email from prudentiadigital.co.za.
+ * Shared transactional-email sender for prudentiadigital.co.za, delivered via
+ * the GoDaddy/Titan SMTP relay (smtpout.secureserver.net) that the business
+ * already pays for — using the `worker-mailer` SMTP client over Cloudflare
+ * TCP sockets (requires `nodejs_compat` compatibility flag; port 25 is
+ * blocked on Workers, 465/587 are allowed). See ADR-013.
  *
- * Uses the native `send_email` Worker binding (env.EMAIL) — no API key, no
- * third-party vendor. The from-domain must be onboarded to Email Sending
- * (npx wrangler email sending enable prudentiadigital.co.za).
+ * GoDaddy's relay only accepts mail FROM the authenticated mailbox, so the
+ * from address must be SMTP_USERNAME (masekolt@prudentiadigital.co.za);
+ * reply-to carries the visitor's address. Apex SPF already includes
+ * secureserver.net, so SPF/DMARC alignment holds with zero DNS changes.
  *
- * Design goals (unchanged from the Resend era — same return contract):
+ * Design goals (same return contract since the Resend era):
  *   - Never throws; caller decides on retry/log.
- *   - Graceful degrade when the EMAIL binding is missing (returns queued:false).
- *   - Guard: refuses to send unless the from address is on prudentiadigital.co.za
- *     (anything else would be rejected by Email Sending as an unverified sender).
+ *   - Graceful degrade when SMTP credentials are missing (returns queued:false).
+ *   - Guard: refuses to send unless the from address is on prudentiadigital.co.za.
+ *   - Test seam: when env.TEST_MAILER (object with .send) is present it is used
+ *     instead of a real SMTP connection — mirrors the old env.EMAIL mock seam.
  *
  * Usage:
  *   import { sendEmail } from '../_lib/sendEmail.js';
  *   const result = await sendEmail({
  *     env,
- *     from: 'Prudentia Digital <contact-form@prudentiadigital.co.za>',
+ *     from: 'Prudentia Digital <masekolt@prudentiadigital.co.za>',
  *     to: 'masekolt@prudentiadigital.co.za',
  *     replyTo: submitterEmail,
  *     subject: '…',
@@ -26,16 +31,48 @@
  *     text: '…',
  *   });
  *   // result = { queued: bool, status: number|null, error: string|null, id: string|null }
- *   // status is always null with the binding (no HTTP layer); kept for contract stability.
+ *   // status/id are always null over SMTP; kept for contract stability.
  */
 
+const DEFAULT_SMTP_HOST = 'smtpout.secureserver.net';
+const DEFAULT_SMTP_PORT = 465;
+const SMTP_TIMEOUT_MS = 10000;
 const ALLOWED_DOMAIN_SUFFIX = '@prudentiadigital.co.za';
+// The relay host must stay on GoDaddy's domain — a misconfigured/overridden
+// SMTP_HOST var must never exfiltrate the mailbox password to another server.
+const ALLOWED_SMTP_HOST_SUFFIX = '.secureserver.net';
 
 /**
- * Send a transactional email via the Cloudflare Email Service binding. Never throws.
+ * Build the WorkerMailer.connect options from env. Extracted (and exported) so
+ * the secure/startTls-per-port logic is unit-testable without cloudflare:sockets.
+ * Returns null if SMTP_HOST is not a GoDaddy relay (defense-in-depth guard).
+ * @param {object} env
+ * @param {{username: string, password: string}} credentials
+ */
+export function buildSmtpOptions(env, credentials) {
+  const host = (env && env.SMTP_HOST) || DEFAULT_SMTP_HOST;
+  if (host !== DEFAULT_SMTP_HOST && !host.endsWith(ALLOWED_SMTP_HOST_SUFFIX)) {
+    return null;
+  }
+  const port = Number((env && env.SMTP_PORT) || DEFAULT_SMTP_PORT);
+  return {
+    host,
+    port,
+    // 465 = implicit TLS; 587 = plaintext upgrade via STARTTLS.
+    secure: port === 465,
+    startTls: port !== 465,
+    credentials,
+    authType: ['login', 'plain'],
+    socketTimeoutMs: SMTP_TIMEOUT_MS,
+    responseTimeoutMs: SMTP_TIMEOUT_MS,
+  };
+}
+
+/**
+ * Send a transactional email via the GoDaddy SMTP relay. Never throws.
  *
  * @param {object} args
- * @param {object} args.env       Worker env (must contain the EMAIL send_email binding).
+ * @param {object} args.env       Worker env (SMTP_USERNAME var + SMTP_PASSWORD secret).
  * @param {string} args.from      Sender address (raw or `Name <addr>` form).
  * @param {string|string[]} args.to  Recipient(s).
  * @param {string} [args.replyTo] Optional reply-to.
@@ -45,11 +82,18 @@ const ALLOWED_DOMAIN_SUFFIX = '@prudentiadigital.co.za';
  * @returns {Promise<{queued: boolean, status: number|null, error: string|null, id: string|null}>}
  */
 export async function sendEmail({ env, from, to, replyTo, subject, html, text }) {
-  if (!env || !env.EMAIL || typeof env.EMAIL.send !== 'function') {
+  const testMailer =
+    env && env.TEST_MAILER && typeof env.TEST_MAILER.send === 'function'
+      ? env.TEST_MAILER
+      : null;
+  const username = (env && env.SMTP_USERNAME) || '';
+  const password = (env && env.SMTP_PASSWORD) || '';
+
+  if (!testMailer && (!username || !password)) {
     return {
       queued: false,
       status: null,
-      error: 'EMAIL binding missing',
+      error: 'SMTP credentials missing',
       id: null,
     };
   }
@@ -64,35 +108,40 @@ export async function sendEmail({ env, from, to, replyTo, subject, html, text })
     };
   }
 
+  const message = {
+    from: { email: bareFrom, name: stripHeader(extractDisplayName(from)) },
+    to: Array.isArray(to) ? to : [to],
+    // Belt-and-braces: callers already sanitise, but never let CR/LF reach a
+    // header field even if a new call site forgets.
+    subject: stripHeader(subject),
+    text,
+    html,
+  };
+  if (replyTo) {
+    message.reply = stripHeader(replyTo); // worker-mailer's field name for Reply-To
+  }
+
   try {
-    const message = {
-      to: Array.isArray(to) ? to : [to],
-      from: { email: bareFrom, name: extractDisplayName(from) },
-      subject,
-      text,
-      html,
-    };
-    if (replyTo) {
-      message.replyTo = replyTo;
+    if (testMailer) {
+      await testMailer.send(message);
+    } else {
+      const options = buildSmtpOptions(env, { username, password });
+      if (!options) {
+        console.warn('sendEmail smtp-failed: SMTP_HOST not a secureserver.net relay');
+        return { queued: false, status: null, error: 'smtp-host-not-allowed', id: null };
+      }
+      const { WorkerMailer } = await import('worker-mailer');
+      await WorkerMailer.send(options, message);
     }
-
-    const response = await env.EMAIL.send(message);
-
-    return {
-      queued: true,
-      status: null,
-      error: null,
-      id: response && typeof response.messageId === 'string' ? response.messageId : null,
-    };
+    return { queued: true, status: null, error: null, id: null };
   } catch (err) {
-    // Binding errors carry an E_* code (E_SENDER_NOT_VERIFIED, E_RECIPIENT_NOT_ALLOWED,
-    // E_DAILY_LIMIT_EXCEEDED, …). Message may echo addresses — redact before logging.
-    const code = err && typeof err.code === 'string' ? err.code : 'send-failed';
-    console.warn(`sendEmail ${code}: ${redactEmails(err && err.message)}`);
+    // SMTP errors can echo addresses — redact before logging. The caller emits
+    // the EMAIL_DELIVERY_FAILURE alert marker; this line is detail only.
+    console.warn(`sendEmail smtp-failed: ${redactEmails(err && err.message)}`);
     return {
       queued: false,
       status: null,
-      error: code,
+      error: 'smtp-failed',
       id: null,
     };
   }
@@ -113,4 +162,15 @@ function extractDisplayName(fromHeader) {
 
 function redactEmails(str) {
   return String(str || '').replace(/[^\s@]+@[^\s@]+\.[^\s@]+/g, '[redacted-email]');
+}
+
+// Collapse CR/LF to a space and drop other control chars so a value can never
+// inject an extra SMTP header. Applied to every header-bound field as
+// defense-in-depth (printable text -- incl. spaces/hyphens -- is preserved).
+function stripHeader(value) {
+  return String(value || '')
+    .replace(/[\r\n]+/g, ' ')
+    // eslint-disable-next-line no-control-regex
+    .replace(/[\x00-\x1F\x7F]/g, '')
+    .trim();
 }
