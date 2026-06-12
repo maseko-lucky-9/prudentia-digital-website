@@ -171,6 +171,9 @@ function buildAckBodies(name) {
 }
 
 async function sendAck(env, payload) {
+  // NOTE: no internal gate — the SEND_AUTO_ACK check lives at the single call
+  // site in onRequestPost(). Any new caller must apply the same gate (free plan
+  // cannot send to arbitrary visitor addresses).
   const fromAddress = env.EMAIL_FROM_ADDRESS || DEFAULT_FROM_ADDRESS;
   const { text, html } = buildAckBodies(payload.name);
 

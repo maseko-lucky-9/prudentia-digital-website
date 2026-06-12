@@ -39,3 +39,5 @@ SEND_AUTO_ACK = "false"
 [[kv_namespaces]]
 binding = "FORM_RATELIMIT"
 id = "9c9658ca81e74c0aaa42e9693eafd4bc"
+# Same namespace for `wrangler dev` so the rate limiter is exercisable locally.
+preview_id = "9c9658ca81e74c0aaa42e9693eafd4bc"
