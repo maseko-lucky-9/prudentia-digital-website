@@ -41,6 +41,9 @@ opt-in → wrangler email sending enable → live email lands (items 9-10); fix 
 - [x] P2-3. sendEmail.js → SMTP via worker-mailer; contract preserved; TEST_MAILER seam; PII-redacted errors
 - [x] P2-4. email-health.js → smtpConfigured; tests updated (14/14 green)
 - [x] P2-5. README rewrite + ADR-013
-- [ ] P2-6. Gates → PR → merge → Workers Builds deploy
-- [ ] U3. User supplies mailbox password → wrangler secret put SMTP_PASSWORD (Prod + Preview)
-- [ ] P2-7. Live proof: form → {ok,queued:true} → email in masekolt@ inbox + visitor ack
+- [x] P2-6. Gates GO (1 security bounce→fixed) → PR #28 merged 14:07Z → Workers Builds deployed version f1c6ebe8 (14:08Z); live log now shows error="SMTP credentials missing" (new SMTP path confirmed)
+- [x] U3. SMTP_PASSWORD secret set by user (option A) 2026-06-12 ~14:26Z
+- [x] P2-7. LIVE PROOF: form → {ok:true,queued:true}; tail shows 2× WorkerMailer connect→send→close to smtpout.secureserver.net:465 (primary + auto-ack), NO EMAIL_DELIVERY_FAILURE. Inbox confirmation = final human check.
+
+## DONE 2026-06-12 ✅ CONFIRMED
+GoDaddy/Titan SMTP live. User confirmed BOTH emails arrived (company copy to masekolt@ + visitor auto-ack). Original goal fully met: functional email sent from the form with a response. Known residual (non-blocking): GH Actions deploy red (CF_API_TOKEN lacks KV write) — prod current via Workers Builds.
