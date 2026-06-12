@@ -240,7 +240,12 @@ export async function onRequestPost(context) {
 
   const rawTopic = (formData.get('topic') || '').trim();
   const topic = ALLOWED_TOPICS.has(rawTopic) ? rawTopic : null;
-  const subject = (formData.get('_subject') || '').trim();
+  // _subject is visitor-controlled and becomes the email Subject header — strip
+  // CR/LF to block header injection (e.g. "x\r\nBcc: attacker@…") and cap length.
+  const subject = (formData.get('_subject') || '')
+    .replace(/[\r\n]+/g, ' ')
+    .trim()
+    .slice(0, 200);
 
   const clientIp =
     request.headers.get('cf-connecting-ip') ||

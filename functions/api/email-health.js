@@ -41,6 +41,18 @@ const headersJson = {
 const json = (body, status = 200) =>
   new Response(JSON.stringify(body), { status, headers: headersJson });
 
+// Length-independent, content-constant-time string compare — avoids leaking the
+// token byte-by-byte via response timing.
+function timingSafeEqual(a, b) {
+  const x = String(a);
+  const y = String(b);
+  let diff = x.length ^ y.length;
+  for (let i = 0; i < x.length; i++) {
+    diff |= x.charCodeAt(i) ^ y.charCodeAt(i % y.length);
+  }
+  return diff === 0;
+}
+
 export async function onRequestGet(context) {
   const { request, env } = context;
 
@@ -50,7 +62,7 @@ export async function onRequestGet(context) {
     return json({ error: 'HEALTH_TOKEN not configured' }, 503);
   }
   const presented = request.headers.get('x-health-token') || '';
-  if (presented !== configuredToken) {
+  if (!timingSafeEqual(presented, configuredToken)) {
     return json({ error: 'unauthorized' }, 401);
   }
 

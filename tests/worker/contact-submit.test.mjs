@@ -14,7 +14,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 
 import { onRequestPost } from '../../functions/contact-submit.js';
-import { sendEmail } from '../../functions/_lib/sendEmail.js';
+import { sendEmail, buildSmtpOptions } from '../../functions/_lib/sendEmail.js';
 
 const COMPANY = 'masekolt@prudentiadigital.co.za';
 
@@ -181,6 +181,55 @@ test('sendEmail() refuses off-domain from address before any send', async () => 
   assert.equal(r.queued, false);
   assert.match(r.error, /from-address guard/);
   assert.equal(sent.length, 0);
+});
+
+test('CRLF in _subject is stripped before it reaches the Subject header', async () => {
+  const { sent, mailer } = mockMailer();
+  await withConsoleCapture(async () => {
+    await onRequestPost({
+      request: makeRequest(validForm({ _subject: 'Hello\r\nBcc: attacker@evil.com' })),
+      env: { TEST_MAILER: mailer },
+    });
+    assert.equal(sent.length, 1);
+    // The security property is "no CR/LF reaches the header" — the injected
+    // text survives only as inert inline subject content (harmless without newlines).
+    assert.ok(!/[\r\n]/.test(sent[0].subject), 'subject must contain no CR/LF');
+    assert.equal(sent[0].subject, 'Hello Bcc: attacker@evil.com');
+  });
+});
+
+test('buildSmtpOptions: port 465 → implicit TLS, 587 → STARTTLS', () => {
+  const creds = { username: 'u', password: 'p' };
+  const o465 = buildSmtpOptions({ SMTP_PORT: '465' }, creds);
+  assert.equal(o465.port, 465);
+  assert.equal(o465.secure, true);
+  assert.equal(o465.startTls, false);
+  assert.deepEqual(o465.authType, ['login', 'plain']);
+  assert.equal(o465.credentials, creds);
+
+  const o587 = buildSmtpOptions({ SMTP_HOST: 'smtp.secureserver.net', SMTP_PORT: '587' }, creds);
+  assert.equal(o587.port, 587);
+  assert.equal(o587.secure, false);
+  assert.equal(o587.startTls, true);
+});
+
+test('buildSmtpOptions: rejects a non-secureserver.net host (credential-exfil guard)', () => {
+  assert.equal(buildSmtpOptions({ SMTP_HOST: 'attacker-smtp.example.com' }, {}), null);
+  // default host is allowed
+  assert.ok(buildSmtpOptions({}, {}));
+});
+
+test('sendEmail refuses to connect when SMTP_HOST is off-allowlist', async () => {
+  const r = await sendEmail({
+    env: { SMTP_USERNAME: 'masekolt@prudentiadigital.co.za', SMTP_PASSWORD: 'pw', SMTP_HOST: 'evil.example.com' },
+    from: 'Prudentia Digital <masekolt@prudentiadigital.co.za>',
+    to: 'masekolt@prudentiadigital.co.za',
+    subject: 's',
+    html: '<p>h</p>',
+    text: 't',
+  });
+  assert.equal(r.queued, false);
+  assert.equal(r.error, 'smtp-host-not-allowed');
 });
 
 test('SMTP error messages are PII-redacted in the warn log', async () => {

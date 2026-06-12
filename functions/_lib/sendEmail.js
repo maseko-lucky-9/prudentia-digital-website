@@ -38,6 +38,35 @@ const DEFAULT_SMTP_HOST = 'smtpout.secureserver.net';
 const DEFAULT_SMTP_PORT = 465;
 const SMTP_TIMEOUT_MS = 10000;
 const ALLOWED_DOMAIN_SUFFIX = '@prudentiadigital.co.za';
+// The relay host must stay on GoDaddy's domain — a misconfigured/overridden
+// SMTP_HOST var must never exfiltrate the mailbox password to another server.
+const ALLOWED_SMTP_HOST_SUFFIX = '.secureserver.net';
+
+/**
+ * Build the WorkerMailer.connect options from env. Extracted (and exported) so
+ * the secure/startTls-per-port logic is unit-testable without cloudflare:sockets.
+ * Returns null if SMTP_HOST is not a GoDaddy relay (defense-in-depth guard).
+ * @param {object} env
+ * @param {{username: string, password: string}} credentials
+ */
+export function buildSmtpOptions(env, credentials) {
+  const host = (env && env.SMTP_HOST) || DEFAULT_SMTP_HOST;
+  if (host !== DEFAULT_SMTP_HOST && !host.endsWith(ALLOWED_SMTP_HOST_SUFFIX)) {
+    return null;
+  }
+  const port = Number((env && env.SMTP_PORT) || DEFAULT_SMTP_PORT);
+  return {
+    host,
+    port,
+    // 465 = implicit TLS; 587 = plaintext upgrade via STARTTLS.
+    secure: port === 465,
+    startTls: port !== 465,
+    credentials,
+    authType: ['login', 'plain'],
+    socketTimeoutMs: SMTP_TIMEOUT_MS,
+    responseTimeoutMs: SMTP_TIMEOUT_MS,
+  };
+}
 
 /**
  * Send a transactional email via the GoDaddy SMTP relay. Never throws.
@@ -80,36 +109,29 @@ export async function sendEmail({ env, from, to, replyTo, subject, html, text })
   }
 
   const message = {
-    from: { email: bareFrom, name: extractDisplayName(from) },
+    from: { email: bareFrom, name: stripHeader(extractDisplayName(from)) },
     to: Array.isArray(to) ? to : [to],
-    subject,
+    // Belt-and-braces: callers already sanitise, but never let CR/LF reach a
+    // header field even if a new call site forgets.
+    subject: stripHeader(subject),
     text,
     html,
   };
   if (replyTo) {
-    message.reply = replyTo; // worker-mailer's field name for Reply-To
+    message.reply = stripHeader(replyTo); // worker-mailer's field name for Reply-To
   }
 
   try {
     if (testMailer) {
       await testMailer.send(message);
     } else {
-      const port = Number((env && env.SMTP_PORT) || DEFAULT_SMTP_PORT);
+      const options = buildSmtpOptions(env, { username, password });
+      if (!options) {
+        console.warn('sendEmail smtp-failed: SMTP_HOST not a secureserver.net relay');
+        return { queued: false, status: null, error: 'smtp-host-not-allowed', id: null };
+      }
       const { WorkerMailer } = await import('worker-mailer');
-      await WorkerMailer.send(
-        {
-          host: (env && env.SMTP_HOST) || DEFAULT_SMTP_HOST,
-          port,
-          // 465 = implicit TLS; 587 = plaintext upgrade via STARTTLS.
-          secure: port === 465,
-          startTls: port !== 465,
-          credentials: { username, password },
-          authType: ['login', 'plain'],
-          socketTimeoutMs: SMTP_TIMEOUT_MS,
-          responseTimeoutMs: SMTP_TIMEOUT_MS,
-        },
-        message
-      );
+      await WorkerMailer.send(options, message);
     }
     return { queued: true, status: null, error: null, id: null };
   } catch (err) {
@@ -140,4 +162,15 @@ function extractDisplayName(fromHeader) {
 
 function redactEmails(str) {
   return String(str || '').replace(/[^\s@]+@[^\s@]+\.[^\s@]+/g, '[redacted-email]');
+}
+
+// Collapse CR/LF to a space and drop other control chars so a value can never
+// inject an extra SMTP header. Applied to every header-bound field as
+// defense-in-depth (printable text -- incl. spaces/hyphens -- is preserved).
+function stripHeader(value) {
+  return String(value || '')
+    .replace(/[\r\n]+/g, ' ')
+    // eslint-disable-next-line no-control-regex
+    .replace(/[\x00-\x1F\x7F]/g, '')
+    .trim();
 }
