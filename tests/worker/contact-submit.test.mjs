@@ -5,8 +5,8 @@
  * { ok: true } whether or not the email was actually sent, so a UI/Playwright
  * test (which only sees `ok`) is structurally blind to a delivery failure.
  * These tests assert the `queued` contract and the failure-marker behaviour
- * directly, with no Cloudflare runtime — only Node 20 globals and a mocked
- * Cloudflare Email Service binding (env.EMAIL.send).
+ * directly, with no Cloudflare runtime — only Node 20 globals and the
+ * env.TEST_MAILER seam (stands in for the GoDaddy SMTP relay; see ADR-013).
  *
  * Run: npm run test:worker   (node --test)
  */
@@ -15,6 +15,8 @@ import assert from 'node:assert/strict';
 
 import { onRequestPost } from '../../functions/contact-submit.js';
 import { sendEmail } from '../../functions/_lib/sendEmail.js';
+
+const COMPANY = 'masekolt@prudentiadigital.co.za';
 
 function validForm(overrides = {}) {
   const fd = new FormData();
@@ -35,13 +37,13 @@ function makeRequest(fd) {
   });
 }
 
-// Build a mocked EMAIL binding. `impl` resolves/rejects each send() call;
-// every call's message is recorded for assertions.
-function mockEmailBinding(impl) {
+// Build a mocked SMTP transport for the env.TEST_MAILER seam. `impl`
+// resolves/rejects each send() call; every message is recorded.
+function mockMailer(impl = async () => {}) {
   const sent = [];
   return {
     sent,
-    binding: {
+    mailer: {
       async send(message) {
         sent.push(message);
         return impl(message);
@@ -67,7 +69,7 @@ async function withConsoleCapture(fn) {
 
 const marker = (calls, name) => calls.error.concat(calls.warn).some((a) => a[0] === name);
 
-test('no EMAIL binding → {ok:true, queued:false}, logs EMAIL_DELIVERY_FAILURE', async () => {
+test('no SMTP credentials → {ok:true, queued:false}, logs EMAIL_DELIVERY_FAILURE', async () => {
   await withConsoleCapture(async (calls) => {
     const res = await onRequestPost({ request: makeRequest(validForm()), env: {} });
     const body = await res.json();
@@ -77,63 +79,61 @@ test('no EMAIL binding → {ok:true, queued:false}, logs EMAIL_DELIVERY_FAILURE'
   });
 });
 
-test('EMAIL binding ok → {ok:true, queued:true}, no failure marker, ack NOT sent by default', async () => {
-  const { sent, binding } = mockEmailBinding(async () => ({ messageId: 'msg_123' }));
+test('SMTP send ok → {ok:true, queued:true}; primary self-send with visitor reply-to', async () => {
+  const { sent, mailer } = mockMailer();
   await withConsoleCapture(async (calls) => {
     const res = await onRequestPost({
       request: makeRequest(validForm()),
-      env: { EMAIL: binding },
+      env: { TEST_MAILER: mailer },
     });
     const body = await res.json();
     assert.deepEqual(body, { ok: true, queued: true });
     assert.ok(!marker(calls, 'EMAIL_DELIVERY_FAILURE'), 'no failure marker on success');
-    assert.equal(sent.length, 1, 'only the primary email — SEND_AUTO_ACK defaults off');
-    assert.deepEqual(sent[0].to, ['masekolt@prudentiadigital.co.za']);
-    assert.equal(sent[0].from.email, 'contact-form@prudentiadigital.co.za');
-    assert.equal(sent[0].replyTo, 'visitor@example.com');
+    assert.equal(sent.length, 1, 'only the primary email without SEND_AUTO_ACK');
+    assert.deepEqual(sent[0].to, [COMPANY]);
+    assert.equal(sent[0].from.email, COMPANY, 'GoDaddy relay: from = authenticated mailbox');
+    assert.equal(sent[0].reply, 'visitor@example.com');
   });
 });
 
-test('SEND_AUTO_ACK="true" → primary + ack both sent', async () => {
-  const { sent, binding } = mockEmailBinding(async () => ({ messageId: 'msg_123' }));
+test('SEND_AUTO_ACK="true" → primary + visitor ack both sent', async () => {
+  const { sent, mailer } = mockMailer();
   await withConsoleCapture(async () => {
     const res = await onRequestPost({
       request: makeRequest(validForm()),
-      env: { EMAIL: binding, SEND_AUTO_ACK: 'true' },
+      env: { TEST_MAILER: mailer, SEND_AUTO_ACK: 'true' },
     });
     const body = await res.json();
     assert.deepEqual(body, { ok: true, queued: true });
     assert.equal(sent.length, 2, 'primary + auto-ack');
     assert.deepEqual(sent[1].to, ['visitor@example.com']);
-    assert.equal(sent[1].replyTo, 'masekolt@prudentiadigital.co.za');
+    assert.equal(sent[1].reply, COMPANY);
   });
 });
 
-test('binding throws E_SENDER_NOT_VERIFIED → {ok:true, queued:false} + failure marker with code', async () => {
-  const { binding } = mockEmailBinding(async () => {
-    const err = new Error('sender domain not onboarded');
-    err.code = 'E_SENDER_NOT_VERIFIED';
-    throw err;
+test('SMTP throw → {ok:true, queued:false} + failure marker with smtp-failed', async () => {
+  const { mailer } = mockMailer(async () => {
+    throw new Error('535 authentication failed for visitor@example.com');
   });
   await withConsoleCapture(async (calls) => {
     const res = await onRequestPost({
       request: makeRequest(validForm()),
-      env: { EMAIL: binding },
+      env: { TEST_MAILER: mailer },
     });
     const body = await res.json();
     assert.deepEqual(body, { ok: true, queued: false });
     const failure = calls.error.find((a) => a[0] === 'EMAIL_DELIVERY_FAILURE');
     assert.ok(failure, 'expected the page-worthy failure marker');
-    assert.equal(failure[1].error, 'E_SENDER_NOT_VERIFIED');
+    assert.equal(failure[1].error, 'smtp-failed');
   });
 });
 
 test('honeypot _gotcha → silent {ok:true, queued:false}, never sends', async () => {
-  const { sent, binding } = mockEmailBinding(async () => ({ messageId: 'msg_123' }));
+  const { sent, mailer } = mockMailer();
   await withConsoleCapture(async () => {
     const res = await onRequestPost({
       request: makeRequest(validForm({ _gotcha: 'i-am-a-bot' })),
-      env: { EMAIL: binding },
+      env: { TEST_MAILER: mailer },
     });
     const body = await res.json();
     assert.deepEqual(body, { ok: true, queued: false });
@@ -142,11 +142,11 @@ test('honeypot _gotcha → silent {ok:true, queued:false}, never sends', async (
 });
 
 test('invalid payload → 400 with an error, never sends', async () => {
-  const { sent, binding } = mockEmailBinding(async () => ({ messageId: 'msg_123' }));
+  const { sent, mailer } = mockMailer();
   await withConsoleCapture(async () => {
     const res = await onRequestPost({
       request: makeRequest(validForm({ email: 'not-an-email' })),
-      env: { EMAIL: binding },
+      env: { TEST_MAILER: mailer },
     });
     const body = await res.json();
     assert.equal(res.status, 400);
@@ -155,25 +155,25 @@ test('invalid payload → 400 with an error, never sends', async () => {
   });
 });
 
-test('sendEmail() without the binding returns queued:false (no throw)', async () => {
+test('sendEmail() without credentials returns queued:false (no throw)', async () => {
   const r = await sendEmail({
     env: {},
-    from: 'Prudentia Digital <contact-form@prudentiadigital.co.za>',
-    to: 'masekolt@prudentiadigital.co.za',
+    from: `Prudentia Digital <${COMPANY}>`,
+    to: COMPANY,
     subject: 's',
     html: '<p>h</p>',
     text: 't',
   });
   assert.equal(r.queued, false);
-  assert.equal(r.error, 'EMAIL binding missing');
+  assert.equal(r.error, 'SMTP credentials missing');
 });
 
-test('sendEmail() refuses off-domain from address before calling the binding', async () => {
-  const { sent, binding } = mockEmailBinding(async () => ({ messageId: 'msg_123' }));
+test('sendEmail() refuses off-domain from address before any send', async () => {
+  const { sent, mailer } = mockMailer();
   const r = await sendEmail({
-    env: { EMAIL: binding },
+    env: { TEST_MAILER: mailer },
     from: 'Spoof <attacker@evil.example>',
-    to: 'masekolt@prudentiadigital.co.za',
+    to: COMPANY,
     subject: 's',
     html: '<p>h</p>',
     text: 't',
@@ -181,4 +181,23 @@ test('sendEmail() refuses off-domain from address before calling the binding', a
   assert.equal(r.queued, false);
   assert.match(r.error, /from-address guard/);
   assert.equal(sent.length, 0);
+});
+
+test('SMTP error messages are PII-redacted in the warn log', async () => {
+  const { mailer } = mockMailer(async () => {
+    throw new Error('550 rejected: visitor@example.com not allowed');
+  });
+  await withConsoleCapture(async (calls) => {
+    await sendEmail({
+      env: { TEST_MAILER: mailer },
+      from: `Prudentia Digital <${COMPANY}>`,
+      to: COMPANY,
+      subject: 's',
+      html: '<p>h</p>',
+      text: 't',
+    });
+    const warned = calls.warn.map((a) => a.join(' ')).join('\n');
+    assert.ok(!warned.includes('visitor@example.com'), 'email addresses must be redacted');
+    assert.ok(warned.includes('[redacted-email]'));
+  });
 });

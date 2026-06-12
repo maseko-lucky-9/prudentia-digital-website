@@ -13,13 +13,12 @@ import assert from 'node:assert/strict';
 import { onRequestGet } from '../../functions/api/email-health.js';
 
 const TOKEN = 'test-health-token';
+const COMPANY = 'masekolt@prudentiadigital.co.za';
 
 function makeRequest(token) {
   const headers = token ? { 'X-Health-Token': token } : {};
   return new Request('https://prudentiadigital.co.za/api/email-health', { headers });
 }
-
-const emailBinding = { async send() { return { messageId: 'msg_1' }; } };
 
 test('HEALTH_TOKEN unset → 503, endpoint not configured', async () => {
   const res = await onRequestGet({ request: makeRequest(TOKEN), env: {} });
@@ -38,15 +37,16 @@ test('missing or wrong token → 401 unauthorized', async () => {
   }
 });
 
-test('valid token + binding + vars → exact green response shape', async () => {
+test('valid token + SMTP creds + vars → exact green response shape', async () => {
   const res = await onRequestGet({
     request: makeRequest(TOKEN),
     env: {
       HEALTH_TOKEN: TOKEN,
-      EMAIL: emailBinding,
-      EMAIL_FROM_ADDRESS: 'contact-form@prudentiadigital.co.za',
-      CONTACT_TO_ADDRESS: 'masekolt@prudentiadigital.co.za',
-      SEND_AUTO_ACK: 'false',
+      SMTP_USERNAME: COMPANY,
+      SMTP_PASSWORD: 'mailbox-password',
+      EMAIL_FROM_ADDRESS: COMPANY,
+      CONTACT_TO_ADDRESS: COMPANY,
+      SEND_AUTO_ACK: 'true',
     },
   });
   assert.equal(res.status, 200);
@@ -54,31 +54,31 @@ test('valid token + binding + vars → exact green response shape', async () => 
   assert.equal(res.headers.get('x-robots-tag'), 'noindex');
   const body = await res.json();
   assert.deepEqual(body, {
-    bindingConfigured: true,
-    fromAddress: 'contact-form@prudentiadigital.co.za',
-    toAddress: 'masekolt@prudentiadigital.co.za',
-    autoAck: false,
+    smtpConfigured: true,
+    fromAddress: COMPANY,
+    toAddress: COMPANY,
+    autoAck: true,
     error: null,
   });
 });
 
-test('no EMAIL binding → bindingConfigured:false with address defaults', async () => {
+test('no SMTP_PASSWORD → smtpConfigured:false with address defaults', async () => {
   const res = await onRequestGet({
     request: makeRequest(TOKEN),
-    env: { HEALTH_TOKEN: TOKEN },
+    env: { HEALTH_TOKEN: TOKEN, SMTP_USERNAME: COMPANY },
   });
   assert.equal(res.status, 200);
   const body = await res.json();
-  assert.equal(body.bindingConfigured, false);
-  assert.equal(body.fromAddress, 'contact-form@prudentiadigital.co.za');
-  assert.equal(body.toAddress, 'masekolt@prudentiadigital.co.za');
+  assert.equal(body.smtpConfigured, false);
+  assert.equal(body.fromAddress, COMPANY);
+  assert.equal(body.toAddress, COMPANY);
 });
 
-test('SEND_AUTO_ACK="true" → autoAck:true', async () => {
+test('SEND_AUTO_ACK unset → autoAck:false', async () => {
   const res = await onRequestGet({
     request: makeRequest(TOKEN),
-    env: { HEALTH_TOKEN: TOKEN, EMAIL: emailBinding, SEND_AUTO_ACK: 'true' },
+    env: { HEALTH_TOKEN: TOKEN, SMTP_USERNAME: COMPANY, SMTP_PASSWORD: 'pw' },
   });
   const body = await res.json();
-  assert.equal(body.autoAck, true);
+  assert.equal(body.autoAck, false);
 });

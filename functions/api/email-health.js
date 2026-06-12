@@ -3,8 +3,8 @@
  * Route: GET /api/email-health
  *
  * Purpose: lets /ship's verify step (and a human with the token) confirm
- * that Cloudflare Email Service is wired for prudentiadigital.co.za without
- * firing a real email. Reveals NO secrets.
+ * that the GoDaddy SMTP relay wiring (ADR-013) is configured WITHOUT firing
+ * a real email. Reveals NO secrets.
  *
  * Auth:
  *   - Caller MUST send `X-Health-Token: <value>` matching env.HEALTH_TOKEN.
@@ -13,17 +13,16 @@
  *
  * Response (200, on auth pass):
  *   {
- *     bindingConfigured: bool,   // EMAIL send_email binding present on the Worker
+ *     smtpConfigured: bool,   // SMTP_USERNAME present AND SMTP_PASSWORD secret set
  *     fromAddress: string,
  *     toAddress: string,
- *     autoAck: bool,             // SEND_AUTO_ACK flag (visitor receipt; needs Workers Paid)
+ *     autoAck: bool,          // SEND_AUTO_ACK flag (visitor courtesy receipt)
  *     error: string|null
  *   }
  *
- * Note: domain onboarding status is NOT visible from the Worker runtime —
- * check it with `npx wrangler email sending list` / the dashboard. A send
- * attempt against an un-onboarded domain surfaces as queued:false with
- * error E_SENDER_NOT_VERIFIED in the EMAIL_DELIVERY_FAILURE log marker.
+ * Note: relay reachability/auth is NOT probed here (that would open an SMTP
+ * connection per health call). A live failure surfaces as queued:false with
+ * error 'smtp-failed' under the EMAIL_DELIVERY_FAILURE log marker.
  *
  * Hard rules:
  *   - Whole handler wrapped in try/catch — uncaught throws never leak.
@@ -31,7 +30,7 @@
  */
 
 const DEFAULT_TO_ADDRESS = 'masekolt@prudentiadigital.co.za';
-const DEFAULT_FROM_ADDRESS = 'contact-form@prudentiadigital.co.za';
+const DEFAULT_FROM_ADDRESS = 'masekolt@prudentiadigital.co.za';
 
 const headersJson = {
   'Content-Type': 'application/json',
@@ -58,7 +57,7 @@ export async function onRequestGet(context) {
   // ── Handler (catch-all-safe) ─────────────────────────────────────────
   try {
     return json({
-      bindingConfigured: Boolean(env && env.EMAIL && typeof env.EMAIL.send === 'function'),
+      smtpConfigured: Boolean(env && env.SMTP_USERNAME && env.SMTP_PASSWORD),
       fromAddress: (env && env.EMAIL_FROM_ADDRESS) || DEFAULT_FROM_ADDRESS,
       toAddress: (env && env.CONTACT_TO_ADDRESS) || DEFAULT_TO_ADDRESS,
       autoAck: Boolean(env && env.SEND_AUTO_ACK === 'true'),
@@ -67,7 +66,7 @@ export async function onRequestGet(context) {
   } catch (err) {
     console.warn('email-health uncaught:', err && err.message);
     return json({
-      bindingConfigured: false,
+      smtpConfigured: false,
       fromAddress: DEFAULT_FROM_ADDRESS,
       toAddress: DEFAULT_TO_ADDRESS,
       autoAck: false,
